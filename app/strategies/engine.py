@@ -1,3 +1,5 @@
+from typing import Optional
+from app.research.regime.models import RegimeContext
 from typing import List, Dict, Any
 from datetime import datetime
 import logging

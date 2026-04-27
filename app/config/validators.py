@@ -4,8 +4,10 @@ from app.core.enums import EnvironmentProfile
 
 logger = logging.getLogger(__name__)
 
+
 class ConfigurationError(Exception):
     pass
+
 
 def validate_config_for_profile(config: AppConfig) -> None:
     """Validates the configuration based on the active profile."""
@@ -19,7 +21,9 @@ def validate_config_for_profile(config: AppConfig) -> None:
     elif profile == EnvironmentProfile.PAPER:
         # Paper should not need real API secrets, but might need testnet
         if not config.binance.use_testnet:
-            logger.warning("Paper trading using real Binance endpoints. Ensure execution is disabled.")
+            logger.warning(
+                "Paper trading using real Binance endpoints. Ensure execution is disabled."
+            )
 
     elif profile == EnvironmentProfile.TESTNET:
         # Testnet needs testnet enabled

@@ -4,13 +4,15 @@ from app.core.enums import EnvironmentProfile
 
 logger = logging.getLogger(__name__)
 
+
 class LiveModeError(Exception):
     pass
+
 
 def check_live_guard(config: AppConfig) -> None:
     """Strictly validates if the application is allowed to run in LIVE mode."""
     if config.general.profile != EnvironmentProfile.LIVE:
-        return # Not live, no strict guards needed
+        return  # Not live, no strict guards needed
 
     # 1. Profile MUST be explicitly live
     # (Checked implicitly above)

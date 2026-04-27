@@ -1,4 +1,7 @@
 [tool.poetry]
+packages = [
+    { include = "app" }
+]
 name = "binance-trading-platform"
 version = "0.1.0"
 description = "Zero-budget, Python-only, production-minded Binance trading platform foundation."

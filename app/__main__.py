@@ -4,6 +4,7 @@ import argparse
 import json
 import pandas as pd
 import numpy as np
+from datetime import datetime
 
 from app.core.bootstrap import bootstrap
 
@@ -42,6 +43,11 @@ from app.research.features.storage import FeatureStorage
 from app.research.features.summary import FeatureSummaryGenerator
 from app.research.features.mtf_alignment import MTFAligner
 
+# Strategy Imports
+from app.strategies.registry import StrategyRegistry
+from app.strategies.engine import StrategyEngine
+from app.strategies.specs import get_core_strategy_specs
+from app.strategies.explain import ExplanationGenerator
 
 def get_dummy_data(rows: int = 100) -> pd.DataFrame:
     np.random.seed(42)
@@ -64,6 +70,20 @@ def get_dummy_data(rows: int = 100) -> pd.DataFrame:
     )
     return df
 
+def setup_strategy_registry():
+    # Load default implementations
+    try:
+        from app.strategies.implementations.trend_follow_core import TrendFollowCore
+        from app.strategies.implementations.mean_reversion_core import MeanReversionCore
+        from app.strategies.implementations.breakout_core import BreakoutCore
+        from app.strategies.implementations.structure_divergence_core import StructureDivergenceCore
+
+        StrategyRegistry.register("trend_follow_core", TrendFollowCore)
+        StrategyRegistry.register("mean_reversion_core", MeanReversionCore)
+        StrategyRegistry.register("breakout_core", BreakoutCore)
+        StrategyRegistry.register("structure_divergence_core", StructureDivergenceCore)
+    except Exception as e:
+         logging.getLogger(__name__).warning(f"Could not register strategy implementations: {e}")
 
 def main():
     parser = argparse.ArgumentParser(description="Binance Trading Platform")
@@ -109,7 +129,6 @@ def main():
         "--stream-seconds", type=int, default=10, help="Duration to run the stream test"
     )
 
-    # Placeholder flags that would normally query a running instance, but for now we just acknowledge them
     parser.add_argument(
         "--show-stream-health",
         action="store_true",
@@ -138,6 +157,14 @@ def main():
     parser.add_argument("--symbol", type=str, default="BTCUSDT")
     parser.add_argument("--interval", type=str, default="15m")
 
+    # Strategy CLI
+    parser.add_argument("--evaluate-strategies", action="store_true")
+    parser.add_argument("--strategy-set", type=str, default="core")
+    parser.add_argument("--show-signal-summary", action="store_true")
+    parser.add_argument("--show-signal-rationale", action="store_true")
+    parser.add_argument("--show-conflicts", action="store_true")
+    parser.add_argument("--show-intents", action="store_true")
+
     # Parse args (we only care about the ones not handled by bootstrap)
     # Using parse_known_args in case other args exist
     args, unknown = parser.parse_known_args()
@@ -145,6 +172,8 @@ def main():
     # We still need to bootstrap to get config and context
     config, ctx = bootstrap()
     logger = logging.getLogger(__name__)
+
+    setup_strategy_registry()
 
     if args.healthcheck and run_healthcheck:
         status = run_healthcheck(config)
@@ -257,6 +286,83 @@ def main():
         print("Available Features:")
         for name in sorted(names):
             print(f"- {name}")
+        sys.exit(0)
+
+    # Strategy Handlers
+    strategy_eval_mode = any([
+        args.evaluate_strategies,
+        args.show_signal_summary,
+        args.show_signal_rationale,
+        args.show_conflicts,
+        args.show_intents
+    ])
+
+    if strategy_eval_mode:
+        engine = StrategyEngine()
+        specs = get_core_strategy_specs() if args.strategy_set == "core" else []
+        engine.initialize_strategies(specs)
+
+        # Mock feature values for evaluation
+        mock_features = {
+            "sma_fast": 105.0,
+            "sma_slow": 100.0,
+            "prev_sma_fast": 99.0,
+            "prev_sma_slow": 101.0,
+            "atr": 2.5,
+            "rsi": 25.0,
+            "close": 98.0,
+            "bollinger_upper": 110.0,
+            "bollinger_lower": 100.0,
+            "donchian_upper": 105.0,
+            "donchian_lower": 95.0,
+            "volume": 5000.0,
+            "volume_sma": 1000.0,
+            "mock_bullish_div": True
+        }
+
+        timestamp = datetime.utcnow()
+        batch = engine.evaluate(args.symbol, args.interval, timestamp, mock_features)
+
+        if args.evaluate_strategies:
+            print(f"--- Strategy Evaluation Complete for {args.symbol} ---")
+            print(f"Generated Signals: {len(batch.raw_signals)}")
+            print(f"Generated Intents: {len(batch.raw_entry_intents)}")
+
+        if args.show_signal_summary:
+            print("\n--- Signal Summary ---")
+            for sig in batch.raw_signals:
+                print(f"[{sig.strategy_name}] {sig.direction.value.upper()} (Score: {sig.score.value:.2f})")
+
+        if args.show_signal_rationale:
+            print("\n--- Signal Rationales ---")
+            # We'll re-run individual evaluates just to print rationale
+            for spec in specs:
+                strategy = StrategyRegistry.create_instance(spec)
+                from app.strategies.models import StrategyContext
+                res = strategy.evaluate(StrategyContext(symbol=args.symbol, interval=args.interval, timestamp=timestamp, features=mock_features))
+                print(ExplanationGenerator.explain_evaluation(res))
+                print("-" * 40)
+
+        if args.show_conflicts:
+            print("\n--- Conflicts & Resolutions ---")
+            for conflict in batch.conflicts_detected:
+                print(f"Type: {conflict.conflict_type.value}")
+                for idx, intent in enumerate(conflict.intents):
+                    print(f"  {idx+1}. {intent.strategy_name} -> {intent.direction.value.upper()} (Score: {intent.score:.2f})")
+
+            for res in batch.resolutions:
+                print(f"Resolution: {res.resolution_type.value} - {res.reason}")
+                if res.resolved_intent:
+                     print(f"Resolved to: {res.resolved_intent.strategy_name}")
+
+        if args.show_intents:
+            print("\n--- Final Resolved Intents ---")
+            if batch.resolved_entry_intent:
+                intent = batch.resolved_entry_intent
+                print(f"[{intent.strategy_name}] {intent.direction.value.upper()} (Score: {intent.score:.2f})")
+            else:
+                print("No active entry intents.")
+
         sys.exit(0)
 
     # Initialize core components here in the future

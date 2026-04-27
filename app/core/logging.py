@@ -9,9 +9,18 @@ from app.core.run_context import get_active_context
 
 # Sensitive keys that should trigger redaction
 SENSITIVE_KEYS = {
-    "api_key", "api_secret", "secret_key", "telegram_token", "bot_token",
-    "chat_id", "password", "token", "secret", "private_key"
+    "api_key",
+    "api_secret",
+    "secret_key",
+    "telegram_token",
+    "bot_token",
+    "chat_id",
+    "password",
+    "token",
+    "secret",
+    "private_key",
 }
+
 
 def redact_secrets(data: str) -> str:
     """Masks secret values in a JSON-like string."""
@@ -29,13 +38,18 @@ def redact_secrets(data: str) -> str:
     for key in SENSITIVE_KEYS:
         # Matches "key": "value" or 'key': 'value'
         pattern_json = rf'("{key}"|\'{key}\')\s*:\s*("[^"]+"|\'[^\']+\')'
-        redacted_data = re.sub(pattern_json, r'\1: "***REDACTED***"', redacted_data, flags=re.IGNORECASE)
+        redacted_data = re.sub(
+            pattern_json, r'\1: "***REDACTED***"', redacted_data, flags=re.IGNORECASE
+        )
 
         # Matches key=value
-        pattern_eq = rf'({key})\s*=\s*([^,\s]+)'
-        redacted_data = re.sub(pattern_eq, r'\1=***REDACTED***', redacted_data, flags=re.IGNORECASE)
+        pattern_eq = rf"({key})\s*=\s*([^,\s]+)"
+        redacted_data = re.sub(
+            pattern_eq, r"\1=***REDACTED***", redacted_data, flags=re.IGNORECASE
+        )
 
     return redacted_data
+
 
 def _redact_dict(d: Dict[str, Any]) -> None:
     for k, v in d.items():
@@ -43,6 +57,7 @@ def _redact_dict(d: Dict[str, Any]) -> None:
             _redact_dict(v)
         elif isinstance(v, str) and any(sk in k.lower() for sk in SENSITIVE_KEYS):
             d[k] = "***REDACTED***"
+
 
 class StructuredJSONFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
@@ -70,10 +85,12 @@ class StructuredJSONFormatter(logging.Formatter):
         json_str = json.dumps(log_obj)
         return redact_secrets(json_str)
 
+
 class ConsoleFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         msg = super().format(record)
         return redact_secrets(msg)
+
 
 def setup_logging(level: LogLevel = LogLevel.INFO) -> None:
     logger = logging.getLogger()
@@ -95,6 +112,7 @@ def setup_logging(level: LogLevel = LogLevel.INFO) -> None:
     console_format = "%(asctime)s - %(levelname)s - [%(module)s] - %(message)s"
     console_handler.setFormatter(ConsoleFormatter(console_format))
     logger.addHandler(console_handler)
+
 
 def get_logger(name: str):
     return logging.getLogger(name)

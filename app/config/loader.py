@@ -5,12 +5,18 @@ from app.config.models import AppConfig
 from app.core.enums import EnvironmentProfile
 from pydantic import SecretStr
 
+
 def _load_env_to_dict() -> Dict[str, Any]:
     """Basic extraction of env vars into nested dict structure for Pydantic."""
     config_dict: Dict[str, Any] = {
-        "general": {}, "logging": {}, "storage": {},
-        "telegram": {}, "binance": {}, "execution": {},
-        "risk": {}, "live_guard": {}
+        "general": {},
+        "logging": {},
+        "storage": {},
+        "telegram": {},
+        "binance": {},
+        "execution": {},
+        "risk": {},
+        "live_guard": {},
     }
 
     # Mapping env vars to nested structure
@@ -40,12 +46,16 @@ def _load_env_to_dict() -> Dict[str, Any]:
 
     return config_dict
 
+
 def load_config() -> AppConfig:
     """Loads configuration prioritizing Environment Variables -> Defaults."""
     raw_dict = _load_env_to_dict()
     return AppConfig(**raw_dict)
 
-def get_effective_config_dict(config: AppConfig, mask_secrets: bool = True) -> Dict[str, Any]:
+
+def get_effective_config_dict(
+    config: AppConfig, mask_secrets: bool = True
+) -> Dict[str, Any]:
     """Returns the effective config as a dictionary, masking secrets if requested."""
     dump = config.model_dump()
 
@@ -54,6 +64,7 @@ def get_effective_config_dict(config: AppConfig, mask_secrets: bool = True) -> D
         # but let's be explicit and ensure we stringify it securely.
         dump_json = config.model_dump_json()
         import app.core.logging as app_logging
+
         redacted_json = app_logging.redact_secrets(dump_json)
         return json.loads(redacted_json)
 

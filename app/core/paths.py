@@ -36,5 +36,6 @@ class ProjectPaths:
             d.mkdir(parents=True, exist_ok=True)
         return self.required_dirs
 
+
 # Global instance
 PATHS = ProjectPaths()

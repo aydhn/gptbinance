@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "binance-trading-platform"
+version = "0.1.0"
+description = "Zero-budget, Python-only, production-minded Binance trading platform foundation."
+authors = ["Operator"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.0"
+pydantic-settings = "^2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+black = "^23.0"
+flake8 = "^6.0"
+mypy = "^1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'

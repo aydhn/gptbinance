@@ -14,6 +14,13 @@ class LoggingConfig(BaseModel):
 
 class StorageConfig(BaseModel):
     use_sqlite: bool = True
+    storage_format: str = "csv"
+    prefer_local_data: bool = True
+    save_fetched_data: bool = True
+    market_data_dir_name: str = "market_data"
+    ohlcv_dir_name: str = "ohlcv"
+    metadata_dir_name: str = "metadata"
+    market_data_index_file: str = "market_data_index.json"
 
 
 class TelegramConfig(BaseModel):

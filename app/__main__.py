@@ -1,6 +1,9 @@
 import sys
 import logging
 from app.core.bootstrap import bootstrap
+from app.healthcheck import run_healthcheck
+import json
+
 from app.telegram.notifier import get_notifier
 from app.ops.smoke_checks import (
     check_binance_connectivity,
@@ -19,6 +22,11 @@ def main():
     # We still need to bootstrap to get config and context
     config, ctx = bootstrap()
     logger = logging.getLogger(__name__)
+
+    if "--healthcheck" in args:
+        status = run_healthcheck(config)
+        print(json.dumps(status, indent=2))
+        sys.exit(0 if status["status"] == "ok" else 1)
 
     # Handle Smoke Checks Flags
     if "--check-binance-connectivity" in args:

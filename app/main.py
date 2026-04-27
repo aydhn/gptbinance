@@ -1,31 +1,16 @@
-"""
-Application Entrypoint
-Phase 01: Foundation Scaffold
-"""
-import sys
-import logging
-
-def configure_basic_logging():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler(sys.stdout)]
-    )
-    return logging.getLogger("App")
+from app.core.bootstrap import bootstrap
+from app.telegram.notifier import get_notifier
 
 def main():
-    logger = configure_basic_logging()
-    logger.info("Initializing Binance Trading Platform...")
+    config, ctx = bootstrap()
 
-    # Phase 01: Validate structure exists.
-    # In future phases, this will load config, initialize the DB, and start the event loop.
-    logger.info("Phase 01 Foundation installed and verified.")
-    logger.info("Configuration module placeholder ready.")
-    logger.info("Data contracts placeholder ready.")
-    logger.info("Risk engine placeholder ready.")
-    logger.info("Execution engine placeholder ready.")
+    # Initialize core components here in the future
+    notifier = get_notifier(config)
+    notifier.send_message(f"Application started in {ctx.profile.value} mode. Run ID: {ctx.run_id}")
 
-    logger.info("System shutting down. (Phase 01 implementation complete).")
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info("Main execution block reached. Exiting gracefully.")
 
 if __name__ == "__main__":
     main()

@@ -43,3 +43,14 @@ The repository is structured to separate concerns clearly, enforcing boundaries 
 
 ## Phase 01: Foundation
 Phase 01 establishes the program constitution, capability matrix, repository skeleton, configuration contract, risk governance baseline, data contract baseline, testing baseline, and a 100-phase milestone roadmap. It eliminates architectural ambiguity before implementation expands.
+
+## Phase 04: Local Data Store, Cache Layer, and File-Based Data Lake
+Phase 04 implements a robust local-first storage and caching architecture for Market Data. This ensures the bot is not reliant on internet providers for every run, prevents redundant downloads during backtesting, and systematically persists historical data.
+
+### Key Features
+- **Local-First Architecture:** `MarketDataService` attempts to fetch data from the local store first. If unavailable or a refresh is requested, it pulls from the provider and saves it locally.
+- **CSV Storage Decision:** Market data is persisted using the CSV format by default. This avoids external database dependencies, remains Windows-compatible, and allows operators to manually inspect data.
+- **Parquet Support Readiness:** The architecture permits an easy transition to Parquet for larger datasets in the future.
+- **Metadata Indexing:** A `market_data_index.json` acts as a lightweight catalog for all persisted data, enabling fast `exists()` checks without hitting the filesystem unnecessarily.
+- **Offline Tests:** The test suite fully verifies local read/write logic, metadata updating, and caching flows utilizing `tmp_path` without making actual internet calls or using paid APIs.
+- **Zero HTML Scraping:** Data is acquired strictly via documented APIs/wrappers, never through scraping.

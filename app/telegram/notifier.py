@@ -7,6 +7,14 @@ class BaseNotifier:
     def send_message(self, message: str) -> None:
         raise NotImplementedError
 
+    def notify_stream_degraded(self, symbol: str, reason: str) -> None:
+        msg = f"⚠️ STREAM DEGRADED: {symbol} - {reason}"
+        self.send_message(msg)
+
+    def notify_stream_reconnect_storm(self) -> None:
+        msg = "🚨 RECONNECT STORM DETECTED: Stream health is failing rapidly."
+        self.send_message(msg)
+
 
 class NoOpNotifier(BaseNotifier):
     def send_message(self, message: str) -> None:

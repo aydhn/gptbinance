@@ -1,5 +1,3 @@
-
-
 from app.research.regime.enums import (
     RegimeFamily,
     SuitabilityVerdict,

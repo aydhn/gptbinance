@@ -1,0 +1,26 @@
+{
+  "symbol": "BTCUSDT",
+  "interval": "1h",
+  "start_time": "2026-03-29T05:00:07.246076",
+  "end_time": "2026-04-28T05:00:07.246088",
+  "strategy_set": "core",
+  "feature_set": "core",
+  "initial_capital": 10000.0,
+  "mode": 1,
+  "execution": {
+    "fill_assumption": 1,
+    "cost_config": {
+      "model_type": 2,
+      "maker_fee_bps": 0.0,
+      "taker_fee_bps": 0.04
+    },
+    "slippage_config": {
+      "model_type": 2,
+      "slippage_bps": 0.05
+    }
+  },
+  "signal_mode": 1,
+  "exposure_mode": 1,
+  "allow_long": true,
+  "allow_short": true
+}

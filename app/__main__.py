@@ -49,6 +49,7 @@ from app.strategies.engine import StrategyEngine
 from app.strategies.specs import get_core_strategy_specs
 from app.strategies.explain import ExplanationGenerator
 
+
 def get_dummy_data(rows: int = 100) -> pd.DataFrame:
     np.random.seed(42)
     dates = pd.date_range("2023-01-01", periods=rows, freq="15min")
@@ -70,20 +71,26 @@ def get_dummy_data(rows: int = 100) -> pd.DataFrame:
     )
     return df
 
+
 def setup_strategy_registry():
     # Load default implementations
     try:
         from app.strategies.implementations.trend_follow_core import TrendFollowCore
         from app.strategies.implementations.mean_reversion_core import MeanReversionCore
         from app.strategies.implementations.breakout_core import BreakoutCore
-        from app.strategies.implementations.structure_divergence_core import StructureDivergenceCore
+        from app.strategies.implementations.structure_divergence_core import (
+            StructureDivergenceCore,
+        )
 
         StrategyRegistry.register("trend_follow_core", TrendFollowCore)
         StrategyRegistry.register("mean_reversion_core", MeanReversionCore)
         StrategyRegistry.register("breakout_core", BreakoutCore)
         StrategyRegistry.register("structure_divergence_core", StructureDivergenceCore)
     except Exception as e:
-         logging.getLogger(__name__).warning(f"Could not register strategy implementations: {e}")
+        logging.getLogger(__name__).warning(
+            f"Could not register strategy implementations: {e}"
+        )
+
 
 def main():
     parser = argparse.ArgumentParser(description="Binance Trading Platform")
@@ -289,13 +296,15 @@ def main():
         sys.exit(0)
 
     # Strategy Handlers
-    strategy_eval_mode = any([
-        args.evaluate_strategies,
-        args.show_signal_summary,
-        args.show_signal_rationale,
-        args.show_conflicts,
-        args.show_intents
-    ])
+    strategy_eval_mode = any(
+        [
+            args.evaluate_strategies,
+            args.show_signal_summary,
+            args.show_signal_rationale,
+            args.show_conflicts,
+            args.show_intents,
+        ]
+    )
 
     if strategy_eval_mode:
         engine = StrategyEngine()
@@ -317,7 +326,7 @@ def main():
             "donchian_lower": 95.0,
             "volume": 5000.0,
             "volume_sma": 1000.0,
-            "mock_bullish_div": True
+            "mock_bullish_div": True,
         }
 
         timestamp = datetime.utcnow()
@@ -331,7 +340,9 @@ def main():
         if args.show_signal_summary:
             print("\n--- Signal Summary ---")
             for sig in batch.raw_signals:
-                print(f"[{sig.strategy_name}] {sig.direction.value.upper()} (Score: {sig.score.value:.2f})")
+                print(
+                    f"[{sig.strategy_name}] {sig.direction.value.upper()} (Score: {sig.score.value:.2f})"
+                )
 
         if args.show_signal_rationale:
             print("\n--- Signal Rationales ---")
@@ -339,7 +350,15 @@ def main():
             for spec in specs:
                 strategy = StrategyRegistry.create_instance(spec)
                 from app.strategies.models import StrategyContext
-                res = strategy.evaluate(StrategyContext(symbol=args.symbol, interval=args.interval, timestamp=timestamp, features=mock_features))
+
+                res = strategy.evaluate(
+                    StrategyContext(
+                        symbol=args.symbol,
+                        interval=args.interval,
+                        timestamp=timestamp,
+                        features=mock_features,
+                    )
+                )
                 print(ExplanationGenerator.explain_evaluation(res))
                 print("-" * 40)
 
@@ -348,18 +367,22 @@ def main():
             for conflict in batch.conflicts_detected:
                 print(f"Type: {conflict.conflict_type.value}")
                 for idx, intent in enumerate(conflict.intents):
-                    print(f"  {idx+1}. {intent.strategy_name} -> {intent.direction.value.upper()} (Score: {intent.score:.2f})")
+                    print(
+                        f"  {idx+1}. {intent.strategy_name} -> {intent.direction.value.upper()} (Score: {intent.score:.2f})"
+                    )
 
             for res in batch.resolutions:
                 print(f"Resolution: {res.resolution_type.value} - {res.reason}")
                 if res.resolved_intent:
-                     print(f"Resolved to: {res.resolved_intent.strategy_name}")
+                    print(f"Resolved to: {res.resolved_intent.strategy_name}")
 
         if args.show_intents:
             print("\n--- Final Resolved Intents ---")
             if batch.resolved_entry_intent:
                 intent = batch.resolved_entry_intent
-                print(f"[{intent.strategy_name}] {intent.direction.value.upper()} (Score: {intent.score:.2f})")
+                print(
+                    f"[{intent.strategy_name}] {intent.direction.value.upper()} (Score: {intent.score:.2f})"
+                )
             else:
                 print("No active entry intents.")
 

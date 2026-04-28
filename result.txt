@@ -1,0 +1,53 @@
+YAPILANLAR ÖZETİ
+- Walk-forward planlayıcı, windowing, segment selection (IS -> freeze -> OOS), aggregation, ve diagnostics modülleri oluşturuldu.
+- Pydantic tabanlı veri modelleri ile denetlenebilir artifacts oluşturuldu.
+- Bu mimari tercih edildi çünkü tek parçalı backtestler overfit tuzağına düşmeye çok müsaittir, oysaki Walk-Forward analizi stratejinin out-of-sample performansını sürekli ve disiplinli bir şekilde, geleceğe sızmadan değerlendirmeyi sağlar.
+
+OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/backtest/walkforward/__init__.py`
+- `app/backtest/walkforward/aggregator.py`
+- `app/backtest/walkforward/config.py`
+- `app/backtest/walkforward/diagnostics.py`
+- `app/backtest/walkforward/enums.py`
+- `app/backtest/walkforward/exceptions.py`
+- `app/backtest/walkforward/freeze.py`
+- `app/backtest/walkforward/models.py`
+- `app/backtest/walkforward/promotion_gates.py`
+- `app/backtest/walkforward/reporting.py`
+- `app/backtest/walkforward/repository.py`
+- `app/backtest/walkforward/segment_runner.py`
+- `app/backtest/walkforward/selection.py`
+- `app/backtest/walkforward/storage.py`
+- `app/backtest/walkforward/windowing.py`
+- `app/main.py`
+- `docs/061_walkforward_mimarisi_ve_is_oos_akisi.md`
+- `docs/062_parametre_dondurma_ve_selection_durustlugu_politikasi.md`
+- `docs/063_segment_teshisi_ve_oos_decay_yorumu.md`
+- `docs/064_promotion_gate_temeli_ve_canliya_gecis_oncesi_kapilar.md`
+- `docs/065_phase_11_definition_of_done.md`
+- `tests/test_walkforward_*.py`
+
+REPO AĞACI
+(Güncel durum git commit'e hazırlanmıştır ve tree komutu ile teyit edilebilir.)
+
+ÖRNEK KOMUTLAR
+- python -m app.main --run-walkforward --wf-symbol BTCUSDT --wf-interval 1h --wf-start ... --wf-end ... --wf-feature-set core --wf-strategy-set core --wf-window-scheme rolling --wf-is-bars 1000 --wf-oos-bars 250 --wf-step-bars 250
+- python -m app.main --show-walkforward-summary --run-id <id>
+- python -m app.main --show-walkforward-segments --run-id <id>
+- python -m app.main --show-walkforward-diagnostics --run-id <id>
+- python -m app.main --show-promotion-gates --run-id <id>
+
+TEST ÖZETİ
+- Windowing plan jenerasyonu testleri (rolling, anchored).
+- Selection testleri (max_expectancy ve min_drawdown algoritmaları, başarısız/yetersiz veride reject mantığı).
+- Freeze verify testleri.
+- Segment execution pass/fail testleri.
+- Aggregation testleri.
+- Diagnostics ve Promotion Gates pass/caution/fail testleri.
+
+BİLİNÇLİ ERTELENENLER
+- Hyperparameter tuning ve optimizer mantığı.
+- Canlı (live/paper) execution logic'in bağlanması.
+
+PHASE 12 ÖNERİSİ
+- Phase 12 - Optimizer & Grid Search Entegrasyonu: Walk-forward içindeki In-Sample (IS) periyoduna gerçek hiperparametre optimizasyonu (grid search veya bayesian) yeteneği eklenebilir.

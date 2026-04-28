@@ -1,4 +1,3 @@
-
 from app.research.regime.registry import regime_registry
 from app.research.regime.trend_regime import TrendPersistenceEvaluator
 from app.research.regime.volatility_regime import VolatilityExpansionEvaluator

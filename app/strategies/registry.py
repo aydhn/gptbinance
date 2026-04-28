@@ -4,6 +4,9 @@ from app.strategies.models import StrategySpec
 from app.strategies.exceptions import InvalidStrategySpecError
 
 
+from app.strategies.implementations.mock_strategy import MockStrategy
+
+
 class StrategyRegistry:
     """
     Registry for strategy implementations.

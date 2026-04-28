@@ -15,6 +15,7 @@ requests = "^2.33.1"
 pandas = "<3"
 websockets = "^16.0"
 pytest-asyncio = "<0.24.0"
+pyarrow = "^24.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0"

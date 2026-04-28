@@ -241,3 +241,75 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Validation CLI integration
+if __name__ == "__main__":
+    try:
+        import argparse
+        from app.backtest.validation.enums import (
+            BenchmarkType,
+            AblationType,
+            RobustnessCheckType,
+        )
+        from app.backtest.validation.models import ValidationSuiteConfig
+        from app.backtest.validation.repository import ValidationRepository
+        from app.backtest.validation.reporting import ValidationReporter
+        from app.backtest.validation.storage import ValidationStorage
+        from app.backtest.storage import BacktestStorage
+        from uuid import UUID
+
+        parser = argparse.ArgumentParser(
+            description="Trading System CLI", add_help=False
+        )
+        parser.add_argument(
+            "--run-validation-suite",
+            action="store_true",
+            help="Run full validation suite for a run",
+        )
+        parser.add_argument(
+            "--benchmark-run-id", type=str, help="Backtest run ID to validate"
+        )
+        parser.add_argument(
+            "--show-validation-summary",
+            action="store_true",
+            help="Show validation summary for a run",
+        )
+
+        args, unknown = parser.parse_known_args()
+
+        if args.run_validation_suite and args.benchmark_run_id:
+            v_storage = ValidationStorage()
+            b_storage = BacktestStorage()
+            repo = ValidationRepository(b_storage, v_storage)
+            config = ValidationSuiteConfig(
+                benchmark_types=[
+                    BenchmarkType.FLAT,
+                    BenchmarkType.BUY_AND_HOLD,
+                    BenchmarkType.NAIVE_TREND_FOLLOW,
+                ],
+                ablation_types=[AblationType.NO_REGIME, AblationType.NO_VOLATILITY],
+                robustness_types=[
+                    RobustnessCheckType.FEE_PERTURBATION,
+                    RobustnessCheckType.SLIPPAGE_PERTURBATION,
+                ],
+            )
+            summary = repo.run_suite(UUID(args.benchmark_run_id), config)
+            reporter = ValidationReporter()
+            print(reporter.format_summary(summary))
+            import sys
+
+            sys.exit(0)
+
+        if args.show_validation_summary and args.benchmark_run_id:
+            v_storage = ValidationStorage()
+            summary = v_storage.get_validation_summary(UUID(args.benchmark_run_id))
+            if summary:
+                reporter = ValidationReporter()
+                print(reporter.format_summary(summary))
+            else:
+                print("Validation summary not found.")
+            import sys
+
+            sys.exit(0)
+    except Exception:
+        pass

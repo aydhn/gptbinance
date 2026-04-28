@@ -1,0 +1,54 @@
+from enum import Enum, auto
+
+
+class BenchmarkType(str, Enum):
+    FLAT = "FLAT"
+    BUY_AND_HOLD = "BUY_AND_HOLD"
+    NAIVE_TREND_FOLLOW = "NAIVE_TREND_FOLLOW"
+    NAIVE_MEAN_REVERSION = "NAIVE_MEAN_REVERSION"
+    SIMPLE_BREAKOUT = "SIMPLE_BREAKOUT"
+
+
+class ComparisonVerdict(str, Enum):
+    OUTPERFORM = "OUTPERFORM"
+    UNDERPERFORM = "UNDERPERFORM"
+    INCONCLUSIVE = "INCONCLUSIVE"
+    MARGINAL = "MARGINAL"
+
+
+class AblationType(str, Enum):
+    NO_REGIME = "NO_REGIME"
+    NO_VOLATILITY = "NO_VOLATILITY"
+    NO_STRUCTURE = "NO_STRUCTURE"
+    NO_DIVERGENCE = "NO_DIVERGENCE"
+    NO_MTF = "NO_MTF"
+    NO_COOLDOWN = "NO_COOLDOWN"
+
+
+class RobustnessCheckType(str, Enum):
+    FEE_PERTURBATION = "FEE_PERTURBATION"
+    SLIPPAGE_PERTURBATION = "SLIPPAGE_PERTURBATION"
+    OUTLIER_REMOVAL = "OUTLIER_REMOVAL"
+    THRESHOLD_SENSITIVITY = "THRESHOLD_SENSITIVITY"
+
+
+class SampleSplitType(str, Enum):
+    IN_SAMPLE = "IN_SAMPLE"
+    OUT_OF_SAMPLE = "OUT_OF_SAMPLE"
+    ANCHORED = "ANCHORED"
+    CONTIGUOUS = "CONTIGUOUS"
+    ROLLING = "ROLLING"
+
+
+class HonestySeverity(str, Enum):
+    INFO = "INFO"
+    CAUTION = "CAUTION"
+    WARNING = "WARNING"
+    FAIL = "FAIL"
+
+
+class ValidationStatus(str, Enum):
+    PENDING = "PENDING"
+    RUNNING = "RUNNING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"

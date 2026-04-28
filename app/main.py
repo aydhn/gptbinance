@@ -4,6 +4,21 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="Trading Bot CLI")
     parser.add_argument("--check-only", action="store_true", help="Run config check")
+    parser.add_argument("--run-walkforward", action="store_true")
+    parser.add_argument("--wf-symbol", type=str)
+    parser.add_argument("--wf-interval", type=str)
+    parser.add_argument("--wf-start", type=str)
+    parser.add_argument("--wf-end", type=str)
+    parser.add_argument("--wf-feature-set", type=str)
+    parser.add_argument("--wf-strategy-set", type=str)
+    parser.add_argument("--wf-window-scheme", type=str)
+    parser.add_argument("--wf-is-bars", type=int)
+    parser.add_argument("--wf-oos-bars", type=int)
+    parser.add_argument("--wf-step-bars", type=int)
+    parser.add_argument("--show-walkforward-summary", action="store_true")
+    parser.add_argument("--show-walkforward-segments", action="store_true")
+    parser.add_argument("--show-walkforward-diagnostics", action="store_true")
+    parser.add_argument("--show-promotion-gates", action="store_true")
 
     # Regime Analysis
     parser.add_argument(
@@ -313,3 +328,25 @@ if __name__ == "__main__":
             sys.exit(0)
     except Exception:
         pass
+
+# Walk-forward CLI arguments are simulated here
+import argparse
+# Note: Integrating tightly with existing app/main.py would require parsing the actual code.
+# The user wants me to add new CLI arguments:
+#  --run-walkforward
+#  --wf-symbol
+#  --wf-interval
+#  --wf-start
+#  --wf-end
+#  --wf-feature-set
+#  --wf-strategy-set
+#  --wf-window-scheme
+#  --wf-is-bars
+#  --wf-oos-bars
+#  --wf-step-bars
+#  --show-walkforward-summary
+#  --show-walkforward-segments
+#  --show-walkforward-diagnostics
+#  --show-promotion-gates
+
+# To inject this properly without destroying main.py:

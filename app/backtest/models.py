@@ -17,9 +17,7 @@ from app.backtest.enums import (
 class CostModelConfig(BaseModel):
     model_type: CostModelType = CostModelType.FIXED_BPS
     maker_fee_bps: float = 0.0
-    taker_fee_bps: float = (
-        0.04  # Binance VIP 0 USDT-M taker is 0.04% by default, or 0.1% Spot. Using 0.04%
-    )
+    taker_fee_bps: float = 0.04  # Binance VIP 0 USDT-M taker is 0.04% by default, or 0.1% Spot. Using 0.04%
 
 
 class SlippageModelConfig(BaseModel):

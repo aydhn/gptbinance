@@ -319,6 +319,7 @@ if __name__ == "__main__":
         )
         from app.backtest.validation.models import ValidationSuiteConfig
         from app.backtest.validation.repository import ValidationRepository
+from app.execution.paper.repository import PaperRepository
         from app.backtest.validation.reporting import ValidationReporter
         from app.backtest.validation.storage import ValidationStorage
         from app.backtest.storage import BacktestStorage
@@ -402,3 +403,171 @@ import argparse
 #  --show-promotion-gates
 
 # To inject this properly without destroying main.py:
+
+# Paper Trading Runtime CLI integration
+if __name__ == "__main__":
+    import argparse
+    import asyncio
+    from uuid import UUID
+
+    parser = argparse.ArgumentParser(
+        description="Paper Trading System CLI", add_help=False
+    )
+
+    # Paper session execution
+    parser.add_argument(
+        "--run-paper-session", action="store_true", help="Run a paper trading session"
+    )
+    parser.add_argument(
+        "--paper-symbols",
+        type=str,
+        help="Comma separated symbols (e.g., BTCUSDT,ETHUSDT)",
+        default="BTCUSDT",
+    )
+    parser.add_argument(
+        "--paper-stream-types",
+        type=str,
+        help="Comma separated stream types (e.g., kline,ticker)",
+        default="kline,ticker",
+    )
+    parser.add_argument(
+        "--paper-session-seconds",
+        type=int,
+        help="Duration to run the session in seconds",
+        default=300,
+    )
+    parser.add_argument(
+        "--paper-feature-set",
+        type=str,
+        help="Feature set name",
+        default="core_trend_vol",
+    )
+    parser.add_argument(
+        "--paper-strategy-set", type=str, help="Strategy set name", default="core"
+    )
+    parser.add_argument(
+        "--paper-enable-telegram",
+        action="store_true",
+        help="Enable telegram notifications",
+    )
+
+    # Paper reporting
+    parser.add_argument(
+        "--show-paper-summary", action="store_true", help="Show paper session summary"
+    )
+    parser.add_argument(
+        "--show-paper-orders", action="store_true", help="Show paper orders"
+    )
+    parser.add_argument(
+        "--show-paper-fills", action="store_true", help="Show paper fills"
+    )
+    parser.add_argument(
+        "--show-paper-positions", action="store_true", help="Show paper positions"
+    )
+    parser.add_argument(
+        "--show-paper-pnl",
+        action="store_true",
+        help="Show paper PnL and equity snapshots",
+    )
+    parser.add_argument(
+        "--show-paper-health", action="store_true", help="Show paper session health"
+    )
+    parser.add_argument(
+        "--stop-paper-session", action="store_true", help="Stop paper session manually"
+    )
+
+    # Needs to parse known args again
+    args, _ = parser.parse_known_args()
+
+    if args.run_paper_session:
+        from app.config.loader import load_config
+        from app.ops.paper_session_smoke import run_smoke_test
+
+        config = load_config()
+        symbols = [s.strip() for s in args.paper_symbols.split(",")]
+
+        # Override config if telegram enabled
+        if args.paper_enable_telegram:
+            config.telegram.enabled = True
+
+        print(
+            f"Starting paper session for {args.paper_session_seconds}s on {symbols}..."
+        )
+        asyncio.run(run_smoke_test(config, symbols, args.paper_session_seconds))
+        sys.exit(0)
+
+    if args.show_paper_summary and args.run_id:
+        from app.execution.paper.repository import PaperRepository
+
+        repo = PaperRepository()
+        manifest = repo.get_summary(args.run_id)
+        if manifest:
+            print(f"--- PAPER SESSION SUMMARY: {args.run_id} ---")
+            print(f"Symbols: {manifest.config.symbols}")
+            print(f"Duration Configured: {manifest.config.duration_seconds}s")
+            print(f"Start: {manifest.summary.start_time}")
+            print(f"End: {manifest.summary.end_time}")
+            print(
+                f"Stop Reason: {manifest.summary.stop_reason.value if manifest.summary.stop_reason else 'None'}"
+            )
+            print(f"Orders: {manifest.summary.total_orders}")
+            print(f"Fills: {manifest.summary.total_fills}")
+            print(f"Final Equity: {manifest.summary.final_equity:.2f}")
+            print(f"Max Drawdown: {manifest.summary.max_drawdown_pct:.2%}")
+            print(f"Risk Vetoes: {manifest.summary.risk_veto_count}")
+        else:
+            print(f"No summary found for {args.run_id}")
+        sys.exit(0)
+
+    if args.show_paper_orders and args.run_id:
+        from app.execution.paper.repository import PaperRepository
+
+        repo = PaperRepository()
+        orders = repo.get_orders(args.run_id)
+        print(f"--- PAPER ORDERS: {args.run_id} ---")
+        for o in orders:
+            print(
+                f"{o['created_at']} | {o['order_id']} | {o['symbol']} {o['side']} {o['qty']} | {o['status']} | Fill: {o['filled_at']}"
+            )
+        sys.exit(0)
+
+    if args.show_paper_fills and args.run_id:
+        from app.execution.paper.repository import PaperRepository
+
+        repo = PaperRepository()
+        fills = repo.get_fills(args.run_id)
+        print(f"--- PAPER FILLS: {args.run_id} ---")
+        for f in fills:
+            print(
+                f"{f['timestamp']} | {f['fill_id']} | {f['order_id']} | {f['symbol']} {f['side']} {f['qty']} @ {f['price']} | Fee: {f['fees']} | Slippage: {f['slippage']}"
+            )
+        sys.exit(0)
+
+    if args.show_paper_pnl and args.run_id:
+        from app.execution.paper.repository import PaperRepository
+
+        repo = PaperRepository()
+        snaps = repo.get_snapshots(args.run_id)
+        print(f"--- PAPER EQUITY SNAPSHOTS: {args.run_id} ---")
+        for s in snaps:
+            print(
+                f"{s['timestamp']} | Equity: {s['equity']:.2f} | Drawdown: {s['drawdown_pct']:.2%} | Health: {s['health']}"
+            )
+        sys.exit(0)
+
+    if args.show_paper_health and args.run_id:
+        from app.execution.paper.repository import PaperRepository
+
+        repo = PaperRepository()
+        snaps = repo.get_snapshots(args.run_id)
+        print(f"--- PAPER HEALTH STATUS: {args.run_id} ---")
+        if snaps:
+            last = snaps[-1]
+            print(f"Last snapshot ({last['timestamp']}): Health = {last['health']}")
+            print("Event history:")
+            for s in snaps:
+                if s["health"] != "healthy":
+                    print(f"  {s['timestamp']} -> {s['health']}")
+        else:
+            print("No health snapshots found.")
+        sys.exit(0)

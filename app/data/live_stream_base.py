@@ -1,7 +1,10 @@
 import abc
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Callable, Awaitable
 
 from app.data.live_stream_models import SubscriptionSpec, StreamHealthSnapshot
+
+# Type hint for a callback function that handles streaming events
+StreamCallback = Callable[[str, float, bool, int], Awaitable[None]]
 
 
 class BaseLiveStreamManager(abc.ABC):
@@ -33,4 +36,11 @@ class BaseLiveStreamManager(abc.ABC):
     @abc.abstractmethod
     def get_health(self) -> StreamHealthSnapshot:
         """Returns the current health and metrics of the stream."""
+        pass
+
+    @abc.abstractmethod
+    def set_callback(self, callback: StreamCallback) -> None:
+        """Registers a callback for processing stream events.
+        Callback signature: async def handle_event(symbol: str, price: float, is_closed: bool, event_time_ms: int)
+        """
         pass

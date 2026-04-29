@@ -31,14 +31,14 @@ class HonestyGuardEvaluator:
             )
 
         # Rule 2: High hit rate but low profit factor (Expectancy check proxy)
-        hit_rate = getattr(summary, "win_rate_pct", 0)
+        hit_rate = getattr(summary, "hit_rate", 0)
         pf = getattr(summary, "profit_factor", 0)
         if hit_rate > 70 and pf < 1.1:
             warnings.append(
                 HonestyWarning(
                     severity=HonestySeverity.CAUTION,
                     message="High hit rate but low profit factor. Strategy might be taking many small winners and few huge losers.",
-                    metric="win_rate_pct / profit_factor",
+                    metric="hit_rate / profit_factor",
                     value=f"{hit_rate}% / {pf}",
                 )
             )

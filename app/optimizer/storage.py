@@ -13,7 +13,8 @@ class OptimizerStorage:
 
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS optimizer_runs (
                     run_id TEXT PRIMARY KEY,
                     symbol TEXT,
@@ -21,8 +22,10 @@ class OptimizerStorage:
                     status TEXT,
                     run_data JSON
                 )
-            """)
-            conn.execute("""
+            """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS optimizer_trials (
                     trial_id TEXT PRIMARY KEY,
                     run_id TEXT,
@@ -32,7 +35,8 @@ class OptimizerStorage:
                     trial_data JSON,
                     FOREIGN KEY(run_id) REFERENCES optimizer_runs(run_id)
                 )
-            """)
+            """
+            )
 
     def save_run(self, run: OptimizerRun) -> None:
         with sqlite3.connect(self.db_path) as conn:

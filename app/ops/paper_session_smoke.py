@@ -1,4 +1,5 @@
 """Short duration smoke test for paper session runtime."""
+
 import asyncio
 import logging
 import uuid

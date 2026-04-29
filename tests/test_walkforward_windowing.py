@@ -33,14 +33,14 @@ def test_rolling_windows():
     assert plan.windows[0].is_end == 50 * ms
     assert plan.windows[0].oos_start == 50 * ms
     assert plan.windows[0].oos_end == 70 * ms
-    assert plan.windows[0].is_valid == True
+    assert plan.windows[0].is_valid is True
 
     # Win 2: IS(20-70), OOS(70-90)
     assert plan.windows[1].is_start == 20 * ms
     assert plan.windows[1].is_end == 70 * ms
     assert plan.windows[1].oos_start == 70 * ms
     assert plan.windows[1].oos_end == 90 * ms
-    assert plan.windows[1].is_valid == True
+    assert plan.windows[1].is_valid is True
 
     # Win 3: IS(40-90), OOS(90-100) -> Truncated
     assert plan.windows[2].is_start == 40 * ms

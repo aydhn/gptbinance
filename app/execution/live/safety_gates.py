@@ -1,0 +1,61 @@
+from typing import Dict, Any, List
+from app.execution.live.models import SafeExecutionGateResult, ExecutionConfig
+from app.execution.live.enums import ExecutionEnvironment, SafetyGateSeverity
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class SafetyGate:
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        raise NotImplementedError
+
+
+class MainnetDisarmedGate(SafetyGate):
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        if (
+            config.environment == ExecutionEnvironment.MAINNET
+            and not config.mainnet_armed
+        ):
+            return SafeExecutionGateResult(
+                passed=False,
+                reason="Mainnet execution is not explicitly armed.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
+        return SafeExecutionGateResult(passed=True)
+
+
+class SessionReadinessGate(SafetyGate):
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        is_ready = context.get("is_session_ready", False)
+        if not is_ready:
+            return SafeExecutionGateResult(
+                passed=False,
+                reason="Trading session is not ready.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
+        return SafeExecutionGateResult(passed=True)
+
+
+class SafetyGateManager:
+    def __init__(self):
+        self.gates: List[SafetyGate] = [MainnetDisarmedGate(), SessionReadinessGate()]
+
+    def add_gate(self, gate: SafetyGate):
+        self.gates.append(gate)
+
+    def evaluate_all(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        for gate in self.gates:
+            result = gate.check(config, context)
+            if not result.passed:
+                logger.warning(f"Safety gate blocked execution: {result.reason}")
+                return result
+        return SafeExecutionGateResult(passed=True)

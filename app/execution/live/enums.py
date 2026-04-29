@@ -1,0 +1,68 @@
+from enum import Enum, auto
+
+
+class ExecutionEnvironment(Enum):
+    PAPER = "PAPER"
+    TESTNET = "TESTNET"
+    MAINNET = "MAINNET"
+
+
+class OrderLifecycleStatus(Enum):
+    PENDING_SUBMIT = "PENDING_SUBMIT"
+    SUBMITTED = "SUBMITTED"
+    ACKNOWLEDGED = "ACKNOWLEDGED"
+    PARTIALLY_FILLED = "PARTIALLY_FILLED"
+    FILLED = "FILLED"
+    PENDING_CANCEL = "PENDING_CANCEL"
+    CANCELED = "CANCELED"
+    EXPIRED = "EXPIRED"
+    REJECTED = "REJECTED"
+    UNKNOWN = "UNKNOWN"
+
+
+class ExecutionVerdict(Enum):
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
+class AckStatus(Enum):
+    PENDING = "PENDING"
+    ACK_RECEIVED = "ACK_RECEIVED"
+    MISSING = "MISSING"
+
+
+class ReconciliationStatus(Enum):
+    MATCH = "MATCH"
+    DRIFT_DETECTED = "DRIFT_DETECTED"
+    REPAIRED = "REPAIRED"
+    UNRESOLVED_ANOMALY = "UNRESOLVED_ANOMALY"
+
+
+class CancelReason(Enum):
+    USER_REQUEST = "USER_REQUEST"
+    STRATEGY_TIMEOUT = "STRATEGY_TIMEOUT"
+    REPLACE_PENDING = "REPLACE_PENDING"
+    SAFETY_GATE = "SAFETY_GATE"
+
+
+class ReplaceMode(Enum):
+    CANCEL_THEN_NEW = "CANCEL_THEN_NEW"
+
+
+class ExecutionHealthStatus(Enum):
+    HEALTHY = "HEALTHY"
+    DEGRADED = "DEGRADED"
+    HALTED = "HALTED"
+
+
+class UserStreamEventType(Enum):
+    EXECUTION_REPORT = "EXECUTION_REPORT"
+    ACCOUNT_UPDATE = "ACCOUNT_UPDATE"
+    BALANCE_UPDATE = "BALANCE_UPDATE"
+    UNKNOWN = "UNKNOWN"
+
+
+class SafetyGateSeverity(Enum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    BLOCK = "BLOCK"

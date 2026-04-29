@@ -4,7 +4,6 @@ from app.backtest.validation.models import BaselineStrategyDescriptor
 from app.strategies.base import BaseStrategy
 from app.backtest.models import BacktestStepContext
 
-
 # We will define simple baseline strategies here that inherit from BaseStrategy
 # so they can be run by the regular backtest engine.
 

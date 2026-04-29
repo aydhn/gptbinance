@@ -47,6 +47,15 @@ class CompositeObjectiveScorer(BaseScorer):
         if tc_penalty < 0:
             rationale_parts.append(f"Low trade count penalty: {tc_penalty:.2f}")
 
+        # Risk Veto Penalty
+        veto_rate = getattr(metrics, "risk_veto_rate", 0.0)
+        veto_penalty = 0.0
+        if veto_rate > 0.2:
+            veto_penalty = -(veto_rate * 100)
+        penalties["RISK_VETO_PENALTY"] = veto_penalty
+        if veto_penalty < 0:
+            rationale_parts.append(f"Risk veto penalty: {veto_penalty:.2f}")
+
         bm_score = metrics.benchmark_relative_strength * 10
         components[ObjectiveComponent.BENCHMARK_RELATIVE_STRENGTH.value] = bm_score
 

@@ -21,7 +21,7 @@ def test_promotion_gates_pass():
     res = evaluator.evaluate(agg)
 
     assert res.verdict == AggregateVerdict.PASS
-    assert len(res.checks) == 3
+    assert len(res.checks) == 4
 
 
 def test_promotion_gates_fail_expectancy():

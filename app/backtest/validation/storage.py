@@ -35,8 +35,7 @@ class ValidationStorage:
     def _init_db(self):
         conn = self._get_conn()
         with conn:
-            conn.execute(
-                """
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS validation_summaries (
                     validation_id TEXT PRIMARY KEY,
                     strategy_run_id TEXT NOT NULL,
@@ -44,14 +43,11 @@ class ValidationStorage:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     summary_json TEXT NOT NULL
                 )
-            """
-            )
-            conn.execute(
-                """
+            """)
+            conn.execute("""
                 CREATE INDEX IF NOT EXISTS idx_validation_strategy
                 ON validation_summaries(strategy_run_id)
-            """
-            )
+            """)
         if not self._conn:
             conn.close()
 

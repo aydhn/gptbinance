@@ -31,6 +31,11 @@ class IncidentType(str, Enum):
     UNKNOWN_ORDER_STATE = "unknown_order_state"
     CONFIG_MISMATCH = "config_mismatch"
     KILL_SWITCH_ACTIVE = "kill_switch_active"
+    LIVE_REJECT_STORM = "live_reject_storm"
+    LIVE_FILL_MISMATCH = "live_fill_mismatch"
+    CAPITAL_CAP_BREACH = "capital_cap_breach"
+    FLATTEN_INCOMPLETE = "flatten_incomplete"
+    ROLLBACK_INCOMPLETE = "rollback_incomplete"
 
 
 class IncidentSeverity(str, Enum):

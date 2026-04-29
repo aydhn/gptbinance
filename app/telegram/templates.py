@@ -1,4 +1,5 @@
 """Templates for Telegram messages."""
+
 from typing import Dict, Any
 
 
@@ -81,3 +82,49 @@ def render_drawdown_warning(run_id: str, drawdown: float) -> str:
 
 def render_daily_summary(run_id: str, summary: Any) -> str:
     return render_session_stopped(run_id, "daily_summary", summary)
+
+
+def render_live_start(run_id: str, config: Any) -> str:
+    symbols = (
+        ", ".join([a.symbol for a in config.capital_caps.allowlist])
+        if config.capital_caps.allowlist
+        else "None"
+    )
+    return (
+        f"🚨 <b>LIVE Session Started</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Mode: {config.rollout_mode.value}\n"
+        f"Allowed Symbols: {symbols}\n"
+        f"Max Session Notional: ${config.capital_caps.max_session_notional_usd:.2f}\n"
+        f"Max Daily Loss: ${config.capital_caps.max_daily_loss_usd:.2f}"
+    )
+
+
+def render_live_cap_hit(run_id: str, cap_type: str, reason: str) -> str:
+    return (
+        f"🛑 <b>CAPITAL CAP HIT</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Type: {cap_type}\n"
+        f"Reason: {reason}"
+    )
+
+
+def render_live_flatten(run_id: str, success: bool, cancelled: int, closed: int) -> str:
+    status = "SUCCESS" if success else "FAILED/PARTIAL"
+    return (
+        f"🧹 <b>Live Session Flatten</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Status: {status}\n"
+        f"Orders Cancelled: {cancelled}\n"
+        f"Positions Closed: {closed}"
+    )
+
+
+def render_live_rollback(run_id: str, severity: str, reason: str) -> str:
+    return (
+        f"⏪ <b>Live Session Rollback</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Severity: {severity}\n"
+        f"Reason: {reason}\n"
+        f"Mainnet Disarmed."
+    )

@@ -17,6 +17,20 @@ class BaseNotifier:
         msg = "🚨 RECONNECT STORM DETECTED: Stream health is failing rapidly."
         self.send_message(msg)
 
+    def notify_live_start(self, run_id: str, config: str) -> None:
+        pass
+
+    def notify_cap_hit(self, run_id: str, cap_type: str, reason: str) -> None:
+        pass
+
+    def notify_flatten(
+        self, run_id: str, success: bool, cancelled: int, closed: int
+    ) -> None:
+        pass
+
+    def notify_rollback(self, run_id: str, severity: str, reason: str) -> None:
+        pass
+
 
 class NoOpNotifier(BaseNotifier):
     def send_message(self, message: str) -> None:

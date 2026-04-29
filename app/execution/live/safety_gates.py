@@ -28,6 +28,18 @@ class MainnetDisarmedGate(SafetyGate):
             )
         return SafeExecutionGateResult(passed=True)
 
+class RolloutModeAllowedGate(SafetyGate):
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        rollout_mode = context.get("rollout_mode", "shadow_only")
+        if rollout_mode == "full_live_locked":
+             return SafeExecutionGateResult(
+                passed=False,
+                reason="FULL_LIVE_LOCKED mode is strictly blocked.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
+        return SafeExecutionGateResult(passed=True)
 
 class SessionReadinessGate(SafetyGate):
     def check(
@@ -45,7 +57,11 @@ class SessionReadinessGate(SafetyGate):
 
 class SafetyGateManager:
     def __init__(self):
-        self.gates: List[SafetyGate] = [MainnetDisarmedGate(), SessionReadinessGate()]
+        self.gates: List[SafetyGate] = [
+            MainnetDisarmedGate(),
+            SessionReadinessGate(),
+            RolloutModeAllowedGate()
+        ]
 
     def add_gate(self, gate: SafetyGate):
         self.gates.append(gate)

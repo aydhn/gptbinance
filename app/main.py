@@ -111,6 +111,21 @@ def main():
     parser.add_argument("--show-drawdown-state", action="store_true")
     parser.add_argument("--show-kill-switches", action="store_true")
     parser.add_argument("--risk-enable-backtest", action="store_true")
+    # Phase 17: Live Runtime Commands
+    parser.add_argument("--run-live-start-check", action="store_true")
+    parser.add_argument("--start-live-session", action="store_true")
+    parser.add_argument("--live-rollout-mode", type=str, default="canary_live")
+    parser.add_argument("--live-symbols", type=str, default="BTCUSDT")
+    parser.add_argument("--live-max-notional", type=float, default=100.0)
+    parser.add_argument("--show-live-summary", action="store_true")
+    parser.add_argument("--show-live-account", action="store_true")
+    parser.add_argument("--show-live-positions", action="store_true")
+    parser.add_argument("--show-live-pnl", action="store_true")
+    parser.add_argument("--show-live-audit", action="store_true")
+    parser.add_argument("--flatten-live-session", action="store_true")
+    parser.add_argument("--rollback-live-session", action="store_true")
+    parser.add_argument("--disarm-live-session", action="store_true")
+
 
     args = parser.parse_args()
 
@@ -319,7 +334,7 @@ if __name__ == "__main__":
         )
         from app.backtest.validation.models import ValidationSuiteConfig
         from app.backtest.validation.repository import ValidationRepository
-from app.execution.paper.repository import PaperRepository
+        from app.execution.paper.repository import PaperRepository
         from app.backtest.validation.reporting import ValidationReporter
         from app.backtest.validation.storage import ValidationStorage
         from app.backtest.storage import BacktestStorage
@@ -579,8 +594,13 @@ import argparse
 import asyncio
 from app.execution.live.testnet_smoke import run_smoke_test
 
+
 def add_execution_args(parser: argparse.ArgumentParser):
-    parser.add_argument("--run-testnet-execution-smoke", action="store_true", help="Run the testnet execution smoke test")
+    parser.add_argument(
+        "--run-testnet-execution-smoke",
+        action="store_true",
+        help="Run the testnet execution smoke test",
+    )
     parser.add_argument("--execution-symbol", type=str, default="BTCUSDT")
     parser.add_argument("--execution-side", type=str, default="BUY")
     parser.add_argument("--execution-type", type=str, default="LIMIT")
@@ -593,32 +613,60 @@ def add_execution_args(parser: argparse.ArgumentParser):
     parser.add_argument("--cancel-order", action="store_true")
     parser.add_argument("--run-reconciliation", action="store_true")
     parser.add_argument("--show-execution-health", action="store_true")
-    parser.add_argument("--arm-mainnet-execution", action="store_true", help="Arm mainnet execution explicitly")
-    parser.add_argument("--disarm-mainnet-execution", action="store_true", help="Disarm mainnet execution explicitly")
+    parser.add_argument(
+        "--arm-mainnet-execution",
+        action="store_true",
+        help="Arm mainnet execution explicitly",
+    )
+    parser.add_argument(
+        "--disarm-mainnet-execution",
+        action="store_true",
+        help="Disarm mainnet execution explicitly",
+    )
     parser.add_argument("--run-id", type=str)
     parser.add_argument("--client-order-id", type=str)
+    # Phase 17: Live Runtime Commands
+    parser.add_argument("--run-live-start-check", action="store_true")
+    parser.add_argument("--start-live-session", action="store_true")
+    parser.add_argument("--live-rollout-mode", type=str, default="canary_live")
+    parser.add_argument("--live-symbols", type=str, default="BTCUSDT")
+    parser.add_argument("--live-max-notional", type=float, default=100.0)
+    parser.add_argument("--show-live-summary", action="store_true")
+    parser.add_argument("--show-live-account", action="store_true")
+    parser.add_argument("--show-live-positions", action="store_true")
+    parser.add_argument("--show-live-pnl", action="store_true")
+    parser.add_argument("--show-live-audit", action="store_true")
+    parser.add_argument("--flatten-live-session", action="store_true")
+    parser.add_argument("--rollback-live-session", action="store_true")
+    parser.add_argument("--disarm-live-session", action="store_true")
+
 
 def handle_execution_args(args):
     if args.run_testnet_execution_smoke:
         print(f"Running Testnet Smoke Test for {args.execution_symbol}...")
-        asyncio.run(run_smoke_test(
-            args.execution_symbol,
-            args.execution_side,
-            args.execution_type,
-            args.execution_qty,
-            args.execution_price
-        ))
+        asyncio.run(
+            run_smoke_test(
+                args.execution_symbol,
+                args.execution_side,
+                args.execution_type,
+                args.execution_qty,
+                args.execution_price,
+            )
+        )
         return True
 
     if args.arm_mainnet_execution:
-        print("WARNING: Mainnet execution is now ARMED for this session. Real trades may occur.")
+        print(
+            "WARNING: Mainnet execution is now ARMED for this session. Real trades may occur."
+        )
         # Logic to update gate state
         return True
 
-    if args.disarm_mainnet-execution:
+    if args.disarm_mainnet - execution:
         print("Mainnet execution DISARMED.")
         return True
 
     return False
+
 
 # NOTE: In the real app/main.py, these functions would be integrated into the main argparser block.

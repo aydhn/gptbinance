@@ -67,3 +67,15 @@ class SessionSupervisor(SupervisorBase):
     def _audit(self, run_id: str, action: str) -> None:
         record = OpsAuditRecord(run_id=run_id, action=action, details="")
         self.repository.append_audit_record(record)
+
+    def flatten_live(self, run_id: str, reason: str) -> None:
+        if self._current_run and self._current_run.run_id == run_id:
+            self._audit(run_id, f"flatten_live_initiated: {reason}")
+            # Placeholder for actual LiveRuntime flatten invocation
+            pass
+
+    def rollback_live(self, run_id: str, reason: str) -> None:
+        if self._current_run and self._current_run.run_id == run_id:
+            self._audit(run_id, f"rollback_live_initiated: {reason}")
+            # Placeholder for actual LiveRuntime rollback invocation
+            pass

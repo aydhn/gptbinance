@@ -75,3 +75,11 @@ class ReconciliationEngine(ReconciliationEngineBase):
         # Fetch specific order from REST and update state_store
         # e.g., if filled, update store and return FILLED
         return None
+
+    async def run_pre_start_reconciliation(self) -> ReconciliationReport:
+        logger.info("Running pre-start live runtime reconciliation")
+        return await self.run_reconciliation()
+
+    async def run_post_stop_reconciliation(self) -> ReconciliationReport:
+        logger.info("Running post-stop live runtime reconciliation")
+        return await self.run_reconciliation()

@@ -1,10 +1,10 @@
 import asyncio
 import logging
-from typing import List
+from typing import List, Callable, Awaitable, Optional
 
 from app.config.models import AppConfig
 from app.data.event_bus import EventBus
-from app.data.live_stream_base import BaseLiveStreamManager
+from app.data.live_stream_base import BaseLiveStreamManager, StreamCallback
 from app.data.live_stream_models import (
     BookTickerEvent,
     KlineUpdateEvent,
@@ -48,6 +48,8 @@ class LiveMarketDataService(BaseLiveStreamManager):
         self.health = WsHealthMonitor()
         self.registry = SubscriptionRegistry()
 
+        self._callback: Optional[StreamCallback] = None
+
         # The base URL for combined streams
         self.base_url = "wss://stream.binance.com:9443/stream"
         if config.binance.testnet:
@@ -62,6 +64,10 @@ class LiveMarketDataService(BaseLiveStreamManager):
 
         # Keep track of active task for health checking
         self._health_task: asyncio.Task | None = None
+
+    def set_callback(self, callback: StreamCallback) -> None:
+        """Register the callback to bypass event_bus latency for paper runtime."""
+        self._callback = callback
 
     async def start(self) -> None:
         """Starts the websocket client and health monitoring."""
@@ -145,12 +151,28 @@ class LiveMarketDataService(BaseLiveStreamManager):
         self.stream_buffer.add_event(event)
 
         # Cache update and Publish
+        price = 0.0
+        is_closed = False
+        symbol = event.symbol
+
         if isinstance(event, KlineUpdateEvent):
             self.state_cache.update_kline(event)
+            price = event.close_price
+            is_closed = event.is_closed
         elif isinstance(event, TickerEvent):
             self.state_cache.update_ticker(event)
+            price = event.last_price
         elif isinstance(event, BookTickerEvent):
             self.state_cache.update_book_ticker(event)
+            # Mid price approx
+            price = (event.best_bid_price + event.best_ask_price) / 2
+
+        # Fast path for paper runtime using callback
+        if self._callback and price > 0.0:
+            try:
+                await self._callback(symbol, price, is_closed, event.event_time)
+            except Exception as e:
+                logger.error(f"Error in stream callback: {e}")
 
         await self.event_bus.publish(event)
 

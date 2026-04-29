@@ -2,7 +2,6 @@
 import asyncio
 import logging
 import uuid
-from typing import Any
 
 from app.config.models import AppConfig
 from app.data.event_bus import EventBus
@@ -21,9 +20,13 @@ class SmokeTestCallback:
         self.session = session
         self.counter = 0
 
-    async def __call__(self, symbol: str, price: float, is_closed: bool, event_time_ms: int) -> None:
+    async def __call__(
+        self, symbol: str, price: float, is_closed: bool, event_time_ms: int
+    ) -> None:
         # We process the event via the runtime hook
-        self.session.runtime.handle_market_event(symbol, price, is_closed, event_time_ms)
+        self.session.runtime.handle_market_event(
+            symbol, price, is_closed, event_time_ms
+        )
 
         self.counter += 1
 

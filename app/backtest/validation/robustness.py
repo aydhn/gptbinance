@@ -39,9 +39,9 @@ class RobustnessRunner:
             details={
                 "base_return": base_ret,
                 "perturbed_return": test_ret,
-                "drop_pct": ((base_ret - test_ret) / base_ret * 100)
-                if base_ret != 0
-                else 0,
+                "drop_pct": (
+                    ((base_ret - test_ret) / base_ret * 100) if base_ret != 0 else 0
+                ),
             },
         )
 

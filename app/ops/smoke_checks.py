@@ -1,5 +1,4 @@
 import logging
-import json
 from app.config.models import AppConfig
 from app.core.enums import EnvironmentProfile
 from app.connectors.binance.health_service import HealthService

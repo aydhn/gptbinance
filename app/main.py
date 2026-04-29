@@ -571,3 +571,54 @@ if __name__ == "__main__":
         else:
             print("No health snapshots found.")
         sys.exit(0)
+
+# ==========================================
+# PHASE 15 EXECUTION CLI COMMANDS (STUBBED)
+# ==========================================
+import argparse
+import asyncio
+from app.execution.live.testnet_smoke import run_smoke_test
+
+def add_execution_args(parser: argparse.ArgumentParser):
+    parser.add_argument("--run-testnet-execution-smoke", action="store_true", help="Run the testnet execution smoke test")
+    parser.add_argument("--execution-symbol", type=str, default="BTCUSDT")
+    parser.add_argument("--execution-side", type=str, default="BUY")
+    parser.add_argument("--execution-type", type=str, default="LIMIT")
+    parser.add_argument("--execution-qty", type=str, default="0.001")
+    parser.add_argument("--execution-price", type=str, default="30000.0")
+
+    parser.add_argument("--show-execution-summary", action="store_true")
+    parser.add_argument("--show-open-orders", action="store_true")
+    parser.add_argument("--show-order-status", action="store_true")
+    parser.add_argument("--cancel-order", action="store_true")
+    parser.add_argument("--run-reconciliation", action="store_true")
+    parser.add_argument("--show-execution-health", action="store_true")
+    parser.add_argument("--arm-mainnet-execution", action="store_true", help="Arm mainnet execution explicitly")
+    parser.add_argument("--disarm-mainnet-execution", action="store_true", help="Disarm mainnet execution explicitly")
+    parser.add_argument("--run-id", type=str)
+    parser.add_argument("--client-order-id", type=str)
+
+def handle_execution_args(args):
+    if args.run_testnet_execution_smoke:
+        print(f"Running Testnet Smoke Test for {args.execution_symbol}...")
+        asyncio.run(run_smoke_test(
+            args.execution_symbol,
+            args.execution_side,
+            args.execution_type,
+            args.execution_qty,
+            args.execution_price
+        ))
+        return True
+
+    if args.arm_mainnet_execution:
+        print("WARNING: Mainnet execution is now ARMED for this session. Real trades may occur.")
+        # Logic to update gate state
+        return True
+
+    if args.disarm_mainnet-execution:
+        print("Mainnet execution DISARMED.")
+        return True
+
+    return False
+
+# NOTE: In the real app/main.py, these functions would be integrated into the main argparser block.

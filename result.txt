@@ -1,53 +1,123 @@
+==================================================
 YAPILANLAR ÖZETİ
-- Walk-forward planlayıcı, windowing, segment selection (IS -> freeze -> OOS), aggregation, ve diagnostics modülleri oluşturuldu.
-- Pydantic tabanlı veri modelleri ile denetlenebilir artifacts oluşturuldu.
-- Bu mimari tercih edildi çünkü tek parçalı backtestler overfit tuzağına düşmeye çok müsaittir, oysaki Walk-Forward analizi stratejinin out-of-sample performansını sürekli ve disiplinli bir şekilde, geleceğe sızmadan değerlendirmeyi sağlar.
+==================================================
+Bu fazda (Phase 15), Testnet-First Execution Gateway başarıyla kurulmuştur.
+- Gerçek fon riski olmadan, Binance testnet altyapısıyla çalışacak yapı oluşturuldu.
+- `PretradeValidator` ile emirlerin borsaya gönderilmeden (minQty, tickSize, minNotional) doğrulanması sağlandı.
+- `ClientOrderIdGenerator` kurularak emirlerin idempotent ve takip edilebilir olması güvence altına alındı.
+- `SafetyGateManager` ile Mainnet işlem yapılmasını engelleyecek explicit güvenlik kapıları kodlandı.
+- Execution event'lerinin (ACK, FILL, CANCEL) durumunu izlemek üzere `ExecutionParser`, `ReconciliationEngine` ve `OrderStateStore` yazıldı.
+- Cancel/Replace mekanizması için güvenli 'önce cancel, sonra replace' kurgusunu yürütecek bir Engine tasarlandı.
 
+==================================================
 OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/backtest/walkforward/__init__.py`
-- `app/backtest/walkforward/aggregator.py`
-- `app/backtest/walkforward/config.py`
-- `app/backtest/walkforward/diagnostics.py`
-- `app/backtest/walkforward/enums.py`
-- `app/backtest/walkforward/exceptions.py`
-- `app/backtest/walkforward/freeze.py`
-- `app/backtest/walkforward/models.py`
-- `app/backtest/walkforward/promotion_gates.py`
-- `app/backtest/walkforward/reporting.py`
-- `app/backtest/walkforward/repository.py`
-- `app/backtest/walkforward/segment_runner.py`
-- `app/backtest/walkforward/selection.py`
-- `app/backtest/walkforward/storage.py`
-- `app/backtest/walkforward/windowing.py`
+==================================================
+Yeni:
+- `app/execution/live/base.py`
+- `app/execution/live/binance_executor.py`
+- `app/execution/live/cancel_replace.py`
+- `app/execution/live/client_order_ids.py`
+- `app/execution/live/enums.py`
+- `app/execution/live/exceptions.py`
+- `app/execution/live/execution_parser.py`
+- `app/execution/live/health.py`
+- `app/execution/live/models.py`
+- `app/execution/live/notifier_bridge.py`
+- `app/execution/live/order_router.py`
+- `app/execution/live/order_state_store.py`
+- `app/execution/live/pretrade_validation.py`
+- `app/execution/live/reconciliation.py`
+- `app/execution/live/repository.py`
+- `app/execution/live/safety_gates.py`
+- `app/execution/live/storage.py`
+- `app/execution/live/testnet_smoke.py`
+- `app/execution/live/user_stream.py`
+- `app/execution/live/README.md`
+- `docs/081_execution_gateway_mimarisi_ve_testnet_first_politikasi.md`
+- `docs/082_pretrade_validation_idempotency_ve_duplicate_order_koruma_politikasi.md`
+- `docs/083_user_data_stream_ve_reconciliation_politikasi.md`
+- `docs/084_mainnet_safety_gates_ve_arm_disarm_politikasi.md`
+- `docs/085_phase_15_definition_of_done.md`
+- `tests/test_cancel_replace.py`
+- `tests/test_client_order_ids.py`
+- `tests/test_execution_health.py`
+- `tests/test_execution_parser.py`
+- `tests/test_execution_safety_gates.py`
+- `tests/test_execution_storage.py`
+- `tests/test_order_router.py`
+- `tests/test_order_state_store.py`
+- `tests/test_pretrade_validation.py`
+- `tests/test_reconciliation.py`
+
+Güncellenen:
+- `app/connectors/binance/models.py`
+- `app/core/models.py` (Oluşturuldu, core domain modelleri için eklendi)
+- `app/execution/paper/runtime.py`
 - `app/main.py`
-- `docs/061_walkforward_mimarisi_ve_is_oos_akisi.md`
-- `docs/062_parametre_dondurma_ve_selection_durustlugu_politikasi.md`
-- `docs/063_segment_teshisi_ve_oos_decay_yorumu.md`
-- `docs/064_promotion_gate_temeli_ve_canliya_gecis_oncesi_kapilar.md`
-- `docs/065_phase_11_definition_of_done.md`
-- `tests/test_walkforward_*.py`
+- `app/risk/engine.py`
 
-REPO AĞACI
-(Güncel durum git commit'e hazırlanmıştır ve tree komutu ile teyit edilebilir.)
+==================================================
+REPO AĞACI (execution/live)
+==================================================
+app/execution/live
+├── README.md
+├── __init__.py
+├── base.py
+├── binance_executor.py
+├── cancel_replace.py
+├── client_order_ids.py
+├── enums.py
+├── exceptions.py
+├── execution_parser.py
+├── health.py
+├── models.py
+├── notifier_bridge.py
+├── order_router.py
+├── order_state_store.py
+├── pretrade_validation.py
+├── reconciliation.py
+├── repository.py
+├── safety_gates.py
+├── storage.py
+├── testnet_smoke.py
+└── user_stream.py
 
+==================================================
 ÖRNEK KOMUTLAR
-- python -m app.main --run-walkforward --wf-symbol BTCUSDT --wf-interval 1h --wf-start ... --wf-end ... --wf-feature-set core --wf-strategy-set core --wf-window-scheme rolling --wf-is-bars 1000 --wf-oos-bars 250 --wf-step-bars 250
-- python -m app.main --show-walkforward-summary --run-id <id>
-- python -m app.main --show-walkforward-segments --run-id <id>
-- python -m app.main --show-walkforward-diagnostics --run-id <id>
-- python -m app.main --show-promotion-gates --run-id <id>
+==================================================
+# Testnet Smoke Test başlatır:
+python -m app.main --run-testnet-execution-smoke --execution-symbol BTCUSDT --execution-side BUY --execution-type LIMIT --execution-qty 0.001 --execution-price 30000.0
 
+# Explicitly Arm Mainnet (gerçek işlemlere izin verir, şu an CLI output basar):
+python -m app.main --arm-mainnet-execution
+
+# Disarm Mainnet (güvenli hale geri döner):
+python -m app.main --disarm-mainnet-execution
+
+==================================================
 TEST ÖZETİ
-- Windowing plan jenerasyonu testleri (rolling, anchored).
-- Selection testleri (max_expectancy ve min_drawdown algoritmaları, başarısız/yetersiz veride reject mantığı).
-- Freeze verify testleri.
-- Segment execution pass/fail testleri.
-- Aggregation testleri.
-- Diagnostics ve Promotion Gates pass/caution/fail testleri.
+==================================================
+12 test yazıldı ve başarıyla geçti:
+- `test_pretrade_validation.py`: Min_qty, vb. şartları doğrular.
+- `test_client_order_ids.py`: Idempotent ID üretimini ve limitini sınar.
+- `test_execution_safety_gates.py`: Mainnet silahsızlandırılmışsa işlemi reddettiğini teyit eder.
+- `test_order_state_store.py`: Emirlerin local in-memory storage'a kaydedilip çekildiğini doğrular.
+- `test_execution_health.py`: Çok sayıda reject sonrası sağlık durumunun DEGRADED olduğunu test eder.
+- `test_execution_parser.py`: Binance `executionReport` payload'larını `OrderLifecycleEvent`'e düzgün ayırdığını denetler.
+- `test_order_router.py`: Yönlendiricinin gate/validasyonları geçip executor'ı doğru çağırdığını sınar.
+- `test_cancel_replace.py`: Önce cancel, state güncelleme süreçlerini sarmaladığı test edilir.
+- `test_reconciliation.py`: Kayıp emirler tespit edilip, uzlaştırma raporunda drift oluştuğunu doğrular.
+- `test_execution_storage.py`: Audit verisinin dosyaya JSONL olarak başarıyla yazıldığını doğrular.
 
+==================================================
 BİLİNÇLİ ERTELENENLER
-- Hyperparameter tuning ve optimizer mantığı.
-- Canlı (live/paper) execution logic'in bağlanması.
+==================================================
+- Tam 7/24 websocket stream loop ve keepalive mekanizması (şuan `user_stream.py` içerisinde taslak olarak mevcut).
+- Multi-exchange smart order routing.
+- Ana sisteme/Risk Engine'e tam gerçek API (şu an stub olarak geçiş eklendi).
 
-PHASE 12 ÖNERİSİ
-- Phase 12 - Optimizer & Grid Search Entegrasyonu: Walk-forward içindeki In-Sample (IS) periyoduna gerçek hiperparametre optimizasyonu (grid search veya bayesian) yeteneği eklenebilir.
+==================================================
+PHASE 16 ÖNERİSİ
+==================================================
+Phase 16 - User-Data Stream Websocket Integration & Order Flow Automation
+Amacı: Placeholder bırakılan websocket bağlantısını tam kapasite ayağa kaldırmak, listenKey yaşam döngüsünü sağlamak ve REST vs Stream reconciliation mantığını testnet order'ları üzerinde uçtan uca otomatik hale getirmektir.

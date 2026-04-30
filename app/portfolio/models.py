@@ -1,3 +1,5 @@
+
+from app.products.enums import ProductType
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional, Any
 from datetime import datetime
@@ -182,3 +184,15 @@ class PortfolioArtifactManifest(BaseModel):
     run_id: str
     summary: PortfolioSummary
     decisions: List[PortfolioDecision] = Field(default_factory=list)
+
+class AssetAllocation(BaseModel):
+    symbol: str
+    product_type: ProductType = ProductType.SPOT
+    notional_exposure: float
+    leveraged_exposure: float = 0.0 # Gross exposure (notional * leverage)
+    target_weight: float
+
+class PortfolioSnapshot(BaseModel):
+    total_capital: float
+    allocations: Dict[str, AssetAllocation] = Field(default_factory=dict)
+    total_leveraged_exposure: float = 0.0

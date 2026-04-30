@@ -1,3 +1,5 @@
+
+from app.products.enums import ProductType
 import logging
 import time
 from typing import Dict, Any, List
@@ -92,7 +94,7 @@ class LiveOrchestrator:
 
         return True
 
-    def process_intent(self, intent: Dict[str, Any]) -> bool:
+    async def process_intent(self, intent: Dict[str, Any]) -> bool:
         if self.run.state.status != LiveSessionStatus.RUNNING:
             logger.warning("Session not running. Intent ignored.")
             return False
@@ -117,7 +119,19 @@ class LiveOrchestrator:
             return False
 
         # 2. Handoff to Execution Gateway
+
+        if hasattr(intent, "product_type") and getattr(intent, "product_type") != ProductType.SPOT:
+            # Enforce Testnet for derivatives!
+            try:
+                order_id = await self.executor.execute_derivative(intent, testnet_first=True) if hasattr(self.executor, 'execute_derivative') else 'mock'
+                self.storage.record_trade(order_id, intent.symbol, intent.side, intent.quantity, 0.0)
+                logger.info(f"Recorded live derivative trade for {intent.symbol}")
+            except Exception as e:
+                 logger.error(f"Live execution failed for derivative {intent.symbol}: {e}")
+            return
+
         try:
+
             # Assuming intent format fits execution gateway submit signature
             qty = intent.get("qty", 0.0)
             symbol = intent.get("symbol", "")

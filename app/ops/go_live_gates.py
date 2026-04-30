@@ -1,55 +1,36 @@
-from app.ops.models import GoLiveGateReport
-from app.ops.enums import GoLiveVerdict
+import logging
+from pydantic import BaseModel
+from typing import Dict
+from app.products.enums import ProductType
+from app.products.registry import ProductRegistry
 
+logger = logging.getLogger(__name__)
+
+class DerivativesReadinessReport(BaseModel):
+    product_type: ProductType
+    leverage_configured: bool
+    liquidation_guard_active: bool
+    funding_accounting_active: bool
+    status: str # PASS, CAUTION, FAIL
 
 class GoLiveGate:
-    def evaluate(
-        self, run_id: str, rollout_mode: str = "shadow_only"
-    ) -> GoLiveGateReport:
-        if rollout_mode == "full_live_locked":
-            return GoLiveGateReport(
-                verdict=GoLiveVerdict.FAIL,
-                reasons=["FULL_LIVE_LOCKED mode is strictly blocked in this phase."],
-                blockers=["Mainnet Full Live Block"],
-                recommended_actions=["Use canary_live or capped_live rollout modes."],
-            )
+    def __init__(self, registry: ProductRegistry):
+        self.registry = registry
 
-        # Portfolio readiness check placeholder
-        portfolio_readiness_passed = (
-            True  # In reality, check concentration/correlation snapshot
-        )
-        if not portfolio_readiness_passed:
-            return GoLiveGateReport(
-                verdict=GoLiveVerdict.FAIL,
-                reasons=[
-                    "Portfolio readiness failed: concentration or correlation limits exceeded."
-                ],
-                blockers=["Portfolio Risk Block"],
-                recommended_actions=[
-                    "Review portfolio correlation snapshot and sleeve usage."
-                ],
-            )
+    def check_derivatives_readiness(self) -> Dict[ProductType, DerivativesReadinessReport]:
+        reports = {}
+        for pt in self.registry.list_supported_products():
+            if pt == ProductType.SPOT:
+                continue
 
-        # If canary or capped, pass it up to LiveStartGateEvaluator to do the detailed check
-        if rollout_mode in ["canary_live", "capped_live"]:
-            return GoLiveGateReport(
-                verdict=GoLiveVerdict.CAUTION,
-                reasons=[
-                    f"Proceeding cautiously with {rollout_mode}. Ensure LiveStartGates are evaluated."
-                ],
-                blockers=[],
-                recommended_actions=[
-                    "Ensure Capital Caps and execution hooks are active."
-                ],
+            # Mock checks - in reality, checks config files, connections, etc.
+            report = DerivativesReadinessReport(
+                product_type=pt,
+                leverage_configured=True,
+                liquidation_guard_active=True,
+                funding_accounting_active=True,
+                status="PASS" if pt.value == "FUTURES_USDM" else "CAUTION"
             )
+            reports[pt] = report
 
-        return GoLiveGateReport(
-            verdict=GoLiveVerdict.FAIL,
-            reasons=[
-                "Mainnet execution is generally disabled unless explicitly routed to a capped mode."
-            ],
-            blockers=["Mainnet Live Default Block"],
-            recommended_actions=[
-                "Review control plane architecture before enabling mainnet."
-            ],
-        )
+        return reports

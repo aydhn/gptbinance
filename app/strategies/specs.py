@@ -52,3 +52,8 @@ def get_core_strategy_specs() -> List[StrategySpec]:
             parameters={"score_weight": 1.5},
         ),
     ]
+
+    # Phase 21 Governance additions
+    @property
+    def governance_lineage(self) -> dict:
+        return {"preset_version": "1.0", "parent_refs": []}

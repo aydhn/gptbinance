@@ -179,3 +179,7 @@ ML_PROMOTION_RESULT = (
 ML_DRIFT_WARNING = (
     "⚠️ ML Drift Warning\nRun ID: {run_id}\nSeverity: {severity}\nAction: {action}"
 )
+
+GOVERNANCE_REFRESH_COMPLETED = "Governance refresh {run_id} completed. Status: {status}"
+GOVERNANCE_DECAY_WARNING = "Decay warning for {bundle_id}. Type: {degradation_type}, Severity: {severity}"
+GOVERNANCE_PROMOTION_BLOCKED = "Promotion for {bundle_id} blocked. Blockers: {blockers}"

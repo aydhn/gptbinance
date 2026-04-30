@@ -251,3 +251,10 @@ class LiveOrchestrator:
                     details="Normal session stop.",
                 )
             )
+
+    # Phase 21 Governance additions
+    def set_active_bundle_ref(self, bundle_id: str):
+        self.active_bundle_id = bundle_id
+
+    def get_active_bundle_lineage(self):
+        return getattr(self, "active_bundle_id", None)

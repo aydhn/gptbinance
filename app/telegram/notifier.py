@@ -107,3 +107,8 @@ def get_notifier(config) -> BaseNotifier:
             chat_id=config.telegram.chat_id.get_secret_value(),
         )
     return NoOpNotifier()
+
+    # Phase 21 Governance additions
+    async def notify_governance_event(self, event_type: str, details: dict):
+        # Mute logging or send actual TG msg
+        print(f"TELEGRAM GOVERNANCE: {event_type} - {details}")

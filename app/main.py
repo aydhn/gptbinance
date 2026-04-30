@@ -49,6 +49,206 @@ def map_position_mode(val: str) -> PositionMode:
 def main():
     pass
 
+def add_execution_args(parser: argparse.ArgumentParser):
+    parser.add_argument(
+        "--run-testnet-execution-smoke",
+        action="store_true",
+        help="Run the testnet execution smoke test",
+    )
+    parser.add_argument("--execution-symbol", type=str, default="BTCUSDT")
+    parser.add_argument("--execution-side", type=str, default="BUY")
+    parser.add_argument("--execution-type", type=str, default="LIMIT")
+    parser.add_argument("--execution-qty", type=str, default="0.001")
+    parser.add_argument("--execution-price", type=str, default="30000.0")
+
+    parser.add_argument("--show-execution-summary", action="store_true")
+    parser.add_argument("--show-open-orders", action="store_true")
+    parser.add_argument("--show-order-status", action="store_true")
+    parser.add_argument("--cancel-order", action="store_true")
+    parser.add_argument("--run-reconciliation", action="store_true")
+    parser.add_argument("--show-execution-health", action="store_true")
+    parser.add_argument(
+        "--arm-mainnet-execution",
+        action="store_true",
+        help="Arm mainnet execution explicitly",
+    )
+    parser.add_argument(
+        "--disarm-mainnet-execution",
+        action="store_true",
+        help="Disarm mainnet execution explicitly",
+    )
+    parser.add_argument("--run-id", type=str)
+    parser.add_argument("--client-order-id", type=str)
+    # Phase 17: Live Runtime Commands
+    parser.add_argument("--run-live-start-check", action="store_true")
+    parser.add_argument("--start-live-session", action="store_true")
+    parser.add_argument("--live-rollout-mode", type=str, default="canary_live")
+    parser.add_argument("--live-symbols", type=str, default="BTCUSDT")
+    parser.add_argument("--live-max-notional", type=float, default=100.0)
+    parser.add_argument("--show-live-summary", action="store_true")
+    parser.add_argument("--show-live-account", action="store_true")
+    parser.add_argument("--show-live-positions", action="store_true")
+    parser.add_argument("--show-live-pnl", action="store_true")
+    parser.add_argument("--show-live-audit", action="store_true")
+    parser.add_argument("--flatten-live-session", action="store_true")
+    parser.add_argument("--rollback-live-session", action="store_true")
+    parser.add_argument("--disarm-live-session", action="store_true")
+def add_ml_args(parser):
+    parser.add_argument("--build-ml-dataset", action="store_true", help="Build a dataset for ML")
+    parser.add_argument("--ml-feature-set", type=str, default="core_trend_vol")
+    parser.add_argument("--ml-label-spec", type=str, default="meta_success_v1")
+    parser.add_argument("--ml-split-type", type=str, default="anchored")
+
+    parser.add_argument("--train-ml-model", action="store_true", help="Train a model")
+    parser.add_argument("--ml-model-family", type=str, default="logistic_regression")
+
+    parser.add_argument("--show-ml-evaluation", action="store_true")
+    parser.add_argument("--show-calibration-report", action="store_true")
+    parser.add_argument("--register-ml-model", action="store_true")
+    parser.add_argument("--show-model-registry", action="store_true")
+
+    parser.add_argument("--run-ml-inference", action="store_true")
+    parser.add_argument("--interval", type=str, default="1h")
+
+    parser.add_argument("--show-drift-report", action="store_true")
+    parser.add_argument("--run-ml-promotion-check", action="store_true")
+def handle_execution_args(args):
+    if args.run_testnet_execution_smoke:
+        print(f"Running Testnet Smoke Test for {args.execution_symbol}...")
+        asyncio.run(
+            run_smoke_test(
+                args.execution_symbol,
+                args.execution_side,
+                args.execution_type,
+                args.execution_qty,
+                args.execution_price,
+            )
+        )
+        return True
+
+    if args.arm_mainnet_execution:
+        print(
+            "WARNING: Mainnet execution is now ARMED for this session. Real trades may occur."
+        )
+        # Logic to update gate state
+        return True
+
+    if args.disarm_mainnet_execution:
+        print("Mainnet execution DISARMED.")
+        return True
+
+    return False
+def handle_ml_args(args):
+    if args.build_ml_dataset:
+        print(f"Building ML Dataset with Feature Set: {args.ml_feature_set}, Label Spec: {args.ml_label_spec}, Split: {args.ml_split_type}...")
+        from app.ml.datasets import DatasetBuilder
+        from app.ml.models import DatasetSpec
+        from app.ml.enums import SplitType
+        from datetime import datetime, timezone
+
+        spec = DatasetSpec(
+            feature_set=args.ml_feature_set,
+            label_spec_name=args.ml_label_spec,
+            split_type=SplitType(args.ml_split_type),
+            train_start=datetime(2023, 1, 1),
+            train_end=datetime(2023, 6, 1),
+            test_start=datetime(2023, 6, 1),
+            test_end=datetime(2023, 12, 1)
+        )
+        builder = DatasetBuilder()
+        manifest = builder.build(spec)
+        print(f"Dataset Built: {manifest.dataset_id}")
+        print(f"Train Rows: {manifest.train_rows}, Test Rows: {manifest.test_rows}")
+        return True
+
+    if args.train_ml_model:
+        print(f"Training Model Family: {args.ml_model_family} on Feature Set: {args.ml_feature_set}...")
+        from app.ml.trainers import Trainer
+        from app.ml.enums import ModelFamily
+
+        trainer = Trainer()
+        run = trainer.train("ds_mock", ModelFamily(args.ml_model_family), {})
+        print(f"Model Trained. Run ID: {run.run_id}")
+        return True
+
+    if args.show_ml_evaluation and args.run_id:
+        print(f"--- ML EVALUATION FOR RUN: {args.run_id} ---")
+        from app.ml.evaluation import Evaluator
+        evaluator = Evaluator()
+        report = evaluator.evaluate(args.run_id, None, None)
+        print(f"F1 Score: {report.f1_score}")
+        print(f"Log Loss: {report.log_loss}")
+        return True
+
+    if args.show_calibration_report and args.run_id:
+        print(f"--- CALIBRATION REPORT FOR RUN: {args.run_id} ---")
+        from app.ml.calibration import Calibrator
+        from app.ml.enums import CalibrationType
+        calibrator = Calibrator()
+        report = calibrator.calibrate(args.run_id, None, None, CalibrationType.ISOTONIC)
+        print(f"Calibrator Type: {report.calibrator_type.value}")
+        print(f"Brier Before: {report.brier_score_before}, After: {report.brier_score_after}")
+        return True
+
+    if args.register_ml_model and args.run_id:
+        print(f"Registering Model for Run: {args.run_id}...")
+        from app.ml.registry import ModelRegistry
+        from app.ml.models import ModelRegistryEntry
+        from app.ml.enums import RegistryStage, ModelStatus
+
+        registry = ModelRegistry()
+        entry = ModelRegistryEntry(
+            run_id=args.run_id,
+            stage=RegistryStage.CANDIDATE,
+            status=ModelStatus.INACTIVE,
+            dataset_id="ds_mock"
+        )
+        registry.register(entry)
+        print(f"Model Registered with Stage: {entry.stage.value}")
+        return True
+
+    if args.show_model_registry:
+        print("--- MODEL REGISTRY ---")
+        print("Run ID | Stage | Status | Dataset ID")
+        return True
+
+    if args.run_ml_inference and args.run_id:
+        print(f"Running ML Inference for Run: {args.run_id}, Symbol: {args.execution_symbol}, Interval: {args.interval}...")
+        from app.ml.inference import InferenceEngine
+        from app.ml.models import InferenceRequest
+        from datetime import datetime, timezone
+
+        engine = InferenceEngine()
+        req = InferenceRequest(
+            run_id=args.run_id,
+            features={"f1": 0.5},
+            symbol=args.execution_symbol,
+            timestamp=datetime.now(timezone.utc)
+        )
+        res = engine.predict(req)
+        print(f"Verdict: {res.verdict.value}")
+        print(f"Raw Score: {res.raw_score}, Calibrated Score: {res.calibrated_score}")
+        return True
+
+    if args.show_drift_report and args.run_id:
+        print(f"--- DRIFT REPORT FOR RUN: {args.run_id} ---")
+        from app.ml.drift import DriftChecker
+        checker = DriftChecker()
+        report = checker.check_drift(args.run_id, None)
+        print(f"Severity: {report.severity.value}")
+        print(f"Recommended Action: {report.recommended_action}")
+        return True
+
+    if args.run_ml_promotion_check and args.run_id:
+        print(f"--- PROMOTION CHECK FOR RUN: {args.run_id} ---")
+        from app.ml.promotion import PromotionGate
+        gate = PromotionGate()
+        report = gate.check_readiness(args.run_id)
+        print(f"Verdict: {report.verdict.value}")
+        print(f"Reasons: {report.reasons}")
+        return True
+
+    return False
 if __name__ == "__main__":
     import logging
     logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
@@ -293,7 +493,7 @@ def original_main():
 
     if args.evaluate_regime or args.regime_set:
         from app.research.regime import RegimeRepository
-        from datetime import datetime
+        from datetime import datetime, timezone
         import random
 
         repo = RegimeRepository()
@@ -413,7 +613,7 @@ def original_main():
         from app.backtest.engine import BacktestEngine
         from app.backtest.storage import BacktestStorage
         from app.backtest.reporting import BacktestReporter
-        from datetime import datetime, timedelta
+        from datetime import datetime, timezone, timedelta
 
         start_time = (
             datetime.fromisoformat(args.backtest_start)
@@ -688,8 +888,12 @@ if __name__ == "__main__":
         "--stop-paper-session", action="store_true", help="Stop paper session manually"
     )
 
+    add_execution_args(parser)
+    add_ml_args(parser)
     # Needs to parse known args again
     args, _ = parser.parse_known_args()
+
+
 
     if args.run_portfolio_allocation:
         print(
@@ -850,78 +1054,226 @@ import asyncio
 from app.execution.live.testnet_smoke import run_smoke_test
 
 
-def add_execution_args(parser: argparse.ArgumentParser):
-    parser.add_argument(
-        "--run-testnet-execution-smoke",
-        action="store_true",
-        help="Run the testnet execution smoke test",
-    )
-    parser.add_argument("--execution-symbol", type=str, default="BTCUSDT")
-    parser.add_argument("--execution-side", type=str, default="BUY")
-    parser.add_argument("--execution-type", type=str, default="LIMIT")
-    parser.add_argument("--execution-qty", type=str, default="0.001")
-    parser.add_argument("--execution-price", type=str, default="30000.0")
 
-    parser.add_argument("--show-execution-summary", action="store_true")
-    parser.add_argument("--show-open-orders", action="store_true")
-    parser.add_argument("--show-order-status", action="store_true")
-    parser.add_argument("--cancel-order", action="store_true")
-    parser.add_argument("--run-reconciliation", action="store_true")
-    parser.add_argument("--show-execution-health", action="store_true")
-    parser.add_argument(
-        "--arm-mainnet-execution",
-        action="store_true",
-        help="Arm mainnet execution explicitly",
-    )
-    parser.add_argument(
-        "--disarm-mainnet-execution",
-        action="store_true",
-        help="Disarm mainnet execution explicitly",
-    )
-    parser.add_argument("--run-id", type=str)
-    parser.add_argument("--client-order-id", type=str)
-    # Phase 17: Live Runtime Commands
-    parser.add_argument("--run-live-start-check", action="store_true")
-    parser.add_argument("--start-live-session", action="store_true")
-    parser.add_argument("--live-rollout-mode", type=str, default="canary_live")
-    parser.add_argument("--live-symbols", type=str, default="BTCUSDT")
-    parser.add_argument("--live-max-notional", type=float, default=100.0)
-    parser.add_argument("--show-live-summary", action="store_true")
-    parser.add_argument("--show-live-account", action="store_true")
-    parser.add_argument("--show-live-positions", action="store_true")
-    parser.add_argument("--show-live-pnl", action="store_true")
-    parser.add_argument("--show-live-audit", action="store_true")
-    parser.add_argument("--flatten-live-session", action="store_true")
-    parser.add_argument("--rollback-live-session", action="store_true")
-    parser.add_argument("--disarm-live-session", action="store_true")
+# ==========================================
+# PHASE 20 ML LAYER CLI COMMANDS
+# ==========================================
 
 
-def handle_execution_args(args):
-    if args.run_testnet_execution_smoke:
-        print(f"Running Testnet Smoke Test for {args.execution_symbol}...")
-        asyncio.run(
-            run_smoke_test(
-                args.execution_symbol,
-                args.execution_side,
-                args.execution_type,
-                args.execution_qty,
-                args.execution_price,
-            )
-        )
-        return True
 
-    if args.arm_mainnet_execution:
-        print(
-            "WARNING: Mainnet execution is now ARMED for this session. Real trades may occur."
-        )
-        # Logic to update gate state
-        return True
 
-    if args.disarm_mainnet - execution:
-        print("Mainnet execution DISARMED.")
-        return True
 
-    return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # NOTE: In the real app/main.py, these functions would be integrated into the main argparser block.
+
+if __name__ == "__main__":
+    try:
+        if hasattr(args, 'run_testnet_execution_smoke') and handle_execution_args(args):
+            sys.exit(0)
+    except NameError:
+        pass
+    try:
+        if hasattr(args, 'build_ml_dataset') and handle_ml_args(args):
+            sys.exit(0)
+    except NameError:
+        pass

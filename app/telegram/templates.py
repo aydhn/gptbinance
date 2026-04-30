@@ -170,3 +170,12 @@ def render_cluster_crowding(run_id: str, cluster_id: str) -> str:
         f"Cluster: {cluster_id}\n"
         f"Allocations into this cluster are being penalized."
     )
+
+
+ML_TRAINING_COMPLETED = "🤖 ML Training Completed\nRun ID: {run_id}\nF1: {f1}"
+ML_PROMOTION_RESULT = (
+    "🤖 ML Promotion Check\nRun ID: {run_id}\nVerdict: {verdict}\nReasons: {reasons}"
+)
+ML_DRIFT_WARNING = (
+    "⚠️ ML Drift Warning\nRun ID: {run_id}\nSeverity: {severity}\nAction: {action}"
+)

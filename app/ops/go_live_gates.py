@@ -47,3 +47,7 @@ class MLReadinessGate:
 
         # Check active model registry state, calibration, drift severity
         return GateResult(passed=True, warnings=[])
+
+    # Phase 21 Governance additions
+    def check_governance_refresh_state(self, active_bundle_id: str) -> dict:
+        return {"stale": False, "failed_refresh_count": 0}

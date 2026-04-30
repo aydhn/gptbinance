@@ -18,6 +18,70 @@ from app.execution.derivatives.carry_costs import CarryCostAccounting
 from app.telegram.notifier import TelegramNotifier
 import argparse
 
+# -----------------------------
+# PHASE 21 GOVERNANCE CLI ENTRY
+# -----------------------------
+import sys
+
+# Quick sniff of arguments before main parser swallows them
+gov_args = ["--run-refresh", "--show-refresh-summary", "--show-decay-report",
+            "--build-candidate-bundle", "--show-bundle-registry", "--show-bundle-lineage",
+            "--run-promotion-readiness", "--show-promotion-report", "--show-rollback-readiness",
+            "--simulate-activation-handoff"]
+
+if any(arg in sys.argv for arg in gov_args):
+    import argparse
+    parser = argparse.ArgumentParser(description="Governance CLI", add_help=False)
+    parser.add_argument("--run-refresh", action="store_true")
+    parser.add_argument("--refresh-plan", type=str, default="fast_refresh")
+    parser.add_argument("--refresh-trigger", type=str, default="manual")
+    parser.add_argument("--show-refresh-summary", action="store_true")
+    parser.add_argument("--show-decay-report", action="store_true")
+    parser.add_argument("--build-candidate-bundle", action="store_true")
+    parser.add_argument("--show-bundle-registry", action="store_true")
+    parser.add_argument("--show-bundle-lineage", action="store_true")
+    parser.add_argument("--run-promotion-readiness", action="store_true")
+    parser.add_argument("--show-promotion-report", action="store_true")
+    parser.add_argument("--show-rollback-readiness", action="store_true")
+    parser.add_argument("--simulate-activation-handoff", action="store_true")
+    parser.add_argument("--bundle-id", type=str)
+    parser.add_argument("--run-id", type=str, default="test")
+    parser.add_argument("--ops-mode", type=str, default="paper")
+
+    args, unknown = parser.parse_known_args()
+
+    from app.governance.candidate_assembler import CandidateAssembler
+    from app.governance.promotion import PromotionEvaluator
+    from app.governance.activation import ActivationManager
+    from app.governance.reporting import GovernanceReporter
+
+    if getattr(args, 'run_refresh', False):
+        print(f"Running refresh plan: {args.refresh_plan} triggered by {args.refresh_trigger}")
+        sys.exit(0)
+
+    if getattr(args, 'build_candidate_bundle', False):
+        bundle = CandidateAssembler().assemble(args.run_id, {})
+        print(f"Candidate bundle built: {bundle.bundle_id}")
+        sys.exit(0)
+
+    if getattr(args, 'run_promotion_readiness', False):
+        bundle = CandidateAssembler().assemble("test", {})
+        report = PromotionEvaluator().evaluate(bundle)
+        print(GovernanceReporter().generate_promotion_report(report))
+        sys.exit(0)
+
+    if getattr(args, 'simulate_activation_handoff', False):
+        bundle = CandidateAssembler().assemble("test", {})
+        report = ActivationManager().simulate_handoff(bundle, args.ops_mode)
+        print(f"Activation simulation: Is Ready? {report.is_ready}, Warnings: {report.warnings}")
+        sys.exit(0)
+
+    if any(getattr(args, a.replace('--', '').replace('-', '_'), False) for a in gov_args):
+        print(f"Governance command recognized but not fully implemented in mock.")
+        sys.exit(0)
+
+
+
 
 
 

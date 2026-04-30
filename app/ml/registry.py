@@ -11,3 +11,8 @@ class ModelRegistry:
 
     def get(self, run_id: str) -> ModelRegistryEntry:
         return self.entries.get(run_id)
+
+    # Phase 21 additions
+    def get_stage_refs(self, stage: str) -> list:
+        # Mock for returning models linked to a stage
+        return []

@@ -3,6 +3,10 @@ import time
 from typing import Dict, Any, List
 from datetime import datetime
 
+from app.portfolio.engine import PortfolioEngine
+from app.portfolio.models import PortfolioIntentBatch
+
+
 from app.execution.live_runtime.enums import (
     LiveSessionStatus,
     SessionArmingStatus,
@@ -40,11 +44,13 @@ class LiveOrchestrator:
         execution_gateway: Any,
         account_sync: AccountSynchronizer,
         notifier: LiveNotifierBridge,
+        portfolio_engine: PortfolioEngine = None,
     ):
         self.run = LiveRun(run_id=run_id, config=config)
         self.execution_gateway = execution_gateway
         self.account_sync = account_sync
         self.notifier = notifier
+        self.portfolio_engine = portfolio_engine
 
         self.gate_evaluator = LiveStartGateEvaluator()
         self.cap_enforcer = CapitalCapEnforcer(config.capital_caps)

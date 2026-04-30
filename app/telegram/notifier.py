@@ -1,6 +1,6 @@
 import logging
 import requests
-from typing import Optional
+from typing import Optional, Any
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +29,17 @@ class BaseNotifier:
         pass
 
     def notify_rollback(self, run_id: str, severity: str, reason: str) -> None:
+        pass
+
+    def notify_portfolio_allocation(self, run_id: str, summary: Any) -> None:
+        pass
+
+    def notify_concentration_warning(
+        self, run_id: str, severity: str, breaches: list
+    ) -> None:
+        pass
+
+    def notify_capital_exhausted(self, run_id: str, available: float) -> None:
         pass
 
 
@@ -60,6 +71,26 @@ class TelegramNotifier(BaseNotifier):
                 f"Telegram connection error: {e}",
                 extra={"event_category": "telegram_error"},
             )
+
+    def notify_portfolio_allocation(self, run_id: str, summary: Any) -> None:
+        from app.telegram.templates import render_portfolio_summary
+
+        msg = render_portfolio_summary(run_id, summary)
+        self.send_message(msg)
+
+    def notify_concentration_warning(
+        self, run_id: str, severity: str, breaches: list
+    ) -> None:
+        from app.telegram.templates import render_concentration_warning
+
+        msg = render_concentration_warning(run_id, severity, breaches)
+        self.send_message(msg)
+
+    def notify_capital_exhausted(self, run_id: str, available: float) -> None:
+        from app.telegram.templates import render_capital_exhausted
+
+        msg = render_capital_exhausted(run_id, available)
+        self.send_message(msg)
 
 
 def get_notifier(config) -> BaseNotifier:

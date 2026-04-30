@@ -11,6 +11,18 @@ from app.risk.repository import RiskRepository
 from app.risk.storage import RiskStorage
 from app.risk.exposure import ExposureCalculator
 from app.risk.enums import RiskVerdict
+
+from app.portfolio.engine import PortfolioEngine
+from app.portfolio.models import (
+    PortfolioConfig,
+    PortfolioContext,
+    PortfolioBudgetSnapshot,
+    PortfolioExposureSnapshot,
+    CorrelationSnapshot,
+    ConcentrationSnapshot,
+    PortfolioIntentBatch,
+)
+
 from typing import Optional, List, Dict, Any
 import uuid
 from datetime import datetime
@@ -59,6 +71,10 @@ class BacktestEngine:
         self.risk_storage = RiskStorage()
         self.risk_repository = RiskRepository(self.risk_storage)
         self.exposure_calculator = ExposureCalculator()
+
+        # Portfolio Engine Setup
+        self.portfolio_config = PortfolioConfig()
+        self.portfolio_engine = PortfolioEngine(self.portfolio_config)
 
         # Load mock strategy just to test the flow
 
@@ -162,6 +178,7 @@ class BacktestEngine:
                     volatility_multiplier=1.0,  # Mock or extract from features
                 )
 
+                risk_approved_intents = []
                 for ri in raw_intents:
                     req = RiskEvaluationRequest(
                         intent=ri,
@@ -178,9 +195,51 @@ class BacktestEngine:
                     ):
                         approved = bundle.decision.approved_intent
                         approved.is_risk_approved = True
-                        pending_intents.append(approved)
-                    else:
-                        pass  # Rejected by risk
+                        risk_approved_intents.append(approved)
+
+                # 6. Route through Portfolio Engine
+                if risk_approved_intents:
+                    portfolio_context = PortfolioContext(
+                        timestamp=step_context.timestamp,
+                        budget=PortfolioBudgetSnapshot(
+                            timestamp=step_context.timestamp,
+                            total_capital=self.config.initial_capital,
+                            reserved_capital=0.0,
+                            available_capital=self.equity_tracker.cash,
+                            pending_allocations_notional=0.0,
+                        ),
+                        exposure=PortfolioExposureSnapshot(
+                            timestamp=step_context.timestamp,
+                            total_exposure=exposure_snap.total_gross_exposure,
+                            long_exposure=exposure_snap.total_long_exposure,
+                            short_exposure=exposure_snap.total_short_exposure,
+                        ),
+                        correlation=CorrelationSnapshot(
+                            timestamp=step_context.timestamp
+                        ),
+                        concentration=ConcentrationSnapshot(
+                            timestamp=step_context.timestamp
+                        ),
+                    )
+
+                    intent_batch = PortfolioIntentBatch(
+                        timestamp=step_context.timestamp,
+                        run_id=self.run.run_id,
+                        risk_approved_intents=risk_approved_intents,
+                    )
+
+                    decision_batch = self.portfolio_engine.process_intents(
+                        intent_batch, portfolio_context
+                    )
+
+                    from app.portfolio.enums import PortfolioVerdict
+
+                    for decision in decision_batch.decisions:
+                        if decision.verdict in (
+                            PortfolioVerdict.APPROVE,
+                            PortfolioVerdict.REDUCE,
+                        ):
+                            pending_intents.append(decision.approved_intent)
 
         # Force close open position at end
         if self.position_manager.state.side != PositionSide.FLAT:

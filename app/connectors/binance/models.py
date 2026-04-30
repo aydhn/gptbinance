@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class BinanceProfileConfig(BaseModel):
     api_key: str = ""
     api_secret: str = ""

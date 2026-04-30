@@ -14,6 +14,22 @@ class GoLiveGate:
                 recommended_actions=["Use canary_live or capped_live rollout modes."],
             )
 
+        # Portfolio readiness check placeholder
+        portfolio_readiness_passed = (
+            True  # In reality, check concentration/correlation snapshot
+        )
+        if not portfolio_readiness_passed:
+            return GoLiveGateReport(
+                verdict=GoLiveVerdict.FAIL,
+                reasons=[
+                    "Portfolio readiness failed: concentration or correlation limits exceeded."
+                ],
+                blockers=["Portfolio Risk Block"],
+                recommended_actions=[
+                    "Review portfolio correlation snapshot and sleeve usage."
+                ],
+            )
+
         # If canary or capped, pass it up to LiveStartGateEvaluator to do the detailed check
         if rollout_mode in ["canary_live", "capped_live"]:
             return GoLiveGateReport(

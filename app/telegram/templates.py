@@ -128,3 +128,45 @@ def render_live_rollback(run_id: str, severity: str, reason: str) -> str:
         f"Reason: {reason}\n"
         f"Mainnet Disarmed."
     )
+
+
+def render_portfolio_summary(run_id: str, summary: Any) -> str:
+    return (
+        f"📊 <b>Portfolio Allocation Summary</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Evaluated: {summary.total_intents_evaluated}\n"
+        f"Approved: {summary.total_approved}\n"
+        f"Reduced: {summary.total_reduced}\n"
+        f"Deferred: {summary.total_deferred}\n"
+        f"Rejected: {summary.total_rejected}\n"
+        f"Allocated Notional: ${summary.total_allocated_notional:.2f}\n"
+        f"Concentration: {summary.concentration_severity.value}"
+    )
+
+
+def render_concentration_warning(run_id: str, severity: str, breaches: list) -> str:
+    breach_str = "\n".join([f"  - {b}" for b in breaches])
+    return (
+        f"⚠️ <b>Portfolio Concentration Warning</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Severity: {severity}\n"
+        f"Breaches:\n{breach_str}"
+    )
+
+
+def render_capital_exhausted(run_id: str, available: float) -> str:
+    return (
+        f"💸 <b>Capital Budget Exhausted</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Remaining Available: ${available:.2f}\n"
+        f"New allocations may be deferred or rejected."
+    )
+
+
+def render_cluster_crowding(run_id: str, cluster_id: str) -> str:
+    return (
+        f"🐑 <b>Correlated Cluster Crowding</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Cluster: {cluster_id}\n"
+        f"Allocations into this cluster are being penalized."
+    )

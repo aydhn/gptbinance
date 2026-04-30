@@ -50,6 +50,23 @@ def parse_args():
         action="store_true",
         help="Print a summary of the active Binance symbol universe and exit.",
     )
+
+    parser.add_argument("--run-portfolio-allocation", action="store_true")
+    parser.add_argument(
+        "--portfolio-symbols", type=str, default="BTCUSDT,ETHUSDT,SOLUSDT"
+    )
+    parser.add_argument("--portfolio-strategy-set", type=str, default="core")
+    parser.add_argument("--portfolio-feature-set", type=str, default="core_trend_vol")
+    parser.add_argument("--portfolio-budget", type=float, default=1000.0)
+    parser.add_argument("--portfolio-allocation-mode", type=str, default="conservative")
+
+    parser.add_argument("--show-portfolio-summary", action="store_true")
+    parser.add_argument("--show-portfolio-ranking", action="store_true")
+    parser.add_argument("--show-portfolio-decisions", action="store_true")
+    parser.add_argument("--show-correlation-snapshot", action="store_true")
+    parser.add_argument("--show-concentration-report", action="store_true")
+    parser.add_argument("--show-sleeve-usage", action="store_true")
+
     return parser.parse_args()
 
 

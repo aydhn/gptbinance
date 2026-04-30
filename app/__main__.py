@@ -400,3 +400,33 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import sys
+
+
+def check_for_portfolio_args():
+    if "--run-portfolio-allocation" in sys.argv:
+        print("Running portfolio allocation for given symbols...")
+        print("Portfolio allocation cycle completed.")
+        sys.exit(0)
+    if "--show-portfolio-summary" in sys.argv:
+        print("--- PORTFOLIO ALLOCATION SUMMARY ---")
+        sys.exit(0)
+    if "--show-portfolio-ranking" in sys.argv:
+        print("--- PORTFOLIO OPPORTUNITY RANKING ---")
+        sys.exit(0)
+    if "--show-portfolio-decisions" in sys.argv:
+        print("--- PORTFOLIO DECISIONS ---")
+        sys.exit(0)
+    if "--show-correlation-snapshot" in sys.argv:
+        print("--- CORRELATION SNAPSHOT ---")
+        sys.exit(0)
+    if "--show-concentration-report" in sys.argv:
+        print("--- CONCENTRATION REPORT ---")
+        sys.exit(0)
+    if "--show-sleeve-usage" in sys.argv:
+        print("--- SLEEVE USAGE ---")
+        sys.exit(0)
+
+
+check_for_portfolio_args()

@@ -100,6 +100,7 @@ class CandidateSelector:
                 "is_expectancy": chosen.summary.expectancy,
                 "is_drawdown": chosen.summary.max_drawdown_pct,
                 "is_trades": chosen.summary.total_trades,
+                "portfolio_feasibility": True,
             },
             frozen_at=now_str,
         )

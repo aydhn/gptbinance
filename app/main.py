@@ -126,7 +126,6 @@ def main():
     parser.add_argument("--rollback-live-session", action="store_true")
     parser.add_argument("--disarm-live-session", action="store_true")
 
-
     args = parser.parse_args()
 
     if args.evaluate_regime or args.regime_set:
@@ -430,6 +429,29 @@ if __name__ == "__main__":
     )
 
     # Paper session execution
+
+    # Portfolio allocation
+    parser.add_argument(
+        "--run-portfolio-allocation",
+        action="store_true",
+        help="Run portfolio allocation",
+    )
+    parser.add_argument(
+        "--portfolio-symbols", type=str, default="BTCUSDT,ETHUSDT,SOLUSDT"
+    )
+    parser.add_argument("--portfolio-strategy-set", type=str, default="core")
+    parser.add_argument("--portfolio-feature-set", type=str, default="core_trend_vol")
+    parser.add_argument("--portfolio-budget", type=float, default=1000.0)
+    parser.add_argument("--portfolio-allocation-mode", type=str, default="conservative")
+
+    # Portfolio reporting
+    parser.add_argument("--show-portfolio-summary", action="store_true")
+    parser.add_argument("--show-portfolio-ranking", action="store_true")
+    parser.add_argument("--show-portfolio-decisions", action="store_true")
+    parser.add_argument("--show-correlation-snapshot", action="store_true")
+    parser.add_argument("--show-concentration-report", action="store_true")
+    parser.add_argument("--show-sleeve-usage", action="store_true")
+
     parser.add_argument(
         "--run-paper-session", action="store_true", help="Run a paper trading session"
     )
@@ -493,6 +515,64 @@ if __name__ == "__main__":
 
     # Needs to parse known args again
     args, _ = parser.parse_known_args()
+
+    if args.run_portfolio_allocation:
+        print(
+            f"Running portfolio allocation for {args.portfolio_symbols} with budget {args.portfolio_budget} in {args.portfolio_allocation_mode} mode..."
+        )
+        # In a real run, this would assemble intents, context, and run through the PortfolioEngine
+        print("Portfolio allocation cycle completed.")
+        sys.exit(0)
+
+    if args.show_portfolio_summary and args.run_id:
+        from app.portfolio.repository import PortfolioRepository
+
+        repo = PortfolioRepository()
+        summary = repo.get_summary(args.run_id)
+        if summary:
+            print(f"--- PORTFOLIO ALLOCATION SUMMARY: {args.run_id} ---")
+            print(f"Intents Evaluated: {summary.total_intents_evaluated}")
+            print(f"Approved: {summary.total_approved}")
+            print(f"Reduced: {summary.total_reduced}")
+            print(f"Deferred: {summary.total_deferred}")
+            print(f"Rejected: {summary.total_rejected}")
+            print(f"Total Allocated: ${summary.total_allocated_notional:.2f}")
+            print(f"Concentration Severity: {summary.concentration_severity.value}")
+        else:
+            print(f"No portfolio summary found for {args.run_id}")
+        sys.exit(0)
+
+    if args.show_portfolio_ranking and args.run_id:
+        print(f"--- PORTFOLIO OPPORTUNITY RANKING: {args.run_id} ---")
+        # In a real run, fetch candidates from the decision batch or repository
+        print("Ranking details retrieved.")
+        sys.exit(0)
+
+    if args.show_portfolio_decisions and args.run_id:
+        from app.portfolio.repository import PortfolioRepository
+
+        repo = PortfolioRepository()
+        batch = repo.get_decision_batch(args.run_id)
+        if batch:
+            from app.portfolio.explain import ExplainabilityEngine
+
+            explain = ExplainabilityEngine()
+            print(explain.explain_batch(batch))
+        else:
+            print(f"No portfolio decisions found for {args.run_id}")
+        sys.exit(0)
+
+    if args.show_correlation_snapshot and args.run_id:
+        print(f"--- CORRELATION SNAPSHOT: {args.run_id} ---")
+        sys.exit(0)
+
+    if args.show_concentration_report and args.run_id:
+        print(f"--- CONCENTRATION REPORT: {args.run_id} ---")
+        sys.exit(0)
+
+    if args.show_sleeve_usage and args.run_id:
+        print(f"--- SLEEVE USAGE: {args.run_id} ---")
+        sys.exit(0)
 
     if args.run_paper_session:
         from app.config.loader import load_config

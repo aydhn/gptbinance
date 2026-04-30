@@ -1,8 +1,10 @@
 from enum import Enum, auto
 
+
 class OrderSide(Enum):
     BUY = "BUY"
     SELL = "SELL"
+
 
 class OrderType(Enum):
     LIMIT = "LIMIT"

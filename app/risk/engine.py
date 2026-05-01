@@ -35,7 +35,7 @@ class RiskEngine:
             timestamp=datetime.utcnow(),
             request_id=str(uuid.uuid4()),
             decision=decision,
-            kill_switch_state=self.state_manager.get_kill_switch_state(),
+            kill_switch_state=self.state_manager.kill_switch_state,
         )
 
     def configure_derivatives(self, derivative_risk: DerivativeRiskController):

@@ -1,3 +1,3 @@
-# Mock incident module
-def has_active_incident() -> bool:
-    return False
+class IncidentHandler:
+    def __init__(self, repo):
+        self.repo = repo

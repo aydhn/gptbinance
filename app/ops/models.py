@@ -148,3 +148,17 @@ class RolloverSummary(BaseModel):
     total_orders: int
     incidents_count: int
     status: str
+
+
+from app.ops.enums import ReadinessVerdict
+
+class ComponentReadiness(BaseModel):
+    component: str
+    verdict: ReadinessVerdict
+    message: str = ""
+
+class ReadinessReport(BaseModel):
+    timestamp: datetime
+    run_id: str
+    overall_verdict: ReadinessVerdict
+    components: List[ComponentReadiness] = []

@@ -138,3 +138,6 @@ def get_notifier(config) -> BaseNotifier:
     async def notify_governance_event(self, event_type: str, details: dict):
         # Mute logging or send actual TG msg
         print(f"TELEGRAM GOVERNANCE: {event_type} - {details}")
+
+    def send_automation_alert(self, msg: str, severity: str = "warning"):
+        self.send_message(f"[{severity.upper()}] {msg}")

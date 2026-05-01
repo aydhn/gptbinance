@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from app.strategies.conflicts import ConflictResolver
 from app.strategies.models import EntryIntentCandidate
 from app.strategies.enums import SignalDirection, ResolutionType, ConflictType
@@ -6,7 +6,7 @@ from app.strategies.enums import SignalDirection, ResolutionType, ConflictType
 
 def test_conflict_resolver():
     resolver = ConflictResolver()
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     i1 = EntryIntentCandidate(
         strategy_name="s1",

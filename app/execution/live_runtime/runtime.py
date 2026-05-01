@@ -258,3 +258,12 @@ class LiveOrchestrator:
 
     def get_active_bundle_lineage(self):
         return getattr(self, "active_bundle_id", None)
+
+    # Phase 22 Analytics hook
+    def get_live_analytics_refs(self) -> dict:
+        return {
+            "run_id": self.run.run_id,
+            "active_bundle": getattr(self, "active_bundle_id", None),
+            "audit_trail": getattr(self.audit_writer, "get_records", lambda: [])(),
+            "positions": getattr(self.position_manager, "get_book", lambda: None)()
+        }

@@ -176,6 +176,59 @@ def add_ml_args(parser):
 
     parser.add_argument("--show-drift-report", action="store_true")
     parser.add_argument("--run-ml-promotion-check", action="store_true")
+
+def add_analytics_args(parser):
+    parser.add_argument("--run-analytics", action="store_true")
+    parser.add_argument("--analytics-scope", type=str, default="session")
+    parser.add_argument("--analytics-period", type=str)
+    parser.add_argument("--show-trade-journal", action="store_true")
+    parser.add_argument("--show-strategy-attribution", action="store_true")
+    parser.add_argument("--show-regime-attribution", action="store_true")
+    parser.add_argument("--show-portfolio-attribution", action="store_true")
+    parser.add_argument("--show-execution-quality", action="store_true")
+    parser.add_argument("--show-slippage-report", action="store_true")
+    parser.add_argument("--show-divergence-report", action="store_true")
+    parser.add_argument("--show-anomaly-report", action="store_true")
+    parser.add_argument("--show-root-cause-diagnostics", action="store_true")
+    parser.add_argument("--show-periodic-summary", action="store_true")
+
+def handle_analytics_args(args):
+    if args.run_analytics:
+        print(f"Running analytics for scope: {args.analytics_scope}")
+        return True
+    if args.show_trade_journal:
+        print(f"Showing trade journal for run: {args.run_id}")
+        return True
+    if args.show_strategy_attribution:
+        print(f"Showing strategy attribution for run: {args.run_id}")
+        return True
+    if args.show_regime_attribution:
+        print(f"Showing regime attribution for run: {args.run_id}")
+        return True
+    if args.show_portfolio_attribution:
+        print(f"Showing portfolio attribution for run: {args.run_id}")
+        return True
+    if args.show_execution_quality:
+        print(f"Showing execution quality for run: {args.run_id}")
+        return True
+    if args.show_slippage_report:
+        print(f"Showing slippage report for run: {args.run_id}")
+        return True
+    if args.show_divergence_report:
+        print(f"Showing divergence report for run: {args.run_id}")
+        return True
+    if args.show_anomaly_report:
+        print(f"Showing anomaly report for run: {args.run_id}")
+        return True
+    if args.show_root_cause_diagnostics:
+        print(f"Showing root cause diagnostics for run: {args.run_id}")
+        return True
+    if args.show_periodic_summary:
+        print(f"Showing periodic summary for run: {args.run_id}")
+        return True
+    return False
+
+
 def handle_execution_args(args):
     if args.run_testnet_execution_smoke:
         print(f"Running Testnet Smoke Test for {args.execution_symbol}...")
@@ -1338,6 +1391,12 @@ if __name__ == "__main__":
         pass
     try:
         if hasattr(args, 'build_ml_dataset') and handle_ml_args(args):
+            sys.exit(0)
+    except NameError:
+        pass
+
+    try:
+        if hasattr(args, 'run_analytics') and handle_analytics_args(args):
             sys.exit(0)
     except NameError:
         pass

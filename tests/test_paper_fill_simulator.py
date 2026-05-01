@@ -1,7 +1,7 @@
 import pytest
 from app.execution.paper.models import PaperOrder, PaperOrderStatus, FillTrigger
 from app.execution.paper.fill_simulator import PaperFillSimulator
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def test_fill_simulator_next_tick():
@@ -13,7 +13,7 @@ def test_fill_simulator_next_tick():
         side="BUY",
         qty=1.0,
         status=PaperOrderStatus.ACCEPTED,
-        created_at=datetime.utcnow(),
+        created_at=datetime.now(timezone.utc),
     )
 
     fills = sim.evaluate([order], current_price=50000.0, is_closed_bar=False)
@@ -30,7 +30,7 @@ def test_fill_simulator_slippage():
         side="BUY",
         qty=1.0,
         status=PaperOrderStatus.ACCEPTED,
-        created_at=datetime.utcnow(),
+        created_at=datetime.now(timezone.utc),
     )
 
     fills = sim.evaluate([order], current_price=100.0, is_closed_bar=False)
@@ -44,7 +44,7 @@ def test_fill_simulator_slippage():
         side="SELL",
         qty=1.0,
         status=PaperOrderStatus.ACCEPTED,
-        created_at=datetime.utcnow(),
+        created_at=datetime.now(timezone.utc),
     )
     fills2 = sim.evaluate([order2], current_price=100.0, is_closed_bar=False)
     assert len(fills2) == 1

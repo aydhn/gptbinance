@@ -183,3 +183,46 @@ ML_DRIFT_WARNING = (
 GOVERNANCE_REFRESH_COMPLETED = "Governance refresh {run_id} completed. Status: {status}"
 GOVERNANCE_DECAY_WARNING = "Decay warning for {bundle_id}. Type: {degradation_type}, Severity: {severity}"
 GOVERNANCE_PROMOTION_BLOCKED = "Promotion for {bundle_id} blocked. Blockers: {blockers}"
+
+# Phase 22 Analytics Templates
+
+def render_execution_quality_degraded(run_id: str, submit: int, rej: int) -> str:
+    return (
+        f"🚨 <b>Execution Quality Degraded</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Submit: {submit}, Rejects: {rej}"
+    )
+
+def render_divergence_warning(run_id: str, div_type: str, severity: str, evidence: str) -> str:
+    return (
+        f"⚠️ <b>Divergence Warning</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Type: {div_type}\n"
+        f"Severity: {severity}\n"
+        f"Evidence: {evidence}"
+    )
+
+def render_anomaly_cluster(run_id: str, anomaly_type: str, evidence: str) -> str:
+    return (
+        f"👽 <b>Anomaly Cluster Detected</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Type: {anomaly_type}\n"
+        f"Evidence: {evidence}"
+    )
+
+def render_strategy_decay_warning(run_id: str, family: str, hit_rate: float) -> str:
+    return (
+        f"📉 <b>Strategy Decay Warning</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Family: {family}\n"
+        f"Hit Rate dropped to: {hit_rate*100:.1f}%"
+    )
+
+def render_root_cause_summary(run_id: str, hypothesis_id: str, causes: list) -> str:
+    c_str = "\n".join([f" - {c}" for c in causes])
+    return (
+        f"🔬 <b>Root Cause Hypothesis</b>\n"
+        f"Run ID: <code>{run_id}</code>\n"
+        f"Hypothesis ID: {hypothesis_id}\n"
+        f"Probable Causes:\n{c_str}"
+    )

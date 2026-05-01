@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from app.strategies.models import StrategyContext, StrategySpec
 from app.strategies.enums import StrategyType, SignalDirection
 
@@ -13,7 +13,7 @@ def test_trend_follow_core():
     ctx = StrategyContext(
         symbol="BTC",
         interval="15m",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         features={
             "sma_fast": 105.0,
             "sma_slow": 100.0,
@@ -40,7 +40,7 @@ def test_mean_reversion_core():
     ctx = StrategyContext(
         symbol="BTC",
         interval="15m",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         features={
             "rsi": 25.0,
             "close": 98.0,

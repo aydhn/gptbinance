@@ -1,5 +1,5 @@
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 from app.portfolio.models import (
     PortfolioConfig,
     PortfolioContext,
@@ -18,22 +18,22 @@ def test_max_symbol_weight():
     manager = PortfolioPolicyManager(config)
 
     context = PortfolioContext(
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         budget=PortfolioBudgetSnapshot(
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             total_capital=1000.0,
             reserved_capital=0,
             available_capital=1000.0,
             pending_allocations_notional=0.0,
         ),
         exposure=PortfolioExposureSnapshot(
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             total_exposure=0,
             long_exposure=0,
             short_exposure=0,
         ),
-        correlation=CorrelationSnapshot(timestamp=datetime.utcnow()),
-        concentration=ConcentrationSnapshot(timestamp=datetime.utcnow()),
+        correlation=CorrelationSnapshot(timestamp=datetime.now(timezone.utc)),
+        concentration=ConcentrationSnapshot(timestamp=datetime.now(timezone.utc)),
     )
     context.symbol_sleeves["BTCUSDT"] = SymbolSleeve(
         symbol="BTCUSDT", budget_notional=200, used_notional=100
@@ -56,22 +56,22 @@ def test_reserve_cash_ratio():
     manager = PortfolioPolicyManager(config)
 
     context = PortfolioContext(
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         budget=PortfolioBudgetSnapshot(
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             total_capital=1000.0,
             reserved_capital=100.0,
             available_capital=200.0,  # only 200 available right now
             pending_allocations_notional=0.0,
         ),
         exposure=PortfolioExposureSnapshot(
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             total_exposure=0,
             long_exposure=0,
             short_exposure=0,
         ),
-        correlation=CorrelationSnapshot(timestamp=datetime.utcnow()),
-        concentration=ConcentrationSnapshot(timestamp=datetime.utcnow()),
+        correlation=CorrelationSnapshot(timestamp=datetime.now(timezone.utc)),
+        concentration=ConcentrationSnapshot(timestamp=datetime.now(timezone.utc)),
     )
 
     # allocate 50 -> avail becomes 150. 150 >= 100 (reserved) -> OK

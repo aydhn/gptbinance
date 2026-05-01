@@ -1,11 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from app.strategies.cooldowns import CooldownManager
 from app.strategies.enums import CooldownScope
 
 
 def test_cooldown_manager():
     manager = CooldownManager()
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     manager.apply_cooldown(CooldownScope.SYMBOL, "BTC", 300, "test", now)
 

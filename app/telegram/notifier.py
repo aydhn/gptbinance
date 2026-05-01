@@ -95,7 +95,33 @@ class TelegramNotifier(BaseNotifier):
         self.send_message(msg)
 
 
+
+    # Phase 22 Analytics Additions
+    def notify_analytics_summary(self, summary_text: str) -> None:
+        self.send_message(summary_text)
+
+    def notify_execution_degraded(self, run_id: str, submit: int, rej: int) -> None:
+        from app.telegram.templates import render_execution_quality_degraded
+        self.send_message(render_execution_quality_degraded(run_id, submit, rej))
+
+    def notify_divergence_warning(self, run_id: str, div_type: str, severity: str, evidence: str) -> None:
+        from app.telegram.templates import render_divergence_warning
+        self.send_message(render_divergence_warning(run_id, div_type, severity, evidence))
+
+    def notify_anomaly_cluster(self, run_id: str, anomaly_type: str, evidence: str) -> None:
+        from app.telegram.templates import render_anomaly_cluster
+        self.send_message(render_anomaly_cluster(run_id, anomaly_type, evidence))
+
+    def notify_strategy_decay(self, run_id: str, family: str, hit_rate: float) -> None:
+        from app.telegram.templates import render_strategy_decay_warning
+        self.send_message(render_strategy_decay_warning(run_id, family, hit_rate))
+
+    def notify_root_cause(self, run_id: str, hypothesis_id: str, causes: list) -> None:
+        from app.telegram.templates import render_root_cause_summary
+        self.send_message(render_root_cause_summary(run_id, hypothesis_id, causes))
+
 def get_notifier(config) -> BaseNotifier:
+
     if (
         hasattr(config, "telegram")
         and config.telegram.enabled

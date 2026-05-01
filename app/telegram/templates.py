@@ -226,3 +226,24 @@ def render_root_cause_summary(run_id: str, hypothesis_id: str, causes: list) -> 
         f"Hypothesis ID: {hypothesis_id}\n"
         f"Probable Causes:\n{c_str}"
     )
+
+def format_job_failed_message(job_name: str, job_id: str, error: str) -> str:
+    return f"🚨 *AUTOMATION JOB FAILED*\n\nJob: `{job_name}` (`{job_id}`)\nError: `{error}`\nStatus: Manual intervention may be required."
+
+def format_retry_exhausted_message(job_name: str, attempts: int) -> str:
+    return f"⚠️ *RETRY EXHAUSTED*\n\nJob: `{job_name}`\nFailed after `{attempts}` attempts."
+
+def format_workflow_blocked_message(workflow_name: str, reason: str) -> str:
+    return f"🛑 *WORKFLOW BLOCKED*\n\nWorkflow: `{workflow_name}`\nReason: `{reason}`"
+
+def format_nightly_refresh_completed() -> str:
+    return "✅ *NIGHTLY REFRESH COMPLETED*\n\nData and feature environments are updated."
+
+def format_daily_analytics_ready() -> str:
+    return "📊 *DAILY ANALYTICS READY*\n\nDaily analytics and reconciliations are available."
+
+def format_maintenance_defer_notice(job_name: str) -> str:
+    return f"⏸️ *JOB DEFERRED*\n\nJob: `{job_name}`\nDeferred due to active maintenance window."
+
+def format_readiness_failed_scheduled_run(job_name: str) -> str:
+    return f"❌ *READINESS CHECK FAILED*\n\nScheduled check `{job_name}` failed."

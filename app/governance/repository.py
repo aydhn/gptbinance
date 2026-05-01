@@ -16,3 +16,12 @@ class GovernanceRepository:
 
     def get_active_bundle(self):
         return self.registry.get_active_bundle()
+
+    # Phase 22 Analytics hook
+    def get_analytics_refs(self) -> dict:
+        return {
+            "active_bundle": self.get_active_bundle(),
+            "candidate_lineage": [], # Mock
+            "decay_reports": [], # Mock
+            "promotion_reports": [] # Mock
+        }

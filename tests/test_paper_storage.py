@@ -1,6 +1,6 @@
 import pytest
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from app.execution.paper.storage import PaperStorage
 from app.execution.paper.models import (
     PaperSessionConfig,
@@ -28,7 +28,7 @@ def test_manifest_storage(storage):
     config = PaperSessionConfig(symbols=["BTCUSDT"], stream_types=["kline"])
     summary = PaperRuntimeSummary(
         run_id="run1",
-        start_time=datetime.utcnow(),
+        start_time=datetime.now(timezone.utc),
         total_orders=10,
         total_fills=5,
         final_equity=10500.0,

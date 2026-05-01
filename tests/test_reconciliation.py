@@ -3,7 +3,7 @@ from app.execution.live.reconciliation import ReconciliationEngine
 from app.execution.live.order_state_store import InMemoryOrderStateStore
 from app.execution.live.models import OrderStateSnapshot
 from app.execution.live.enums import OrderLifecycleStatus, ReconciliationStatus
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class MockBinanceClient:
@@ -24,7 +24,7 @@ async def test_reconciliation_drift():
             symbol="BTC",
             status=OrderLifecycleStatus.ACKNOWLEDGED,
             is_open=True,
-            last_update=datetime.utcnow(),
+            last_update=datetime.now(timezone.utc),
         )
     )
 

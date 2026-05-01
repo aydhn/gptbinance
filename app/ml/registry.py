@@ -16,3 +16,11 @@ class ModelRegistry:
     def get_stage_refs(self, stage: str) -> list:
         # Mock for returning models linked to a stage
         return []
+
+    # Phase 22 Analytics hook
+    def get_analytics_refs(self) -> dict:
+        return {
+            "active_models": self.entries,
+            "drift_reports": [], # Mock
+            "calibration_refs": [] # Mock
+        }

@@ -10,7 +10,7 @@ from app.research.features.models import (
     FeatureQualityReport,
 )
 from app.research.features.enums import FeatureQualityStatus
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @pytest.fixture
@@ -27,7 +27,7 @@ def test_feature_storage_save_load(temp_storage_dir):
 
     lineage = FeatureLineage(
         run_id="test_run",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         feature_set_name="test_set",
         symbol="BTC",
         interval="1h",

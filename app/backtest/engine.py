@@ -289,4 +289,12 @@ class BacktestEngine:
             total_bars=bar_count,
         )
 
+
+        # Phase 22 Analytics hook
+        self.run.analytics_refs = {
+            "ledger": self.ledger.get_completed_trades(),
+            "risk_refs": getattr(self.risk_repository, "get_audit_trail", lambda x: [])(self.run.run_id),
+            "portfolio_refs": getattr(self.portfolio_repository, "get_decision_batch", lambda x: None)(self.run.run_id)
+        }
+
         return BacktestResult(run=self.run, summary=summary)

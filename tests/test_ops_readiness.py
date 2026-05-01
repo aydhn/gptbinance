@@ -6,7 +6,7 @@ from app.ops.maintenance import MaintenanceScheduler
 from app.ops.incidents import IncidentHandler
 from app.ops.repository import OpsRepository
 from app.ops.storage import OpsStorage
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def test_readiness_fails_with_maintenance(repo):
     config = OpsConfig(run_id="run-2", mode=OpsMode.PAPER)
 
     # Schedule active maintenance
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     maint.schedule_window(
         now - timedelta(minutes=10), now + timedelta(minutes=10), "Test Window"
     )

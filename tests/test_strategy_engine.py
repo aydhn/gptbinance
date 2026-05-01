@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from app.strategies.engine import StrategyEngine
 from app.strategies.models import (
     StrategySpec,
@@ -36,7 +36,7 @@ def test_strategy_engine():
     engine = StrategyEngine()
     engine.initialize_strategies([spec])
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     # Test no trigger
     batch = engine.evaluate("BTC", "15m", now, {"trigger": False})

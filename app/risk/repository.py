@@ -43,3 +43,9 @@ class RiskRepository:
 
     def get_audit_trail(self, run_id: str) -> List[RiskAuditRecord]:
         return self.storage.get_by_run(run_id)
+
+    # Phase 22 Analytics hook
+    def get_analytics_refs(self, run_id: str) -> dict:
+        return {
+            "audit_trail": self.get_audit_trail(run_id)
+        }

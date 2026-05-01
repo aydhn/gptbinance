@@ -1,7 +1,7 @@
 from app.execution.live.order_state_store import InMemoryOrderStateStore
 from app.execution.live.models import OrderStateSnapshot
 from app.execution.live.enums import OrderLifecycleStatus
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 
 
@@ -11,7 +11,7 @@ def test_order_state_store():
         client_order_id="c1",
         symbol="BTCUSDT",
         status=OrderLifecycleStatus.PENDING_SUBMIT,
-        last_update=datetime.utcnow(),
+        last_update=datetime.now(timezone.utc),
         is_open=True,
     )
     store.save_state(snapshot)

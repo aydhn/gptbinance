@@ -3,7 +3,7 @@ from app.execution.live.cancel_replace import CancelReplaceEngine
 from app.execution.live.models import CancelRequest, OrderStateSnapshot
 from app.execution.live.enums import OrderLifecycleStatus
 from app.execution.live.order_state_store import InMemoryOrderStateStore
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class MockExecutor:
@@ -30,7 +30,7 @@ async def test_execute_cancel_success():
             symbol="BTCUSDT",
             status=OrderLifecycleStatus.ACKNOWLEDGED,
             is_open=True,
-            last_update=datetime.utcnow(),
+            last_update=datetime.now(timezone.utc),
         )
     )
 

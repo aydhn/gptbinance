@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from app.strategies.filters import trend_filter, volatility_filter, stale_feature_filter
 
 
@@ -15,6 +15,6 @@ def test_volatility_filter():
 
 
 def test_stale_feature_filter():
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     assert stale_feature_filter(now - timedelta(seconds=100), now, 300).passed
     assert not stale_feature_filter(now - timedelta(seconds=400), now, 300).passed

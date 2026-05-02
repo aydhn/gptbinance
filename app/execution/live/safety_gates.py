@@ -63,6 +63,7 @@ class SafetyGateManager:
             MainnetDisarmedGate(),
             SessionReadinessGate(),
             RolloutModeAllowedGate(),
+            ReleaseVersionGate(),
         ]
 
     def add_gate(self, gate: SafetyGate):
@@ -76,4 +77,10 @@ class SafetyGateManager:
             if not result.passed:
                 logger.warning(f"Safety gate blocked execution: {result.reason}")
                 return result
+        return SafeExecutionGateResult(passed=True)
+
+class ReleaseVersionGate(SafetyGate):
+    def check(self, config: ExecutionConfig, context: Dict[str, Any]) -> SafeExecutionGateResult:
+        if context.get("version_mismatch"):
+            return SafeExecutionGateResult(passed=False, reason="Version mismatch detected.", severity=SafetyGateSeverity.BLOCK.value)
         return SafeExecutionGateResult(passed=True)

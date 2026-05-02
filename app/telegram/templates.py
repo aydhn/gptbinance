@@ -247,3 +247,13 @@ def format_maintenance_defer_notice(job_name: str) -> str:
 
 def format_readiness_failed_scheduled_run(job_name: str) -> str:
     return f"❌ *READINESS CHECK FAILED*\n\nScheduled check `{job_name}` failed."
+
+def render_release_built(version: str) -> str:
+    return f"📦 <b>RELEASE BUILT: {version}</b>\nBundle is ready for verification."
+
+def render_host_probe_failed(version: str, errors: list) -> str:
+    err_str = "\n- ".join(errors)
+    return f"❌ <b>HOST PROBE FAILED: {version}</b>\nErrors:\n- {err_str}"
+
+def render_upgrade_blocked(version: str, reason: str) -> str:
+    return f"🚫 <b>UPGRADE BLOCKED: {version}</b>\nReason: {reason}"

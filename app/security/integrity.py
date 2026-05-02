@@ -30,3 +30,7 @@ class IntegrityChecker:
             for chunk in iter(lambda: f.read(4096), b""):
                 sha256.update(chunk)
         return sha256.hexdigest()
+
+    def verify_release_bundle(self, bundle_path: str, expected_checksum: str) -> bool:
+        actual = self._hash_file(bundle_path)
+        return actual == expected_checksum

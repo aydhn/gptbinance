@@ -55,3 +55,10 @@ class BackupManager:
             f.write(manifest.model_dump_json(indent=2))
 
         return BackupRun(manifest=manifest, success=True)
+
+    def check_freshness(self) -> bool:
+        # Mock preflight check for upgrade
+        return True
+
+    def get_latest_backup_ref(self) -> str:
+        return "mock_backup_ref"

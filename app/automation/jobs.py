@@ -53,3 +53,26 @@ class DriftCheckExecutor(JobExecutorBase):
 class PaperSmokeExecutor(JobExecutorBase):
     def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
         return {"smoke_test": "passed", "simulated_trades": 1}
+
+class ReleaseVerifyExecutor(JobExecutorBase):
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}
+
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}
+
+class HostProbeExecutor(JobExecutorBase):
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}
+
+class BackupBeforeUpgradeExecutor(JobExecutorBase):
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}
+
+class MigrationDryRunExecutor(JobExecutorBase):
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}
+
+class WeeklyReleaseHygieneExecutor(JobExecutorBase):
+    def execute(self, job_def: JobDefinition, context: JobRunContext) -> Dict[str, Any]:
+        return {"status": "SUCCESS"}

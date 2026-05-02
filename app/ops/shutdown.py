@@ -18,3 +18,9 @@ class SessionShutdown:
 
     def perform_shutdown(self, run_id: str) -> None:
         print(f"[SHUTDOWN] Performing graceful shutdown for run: {run_id}")
+
+    def prepare_for_upgrade(self, run_id: str) -> bool:
+        print(f"[SHUTDOWN] Preparing for upgrade. Draining: {run_id}")
+        self.perform_drain(run_id)
+        self.perform_shutdown(run_id)
+        return True

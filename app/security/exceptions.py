@@ -1,0 +1,10 @@
+class SecurityError(Exception): pass
+class SecretResolutionError(SecurityError): pass
+class SecretPolicyViolation(SecurityError): pass
+class BackupError(SecurityError): pass
+class RestoreError(SecurityError): pass
+class IntegrityCheckError(SecurityError): pass
+class EvidenceChainError(SecurityError): pass
+class RetentionError(SecurityError): pass
+class RotationReadinessError(SecurityError): pass
+class DisasterRecoveryError(SecurityError): pass

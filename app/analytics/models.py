@@ -191,3 +191,21 @@ class AnalyticsAuditRecord(BaseModel):
     timestamp: datetime
     action: str
     details: Dict[str, Any] = Field(default_factory=dict)
+
+
+from app.analytics.enums import PeriodGranularity
+
+class SessionSummary(BaseModel):
+    run_id: str
+    timestamp: datetime
+    net_pnl: float
+    trade_count: int
+    signal_count: int
+    error_count: int
+
+class PeriodicAggregation(BaseModel):
+    granularity: PeriodGranularity
+    start_time: datetime
+    end_time: datetime
+    total_pnl: float
+    session_summaries: List[SessionSummary]

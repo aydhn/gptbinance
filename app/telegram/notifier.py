@@ -1,4 +1,3 @@
-
 from .templates import *
 import logging
 import requests
@@ -94,54 +93,78 @@ class TelegramNotifier(BaseNotifier):
         msg = render_capital_exhausted(run_id, available)
         self.send_message(msg)
 
-
-
     # Phase 22 Analytics Additions
     def notify_analytics_summary(self, summary_text: str) -> None:
         self.send_message(summary_text)
 
     def notify_execution_degraded(self, run_id: str, submit: int, rej: int) -> None:
         from app.telegram.templates import render_execution_quality_degraded
+
         self.send_message(render_execution_quality_degraded(run_id, submit, rej))
 
-    def notify_divergence_warning(self, run_id: str, div_type: str, severity: str, evidence: str) -> None:
+    def notify_divergence_warning(
+        self, run_id: str, div_type: str, severity: str, evidence: str
+    ) -> None:
         from app.telegram.templates import render_divergence_warning
-        self.send_message(render_divergence_warning(run_id, div_type, severity, evidence))
 
-    def notify_anomaly_cluster(self, run_id: str, anomaly_type: str, evidence: str) -> None:
+        self.send_message(
+            render_divergence_warning(run_id, div_type, severity, evidence)
+        )
+
+    def notify_anomaly_cluster(
+        self, run_id: str, anomaly_type: str, evidence: str
+    ) -> None:
         from app.telegram.templates import render_anomaly_cluster
+
         self.send_message(render_anomaly_cluster(run_id, anomaly_type, evidence))
 
     def notify_strategy_decay(self, run_id: str, family: str, hit_rate: float) -> None:
         from app.telegram.templates import render_strategy_decay_warning
+
         self.send_message(render_strategy_decay_warning(run_id, family, hit_rate))
 
     def notify_root_cause(self, run_id: str, hypothesis_id: str, causes: list) -> None:
         from app.telegram.templates import render_root_cause_summary
+
         self.send_message(render_root_cause_summary(run_id, hypothesis_id, causes))
 
-    def notify_health_degraded(self, component: str, severity: str, explanation: str) -> None:
+    def notify_health_degraded(
+        self, component: str, severity: str, explanation: str
+    ) -> None:
         from app.telegram.templates import render_health_degraded
+
         self.send_message(render_health_degraded(component, severity, explanation))
 
-    def notify_critical_alert(self, alert_id: str, component: str, rule: str, evidence: dict) -> None:
+    def notify_critical_alert(
+        self, alert_id: str, component: str, rule: str, evidence: dict
+    ) -> None:
         from app.telegram.templates import render_critical_alert
+
         self.send_message(render_critical_alert(alert_id, component, rule, evidence))
 
-    def notify_correlated_incident(self, group_id: str, primary_alert: str, likely_issue: str) -> None:
+    def notify_correlated_incident(
+        self, group_id: str, primary_alert: str, likely_issue: str
+    ) -> None:
         from app.telegram.templates import render_correlated_incident
-        self.send_message(render_correlated_incident(group_id, primary_alert, likely_issue))
+
+        self.send_message(
+            render_correlated_incident(group_id, primary_alert, likely_issue)
+        )
 
     def notify_slo_breach(self, slo_id: str, current: float, explanation: str) -> None:
         from app.telegram.templates import render_slo_breach
+
         self.send_message(render_slo_breach(slo_id, current, explanation))
 
-    def notify_observability_digest(self, scope: str, top_alerts: list, highlights: str) -> None:
+    def notify_observability_digest(
+        self, scope: str, top_alerts: list, highlights: str
+    ) -> None:
         from app.telegram.templates import render_observability_digest
+
         self.send_message(render_observability_digest(scope, top_alerts, highlights))
 
-def get_notifier(config) -> BaseNotifier:
 
+def get_notifier(config) -> BaseNotifier:
     if (
         hasattr(config, "telegram")
         and config.telegram.enabled
@@ -164,12 +187,15 @@ def get_notifier(config) -> BaseNotifier:
 
     def notify_release_built(self, version: str) -> None:
         from app.telegram.templates import render_release_built
+
         self.send_message(render_release_built(version))
 
     def notify_host_probe_failed(self, version: str, errors: list) -> None:
         from app.telegram.templates import render_host_probe_failed
+
         self.send_message(render_host_probe_failed(version, errors))
 
     def notify_upgrade_blocked(self, version: str, reason: str) -> None:
         from app.telegram.templates import render_upgrade_blocked
+
         self.send_message(render_upgrade_blocked(version, reason))

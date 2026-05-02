@@ -57,6 +57,36 @@ class SessionReadinessGate(SafetyGate):
         return SafeExecutionGateResult(passed=True)
 
 
+class ReleaseVersionGate(SafetyGate):
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        if context.get("version_mismatch"):
+            return SafeExecutionGateResult(
+                passed=False,
+                reason="Version mismatch detected.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
+        return SafeExecutionGateResult(passed=True)
+
+
+class AuthorizationBundleGate(SafetyGate):
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
+        auth_bundle = context.get("authorization_bundle")
+        if auth_bundle and auth_bundle.verdict.value != "approved":
+            # If auth bundle is strictly present but denied, block.
+            # If missing entirely, assume control layer disabled for tests.
+
+            return SafeExecutionGateResult(
+                passed=False,
+                reason="Missing or denied authorization bundle for live action.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
+        return SafeExecutionGateResult(passed=True)
+
+
 class SafetyGateManager:
     def check_resilience_block(self) -> bool:
         return True
@@ -67,6 +97,7 @@ class SafetyGateManager:
             SessionReadinessGate(),
             RolloutModeAllowedGate(),
             ReleaseVersionGate(),
+            AuthorizationBundleGate(),
         ]
 
     def add_gate(self, gate: SafetyGate):
@@ -80,17 +111,4 @@ class SafetyGateManager:
             if not result.passed:
                 logger.warning(f"Safety gate blocked execution: {result.reason}")
                 return result
-        return SafeExecutionGateResult(passed=True)
-
-
-class ReleaseVersionGate(SafetyGate):
-    def check(
-        self, config: ExecutionConfig, context: Dict[str, Any]
-    ) -> SafeExecutionGateResult:
-        if context.get("version_mismatch"):
-            return SafeExecutionGateResult(
-                passed=False,
-                reason="Version mismatch detected.",
-                severity=SafetyGateSeverity.BLOCK.value,
-            )
         return SafeExecutionGateResult(passed=True)

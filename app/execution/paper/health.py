@@ -1,6 +1,8 @@
 """Session health monitoring."""
 from datetime import datetime
 from .models import SessionHealth, SessionHealthSnapshot
+from app.observability.metrics import registry as metric_registry
+from app.observability.enums import ComponentType
 
 
 class HealthMonitor:
@@ -15,6 +17,10 @@ class HealthMonitor:
     def record_error(self, err: str):
         self.error_count += 1
         self.last_error = err
+        try:
+            metric_registry.record("paper_execution_error", 1.0, tags={"error": err[:20]})
+        except Exception:
+            pass
 
     def record_stream_event(self, symbol: str, event_time_ms: int):
         self.stream_timestamps[symbol] = event_time_ms

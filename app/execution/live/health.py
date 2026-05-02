@@ -2,6 +2,8 @@ from app.execution.live.models import ExecutionHealthSnapshot
 from app.execution.live.enums import ExecutionHealthStatus
 from datetime import datetime
 from typing import Dict, Any
+from app.observability.metrics import registry as metric_registry
+from app.observability.enums import ComponentType
 
 
 class ExecutionHealthMonitor:
@@ -14,9 +16,17 @@ class ExecutionHealthMonitor:
 
     def record_reject(self):
         self.reject_count += 1
+        try:
+            metric_registry.record("live_execution_rejects", 1.0, tags={"type": "reject"})
+        except Exception:
+            pass
 
     def record_drift(self):
         self.drift_count += 1
+        try:
+            metric_registry.record("live_execution_drift", 1.0, tags={"type": "drift"})
+        except Exception:
+            pass
 
     def update_rest_latency(self, latency_ms: float):
         self.rest_latency_ms = latency_ms

@@ -141,3 +141,15 @@ def get_notifier(config) -> BaseNotifier:
 
     def send_automation_alert(self, msg: str, severity: str = "warning"):
         self.send_message(f"[{severity.upper()}] {msg}")
+
+    def notify_release_built(self, version: str) -> None:
+        from app.telegram.templates import render_release_built
+        self.send_message(render_release_built(version))
+
+    def notify_host_probe_failed(self, version: str, errors: list) -> None:
+        from app.telegram.templates import render_host_probe_failed
+        self.send_message(render_host_probe_failed(version, errors))
+
+    def notify_upgrade_blocked(self, version: str, reason: str) -> None:
+        from app.telegram.templates import render_upgrade_blocked
+        self.send_message(render_upgrade_blocked(version, reason))

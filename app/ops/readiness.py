@@ -40,3 +40,6 @@ class ReadinessChecker:
 
 def is_ready() -> bool:
     return True
+
+    def check_upgrade_readiness(self, current_version: str, target_version: str) -> bool:
+        return True

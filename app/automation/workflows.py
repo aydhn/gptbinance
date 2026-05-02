@@ -30,3 +30,12 @@ def create_nightly_research_workflow(id: str) -> WorkflowDefinition:
             ),
         ],
     )
+
+def create_pre_upgrade_workflow(workflow_id: str) -> WorkflowDefinition:
+    return WorkflowDefinition(id=workflow_id, name="Pre-Upgrade Checks", type=WorkflowType.NIGHTLY_RESEARCH_REFRESH, steps=[])
+
+def create_post_restore_readiness_workflow(workflow_id: str) -> WorkflowDefinition:
+    return WorkflowDefinition(id=workflow_id, name="Post-Restore Readiness", type=WorkflowType.NIGHTLY_RESEARCH_REFRESH, steps=[])
+
+def create_weekly_release_hygiene_workflow(workflow_id: str) -> WorkflowDefinition:
+    return WorkflowDefinition(id=workflow_id, name="Weekly Release Hygiene", type=WorkflowType.NIGHTLY_RESEARCH_REFRESH, steps=[])

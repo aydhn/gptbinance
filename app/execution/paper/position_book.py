@@ -1,4 +1,5 @@
 """Paper position book management."""
+
 from typing import Dict, List
 from .models import PaperPosition, PaperFill
 

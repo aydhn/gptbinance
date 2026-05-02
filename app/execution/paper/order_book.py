@@ -1,4 +1,5 @@
 """Paper order book management."""
+
 import logging
 from typing import Dict, List, Optional
 from datetime import datetime

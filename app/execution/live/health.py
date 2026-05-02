@@ -17,7 +17,9 @@ class ExecutionHealthMonitor:
     def record_reject(self):
         self.reject_count += 1
         try:
-            metric_registry.record("live_execution_rejects", 1.0, tags={"type": "reject"})
+            metric_registry.record(
+                "live_execution_rejects", 1.0, tags={"type": "reject"}
+            )
         except Exception:
             pass
 

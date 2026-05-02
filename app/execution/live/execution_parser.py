@@ -59,8 +59,8 @@ class ExecutionParser:
                 "filled_qty": Decimal(payload.get("z", "0")),
                 "last_filled_qty": Decimal(payload.get("l", "0")),
                 "last_filled_price": Decimal(payload.get("L", "0")),
-                "average_price": Decimal(payload.get("p", "0"))
-                if "p" in payload
-                else None,
+                "average_price": (
+                    Decimal(payload.get("p", "0")) if "p" in payload else None
+                ),
             },
         )

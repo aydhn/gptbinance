@@ -1,4 +1,5 @@
 """Session health monitoring."""
+
 from datetime import datetime
 from .models import SessionHealth, SessionHealthSnapshot
 from app.observability.metrics import registry as metric_registry
@@ -18,7 +19,9 @@ class HealthMonitor:
         self.error_count += 1
         self.last_error = err
         try:
-            metric_registry.record("paper_execution_error", 1.0, tags={"error": err[:20]})
+            metric_registry.record(
+                "paper_execution_error", 1.0, tags={"error": err[:20]}
+            )
         except Exception:
             pass
 

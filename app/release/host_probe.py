@@ -3,6 +3,7 @@ from app.release.enums import HostReadiness
 import sys
 import os
 
+
 class HostProbe:
     def run_probe(self) -> HostProbeReport:
         warnings = []
@@ -38,5 +39,5 @@ class HostProbe:
             disk_space_ok=disk_ok,
             writable_paths_ok=writable_ok,
             warnings=warnings,
-            blockers=blockers
+            blockers=blockers,
         )

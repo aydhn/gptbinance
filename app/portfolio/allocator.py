@@ -1,4 +1,3 @@
-
 from app.portfolio.models import PortfolioSnapshot
 
 from app.products.enums import ProductType
@@ -25,15 +24,22 @@ class ConservativeAllocator(BasePortfolioAllocator):
         self.policy_manager = policy_manager
         self.budget_manager = budget_manager
 
-
     def evaluate_intent(self, snapshot: PortfolioSnapshot, requested_intent) -> float:
         # Penalize concentrated leveraged exposure
-        if hasattr(requested_intent, "product_type") and requested_intent.product_type != ProductType.SPOT:
-            if snapshot.total_leveraged_exposure > snapshot.total_capital * 2: # Very strict global cap
-                logger.warning("Allocation rejected: Global leveraged exposure cap exceeded.")
+        if (
+            hasattr(requested_intent, "product_type")
+            and requested_intent.product_type != ProductType.SPOT
+        ):
+            if (
+                snapshot.total_leveraged_exposure > snapshot.total_capital * 2
+            ):  # Very strict global cap
+                logger.warning(
+                    "Allocation rejected: Global leveraged exposure cap exceeded."
+                )
                 return 0.0
 
         # Base allocation logic (legacy spot support)
+
     def allocate(
         self,
         batch: PortfolioIntentBatch,
@@ -125,9 +131,11 @@ class ConservativeAllocator(BasePortfolioAllocator):
                 verdict=verdict,
                 original_intent=candidate.intent,
                 blocking_reasons=blocking_reasons,
-                rationale=candidate.rank.rationale
-                if candidate.rank
-                else "No ranking rationale.",
+                rationale=(
+                    candidate.rank.rationale
+                    if candidate.rank
+                    else "No ranking rationale."
+                ),
             )
 
             if verdict in (PortfolioVerdict.APPROVE, PortfolioVerdict.REDUCE):

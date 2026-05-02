@@ -6,6 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class Bootstrapper:
     def bootstrap(self, plan: InstallPlan) -> BootstrapResult:
         logger.info("Bootstrapping environment...")
@@ -25,5 +26,5 @@ class Bootstrapper:
             plan=plan,
             success=success,
             applied_at=datetime.now(timezone.utc),
-            error_message=error_msg
+            error_message=error_msg,
         )

@@ -1,6 +1,7 @@
 from app.release.storage import ReleaseStorage
 from app.release.models import ReleaseBundle
 
+
 class ReleaseRepository:
     def __init__(self, storage: ReleaseStorage):
         self.storage = storage

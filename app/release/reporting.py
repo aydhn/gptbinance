@@ -1,5 +1,12 @@
-from app.release.models import ReleaseSummary, HostProbeReport, CompatibilityReport, UpgradePlan, RollbackPlan
+from app.release.models import (
+    ReleaseSummary,
+    HostProbeReport,
+    CompatibilityReport,
+    UpgradePlan,
+    RollbackPlan,
+)
 import json
+
 
 class ReleaseReporter:
     def format_summary(self, summary: ReleaseSummary) -> str:

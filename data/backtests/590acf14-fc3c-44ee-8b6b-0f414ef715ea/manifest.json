@@ -1,8 +1,0 @@
-{
-  "run_id": "590acf14-fc3c-44ee-8b6b-0f414ef715ea",
-  "timestamp": "2026-04-28T05:00:07.268250",
-  "config_path": "data/backtests/590acf14-fc3c-44ee-8b6b-0f414ef715ea/config.json",
-  "trade_log_path": "data/backtests/590acf14-fc3c-44ee-8b6b-0f414ef715ea/trades.jsonl",
-  "equity_curve_path": "data/backtests/590acf14-fc3c-44ee-8b6b-0f414ef715ea/equity.jsonl",
-  "summary_path": "data/backtests/590acf14-fc3c-44ee-8b6b-0f414ef715ea/summary.json"
-}

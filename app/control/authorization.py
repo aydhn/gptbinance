@@ -4,7 +4,6 @@ from app.control.models import AuthorizationResult, ApprovalRecord
 from app.control.enums import AuthorizationVerdict, ApprovalStatus
 
 
-
 class AuthorizationEngine:
     def authorize(
         self, record: ApprovalRecord, execution_context: Optional[Dict[str, Any]] = None
@@ -25,9 +24,11 @@ class AuthorizationEngine:
         if record.status != ApprovalStatus.APPROVED:
             return AuthorizationResult(
                 request_id=request.id,
-                verdict=AuthorizationVerdict.REQUIRE_MORE_APPROVALS
-                if record.status == ApprovalStatus.PENDING
-                else AuthorizationVerdict.DENIED,
+                verdict=(
+                    AuthorizationVerdict.REQUIRE_MORE_APPROVALS
+                    if record.status == ApprovalStatus.PENDING
+                    else AuthorizationVerdict.DENIED
+                ),
                 reason=f"Request status is {record.status.value}",
                 timestamp=now,
             )

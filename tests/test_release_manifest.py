@@ -1,6 +1,7 @@
 import pytest
 from app.release.manifest import ManifestGenerator
 
+
 def test_create_manifest():
     gen = ManifestGenerator()
     manifest = gen.create_manifest()

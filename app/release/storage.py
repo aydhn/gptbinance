@@ -1,6 +1,14 @@
-from app.release.models import ReleaseBundle, HostProbeReport, MigrationRecord, UpgradePlan, RollbackPlan, InstallPlan
+from app.release.models import (
+    ReleaseBundle,
+    HostProbeReport,
+    MigrationRecord,
+    UpgradePlan,
+    RollbackPlan,
+    InstallPlan,
+)
 import json
 import os
+
 
 class ReleaseStorage:
     def __init__(self, base_dir="data/release"):
@@ -11,7 +19,7 @@ class ReleaseStorage:
         pass
 
     def load_bundle(self, version: str) -> ReleaseBundle:
-        return None # Mock
+        return None  # Mock
 
     def save_host_probe(self, report: HostProbeReport):
         pass

@@ -5,13 +5,16 @@ from typing import List
 from app.security.models import EvidenceChainEntry
 from app.security.enums import EvidenceStatus
 
+
 class EvidenceChain:
     def __init__(self, storage_path: str = "data/security/evidence.jsonl"):
         self.storage_path = storage_path
         os.makedirs(os.path.dirname(self.storage_path), exist_ok=True)
 
     def append_event(self, event_type: str, payload: dict) -> EvidenceChainEntry:
-        payload_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+        payload_hash = hashlib.sha256(
+            json.dumps(payload, sort_keys=True).encode()
+        ).hexdigest()
         prev_entry = self.get_last_entry()
         prev_hash = prev_entry.payload_hash if prev_entry else "GENESIS"
         seq_num = (prev_entry.seq_num + 1) if prev_entry else 1
@@ -20,7 +23,7 @@ class EvidenceChain:
             seq_num=seq_num,
             event_type=event_type,
             payload_hash=payload_hash,
-            previous_hash=prev_hash
+            previous_hash=prev_hash,
         )
 
         with open(self.storage_path, "a") as f:

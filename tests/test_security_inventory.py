@@ -1,5 +1,6 @@
 from app.security.inventory import SecretInventory
 
+
 def test_inventory_contains_keys():
     inv = SecretInventory().get_inventory()
     assert len(inv) > 0

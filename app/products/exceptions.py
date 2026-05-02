@@ -1,5 +1,6 @@
 class ProductError(Exception):
     """Base exception for product domain errors."""
+
     pass
 
 

@@ -3,9 +3,12 @@ from app.control.requests import manager as req_manager
 from app.control.enums import SensitiveActionType, OperatorRole, ApprovalStatus
 from app.control.models import OperatorIdentity
 
+
 def test_approval_lifecycle():
     requester = OperatorIdentity(id="op1", roles=[OperatorRole.OPS])
-    req = req_manager.create_request(SensitiveActionType.START_LIVE_SESSION, requester, "test")
+    req = req_manager.create_request(
+        SensitiveActionType.START_LIVE_SESSION, requester, "test"
+    )
     record = app_manager.init_record(req)
 
     assert record.status == ApprovalStatus.PENDING
@@ -21,9 +24,12 @@ def test_approval_lifecycle():
 
     assert record.status == ApprovalStatus.APPROVED
 
+
 def test_approval_rejection():
     requester = OperatorIdentity(id="op1", roles=[OperatorRole.OPS])
-    req = req_manager.create_request(SensitiveActionType.START_LIVE_SESSION, requester, "test")
+    req = req_manager.create_request(
+        SensitiveActionType.START_LIVE_SESSION, requester, "test"
+    )
     record = app_manager.init_record(req)
 
     approver1 = OperatorIdentity(id="op2", roles=[OperatorRole.OPS])

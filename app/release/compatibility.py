@@ -2,6 +2,7 @@ from app.release.models import CompatibilityReport, ReleaseManifest
 from app.release.enums import CompatibilityVerdict
 from app.release.versioning import VersionManager
 
+
 class CompatibilityChecker:
     def __init__(self):
         self.version_manager = VersionManager()
@@ -13,7 +14,10 @@ class CompatibilityChecker:
         migrations_required = []
         verdict = CompatibilityVerdict.COMPATIBLE
 
-        if current_version.config_schema_version != target_release.version.config_schema_version:
+        if (
+            current_version.config_schema_version
+            != target_release.version.config_schema_version
+        ):
             migrations_required.append("config")
             verdict = CompatibilityVerdict.MIGRATION_REQUIRED
 
@@ -22,5 +26,5 @@ class CompatibilityChecker:
             current_version=current_version.version,
             verdict=verdict,
             migrations_required=migrations_required,
-            warnings=warnings
+            warnings=warnings,
         )

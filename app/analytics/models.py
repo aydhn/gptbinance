@@ -195,6 +195,7 @@ class AnalyticsAuditRecord(BaseModel):
 
 from app.analytics.enums import PeriodGranularity
 
+
 class SessionSummary(BaseModel):
     run_id: str
     timestamp: datetime
@@ -202,6 +203,7 @@ class SessionSummary(BaseModel):
     trade_count: int
     signal_count: int
     error_count: int
+
 
 class PeriodicAggregation(BaseModel):
     granularity: PeriodGranularity

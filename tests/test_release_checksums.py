@@ -2,6 +2,7 @@ import pytest
 import os
 from app.release.checksums import ChecksumManager
 
+
 def test_generate_and_verify_checksum(tmp_path):
     mgr = ChecksumManager()
     p = tmp_path / "test.txt"

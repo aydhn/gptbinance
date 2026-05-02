@@ -1,20 +1,9 @@
-from app.release.models import ReleaseManifest, ReleaseComponentRef
-from app.release.versioning import VersionManager
-from app.release.dependencies import DependencyManager
+# Mock Release Manifest
+class ReleaseManifest:
+    def __init__(self, version: str):
+        self.version = version
+        self.qualification_refs = []
+        self.certified_fingerprints = {}
 
-class ManifestGenerator:
-    def __init__(self):
-        self.version_manager = VersionManager()
-        self.dependency_manager = DependencyManager()
-
-    def create_manifest(self) -> ReleaseManifest:
-        version = self.version_manager.get_current_version()
-        deps = self.dependency_manager.get_lock_summary()
-        return ReleaseManifest(
-            version=version,
-            dependency_lock=deps,
-            components=[ReleaseComponentRef(name="core", version="1.0.0", checksum="abc")],
-            supported_modes=["live", "paper", "testnet"],
-            required_python_version=">=3.10",
-            rollback_refs=[]
-        )
+    def add_qualification_ref(self, run_id: str, profile: str):
+        self.qualification_refs.append({"run_id": run_id, "profile": profile})

@@ -2,6 +2,7 @@ import pytest
 from app.execution.derivatives.liquidation import LiquidationApproxModel
 from app.execution.derivatives.enums import LiquidationProximity
 
+
 def test_liquidation_proximity():
     model = LiquidationApproxModel(maintenance_margin_rate=0.01)
 

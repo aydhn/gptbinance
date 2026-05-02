@@ -10,7 +10,9 @@ from app.execution.live_runtime.models import (
 from app.execution.live_runtime.enums import LiveRolloutMode, LiveSessionStatus
 
 
-def test_live_runtime_orchestrator():
+import pytest
+@pytest.mark.asyncio
+async def test_live_runtime_orchestrator():
     config = LiveSessionConfig(
         rollout_mode=LiveRolloutMode.CANARY_LIVE,
         capital_caps=LiveCapitalCaps(
@@ -51,7 +53,7 @@ def test_live_runtime_orchestrator():
 
     # Process intent
     intent = {"symbol": "BTCUSDT", "qty": 0.001, "price": 50000.0, "side": "BUY"}
-    res = orchestrator.process_intent(intent)
+    res = await orchestrator.process_intent(intent)
     assert res
     mock_gateway.submit_order.assert_called_once()
 

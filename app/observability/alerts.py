@@ -2,11 +2,14 @@ import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 from app.observability.models import AlertRule, AlertEvent
-from app.observability.enums import AlertState, AlertSeverity, ComponentType
+from app.observability.enums import AlertState
 from app.observability.exceptions import InvalidAlertRule
 
 
 class AlertEngine:
+    def trigger_control_alert(self, event_type: str, severity: str, details: dict):
+        self.trigger_experiment_alert(severity, f"Control Event: {event_type}", details)
+
     def trigger_experiment_alert(
         self, severity: str, message: str, context: dict | None = None
     ):

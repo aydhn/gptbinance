@@ -2,6 +2,7 @@ from app.release.models import UpgradePlan, UpgradeResult, ReleaseManifest
 from app.release.compatibility import CompatibilityChecker
 from app.release.migrations import MigrationExecutor
 from app.release.enums import UpgradeVerdict, CompatibilityVerdict, MigrationDirection
+from app.control.models import AuthorizationResult
 from datetime import datetime, timezone
 import logging
 
@@ -41,6 +42,22 @@ class UpgradePlanner:
 
     def run_dry_run(self, plan: UpgradePlan) -> UpgradeResult:
         logger.info(f"Running upgrade dry run to {plan.target_release.version.version}")
+        return UpgradeResult(
+            plan=plan, success=True, applied_at=datetime.now(timezone.utc)
+        )
+
+    def apply_upgrade(
+        self, plan: UpgradePlan, auth_bundle: AuthorizationResult
+    ) -> UpgradeResult:
+        if not auth_bundle or auth_bundle.verdict.value != "approved":
+            logger.error(
+                "Upgrade apply blocked: Missing or denied authorization bundle."
+            )
+            return UpgradeResult(
+                plan=plan, success=False, applied_at=datetime.now(timezone.utc)
+            )
+
+        logger.info(f"Applying upgrade to {plan.target_release.version.version}")
         return UpgradeResult(
             plan=plan, success=True, applied_at=datetime.now(timezone.utc)
         )

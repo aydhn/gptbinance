@@ -1,3 +1,4 @@
+
 from datetime import datetime, timezone
 from typing import List
 
@@ -103,3 +104,20 @@ def aggregate_precondition_verdict(
         return PreconditionAction.DEFER
 
     return PreconditionAction.ALLOW
+
+
+class AuthorizationPrecondition(PreconditionCheckerBase):
+    def check(self, job_def: JobDefinition, context: JobRunContext) -> GateCheckResult:
+        if getattr(job_def, "approval_required", False):
+            auth_bundle = getattr(context, "authorization_bundle", None)
+            if not auth_bundle or auth_bundle.verdict.value != "approved":
+                return GateCheckResult(
+                    passed=False,
+                    rationale="Missing or denied authorization bundle for approval-required job",
+                    action=PreconditionAction.BLOCK,
+                )
+        return GateCheckResult(
+            passed=True,
+            rationale="Authorization check passed or not required",
+            action=PreconditionAction.ALLOW,
+        )

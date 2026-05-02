@@ -1,3 +1,5 @@
+from typing import Optional
+from app.control.models import AuthorizationResult
 
 from app.products.enums import ProductType
 import logging
@@ -65,7 +67,12 @@ class LiveOrchestrator:
         self.rollback_ctrl = LiveRollbackController(self.flatten_ctrl)
         self.audit_writer = LiveAuditWriter()
 
-    def start_session(self, context: Dict[str, Any]) -> bool:
+    def start_session(
+        self, context: Dict[str, Any], auth_bundle: Optional[AuthorizationResult] = None
+    ) -> bool:
+        if auth_bundle:
+            context["authorization_bundle"] = auth_bundle
+
         self.run.state.status = LiveSessionStatus.GATES_CHECKING
         report = self.gate_evaluator.evaluate(self.run.config, context)
 
@@ -120,18 +127,28 @@ class LiveOrchestrator:
 
         # 2. Handoff to Execution Gateway
 
-        if hasattr(intent, "product_type") and getattr(intent, "product_type") != ProductType.SPOT:
+        if (
+            hasattr(intent, "product_type")
+            and getattr(intent, "product_type") != ProductType.SPOT
+        ):
             # Enforce Testnet for derivatives!
             try:
-                order_id = await self.executor.execute_derivative(intent, testnet_first=True) if hasattr(self.executor, 'execute_derivative') else 'mock'
-                self.storage.record_trade(order_id, intent.symbol, intent.side, intent.quantity, 0.0)
+                order_id = (
+                    await self.executor.execute_derivative(intent, testnet_first=True)
+                    if hasattr(self.executor, "execute_derivative")
+                    else "mock"
+                )
+                self.storage.record_trade(
+                    order_id, intent.symbol, intent.side, intent.quantity, 0.0
+                )
                 logger.info(f"Recorded live derivative trade for {intent.symbol}")
             except Exception as e:
-                 logger.error(f"Live execution failed for derivative {intent.symbol}: {e}")
+                logger.error(
+                    f"Live execution failed for derivative {intent.symbol}: {e}"
+                )
             return
 
         try:
-
             # Assuming intent format fits execution gateway submit signature
             qty = intent.get("qty", 0.0)
             symbol = intent.get("symbol", "")
@@ -196,7 +213,16 @@ class LiveOrchestrator:
                 pos.realized_pnl,
             )
 
-    def trigger_flatten(self, mode: FlattenMode, reason: str) -> None:
+    def trigger_flatten(
+        self,
+        mode: FlattenMode,
+        reason: str,
+        auth_bundle: Optional[AuthorizationResult] = None,
+    ) -> None:
+        if not auth_bundle or auth_bundle.verdict.value != "approved":
+            logger.error("Flatten blocked: Missing or denied authorization bundle.")
+            return
+
         self.run.state.status = LiveSessionStatus.FLATTENING
 
         req = LiveFlattenRequest(run_id=self.run.run_id, mode=mode, reason=reason)
@@ -216,8 +242,16 @@ class LiveOrchestrator:
         self.run.state.status = LiveSessionStatus.HALTED
 
     def trigger_rollback(
-        self, severity: RollbackSeverity, reason: str, context: Dict[str, Any]
+        self,
+        severity: RollbackSeverity,
+        reason: str,
+        context: Dict[str, Any],
+        auth_bundle: Optional[AuthorizationResult] = None,
     ) -> None:
+        if not auth_bundle or auth_bundle.verdict.value != "approved":
+            logger.error("Rollback blocked: Missing or denied authorization bundle.")
+            return
+
         self.run.state.status = LiveSessionStatus.ROLLING_BACK
         plan = self.rollback_ctrl.initiate_rollback(
             self.run.run_id, severity, reason, context
@@ -265,5 +299,5 @@ class LiveOrchestrator:
             "run_id": self.run.run_id,
             "active_bundle": getattr(self, "active_bundle_id", None),
             "audit_trail": getattr(self.audit_writer, "get_records", lambda: [])(),
-            "positions": getattr(self.position_manager, "get_book", lambda: None)()
+            "positions": getattr(self.position_manager, "get_book", lambda: None)(),
         }

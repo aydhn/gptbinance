@@ -98,6 +98,22 @@ def main():
     parser.add_argument("--show-slo-summary", action="store_true")
     parser.add_argument("--show-observability-digest", action="store_true")
     parser.add_argument("--scope", type=str, default="daily")
+    # Phase 28 Control & Approvals
+    parser.add_argument("--request-action", action="store_true")
+    parser.add_argument("--action-type", type=str)
+    parser.add_argument("--action-scope", type=str)
+    parser.add_argument("--show-pending-approvals", action="store_true")
+    parser.add_argument("--approve-action", action="store_true")
+    parser.add_argument("--reject-action", action="store_true")
+    parser.add_argument("--revoke-action", action="store_true")
+    parser.add_argument("--show-approval-history", action="store_true")
+    parser.add_argument("--show-command-journal", action="store_true")
+    parser.add_argument("--show-expiring-approvals", action="store_true")
+    parser.add_argument("--request-break-glass", action="store_true")
+    parser.add_argument("--show-break-glass-history", action="store_true")
+    parser.add_argument("--check-authorization", action="store_true")
+    parser.add_argument("--request-id", type=str)
+
     parser.add_argument("--verify-runbook-mapping", action="store_true")
     parser.add_argument("--run-observability-checks", action="store_true")
 
@@ -753,6 +769,153 @@ def main():
         print(
             "Observability checks passed: metrics registry, alert rules, health aggregation and storage are intact."
         )
+
+    elif args.request_action:
+        if not args.action_type:
+            print("Missing --action-type")
+            sys.exit(1)
+        from app.control.enums import SensitiveActionType
+        from app.control.operators import registry as operator_registry
+        from app.control.requests import manager as request_manager
+        from app.control.repository import repository
+
+        try:
+            act_type = SensitiveActionType(args.action_type)
+            op = operator_registry.resolve_operator(
+                "local_ops"
+            )  # Simulating current user
+            req = request_manager.create_request(
+                act_type, op, "Requested via CLI", {"scope": args.action_scope}
+            )
+
+            from app.control.approvals import manager as approval_manager
+
+            record = approval_manager.init_record(req)
+            repository.save(record)
+
+            print(
+                f"Request created: {req.id} (Action: {act_type.value}, Expires: {req.expires_at})"
+            )
+        except ValueError:
+            print("Invalid action type")
+
+    elif args.show_pending_approvals:
+        from app.control.repository import repository
+        from app.control.reporting import reporter
+
+        pending = repository.get_pending()
+        print(reporter.format_pending_approvals(pending))
+
+    elif args.approve_action:
+        if not args.request_id:
+            print("Missing --request-id")
+            sys.exit(1)
+        from app.control.repository import repository
+        from app.control.approvals import manager as approval_manager
+        from app.control.operators import registry as operator_registry
+
+
+        record = repository.get(args.request_id)
+        if not record:
+            print("Request not found")
+            sys.exit(1)
+
+        op = operator_registry.resolve_operator("local_admin")  # Simulating approver
+        try:
+            updated_record = approval_manager.add_decision(
+                args.request_id, op, True, "Approved via CLI"
+            )
+            repository.save(updated_record)
+            print(f"Decision added. New status: {updated_record.status.value}")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    elif args.reject_action:
+        if not args.request_id:
+            print("Missing --request-id")
+            sys.exit(1)
+        from app.control.repository import repository
+        from app.control.approvals import manager as approval_manager
+        from app.control.operators import registry as operator_registry
+
+        record = repository.get(args.request_id)
+        if not record:
+            print("Request not found")
+            sys.exit(1)
+
+        op = operator_registry.resolve_operator("local_admin")  # Simulating approver
+        try:
+            updated_record = approval_manager.add_decision(
+                args.request_id, op, False, "Rejected via CLI"
+            )
+            repository.save(updated_record)
+            print(f"Decision added. New status: {updated_record.status.value}")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    elif args.revoke_action:
+        if not args.request_id:
+            print("Missing --request-id")
+            sys.exit(1)
+        from app.control.repository import repository
+        from app.control.revocation import manager as revocation_manager
+        from app.control.operators import registry as operator_registry
+        from app.control.enums import RevocationReason
+
+        record = repository.get(args.request_id)
+        if not record:
+            print("Request not found")
+            sys.exit(1)
+
+        op = operator_registry.resolve_operator("local_admin")
+        rev = revocation_manager.revoke(record, op, RevocationReason.MANUAL_CANCEL)
+        repository.save(record)
+        print(f"Request revoked: {rev.reason.value}")
+
+    elif args.show_command_journal:
+        from app.control.journal import journal
+        from app.control.reporting import reporter
+
+        print(reporter.format_journal(journal.get_all()))
+
+    elif args.check_authorization:
+        if not args.request_id:
+            print("Missing --request-id")
+            sys.exit(1)
+        from app.control.repository import repository
+        from app.control.authorization import engine
+
+        record = repository.get(args.request_id)
+        if not record:
+            print("Request not found")
+            sys.exit(1)
+
+        res = engine.authorize(record)
+        print(f"Authorization: {res.verdict.value} (Reason: {res.reason})")
+
+    elif args.request_break_glass:
+        if not args.action_type:
+            print("Missing --action-type")
+            sys.exit(1)
+        from app.control.enums import SensitiveActionType, BreakGlassSeverity
+        from app.control.operators import registry as operator_registry
+        from app.control.requests import manager as request_manager
+        from app.control.repository import repository
+        from app.control.break_glass import manager as bg_manager
+        from app.control.approvals import manager as approval_manager
+
+        act_type = SensitiveActionType(args.action_type)
+        op = operator_registry.resolve_operator("local_admin")
+        req = request_manager.create_request(
+            act_type, op, "Break glass requested", {"scope": args.action_scope}
+        )
+        record = approval_manager.init_record(req)
+        repository.save(record)
+
+        bg_manager.request_break_glass(
+            req.id, BreakGlassSeverity.CRITICAL_RISK, "Emergency"
+        )
+        print(f"Break-glass request created for {req.id}. Stronger audit active.")
 
     else:
         parser.print_help()

@@ -3,6 +3,8 @@ from app.ops.models import OpsRun, SupervisorStatus, OpsAuditRecord
 from app.ops.startup import SessionStarter
 from app.ops.shutdown import SessionShutdown
 from app.ops.repository import OpsRepository
+from app.observability.telemetry import ingester
+from app.observability.enums import ComponentType, AlertSeverity
 
 
 class SessionSupervisor(SupervisorBase):
@@ -67,6 +69,13 @@ class SessionSupervisor(SupervisorBase):
     def _audit(self, run_id: str, action: str) -> None:
         record = OpsAuditRecord(run_id=run_id, action=action, details="")
         self.repository.append_audit_record(record)
+        ingester.capture_event(
+            event_type=f"supervisor_{action}",
+            component=ComponentType.SUPERVISOR,
+            details={"run_id": run_id, "action": action},
+            severity=AlertSeverity.INFO,
+            run_id=run_id
+        )
 
     def flatten_live(self, run_id: str, reason: str) -> None:
         if self._current_run and self._current_run.run_id == run_id:

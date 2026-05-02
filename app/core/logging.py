@@ -59,7 +59,17 @@ def _redact_dict(d: Dict[str, Any]) -> None:
             d[k] = "***REDACTED***"
 
 
+
+from app.observability.telemetry import ingester
+from app.observability.enums import ComponentType, AlertSeverity
+
+def emit_telemetry(event_type: str, component: ComponentType, details: dict = None, severity: AlertSeverity = AlertSeverity.INFO):
+    ctx = get_active_context()
+    run_id = ctx.run_id if ctx else None
+    ingester.capture_event(event_type, component, details, severity, run_id)
+
 class StructuredJSONFormatter(logging.Formatter):
+
     def format(self, record: logging.LogRecord) -> str:
         ctx = get_active_context()
         log_obj = {

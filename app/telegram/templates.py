@@ -257,3 +257,19 @@ def render_host_probe_failed(version: str, errors: list) -> str:
 
 def render_upgrade_blocked(version: str, reason: str) -> str:
     return f"🚫 <b>UPGRADE BLOCKED: {version}</b>\nReason: {reason}"
+
+def render_health_degraded(component: str, severity: str, explanation: str) -> str:
+    return f"⚠️ <b>HEALTH DEGRADED</b>\nComponent: {component}\nSeverity: {severity}\nReason: {explanation}"
+
+def render_critical_alert(alert_id: str, component: str, rule: str, evidence: dict) -> str:
+    return f"🚨 <b>CRITICAL ALERT</b>\nID: {alert_id}\nComponent: {component}\nRule: {rule}\nEvidence: {evidence}"
+
+def render_correlated_incident(group_id: str, primary_alert: str, likely_issue: str) -> str:
+    return f"🔗 <b>INCIDENT CORRELATION</b>\nGroup: {group_id}\nPrimary Alert: {primary_alert}\nLikely Issue: {likely_issue}"
+
+def render_slo_breach(slo_id: str, current: float, explanation: str) -> str:
+    return f"📉 <b>SLO BREACH</b>\nSLO ID: {slo_id}\nCurrent: {current}\nReason: {explanation}"
+
+def render_observability_digest(scope: str, top_alerts: list, highlights: str) -> str:
+    alerts_str = ", ".join(top_alerts) if top_alerts else "None"
+    return f"📊 <b>OBSERVABILITY DIGEST ({scope})</b>\nTop Alerts: {alerts_str}\nHighlights: {highlights}"

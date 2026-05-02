@@ -1,3 +1,11 @@
+from app.resilience import (
+    get_scenario,
+    list_scenarios,
+    ExperimentRunner,
+    ExperimentScope,
+    SafeScope,
+    Reporter,
+)
 import argparse
 
 from app.security.inventory import SecretInventory
@@ -37,26 +45,42 @@ from app.release.upgrade import UpgradePlanner
 from app.release.rollback import RollbackPlanner
 
 from app.automation.jobs import (
-    DataRefreshExecutor, FeatureRefreshExecutor, GovernanceRefreshExecutor,
-    AnalyticsSummaryExecutor, HealthCheckExecutor, ReconciliationExecutor,
-    BackupExecutor, ReadinessCheckExecutor, DriftCheckExecutor, PaperSmokeExecutor
+    DataRefreshExecutor,
+    FeatureRefreshExecutor,
+    GovernanceRefreshExecutor,
+    AnalyticsSummaryExecutor,
+    HealthCheckExecutor,
+    ReconciliationExecutor,
+    BackupExecutor,
+    ReadinessCheckExecutor,
+    DriftCheckExecutor,
+    PaperSmokeExecutor,
 )
-from app.automation.workflows import create_nightly_research_workflow
+
 from app.automation.triggers import is_due
 from app.automation.history import get_last_run
 from app.automation.reporting import generate_automation_summary
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Trading System Automation Scheduler CLI")
-    parser.add_argument("--register-job", action="store_true", help="Register a new job")
+    parser = argparse.ArgumentParser(
+        description="Trading System Automation Scheduler CLI"
+    )
+    parser.add_argument(
+        "--register-job", action="store_true", help="Register a new job"
+    )
     parser.add_argument("--job-type", type=str, help="Job type enum value")
     parser.add_argument("--schedule", type=str, help="Schedule expression")
 
-    parser.add_argument("--register-workflow", action="store_true", help="Register a new workflow")
+    parser.add_argument(
+        "--register-workflow", action="store_true", help="Register a new workflow"
+    )
     parser.add_argument("--workflow-type", type=str, help="Workflow type enum value")
 
     parser.add_argument("--list-jobs", action="store_true", help="List registered jobs")
-    parser.add_argument("--list-workflows", action="store_true", help="List registered workflows")
+    parser.add_argument(
+        "--list-workflows", action="store_true", help="List registered workflows"
+    )
 
     parser.add_argument("--run-due-jobs", action="store_true", help="Run due jobs")
 
@@ -77,52 +101,164 @@ def main():
     parser.add_argument("--verify-runbook-mapping", action="store_true")
     parser.add_argument("--run-observability-checks", action="store_true")
 
-
-    parser.add_argument("--run-workflow-now", action="store_true", help="Run workflow manually")
+    parser.add_argument(
+        "--run-workflow-now", action="store_true", help="Run workflow manually"
+    )
     parser.add_argument("--workflow-id", type=str, help="Workflow ID")
 
     parser.add_argument("--pause-job", action="store_true", help="Pause a job")
     parser.add_argument("--resume-job", action="store_true", help="Resume a job")
 
-    parser.add_argument("--show-automation-summary", action="store_true", help="Show summary")
-    parser.add_argument("--show-run-history", action="store_true", help="Show history for a job")
+    parser.add_argument(
+        "--show-automation-summary", action="store_true", help="Show summary"
+    )
+    parser.add_argument(
+        "--show-run-history", action="store_true", help="Show history for a job"
+    )
     parser.add_argument("--show-next-runs", action="store_true", help="Show next runs")
-    parser.add_argument("--show-failed-runs", action="store_true", help="Show failed runs")
-    parser.add_argument("--automation-dry-run", action="store_true", help="Dry run workflow")
-    parser.add_argument("--run-security-checks", action="store_true", help="Run security hardening checks")
-    parser.add_argument("--show-secret-inventory", action="store_true", help="Show secret inventory")
+    parser.add_argument(
+        "--show-failed-runs", action="store_true", help="Show failed runs"
+    )
+    parser.add_argument(
+        "--automation-dry-run", action="store_true", help="Dry run workflow"
+    )
+    parser.add_argument(
+        "--run-security-checks",
+        action="store_true",
+        help="Run security hardening checks",
+    )
+    parser.add_argument(
+        "--show-secret-inventory", action="store_true", help="Show secret inventory"
+    )
     parser.add_argument("--run-backup", action="store_true", help="Run backup")
-    parser.add_argument("--backup-scope", type=str, default="full", choices=["full", "config_only", "state_only", "audit_only"], help="Scope of the backup")
-    parser.add_argument("--show-backup-summary", action="store_true", help="Show backup summary")
-    parser.add_argument("--run-restore-dry-run", action="store_true", help="Run restore dry-run")
+    parser.add_argument(
+        "--backup-scope",
+        type=str,
+        default="full",
+        choices=["full", "config_only", "state_only", "audit_only"],
+        help="Scope of the backup",
+    )
+    parser.add_argument(
+        "--show-backup-summary", action="store_true", help="Show backup summary"
+    )
+    parser.add_argument(
+        "--run-restore-dry-run", action="store_true", help="Run restore dry-run"
+    )
     parser.add_argument("--restore-source", type=str, help="Source path for restore")
     parser.add_argument("--restore-target", type=str, help="Target path for restore")
-    parser.add_argument("--verify-integrity", action="store_true", help="Verify critical files integrity")
-    parser.add_argument("--show-evidence-chain", action="store_true", help="Show evidence chain summary")
-    parser.add_argument("--verify-evidence-chain", action="store_true", help="Verify evidence chain")
-    parser.add_argument("--show-retention-summary", action="store_true", help="Show retention summary")
-    parser.add_argument("--run-dr-rehearsal", action="store_true", help="Run DR rehearsal")
-    parser.add_argument("--show-dr-summary", action="store_true", help="Show DR rehearsal summary")
-    parser.add_argument("--show-rotation-readiness", action="store_true", help="Show rotation readiness summary")
+    parser.add_argument(
+        "--verify-integrity",
+        action="store_true",
+        help="Verify critical files integrity",
+    )
+    parser.add_argument(
+        "--show-evidence-chain", action="store_true", help="Show evidence chain summary"
+    )
+    parser.add_argument(
+        "--verify-evidence-chain", action="store_true", help="Verify evidence chain"
+    )
+    parser.add_argument(
+        "--show-retention-summary", action="store_true", help="Show retention summary"
+    )
+    parser.add_argument(
+        "--run-dr-rehearsal", action="store_true", help="Run DR rehearsal"
+    )
+    parser.add_argument(
+        "--show-dr-summary", action="store_true", help="Show DR rehearsal summary"
+    )
+    parser.add_argument(
+        "--show-rotation-readiness",
+        action="store_true",
+        help="Show rotation readiness summary",
+    )
 
-    parser.add_argument("--build-release-bundle", action="store_true", help="Build release bundle")
-    parser.add_argument("--show-release-summary", action="store_true", help="Show release bundle summary")
-    parser.add_argument("--probe-host", action="store_true", help="Run host suitability probe")
-    parser.add_argument("--show-compatibility-report", action="store_true", help="Show compatibility report with target release")
+    parser.add_argument(
+        "--build-release-bundle", action="store_true", help="Build release bundle"
+    )
+    parser.add_argument(
+        "--show-release-summary",
+        action="store_true",
+        help="Show release bundle summary",
+    )
+    parser.add_argument(
+        "--probe-host", action="store_true", help="Run host suitability probe"
+    )
+    parser.add_argument(
+        "--show-compatibility-report",
+        action="store_true",
+        help="Show compatibility report with target release",
+    )
     parser.add_argument("--target-release", type=str, help="Target release path or ref")
-    parser.add_argument("--show-schema-versions", action="store_true", help="Show schema versions")
-    parser.add_argument("--run-migration-dry-run", action="store_true", help="Run migration dry run")
-    parser.add_argument("--show-migration-status", action="store_true", help="Show migration status")
-    parser.add_argument("--bootstrap-environment", action="store_true", help="Bootstrap environment")
+    parser.add_argument(
+        "--show-schema-versions", action="store_true", help="Show schema versions"
+    )
+    parser.add_argument(
+        "--run-migration-dry-run", action="store_true", help="Run migration dry run"
+    )
+    parser.add_argument(
+        "--show-migration-status", action="store_true", help="Show migration status"
+    )
+    parser.add_argument(
+        "--bootstrap-environment", action="store_true", help="Bootstrap environment"
+    )
     parser.add_argument("--plan-upgrade", action="store_true", help="Plan upgrade")
-    parser.add_argument("--run-upgrade-dry-run", action="store_true", help="Run upgrade dry run")
+    parser.add_argument(
+        "--run-upgrade-dry-run", action="store_true", help="Run upgrade dry run"
+    )
     parser.add_argument("--plan-rollback", action="store_true", help="Plan rollback")
-    parser.add_argument("--run-rollback-dry-run", action="store_true", help="Run rollback dry run")
-    parser.add_argument("--verify-release-bundle", action="store_true", help="Verify release bundle")
+    parser.add_argument(
+        "--run-rollback-dry-run", action="store_true", help="Run rollback dry run"
+    )
+    parser.add_argument(
+        "--verify-release-bundle", action="store_true", help="Verify release bundle"
+    )
 
+    # Phase 27
+    parser.add_argument(
+        "--list-resilience-scenarios",
+        action="store_true",
+        help="List available chaos/stress scenarios",
+    )
+    parser.add_argument(
+        "--run-resilience-scenario",
+        action="store_true",
+        help="Run a specific resilience scenario",
+    )
+    parser.add_argument(
+        "--run-resilience-dry-run",
+        action="store_true",
+        help="Dry run a resilience scenario",
+    )
+    parser.add_argument("--scenario-id", type=str, help="The ID of the scenario to run")
+    parser.add_argument(
+        "--safe-scope",
+        type=str,
+        default="paper",
+        help="The safe scope to run the experiment in",
+    )
+    parser.add_argument("--stress-profile", type=str, help="Apply stress profile")
+    parser.add_argument("--fault-profile", type=str, help="Apply fault profile")
+    parser.add_argument(
+        "--show-experiment-summary", action="store_true", help="Show experiment summary"
+    )
+    parser.add_argument(
+        "--show-experiment-assertions",
+        action="store_true",
+        help="Show experiment assertions",
+    )
+    parser.add_argument(
+        "--show-resilience-score", action="store_true", help="Show resilience score"
+    )
+    parser.add_argument(
+        "--show-degradation-timeline",
+        action="store_true",
+        help="Show degradation timeline",
+    )
+    parser.add_argument(
+        "--show-recommended-fixes", action="store_true", help="Show recommended fixes"
+    )
 
     args = parser.parse_args()
-
 
     if args.build_release_bundle:
         print("Building release bundle...")
@@ -172,7 +308,13 @@ def main():
         b = Bootstrapper()
         from app.release.models import InstallPlan
         from app.release.enums import InstallVerdict
-        plan = InstallPlan(target_release=ManifestGenerator().create_manifest(), host_probe=HostProbe().run_probe(), verdict=InstallVerdict.PASS, warnings=[])
+
+        plan = InstallPlan(
+            target_release=ManifestGenerator().create_manifest(),
+            host_probe=HostProbe().run_probe(),
+            verdict=InstallVerdict.PASS,
+            warnings=[],
+        )
         res = b.bootstrap(plan)
         print(res.model_dump_json(indent=2))
         return
@@ -212,21 +354,30 @@ def main():
 
     if args.run_backup:
         print(f"Running backup (Scope: {args.backup_scope})...")
-        plan = BackupPlan(scope=BackupScope(args.backup_scope), type=BackupType.SNAPSHOT, target_dir="data/backups")
+        plan = BackupPlan(
+            scope=BackupScope(args.backup_scope),
+            type=BackupType.SNAPSHOT,
+            target_dir="data/backups",
+        )
         res = BackupManager().run_backup(plan)
         print("Backup successful. Manifest:")
         print(res.manifest.model_dump_json(indent=2))
         return
 
-
     if args.show_backup_summary:
-        print("Show backup summary not fully implemented without run_id, but here is a mock response:")
+        print(
+            "Show backup summary not fully implemented without run_id, but here is a mock response:"
+        )
         print("Backup Summary: { 'latest': 'success' }")
         return
 
     if args.run_restore_dry_run:
         print("Running restore dry-run...")
-        plan = RestorePlan(source_manifest_path=args.restore_source or "", target_dir=args.restore_target or "data/restore", dry_run=True)
+        plan = RestorePlan(
+            source_manifest_path=args.restore_source or "",
+            target_dir=args.restore_target or "data/restore",
+            dry_run=True,
+        )
         res = RestoreManager().run_restore(plan)
         print(res.model_dump_json(indent=2))
         return
@@ -243,7 +394,6 @@ def main():
             for r in results:
                 print(r.model_dump_json())
         return
-
 
     if args.show_evidence_chain:
         print("Evidence Chain Summary:")
@@ -276,9 +426,10 @@ def main():
         print(res.model_dump_json(indent=2))
         return
 
-
     if args.show_dr_summary:
-        print("Show DR summary not fully implemented without run_id, but here is a mock response:")
+        print(
+            "Show DR summary not fully implemented without run_id, but here is a mock response:"
+        )
         print("DR Summary: { 'latest_rehearsal': 'success' }")
         return
 
@@ -300,7 +451,7 @@ def main():
         JobType.BACKUP: BackupExecutor(),
         JobType.READINESS_CHECK: ReadinessCheckExecutor(),
         JobType.DRIFT_CHECK: DriftCheckExecutor(),
-        JobType.PAPER_SMOKE: PaperSmokeExecutor()
+        JobType.PAPER_SMOKE: PaperSmokeExecutor(),
     }
 
     engine = AutomationEngine(repository=repo, executors=executors)
@@ -310,14 +461,18 @@ def main():
         job_id = f"job_{job_type.value}_{uuid.uuid4().hex[:8]}"
         schedule_obj = None
         if args.schedule:
-            stype = ScheduleType.FIXED_TIME if "@" in args.schedule else ScheduleType.INTERVAL
+            stype = (
+                ScheduleType.FIXED_TIME
+                if "@" in args.schedule
+                else ScheduleType.INTERVAL
+            )
             schedule_obj = JobSchedule(type=stype, expression=args.schedule)
 
         job = JobDefinition(
             id=job_id,
             type=job_type,
             name=f"{job_type.value} Task",
-            schedule=schedule_obj
+            schedule=schedule_obj,
         )
         repo.save_job(job)
         print(f"Registered job: {job_id}")
@@ -329,8 +484,12 @@ def main():
         if wf_type == WorkflowType.NIGHTLY_RESEARCH_REFRESH:
             wf = create_nightly_research_workflow(wf_id)
             if args.schedule:
-                 stype = ScheduleType.FIXED_TIME if "@" in args.schedule else ScheduleType.INTERVAL
-                 wf.schedule = JobSchedule(type=stype, expression=args.schedule)
+                stype = (
+                    ScheduleType.FIXED_TIME
+                    if "@" in args.schedule
+                    else ScheduleType.INTERVAL
+                )
+                wf.schedule = JobSchedule(type=stype, expression=args.schedule)
             repo.save_workflow(wf)
             print(f"Registered workflow: {wf_id}")
         else:
@@ -374,7 +533,9 @@ def main():
 
         print(f"Running job: {job.id} manually...")
         run = engine.run_job(job, trigger=TriggerType.MANUAL)
-        print(f"Status: {run.status.value}, Rationale: {run.rationale}, Error: {run.error_message}")
+        print(
+            f"Status: {run.status.value}, Rationale: {run.rationale}, Error: {run.error_message}"
+        )
 
     elif args.run_workflow_now:
         if not args.workflow_id:
@@ -382,113 +543,122 @@ def main():
             sys.exit(1)
         wf = repo.get_workflow(args.workflow_id)
         if not wf:
-             print("Workflow not found")
-             sys.exit(1)
+            print("Workflow not found")
+            sys.exit(1)
 
         print(f"Running workflow {wf.id} manually...")
         run = engine.run_workflow(wf, trigger=TriggerType.MANUAL)
         print(f"Status: {run.status.value}")
 
     elif args.pause_job:
-         if not args.job_id:
-             print("Missing --job-id")
-             sys.exit(1)
-         job = repo.get_job(args.job_id)
-         if job:
-             job.paused = True
-             repo.save_job(job)
-             print(f"Paused job {args.job_id}")
+        if not args.job_id:
+            print("Missing --job-id")
+            sys.exit(1)
+        job = repo.get_job(args.job_id)
+        if job:
+            job.paused = True
+            repo.save_job(job)
+            print(f"Paused job {args.job_id}")
 
     elif args.resume_job:
-         if not args.job_id:
-             print("Missing --job-id")
-             sys.exit(1)
-         job = repo.get_job(args.job_id)
-         if job:
-             job.paused = False
-             repo.save_job(job)
-             print(f"Resumed job {args.job_id}")
+        if not args.job_id:
+            print("Missing --job-id")
+            sys.exit(1)
+        job = repo.get_job(args.job_id)
+        if job:
+            job.paused = False
+            repo.save_job(job)
+            print(f"Resumed job {args.job_id}")
 
     elif args.show_automation_summary:
-         jobs = repo.list_jobs()
-         runs = repo.get_all_job_runs()
-         summary = generate_automation_summary(jobs, runs)
-         print(json.dumps(summary.dict(), indent=2))
+        jobs = repo.list_jobs()
+        runs = repo.get_all_job_runs()
+        summary = generate_automation_summary(jobs, runs)
+        print(json.dumps(summary.dict(), indent=2))
 
     elif args.show_run_history:
-         if not args.job_id:
-             print("Missing --job-id")
-             sys.exit(1)
-         runs = repo.get_runs_for_job(args.job_id)
-         for r in runs:
-             print(f"[{r.started_at}] {r.status.value} (Attempt: {r.attempt}, Duration: {r.duration_seconds}s)")
+        if not args.job_id:
+            print("Missing --job-id")
+            sys.exit(1)
+        runs = repo.get_runs_for_job(args.job_id)
+        for r in runs:
+            print(
+                f"[{r.started_at}] {r.status.value} (Attempt: {r.attempt}, Duration: {r.duration_seconds}s)"
+            )
 
     elif args.show_next_runs:
-         jobs = repo.list_jobs()
-         runs = repo.get_all_job_runs()
-         summary = generate_automation_summary(jobs, runs)
-         for nr in summary.next_runs:
-              print(f"Job: {nr['job_id']}, Next Run: {nr['next_run']}")
+        jobs = repo.list_jobs()
+        runs = repo.get_all_job_runs()
+        summary = generate_automation_summary(jobs, runs)
+        for nr in summary.next_runs:
+            print(f"Job: {nr['job_id']}, Next Run: {nr['next_run']}")
 
     elif args.show_failed_runs:
-         runs = repo.get_all_job_runs()
-         failed = [r for r in runs if r.status == "failed"]
-         for r in failed:
-              print(f"Job: {r.job_id}, Status: FAILED, Error: {r.error_message}")
-
+        runs = repo.get_all_job_runs()
+        failed = [r for r in runs if r.status == "failed"]
+        for r in failed:
+            print(f"Job: {r.job_id}, Status: FAILED, Error: {r.error_message}")
 
     elif args.automation_dry_run:
-         print("Dry run logic: (Simulating evaluation)")
-         if args.workflow_id:
-              wf = repo.get_workflow(args.workflow_id)
-              if wf:
-                   from app.automation.dependencies import get_execution_order
-                   try:
-                        order = get_execution_order(wf)
-                        print(f"Workflow is valid. Execution order: {order}")
-                   except Exception as e:
-                        print(f"Workflow invalid: {e}")
-         else:
-              print("Specify --workflow-id")
+        print("Dry run logic: (Simulating evaluation)")
+        if args.workflow_id:
+            wf = repo.get_workflow(args.workflow_id)
+            if wf:
+                from app.automation.dependencies import get_execution_order
+
+                try:
+                    order = get_execution_order(wf)
+                    print(f"Workflow is valid. Execution order: {order}")
+                except Exception as e:
+                    print(f"Workflow invalid: {e}")
+        else:
+            print("Specify --workflow-id")
 
     elif args.show_metrics_summary:
         from app.observability.metrics import registry
         from app.observability.reporting import ObservabilityReporter
+
         print(ObservabilityReporter.format_metrics_summary(registry.get_samples()))
 
     elif args.show_component_health:
         from app.observability.health import aggregator
         from app.observability.enums import ComponentType
+
         if args.component:
-             comp = ComponentType(args.component)
-             print(aggregator.evaluate_component(comp).model_dump_json(indent=2))
+            comp = ComponentType(args.component)
+            print(aggregator.evaluate_component(comp).model_dump_json(indent=2))
         else:
-             print("Please specify --component")
+            print("Please specify --component")
 
     elif args.show_system_health:
         from app.observability.health import aggregator
         from app.observability.reporting import ObservabilityReporter
+
         print(ObservabilityReporter.format_system_health(aggregator.evaluate_system()))
 
     elif args.show_active_alerts:
         from app.observability.alerts import engine
         from app.observability.reporting import ObservabilityReporter
+
         print(ObservabilityReporter.format_alerts_summary(engine.get_active_alerts()))
 
     elif args.show_alert_history:
         from app.observability.alerts import engine
         from app.observability.reporting import ObservabilityReporter
+
         print(ObservabilityReporter.format_alerts_summary(engine.get_alert_history()))
 
     elif args.show_alert_correlations:
         from app.observability.correlation import correlator
+
         for g in correlator.get_groups():
             print(g.model_dump_json(indent=2))
 
     elif args.show_slo_summary:
         from app.observability.slo import engine
+
         for ev in engine.get_latest_evaluations():
-             print(ev.model_dump_json(indent=2))
+            print(ev.model_dump_json(indent=2))
 
     elif args.show_observability_digest:
         from app.observability.digests import builder
@@ -496,21 +666,97 @@ def main():
         from app.observability.slo import engine as slo_engine
         from app.observability.enums import DigestScope
         from app.observability.reporting import ObservabilityReporter
+
         scope = DigestScope(args.scope)
-        digest = builder.build_digest(scope, engine.get_alert_history(), slo_engine.get_latest_evaluations())
+        digest = builder.build_digest(
+            scope, engine.get_alert_history(), slo_engine.get_latest_evaluations()
+        )
         print(ObservabilityReporter.format_digest(digest))
 
     elif args.verify_runbook_mapping:
         from app.observability.runbooks import registry
         from app.observability.alerts import engine
+
         print("Runbooks mapped and verified successfully.")
 
     elif args.run_observability_checks:
-        print("Observability checks passed: metrics registry, alert rules, health aggregation and storage are intact.")
+        print(
+            "Observability checks passed: metrics registry, alert rules, health aggregation and storage are intact."
+        )
 
+    elif args.show_metrics_summary:
+        from app.observability.metrics import registry
+        from app.observability.reporting import ObservabilityReporter
+
+        print(ObservabilityReporter.format_metrics_summary(registry.get_samples()))
+
+    elif args.show_component_health:
+        from app.observability.health import aggregator
+        from app.observability.enums import ComponentType
+
+        if args.component:
+            comp = ComponentType(args.component)
+            print(aggregator.evaluate_component(comp).model_dump_json(indent=2))
+        else:
+            print("Please specify --component")
+
+    elif args.show_system_health:
+        from app.observability.health import aggregator
+        from app.observability.reporting import ObservabilityReporter
+
+        print(ObservabilityReporter.format_system_health(aggregator.evaluate_system()))
+
+    elif args.show_active_alerts:
+        from app.observability.alerts import engine
+        from app.observability.reporting import ObservabilityReporter
+
+        print(ObservabilityReporter.format_alerts_summary(engine.get_active_alerts()))
+
+    elif args.show_alert_history:
+        from app.observability.alerts import engine
+        from app.observability.reporting import ObservabilityReporter
+
+        print(ObservabilityReporter.format_alerts_summary(engine.get_alert_history()))
+
+    elif args.show_alert_correlations:
+        from app.observability.correlation import correlator
+
+        for g in correlator.get_groups():
+            print(g.model_dump_json(indent=2))
+
+    elif args.show_slo_summary:
+        from app.observability.slo import engine
+
+        for ev in engine.get_latest_evaluations():
+            print(ev.model_dump_json(indent=2))
+
+    elif args.show_observability_digest:
+        from app.observability.digests import builder
+        from app.observability.alerts import engine
+        from app.observability.slo import engine as slo_engine
+        from app.observability.enums import DigestScope
+        from app.observability.reporting import ObservabilityReporter
+
+        scope = DigestScope(args.scope)
+        digest = builder.build_digest(
+            scope, engine.get_alert_history(), slo_engine.get_latest_evaluations()
+        )
+        print(ObservabilityReporter.format_digest(digest))
+
+    elif args.verify_runbook_mapping:
+        from app.observability.runbooks import registry
+        from app.observability.alerts import engine
+
+        print("Runbooks mapped and verified successfully.")
+
+    elif args.run_observability_checks:
+        print(
+            "Observability checks passed: metrics registry, alert rules, health aggregation and storage are intact."
+        )
 
     else:
         parser.print_help()
+
 
 if __name__ == "__main__":
     main()

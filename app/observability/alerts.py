@@ -1,12 +1,22 @@
+import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 from app.observability.models import AlertRule, AlertEvent
 from app.observability.enums import AlertState, AlertSeverity, ComponentType
 from app.observability.exceptions import InvalidAlertRule
-import uuid
 
 
 class AlertEngine:
+    def trigger_experiment_alert(
+        self, severity: str, message: str, context: dict | None = None
+    ):
+        logging.getLogger(__name__).warning(
+            f"ALERT [{severity.upper()}]: {message} - Context: {context}"
+        )
+
+    def resolve_experiment_alert(self, alert_id: str):
+        logging.getLogger(__name__).info(f"ALERT RESOLVED: {alert_id}")
+
     def __init__(self):
         self._rules: Dict[str, AlertRule] = {}
         self._active_alerts: Dict[str, AlertEvent] = {}
@@ -92,3 +102,13 @@ class AlertEngine:
 
 
 engine = AlertEngine()
+
+
+class AlertManager:
+    def trigger_alert(self, severity: str, message: str, context: dict | None = None):
+        logging.getLogger(__name__).warning(
+            f"ALERT [{severity.upper()}]: {message} - Context: {context}"
+        )
+
+    def resolve_alert(self, alert_id: str):
+        logging.getLogger(__name__).info(f"ALERT RESOLVED: {alert_id}")

@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class UpgradePlanner:
     def __init__(self):
         self.compat_checker = CompatibilityChecker()
@@ -20,7 +21,7 @@ class UpgradePlanner:
             mig_plan = self.mig_executor.create_plan(
                 compat.current_version,
                 compat.target_version,
-                MigrationDirection.UPGRADE
+                MigrationDirection.UPGRADE,
             )
 
         verdict = UpgradeVerdict.PASS
@@ -35,13 +36,11 @@ class UpgradePlanner:
             compatibility_report=compat,
             migration_plan=mig_plan,
             verdict=verdict,
-            warnings=warnings
+            warnings=warnings,
         )
 
     def run_dry_run(self, plan: UpgradePlan) -> UpgradeResult:
         logger.info(f"Running upgrade dry run to {plan.target_release.version.version}")
         return UpgradeResult(
-            plan=plan,
-            success=True,
-            applied_at=datetime.now(timezone.utc)
+            plan=plan, success=True, applied_at=datetime.now(timezone.utc)
         )

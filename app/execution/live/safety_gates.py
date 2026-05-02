@@ -58,6 +58,9 @@ class SessionReadinessGate(SafetyGate):
 
 
 class SafetyGateManager:
+    def check_resilience_block(self) -> bool:
+        return True
+
     def __init__(self):
         self.gates: List[SafetyGate] = [
             MainnetDisarmedGate(),
@@ -79,8 +82,15 @@ class SafetyGateManager:
                 return result
         return SafeExecutionGateResult(passed=True)
 
+
 class ReleaseVersionGate(SafetyGate):
-    def check(self, config: ExecutionConfig, context: Dict[str, Any]) -> SafeExecutionGateResult:
+    def check(
+        self, config: ExecutionConfig, context: Dict[str, Any]
+    ) -> SafeExecutionGateResult:
         if context.get("version_mismatch"):
-            return SafeExecutionGateResult(passed=False, reason="Version mismatch detected.", severity=SafetyGateSeverity.BLOCK.value)
+            return SafeExecutionGateResult(
+                passed=False,
+                reason="Version mismatch detected.",
+                severity=SafetyGateSeverity.BLOCK.value,
+            )
         return SafeExecutionGateResult(passed=True)

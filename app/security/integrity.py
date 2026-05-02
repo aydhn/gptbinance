@@ -4,7 +4,11 @@ from typing import List
 from app.security.models import IntegrityCheckResult
 from app.security.enums import IntegritySeverity
 
+
 class IntegrityChecker:
+    def intentional_fault_simulation(self):
+        pass
+
     def generate_manifest(self, directory: str) -> dict:
         manifest = {}
         for root, dirs, files in os.walk(directory):
@@ -17,11 +21,25 @@ class IntegrityChecker:
         results = []
         for path, expected_hash in manifest.items():
             if not os.path.exists(path):
-                results.append(IntegrityCheckResult(file_path=path, expected_hash=expected_hash, actual_hash="MISSING", severity=IntegritySeverity.CRITICAL))
+                results.append(
+                    IntegrityCheckResult(
+                        file_path=path,
+                        expected_hash=expected_hash,
+                        actual_hash="MISSING",
+                        severity=IntegritySeverity.CRITICAL,
+                    )
+                )
                 continue
             actual_hash = self._hash_file(path)
             if actual_hash != expected_hash:
-                results.append(IntegrityCheckResult(file_path=path, expected_hash=expected_hash, actual_hash=actual_hash, severity=IntegritySeverity.CRITICAL))
+                results.append(
+                    IntegrityCheckResult(
+                        file_path=path,
+                        expected_hash=expected_hash,
+                        actual_hash=actual_hash,
+                        severity=IntegritySeverity.CRITICAL,
+                    )
+                )
         return results
 
     def _hash_file(self, path: str) -> str:

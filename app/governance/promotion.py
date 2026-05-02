@@ -6,7 +6,7 @@ class PromotionEvaluator:
     def evaluate(self, bundle: CandidateBundle) -> PromotionCandidateReport:
         # Check validation summaries, ML readiness, Rollback readiness, etc.
         blockers = []
-        warnings = []
+        warnings: list[str] = []
         readiness = PromotionReadiness.READY
 
         if not bundle.rollback_ref:

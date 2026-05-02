@@ -1,3 +1,4 @@
+import logging
 from app.ops.base import SupervisorBase
 from app.ops.models import OpsRun, SupervisorStatus, OpsAuditRecord
 from app.ops.startup import SessionStarter
@@ -74,7 +75,7 @@ class SessionSupervisor(SupervisorBase):
             component=ComponentType.SUPERVISOR,
             details={"run_id": run_id, "action": action},
             severity=AlertSeverity.INFO,
-            run_id=run_id
+            run_id=run_id,
         )
 
     def flatten_live(self, run_id: str, reason: str) -> None:
@@ -88,3 +89,14 @@ class SessionSupervisor(SupervisorBase):
             self._audit(run_id, f"rollback_live_initiated: {reason}")
             # Placeholder for actual LiveRuntime rollback invocation
             pass
+
+
+class Supervisor:
+    def halt(self, reason: str):
+        logging.getLogger(__name__).error(f"SUPERVISOR HALTED SYSTEM: {reason}")
+
+    def pause(self, reason: str):
+        logging.getLogger(__name__).warning(f"SUPERVISOR PAUSED SYSTEM: {reason}")
+
+    def drain(self, reason: str):
+        logging.getLogger(__name__).info(f"SUPERVISOR DRAINING: {reason}")

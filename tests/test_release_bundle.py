@@ -2,6 +2,7 @@ import pytest
 import os
 from app.release.bundle import BundleGenerator
 
+
 def test_generate_bundle(tmp_path):
     gen = BundleGenerator()
     bundle = gen.generate_bundle(str(tmp_path))

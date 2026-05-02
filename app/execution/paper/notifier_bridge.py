@@ -1,4 +1,5 @@
 """Bridge connecting paper runtime to telegram notifier."""
+
 import logging
 from typing import Any, Optional
 from datetime import datetime, timedelta

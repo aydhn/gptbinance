@@ -1,4 +1,5 @@
 """High-level repository for accessing paper run state."""
+
 from typing import List, Optional
 from .storage import PaperStorage
 from .models import PaperArtifactManifest

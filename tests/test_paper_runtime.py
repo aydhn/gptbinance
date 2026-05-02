@@ -31,6 +31,7 @@ def base_config():
 
 import pytest
 
+
 @pytest.mark.skip(reason="PaperRuntimeOrchestrator currently acts as a mock.")
 def test_runtime_orchestrator_initializes(base_config, mock_notifier, mock_storage):
     runtime = PaperRuntimeOrchestrator()

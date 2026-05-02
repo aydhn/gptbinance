@@ -3,6 +3,7 @@ import os
 from typing import Dict
 from app.release.models import ReleaseArtifactManifest
 
+
 class ChecksumManager:
     def generate_checksum(self, file_path: str) -> str:
         sha256 = hashlib.sha256()
@@ -19,7 +20,9 @@ class ChecksumManager:
                 files[os.path.relpath(path, directory)] = self.generate_checksum(path)
         return ReleaseArtifactManifest(files=files)
 
-    def verify_manifest(self, manifest: ReleaseArtifactManifest, directory: str) -> bool:
+    def verify_manifest(
+        self, manifest: ReleaseArtifactManifest, directory: str
+    ) -> bool:
         for rel_path, expected_checksum in manifest.files.items():
             path = os.path.join(directory, rel_path)
             if not os.path.exists(path):

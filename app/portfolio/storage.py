@@ -11,24 +11,20 @@ class PortfolioStorage:
 
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute(
-                """
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS portfolio_batches (
                     run_id TEXT PRIMARY KEY,
                     timestamp TEXT,
                     payload TEXT
                 )
-                """
-            )
-            conn.execute(
-                """
+                """)
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS portfolio_summaries (
                     run_id TEXT PRIMARY KEY,
                     timestamp TEXT,
                     payload TEXT
                 )
-                """
-            )
+                """)
 
     def save_batch(self, batch: PortfolioDecisionBatch):
         with sqlite3.connect(self.db_path) as conn:

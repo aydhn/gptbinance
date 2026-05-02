@@ -1,4 +1,3 @@
-
 from app.products.enums import ProductType
 from app.execution.derivatives.models import DerivativeExecutionIntent
 import logging
@@ -16,15 +15,22 @@ class BinanceTestnetExecutor:
     def __init__(self, rest_client: Any):
         self.rest_client = rest_client
 
-
-    async def execute_derivative(self, intent: DerivativeExecutionIntent, testnet_first: bool = True):
+    async def execute_derivative(
+        self, intent: DerivativeExecutionIntent, testnet_first: bool = True
+    ):
         # Enforce testnet/simulation gating heavily in this phase
         if testnet_first:
-            logger.info(f"Executing TESTNET DERIVATIVE order: {intent.side.value} {intent.quantity} {intent.symbol} ({intent.product_type.value})")
+            logger.info(
+                f"Executing TESTNET DERIVATIVE order: {intent.side.value} {intent.quantity} {intent.symbol} ({intent.product_type.value})"
+            )
             return "testnet_mock_order_id"
         else:
-            logger.critical("LIVE DERIVATIVES execution blocked! Not enabled in this phase.")
-            raise NotImplementedError("Live mainnet derivatives trading is locked behind safety gates.")
+            logger.critical(
+                "LIVE DERIVATIVES execution blocked! Not enabled in this phase."
+            )
+            raise NotImplementedError(
+                "Live mainnet derivatives trading is locked behind safety gates."
+            )
 
     async def submit_order(self, request: ExecutionRequest) -> ExchangeAck:
 

@@ -1,5 +1,6 @@
 from app.security.dr import DisasterRecoveryManager
 
+
 def test_dr_plan():
     drm = DisasterRecoveryManager()
     plan = drm.generate_plan("State Corruption")

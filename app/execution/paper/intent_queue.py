@@ -1,4 +1,5 @@
 """Queue for risk-approved paper order intents."""
+
 import logging
 from typing import List, Optional
 from datetime import datetime

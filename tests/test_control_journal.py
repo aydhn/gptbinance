@@ -3,6 +3,7 @@ from app.control.models import CommandJournalEntry
 from app.control.enums import SensitiveActionType, CommandStatus
 from datetime import datetime, timezone
 
+
 def test_journal_append():
     entry = CommandJournalEntry(
         id="j-123",
@@ -10,7 +11,7 @@ def test_journal_append():
         action_type=SensitiveActionType.START_LIVE_SESSION,
         requester_id="op1",
         status=CommandStatus.REQUESTED,
-        timestamp=datetime.now(timezone.utc)
+        timestamp=datetime.now(timezone.utc),
     )
     journal.append(entry)
     entries = journal.get_all()

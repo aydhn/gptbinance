@@ -1,12 +1,20 @@
 from app.control.revocation import manager as rev_manager
 from app.control.requests import manager as req_manager
 from app.control.approvals import manager as app_manager
-from app.control.enums import SensitiveActionType, OperatorRole, RevocationReason, ApprovalStatus
+from app.control.enums import (
+    SensitiveActionType,
+    OperatorRole,
+    RevocationReason,
+    ApprovalStatus,
+)
 from app.control.models import OperatorIdentity
+
 
 def test_revocation():
     requester = OperatorIdentity(id="op1", roles=[OperatorRole.OPS])
-    req = req_manager.create_request(SensitiveActionType.START_LIVE_SESSION, requester, "test")
+    req = req_manager.create_request(
+        SensitiveActionType.START_LIVE_SESSION, requester, "test"
+    )
     record = app_manager.init_record(req)
 
     admin = OperatorIdentity(id="admin", roles=[OperatorRole.ADMIN])

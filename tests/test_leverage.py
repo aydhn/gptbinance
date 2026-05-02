@@ -4,6 +4,7 @@ from app.products.enums import ProductType
 from app.execution.derivatives.leverage import LeverageManager
 from app.execution.derivatives.exceptions import InvalidLeverageChange
 
+
 def test_leverage_cap_enforcement():
     reg = ProductRegistry()
     mgr = LeverageManager(reg)

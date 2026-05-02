@@ -21,6 +21,6 @@ class ModelRegistry:
     def get_analytics_refs(self) -> dict:
         return {
             "active_models": self.entries,
-            "drift_reports": [], # Mock
-            "calibration_refs": [] # Mock
+            "drift_reports": [],  # Mock
+            "calibration_refs": [],  # Mock
         }

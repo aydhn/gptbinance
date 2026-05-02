@@ -1,6 +1,7 @@
 import pytest
 from app.backtest.derivatives.positions import BacktestDerivativePositionState
 
+
 def test_short_pnl():
     state = BacktestDerivativePositionState()
     # Open short

@@ -1,4 +1,5 @@
 """Simulates fills for paper orders based on live data."""
+
 import logging
 from typing import List, Optional
 from .models import PaperOrder, PaperFill, FillTrigger

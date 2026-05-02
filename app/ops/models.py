@@ -152,10 +152,12 @@ class RolloverSummary(BaseModel):
 
 from app.ops.enums import ReadinessVerdict
 
+
 class ComponentReadiness(BaseModel):
     component: str
     verdict: ReadinessVerdict
     message: str = ""
+
 
 class ReadinessReport(BaseModel):
     timestamp: datetime

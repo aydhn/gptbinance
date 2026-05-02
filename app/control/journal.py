@@ -1,9 +1,5 @@
-
-
 from typing import List
 from app.control.models import CommandJournalEntry
-
-
 
 
 class CommandJournal:

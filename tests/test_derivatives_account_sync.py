@@ -7,6 +7,7 @@ from app.execution.derivatives.margin_modes import MarginModeManager
 from app.execution.derivatives.position_modes import PositionModeManager
 from app.execution.derivatives.account_sync import DerivativeAccountSync
 
+
 def test_derivative_account_sync():
     reg = ProductRegistry()
     lev = LeverageManager(reg)
@@ -15,9 +16,7 @@ def test_derivative_account_sync():
     sync = DerivativeAccountSync(lev, mar, pos)
 
     mock_exchange_data = {
-        "positions": [
-            {"symbol": "BTCUSDT", "leverage": 4, "marginType": "isolated"}
-        ]
+        "positions": [{"symbol": "BTCUSDT", "leverage": 4, "marginType": "isolated"}]
     }
 
     sync.sync_from_exchange(ProductType.FUTURES_USDM, mock_exchange_data)

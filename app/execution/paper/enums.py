@@ -1,4 +1,5 @@
 """Enums for paper trading runtime."""
+
 from enum import Enum, auto
 
 

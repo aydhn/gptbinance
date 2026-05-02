@@ -1,6 +1,13 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List
-from .enums import ProductType, MarginMode, PositionMode, ProductReadiness, SettlementType
+from .enums import (
+    ProductType,
+    MarginMode,
+    PositionMode,
+    ProductReadiness,
+    SettlementType,
+)
+
 
 class ProductTradingCapabilities(BaseModel):
     supports_short: bool = False
@@ -41,17 +48,20 @@ class ProductDescriptor(BaseModel):
 class SpotProductConfig(BaseModel):
     allowed_quote_assets: List[str] = ["USDT", "USDC"]
 
+
 class MarginProductConfig(BaseModel):
     default_margin_mode: MarginMode = MarginMode.ISOLATED
     max_allowed_leverage: int = 3
     auto_borrow: bool = False
     auto_repay: bool = False
 
+
 class FuturesProductConfig(BaseModel):
     default_margin_mode: MarginMode = MarginMode.ISOLATED
     default_position_mode: PositionMode = PositionMode.ONE_WAY
     max_allowed_leverage: int = 5
     settlement: SettlementType = SettlementType.CASH
+
 
 class ProductModeSnapshot(BaseModel):
     product_type: ProductType

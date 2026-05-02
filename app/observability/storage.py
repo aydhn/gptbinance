@@ -20,8 +20,7 @@ class ObservabilityStorage:
 
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute(
-                """
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS metric_samples (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     metric_name TEXT NOT NULL,
@@ -30,10 +29,8 @@ class ObservabilityStorage:
                     tags TEXT,
                     run_id TEXT
                 )
-            """
-            )
-            conn.execute(
-                """
+            """)
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS telemetry_events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     event_type TEXT NOT NULL,
@@ -43,10 +40,8 @@ class ObservabilityStorage:
                     details TEXT,
                     run_id TEXT
                 )
-            """
-            )
-            conn.execute(
-                """
+            """)
+            conn.execute("""
                 CREATE TABLE IF NOT EXISTS active_alerts (
                     alert_id TEXT PRIMARY KEY,
                     rule_id TEXT NOT NULL,
@@ -59,8 +54,7 @@ class ObservabilityStorage:
                     evidence TEXT,
                     runbook_ref TEXT
                 )
-            """
-            )
+            """)
             conn.commit()
 
     def save_metric_sample(self, sample: MetricSample) -> None:

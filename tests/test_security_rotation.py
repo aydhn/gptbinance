@@ -1,5 +1,6 @@
 from app.security.rotation import RotationReadiness
 
+
 def test_rotation():
     rr = RotationReadiness()
     rep = rr.get_report()

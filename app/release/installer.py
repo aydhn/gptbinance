@@ -2,6 +2,7 @@ from app.release.models import InstallPlan, ReleaseManifest
 from app.release.host_probe import HostProbe
 from app.release.enums import InstallVerdict, HostReadiness
 
+
 class Installer:
     def __init__(self):
         self.host_probe = HostProbe()
@@ -22,5 +23,5 @@ class Installer:
             target_release=target_release,
             host_probe=probe,
             verdict=verdict,
-            warnings=warnings
+            warnings=warnings,
         )

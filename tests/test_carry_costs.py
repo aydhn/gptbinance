@@ -2,6 +2,7 @@ import pytest
 from app.execution.derivatives.carry_costs import CarryCostAccounting
 from app.products.enums import ProductType
 
+
 def test_carry_cost_accumulation():
     costs = CarryCostAccounting()
     costs.add_funding_charge("BTCUSDT", 10.0)

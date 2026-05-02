@@ -1,4 +1,5 @@
 """PnL tracking for paper runtime."""
+
 import logging
 from .models import PaperEquitySnapshot
 from .position_book import PositionBookManager

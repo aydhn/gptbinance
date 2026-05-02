@@ -1,6 +1,7 @@
 from app.control.actions import registry
 from app.control.enums import SensitiveActionType, ActionCriticality
 
+
 def test_action_registry_defaults():
     action = registry.get_action(SensitiveActionType.START_LIVE_SESSION)
     assert action is not None

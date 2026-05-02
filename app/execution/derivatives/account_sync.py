@@ -4,13 +4,21 @@ from .leverage import LeverageManager
 from .margin_modes import MarginModeManager
 from .position_modes import PositionModeManager
 
+
 class DerivativeAccountSync:
-    def __init__(self, leverage_mgr: LeverageManager, margin_mgr: MarginModeManager, position_mgr: PositionModeManager):
+    def __init__(
+        self,
+        leverage_mgr: LeverageManager,
+        margin_mgr: MarginModeManager,
+        position_mgr: PositionModeManager,
+    ):
         self.leverage_mgr = leverage_mgr
         self.margin_mgr = margin_mgr
         self.position_mgr = position_mgr
 
-    def sync_from_exchange(self, product_type: ProductType, exchange_data: Dict[str, Any]):
+    def sync_from_exchange(
+        self, product_type: ProductType, exchange_data: Dict[str, Any]
+    ):
         """
         Mock sync function. In live, this parses exchange API responses to update internal state.
         """

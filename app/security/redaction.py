@@ -2,6 +2,7 @@ import json
 import re
 from typing import Any, Dict
 
+
 class Redactor:
     SENSITIVE_KEYS = ["API_KEY", "SECRET", "PASSWORD", "TOKEN", "PRIVATE_KEY"]
 

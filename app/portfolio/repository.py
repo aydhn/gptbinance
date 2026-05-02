@@ -23,5 +23,5 @@ class PortfolioRepository:
     def get_analytics_refs(self, run_id: str) -> dict:
         return {
             "decision_batch": self.get_decision_batch(run_id),
-            "summary": self.get_summary(run_id)
+            "summary": self.get_summary(run_id),
         }

@@ -2,6 +2,7 @@ class MetricsDef:
     # Dummy existing metrics definitions
     pass
 
+
 class PerfMetrics:
     COMPONENT_LATENCY = "perf.component.latency"
     QUEUE_WAIT_TIME = "perf.queue.wait_time"

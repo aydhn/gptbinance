@@ -3,6 +3,8 @@ from app.observability.models import RunbookRef
 
 
 class RunbookRegistry:
+    # Integrated with app.knowledge.catalog for ref validation
+
     def __init__(self):
         self._runbooks: Dict[str, RunbookRef] = {}
         self._seed_runbooks()

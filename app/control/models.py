@@ -34,6 +34,7 @@ class SensitiveAction(BaseModel):
     ttl_seconds: int
     allow_break_glass: bool
     description: str
+    recommended_knowledge_refs: List[str] = Field(default_factory=list)
 
 
 class ActionRequestContext(BaseModel):
@@ -92,6 +93,7 @@ class AuthorizationResult(BaseModel):
     request_id: str
     verdict: AuthorizationVerdict
     reason: str
+    readiness_advisory: Optional[str] = None
     timestamp: datetime
     is_break_glass: bool = False
 
@@ -110,6 +112,7 @@ class ApprovalExpiry(BaseModel):
     request_id: str
     expired_at: datetime
     reason: str
+    readiness_advisory: Optional[str] = None
 
 
 class RevocationRecord(BaseModel):

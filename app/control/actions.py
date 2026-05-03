@@ -18,6 +18,7 @@ class ActionRegistry:
                 ttl_seconds=3600,
                 allow_break_glass=True,
                 description="Start a live trading session",
+                recommended_knowledge_refs=["SOP-LIVE-001"],
             )
         )
         self.register(
@@ -29,6 +30,7 @@ class ActionRegistry:
                 ttl_seconds=1800,
                 allow_break_glass=True,
                 description="Flatten all positions in a live session",
+                recommended_knowledge_refs=["RB-FLATTEN-001"],
             )
         )
         self.register(

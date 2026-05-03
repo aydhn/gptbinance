@@ -60,6 +60,9 @@ class AuthorizationEngine:
             request_id=request.id,
             verdict=AuthorizationVerdict.APPROVED,
             reason="Authorized.",
+            readiness_advisory=execution_context.get("readiness_advisory")
+            if execution_context
+            else None,
             timestamp=now,
         )
 

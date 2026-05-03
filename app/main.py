@@ -1,4 +1,5 @@
 import argparse
+from app.main_universe_extension import add_universe_commands
 from app.ledger.reporting import LedgerReporter
 
 
@@ -168,6 +169,7 @@ def main():
         action="store_true",
         help="Show unresolved balance differences",
     )
+    add_universe_commands(parser)
     args = parser.parse_args()
 
     if getattr(args, "refresh_event_calendar", False):

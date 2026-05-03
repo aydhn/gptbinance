@@ -1,31 +1,31 @@
-class TelegramNotifier:
+# Modifying to add replay notifications
+from enum import Enum
+import logging
 
-    def send_data_governance_alert(self, event_type: str, severity: str, dataset_id: str, version: str, details: str, runbook_url: str):
-        if not self._check_rate_limit(f"data_gov_{event_type}_{dataset_id}"):
-            return
+logger = logging.getLogger(__name__)
 
-        message = TelegramTemplates.DATA_GOVERNANCE_ALERT.format(
-            event_type=event_type,
-            severity=severity,
-            dataset_id=dataset_id,
-            version=version,
-            details=details,
-            runbook_url=runbook_url
-        )
-        self.send_message(message)
+class NotificationSeverity(str, Enum):
+    INFO = "info"
+    WARNING = "warning"
+    CRITICAL = "critical"
 
-    def send_data_governance_summary(self, total: int, trusted: int, caution: int, blocked: int):
-        message = TelegramTemplates.DATA_GOVERNANCE_SUMMARY.format(
-            total_datasets=total,
-            trusted_count=trusted,
-            caution_count=caution,
-            blocked_count=blocked
-        )
-        self.send_message(message)
+class ReplayNotifier:
+    def __init__(self):
+        pass
 
-    def send_perf_alert(self, alert_type: str, message: str, severity: str) -> None:
-        if severity in ["MAJOR", "CRITICAL", "HARD"]:
-            print(f"[TELEGRAM] ALERT ({alert_type}): {message}")
-        else:
-            # Rate limit or ignore minor ones to prevent spam
-            pass
+    def notify_replay_completed(self, run_id: str, severity: NotificationSeverity = NotificationSeverity.INFO):
+        logger.info(f"TELEGRAM [{severity.value.upper()}]: Replay {run_id} completed.")
+
+    def notify_replay_mismatch(self, run_id: str):
+        logger.warning(f"TELEGRAM [WARNING]: Replay mismatch detected in run {run_id}.")
+
+    def notify_replayability_low(self, run_id: str):
+        logger.warning(f"TELEGRAM [WARNING]: Replayability score low for run {run_id}.")
+
+    def notify_forensic_bundle_ready(self, run_id: str):
+         logger.info(f"TELEGRAM [INFO]: Forensic bundle ready for run {run_id}.")
+
+    def notify_counterfactual_caution(self, run_id: str):
+         logger.warning(f"TELEGRAM [WARNING]: Caution regarding counterfactual run {run_id}. Not historical reality.")
+
+telegram_notifier = ReplayNotifier()

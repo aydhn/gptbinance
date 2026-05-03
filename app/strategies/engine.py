@@ -1,3 +1,5 @@
+from app.events.models import EventRiskOverlay
+from app.events.strategy import check_strategy_event_gate
 from typing import Optional
 from app.research.regime.models import RegimeContext
 from typing import List, Dict, Any

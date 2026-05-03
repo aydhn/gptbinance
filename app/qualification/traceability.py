@@ -1,3 +1,5 @@
+
+from app.data_governance.models import DataContract, TrustVerdict
 from typing import Dict, List
 from app.qualification.models import TraceabilityEntry
 from app.qualification.requirements import get_all_requirements

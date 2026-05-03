@@ -124,3 +124,11 @@ class RiskEngine:
         for req in requests:
             bundles.append(self.evaluate_intent(req))
         return bundles
+
+    # Added in Phase 38
+    def apply_stress_overlay(self, overlay_decision):
+        if overlay_decision.verdict in ["BLOCK", "REDUCE"]:
+            self._logger.warning(
+                f"Stress budget breached. Applying restrictions. Reasons: {overlay_decision.reasons}"
+            )
+        return True

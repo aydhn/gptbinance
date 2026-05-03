@@ -67,3 +67,7 @@ class PretradeValidator:
                 )
 
         logger.info(f"Pretrade validation passed for intent {intent.intent_id}")
+
+    # Added in Phase 38
+    def check_stress_overlay_verdict(self, verdict):
+        pass

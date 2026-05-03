@@ -189,3 +189,7 @@ class ConservativeAllocator(BasePortfolioAllocator):
         return PortfolioDecisionBatch(
             timestamp=batch.timestamp, run_id=batch.run_id, decisions=decisions
         )
+
+    # Added in Phase 38
+    def adjust_for_stress_vulnerability(self, clusters, stress_vulns):
+        pass

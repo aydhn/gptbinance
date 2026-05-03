@@ -43,3 +43,7 @@ class DummyCounterfactualEngine:
                 )
             )
         return results
+
+    # Added in Phase 38
+    def add_counterfactual_stress_replay_hooks(self):
+        pass

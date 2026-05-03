@@ -2,8 +2,7 @@ from app.replay.models import (
     ReplayConfig,
     ReplayScope,
     ReplaySourceRef,
-    ReplaySourceType,
-)
+    ReplaySourceType)
 from app.replay.timeline import DummyTimelineBuilder
 
 
@@ -13,8 +12,7 @@ def test_timeline_builder():
         scope=ReplayScope.TRADE,
         sources=[
             ReplaySourceRef(source_type=ReplaySourceType.PAPER_SESSION, ref_id="s1")
-        ],
-    )
+        ])
     sources = [{"ref_id": "s1"}]
     timeline = builder.build_timeline(sources, config)
     assert len(timeline.events) == 1

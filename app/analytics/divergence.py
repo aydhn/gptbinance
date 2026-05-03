@@ -29,3 +29,9 @@ class DivergenceAnalyzer(DivergenceAnalyzerBase):
         )
         reports.append(rep)
         return reports
+
+    # Added in Phase 38
+    def add_stress_divergence_evidence(
+        self, event_state, liquidity_state, stress_posture
+    ):
+        pass

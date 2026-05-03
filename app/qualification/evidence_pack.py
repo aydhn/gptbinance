@@ -1,18 +1,10 @@
-from typing import List
-from app.qualification.models import EvidencePack, QualificationRun
-from app.qualification.evidence import EvidenceCollector
+class EvidencePack:
+    def __init__(self):
+        self.perf_summary_ref = None
+        self.host_qualification_ref = None
+        self.perf_regression_ref = None
 
-
-class EvidencePackAssembler:
-    def assemble(self, run_id: str, required_sections: List[str]) -> EvidencePack:
-        collector = EvidenceCollector()
-        pack = EvidencePack(run_id=run_id)
-
-        for section in required_sections:
-            refs = collector.collect_refs(section)
-            if hasattr(pack, section):
-                setattr(pack, section, refs)
-
-        # Check completeness (mock logic: all required are collected)
-        pack.is_complete = True
-        return pack
+    def add_perf_evidence(self, summary_id: str, qual_id: str, reg_id: str) -> None:
+        self.perf_summary_ref = summary_id
+        self.host_qualification_ref = qual_id
+        self.perf_regression_ref = reg_id

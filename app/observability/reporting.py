@@ -1,3 +1,6 @@
-# Mock Observability Reporting
-def get_observability_digest():
-    return {"health": "ok", "active_alerts": 0, "slo_status": "met"}
+class ObservabilityReporter:
+    def log_perf_digest(self, summary: str) -> None:
+        print(f"[OBSERVABILITY PERF DIGEST]\n{summary}")
+
+    def log_perf_alert(self, alert_msg: str) -> None:
+        print(f"[OBSERVABILITY PERF ALERT]\n{alert_msg}")

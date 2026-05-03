@@ -1,9 +1,9 @@
-# Mock Release Manifest
 class ReleaseManifest:
     def __init__(self, version: str):
         self.version = version
-        self.qualification_refs = []
-        self.certified_fingerprints = {}
+        self.perf_baseline_refs: list[str] = []
+        self.tested_host_classes: list[str] = []
 
-    def add_qualification_ref(self, run_id: str, profile: str):
-        self.qualification_refs.append({"run_id": run_id, "profile": profile})
+    def set_perf_data(self, baselines: list, host_classes: list) -> None:
+        self.perf_baseline_refs = baselines
+        self.tested_host_classes = host_classes

@@ -15,6 +15,10 @@ from app.perf.regression import RegressionEvaluator
 from app.perf.host_classes import HostClassRegistry
 from app.perf.models import HostQualificationReport
 from app.perf.enums import ReadinessVerdict
+from app.data_governance import (
+    GovernanceStorage, GovernanceRepository, GovernanceReporter,
+    DatasetRef, DatasetType, TrustLevel
+)
 
 def main():
     parser = argparse.ArgumentParser(description="Binance Trading Platform - Performance Engineering CLI")
@@ -32,11 +36,32 @@ def main():
     parser.add_argument("--show-capacity-report", action="store_true")
     parser.add_argument("--run-host-qualification", action="store_true")
     parser.add_argument("--show-perf-baselines", action="store_true")
+    # New Governance arguments
+    parser.add_argument("--register-data-contract", action="store_true")
+    parser.add_argument("--show-data-contracts", action="store_true")
+    parser.add_argument("--show-schema-registry", action="store_true")
+    parser.add_argument("--run-data-quality-check", action="store_true")
+    parser.add_argument("--show-quality-report", action="store_true")
+    parser.add_argument("--show-lineage", action="store_true")
+    parser.add_argument("--show-provenance", action="store_true")
+    parser.add_argument("--show-canonical-map", action="store_true")
+    parser.add_argument("--run-schema-compatibility-check", action="store_true")
+    parser.add_argument("--show-schema-diff", action="store_true")
+    parser.add_argument("--show-downstream-impact", action="store_true")
+    parser.add_argument("--show-trust-verdict", action="store_true")
+    parser.add_argument("--show-data-catalog", action="store_true")
+    parser.add_argument("--dataset-ref", type=str, help="Dataset Reference ID (format: id:version)")
+    parser.add_argument("--entity", type=str, help="Entity alias for canonical map")
+    parser.add_argument("--from-schema", type=str, help="Source schema (format: id:version)")
+    parser.add_argument("--to-schema", type=str, help="Target schema (format: id:version)")
+
 
     args = parser.parse_args()
 
     storage = PerfStorage()
     repo = PerfRepository(storage)
+    gov_repo = GovernanceRepository(GovernanceStorage())
+    gov_reporter = GovernanceReporter()
 
     if args.run_perf_profile:
         if not args.perf_workload or not args.perf_host_class:
@@ -184,6 +209,83 @@ def main():
         print("=== SAVED PERF RUNS ===")
         for r in runs:
             print(f"- {r}")
+
+
+    elif args.register_data_contract:
+        print("Registering mock data contract...")
+        from app.data_governance import DataContract, ContractType, SchemaVersionRef
+        contract = DataContract(
+            contract_id="mock-contract-1",
+            contract_type=ContractType.RAW,
+            schema_ref=SchemaVersionRef(schema_id="mock-schema", version="v1"),
+            required_fields=["id", "timestamp"],
+            optional_fields=[],
+            unique_keys=["id"],
+            description="Mock Contract"
+        )
+        gov_repo.save_contract(contract)
+        print("Contract registered.")
+
+    elif args.show_data_contracts:
+        print("Data Contracts:")
+        for c in gov_repo.list_contracts():
+            print(gov_reporter.format_contract(c))
+            print("-" * 40)
+
+    elif args.show_schema_registry:
+        print("Schema Registry:")
+        for s in gov_repo.list_schemas():
+            print(gov_reporter.format_schema(s))
+            print("-" * 40)
+
+    elif args.run_data_quality_check and args.dataset_ref:
+        print(f"Running Data Quality Check for {args.dataset_ref}...")
+        ds_id, ver = args.dataset_ref.split(":")
+        ref = DatasetRef(dataset_id=ds_id, dataset_type=DatasetType.UNKNOWN, version=ver)
+        from app.data_governance import QualityEngine
+        engine = QualityEngine()
+        report = engine.evaluate(ref, data=[])
+        gov_repo.save_quality_report(report)
+        print(gov_reporter.format_quality_report(report))
+
+    elif args.show_quality_report and args.run_id:
+        print(f"Quality Report for Run {args.run_id}")
+
+    elif args.show_lineage and args.dataset_ref:
+        print(f"Lineage for {args.dataset_ref}")
+
+    elif args.show_provenance and args.dataset_ref:
+        print(f"Provenance for {args.dataset_ref}")
+
+    elif args.show_canonical_map and args.entity:
+        print(f"Canonical Map for {args.entity}")
+
+    elif args.run_schema_compatibility_check and args.from_schema and args.to_schema:
+        print(f"Schema Compatibility: {args.from_schema} -> {args.to_schema}")
+
+    elif args.show_schema_diff and args.from_schema and args.to_schema:
+        print(f"Schema Diff: {args.from_schema} -> {args.to_schema}")
+
+    elif args.show_downstream_impact and args.dataset_ref:
+        print(f"Downstream Impact for {args.dataset_ref}")
+
+    elif args.show_trust_verdict and args.dataset_ref:
+        ds_id, ver = args.dataset_ref.split(":")
+        ref = DatasetRef(dataset_id=ds_id, dataset_type=DatasetType.UNKNOWN, version=ver)
+        verdict = gov_repo.get_trust_verdict(ref)
+        if verdict:
+            print(gov_reporter.format_trust_verdict(verdict))
+        else:
+            print("Trust verdict not found.")
+
+    elif args.show_data_catalog:
+        print("Governance Data Catalog:")
+        entries = gov_repo.list_catalog_entries()
+        if not entries:
+            print("Catalog is empty.")
+        else:
+            for e in entries:
+                print(f"- {e.dataset_ref.dataset_id} (v{e.dataset_ref.version}) | Status: {e.latest_trust_verdict.value} | Last Updated: {e.last_updated}")
 
     else:
         parser.print_help()

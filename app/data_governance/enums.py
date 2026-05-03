@@ -1,0 +1,64 @@
+from enum import Enum
+
+class DatasetType(str, Enum):
+    RAW_MARKET_DATA = "RAW_MARKET_DATA"
+    NORMALIZED_DATA = "NORMALIZED_DATA"
+    FEATURE_SNAPSHOT = "FEATURE_SNAPSHOT"
+    ML_DATASET = "ML_DATASET"
+    ANALYTICS_SUMMARY = "ANALYTICS_SUMMARY"
+    GOVERNANCE_BUNDLE = "GOVERNANCE_BUNDLE"
+    UNKNOWN = "UNKNOWN"
+
+class ContractType(str, Enum):
+    RAW = "RAW"
+    NORMALIZED = "NORMALIZED"
+    FEATURE = "FEATURE"
+    ML = "ML"
+    ANALYTICS = "ANALYTICS"
+
+class SchemaCompatibility(str, Enum):
+    FULLY_COMPATIBLE = "FULLY_COMPATIBLE"
+    BACKWARD_COMPATIBLE = "BACKWARD_COMPATIBLE"
+    FORWARD_COMPATIBLE = "FORWARD_COMPATIBLE"
+    INCOMPATIBLE = "INCOMPATIBLE"
+
+class QualitySeverity(str, Enum):
+    CRITICAL = "CRITICAL"
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+    INFO = "INFO"
+
+class TrustLevel(str, Enum):
+    TRUSTED = "TRUSTED"
+    CAUTION = "CAUTION"
+    BLOCKED = "BLOCKED"
+
+class LineageEdgeType(str, Enum):
+    DERIVED_FROM = "DERIVED_FROM"
+    USES_MODEL = "USES_MODEL"
+    CONTRIBUTES_TO = "CONTRIBUTES_TO"
+
+class CanonicalEntityType(str, Enum):
+    SYMBOL = "SYMBOL"
+    PRODUCT = "PRODUCT"
+    INTERVAL = "INTERVAL"
+    EXCHANGE = "EXCHANGE"
+
+class ImpactSeverity(str, Enum):
+    CRITICAL = "CRITICAL"
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+
+class GovernanceVerdict(str, Enum):
+    APPROVED = "APPROVED"
+    CAUTION = "CAUTION"
+    REJECTED = "REJECTED"
+
+class SchemaChangeType(str, Enum):
+    FIELD_ADDED = "FIELD_ADDED"
+    FIELD_REMOVED = "FIELD_REMOVED"
+    TYPE_CHANGED = "TYPE_CHANGED"
+    NULLABILITY_CHANGED = "NULLABILITY_CHANGED"
+    METADATA_CHANGED = "METADATA_CHANGED"

@@ -1,3 +1,5 @@
+
+from app.data_governance.models import SchemaVersionRef, DataContract, CompatibilityReport
 class ReleaseManifest:
     def __init__(self, version: str):
         self.version = version

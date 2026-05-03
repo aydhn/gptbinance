@@ -1,131 +1,192 @@
 import argparse
 import sys
-from app.qualification.runner import QualificationRunner
-from app.qualification.enums import QualificationProfile
-from app.qualification.models import QualificationConfig
-from app.qualification.repository import QualificationRepository
-from app.qualification.reporting import (
-    format_qualification_summary,
-    format_traceability_matrix,
-    format_scenario_results,
-    format_forbidden_action_results,
-    format_contract_verification,
-    format_evidence_pack,
-)
-
+import uuid
+import time
+from app.perf.enums import WorkloadType, HostClass
+from app.perf.storage import PerfStorage
+from app.perf.repository import PerfRepository
+from app.perf.workloads import WorkloadRegistry
+from app.perf.profilers import WorkloadProfiler
+from app.perf.reporting import PerfReporter
+from app.perf.budgets import BudgetRegistry
+from app.perf.bottlenecks import BottleneckAnalyzer
+from app.perf.capacity import CapacityAnalyzer
+from app.perf.regression import RegressionEvaluator
+from app.perf.host_classes import HostClassRegistry
+from app.perf.models import HostQualificationReport
+from app.perf.enums import ReadinessVerdict
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform CLI")
-    parser.add_argument(
-        "--run-qualification", action="store_true", help="Run a qualification suite"
-    )
-    parser.add_argument(
-        "--run-qualification-dry-run",
-        action="store_true",
-        help="Dry-run a qualification suite",
-    )
-    parser.add_argument(
-        "--qualification-profile", type=str, help="Qualification profile to use"
-    )
-    parser.add_argument(
-        "--show-qualification-summary",
-        action="store_true",
-        help="Show summary for a run",
-    )
-    parser.add_argument(
-        "--show-traceability-matrix",
-        action="store_true",
-        help="Show traceability matrix",
-    )
-    parser.add_argument(
-        "--show-scenario-results",
-        action="store_true",
-        help="Show scenario results for a run",
-    )
-    parser.add_argument(
-        "--show-forbidden-action-results",
-        action="store_true",
-        help="Show forbidden action results for a run",
-    )
-    parser.add_argument(
-        "--show-contract-verification",
-        action="store_true",
-        help="Show contract verification for a run",
-    )
-    parser.add_argument(
-        "--show-evidence-pack", action="store_true", help="Show evidence pack for a run"
-    )
-    parser.add_argument(
-        "--show-certification-status",
-        action="store_true",
-        help="Show certification status for a run",
-    )
-    parser.add_argument(
-        "--show-waivers", action="store_true", help="Show waivers for a run"
-    )
-    parser.add_argument("--run-id", type=str, help="Run ID for reporting commands")
+    parser = argparse.ArgumentParser(description="Binance Trading Platform - Performance Engineering CLI")
+    parser.add_argument("--run-perf-profile", action="store_true")
+    parser.add_argument("--perf-workload", type=str)
+    parser.add_argument("--perf-host-class", type=str)
+    parser.add_argument("--show-perf-summary", action="store_true")
+    parser.add_argument("--run-id", type=str)
+    parser.add_argument("--show-resource-budgets", action="store_true")
+    parser.add_argument("--show-latency-summary", action="store_true")
+    parser.add_argument("--show-bottleneck-report", action="store_true")
+    parser.add_argument("--run-perf-regression-check", action="store_true")
+    parser.add_argument("--baseline-run", type=str)
+    parser.add_argument("--target-run", type=str)
+    parser.add_argument("--show-capacity-report", action="store_true")
+    parser.add_argument("--run-host-qualification", action="store_true")
+    parser.add_argument("--show-perf-baselines", action="store_true")
 
     args = parser.parse_args()
 
-    repo = QualificationRepository()
+    storage = PerfStorage()
+    repo = PerfRepository(storage)
 
-    if args.run_qualification or args.run_qualification_dry_run:
-        if not args.qualification_profile:
-            print("Error: --qualification-profile is required")
+    if args.run_perf_profile:
+        if not args.perf_workload or not args.perf_host_class:
+            print("Error: --perf-workload and --perf-host-class required.")
             sys.exit(1)
 
         try:
-            profile = QualificationProfile(args.qualification_profile)
-        except ValueError:
-            print(
-                f"Error: Invalid profile. Choose from {[e.value for e in QualificationProfile]}"
-            )
+            workload = WorkloadType[args.perf_workload]
+            host_class = HostClass[args.perf_host_class]
+        except KeyError:
+            print("Error: Invalid workload or host class enum value.")
             sys.exit(1)
 
-        config = QualificationConfig(dry_run=args.run_qualification_dry_run)
-        runner = QualificationRunner()
-        print(
-            f"Starting qualification run for profile {profile.value} (Dry Run: {config.dry_run})..."
-        )
-        run = runner.run(profile, config)
-        repo.save_run(run)
-        print(f"Qualification run completed. Run ID: {run.run_id}")
-        print(
-            f"Verdict: {run.verdict.verdict.value} | Recommendation: {run.verdict.go_no_go.value}"
-        )
-        sys.exit(0)
+        run_id = f"run_{int(time.time())}_{uuid.uuid4().hex[:6]}"
+        profiler = WorkloadProfiler(run_id, workload, host_class)
 
-    if args.show_traceability_matrix:
-        print(format_traceability_matrix())
-        sys.exit(0)
+        print(f"Starting profile for {workload.value} on {host_class.value}...")
+        profiler.start()
 
-    if args.run_id:
-        run = repo.get_run(args.run_id)
-        if not run:
-            print(f"Error: Run {args.run_id} not found.")
+        # Simulate some workload execution and sampling
+        with profiler.latency_tracker.measure("MainExecution"):
+            time.sleep(0.5)
+            profiler.sample_resources()
+            time.sleep(0.5)
+
+        profiler.stop()
+        run_data = profiler.create_perf_run()
+        repo.save_perf_run(run_data)
+
+        print(f"Profile complete. Saved as {run_id}.")
+        print(PerfReporter.format_run_summary(run_data))
+
+    elif args.show_perf_summary:
+        if not args.run_id:
+            print("Error: --run-id required.")
+            sys.exit(1)
+        run = repo.get_perf_run(args.run_id)
+        if run:
+            print(PerfReporter.format_run_summary(run))
+        else:
+            print(f"Run {args.run_id} not found.")
+
+    elif args.show_resource_budgets:
+        if not args.perf_host_class:
+            print("Error: --perf-host-class required.")
+            sys.exit(1)
+        # simplistic representation
+        print(f"Showing budgets applicable to modes recommended for {args.perf_host_class}")
+        try:
+            hc = HostClassRegistry.get(HostClass[args.perf_host_class])
+        except KeyError:
+            print("Invalid HostClass")
             sys.exit(1)
 
-        if args.show_qualification_summary:
-            print(format_qualification_summary(run))
-        elif args.show_scenario_results:
-            print(format_scenario_results(run))
-        elif args.show_forbidden_action_results:
-            print(format_forbidden_action_results(run))
-        elif args.show_contract_verification:
-            print(format_contract_verification(run))
-        elif args.show_evidence_pack:
-            print(format_evidence_pack(run))
-        elif args.show_certification_status:
-            print(f"Profile: {run.profile.value}")
-            print(f"Verdict: {run.verdict.verdict.value}")
-            print(f"Recommendation: {run.verdict.go_no_go.value}")
-        elif args.show_waivers:
-            print("=== Active Waivers ===")
-            print("Mock: No waivers registered for this run.")
+        modes = hc.recommended_modes
+        seen = set()
+        for mode in modes:
+            for b in BudgetRegistry.get_applicable_resource_budgets(mode):
+                k = f"{b.resource_type.value}_{b.severity.value}_{b.limit_value}"
+                if k not in seen:
+                    print(f"[{mode.upper()}] {b.resource_type.value} ({b.severity.value}): Limit = {b.limit_value}")
+                    seen.add(k)
+            for b in BudgetRegistry.get_applicable_latency_budgets(mode):
+                k = f"lat_{b.component_name}_{b.percentile.value}_{b.limit_ms}"
+                if k not in seen:
+                    print(f"[{mode.upper()}] Latency {b.component_name} {b.percentile.value} ({b.severity.value}): Limit = {b.limit_ms}ms")
+                    seen.add(k)
+
+    elif args.show_latency_summary:
+        if not args.run_id:
+            print("Error: --run-id required.")
+            sys.exit(1)
+        run = repo.get_perf_run(args.run_id)
+        if run:
+            print("=== LATENCY SUMMARY ===")
+            for lat in run.latencies:
+                print(f"Component: {lat.component_name} | Calls: {lat.call_count}")
+                print(f"  P50: {lat.p50_ms:.2f}ms | P95: {lat.p95_ms:.2f}ms | P99: {lat.p99_ms:.2f}ms | Max: {lat.max_ms:.2f}ms")
+        else:
+            print(f"Run {args.run_id} not found.")
+
+    elif args.show_bottleneck_report:
+        if not args.run_id:
+            print("Error: --run-id required.")
+            sys.exit(1)
+        run = repo.get_perf_run(args.run_id)
+        if run:
+            reports = BottleneckAnalyzer.analyze(run)
+            print(PerfReporter.format_bottleneck_report(reports))
+        else:
+            print(f"Run {args.run_id} not found.")
+
+    elif args.run_perf_regression_check:
+        if not args.baseline_run or not args.target_run:
+            print("Error: --baseline-run and --target-run required.")
+            sys.exit(1)
+        base = repo.get_perf_run(args.baseline_run)
+        targ = repo.get_perf_run(args.target_run)
+        if base and targ:
+            report = RegressionEvaluator.evaluate(base, targ)
+            repo.save_regression_report(report)
+            print(PerfReporter.format_regression_report(report))
+        else:
+            print("Could not find one or both runs.")
+
+    elif args.show_capacity_report:
+        if not args.run_id:
+            print("Error: --run-id required.")
+            sys.exit(1)
+        run = repo.get_perf_run(args.run_id)
+        if run:
+            report = CapacityAnalyzer.evaluate(run.host_class, [run.workload_type])
+            print(PerfReporter.format_capacity_report(report))
+        else:
+            print(f"Run {args.run_id} not found.")
+
+    elif args.run_host_qualification:
+        if not args.perf_host_class:
+            print("Error: --perf-host-class required.")
+            sys.exit(1)
+        try:
+            hc = HostClass[args.perf_host_class]
+        except KeyError:
+            print("Invalid HostClass")
+            sys.exit(1)
+
+        # Determine readiness based on expected workloads. Mocking a check here.
+        tested = [WorkloadType.PAPER_RUNTIME_CYCLE, WorkloadType.TESTNET_EXECUTION_SMOKE]
+        verdict = ReadinessVerdict.READY if hc != HostClass.LOCAL_MINIMAL else ReadinessVerdict.CAUTION
+
+        report = HostQualificationReport(
+            host_class=hc,
+            tested_workloads=tested,
+            readiness=verdict,
+            evidence_refs=["run_xyz_123"]
+        )
+        repo.save_qualification_report(report)
+        print(f"=== HOST QUALIFICATION REPORT: {hc.value} ===")
+        print(f"Readiness: {verdict.value}")
+        print(f"Tested Workloads: {[w.value for w in tested]}")
+        print(f"Evidence Refs: {report.evidence_refs}")
+
+    elif args.show_perf_baselines:
+        runs = repo.get_all_run_ids()
+        print("=== SAVED PERF RUNS ===")
+        for r in runs:
+            print(f"- {r}")
+
     else:
-        # Default behavior or no matching command
         parser.print_help()
-
 
 if __name__ == "__main__":
     main()

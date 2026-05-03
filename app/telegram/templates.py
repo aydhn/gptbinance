@@ -1,22 +1,6 @@
-class TelegramTemplates:
-    PERF_REGRESSION_WARNING = "⚠️ Perf Regression Detected: {msg}"
-    HOST_CAPACITY_CAUTION = "⚠️ Host Capacity Caution: {msg}"
-    LATENCY_BUDGET_BREACH = "⏱️ Latency Budget Breach: {msg}"
-    WEEKLY_PERF_DIGEST = "📊 Weekly Perf Digest:\n{msg}"
-    QUALIFICATION_PERF_BLOCKER = "🛑 Qualification Blocked by Perf: {msg}"
-
-    DATA_GOVERNANCE_ALERT = """
-🚨 <b>Data Governance Alert</b>
-Type: {event_type}
-Severity: {severity}
-Dataset: {dataset_id} (v{version})
-Details: {details}
-Runbook: {runbook_url}
-"""
-    DATA_GOVERNANCE_SUMMARY = """
-📊 <b>Data Governance Summary</b>
-Total Datasets: {total_datasets}
-Trusted: {trusted_count}
-Caution: {caution_count}
-Blocked: {blocked_count}
-"""
+# Placeholder for templates
+REPLAY_COMPLETED_TEMPLATE = "Replay {run_id} completed. Verdict: {verdict}"
+REPLAY_MISMATCH_TEMPLATE = "Mismatch detected in replay {run_id}."
+FORENSIC_SUMMARY_TEMPLATE = "Forensic bundle ready for replay {run_id}."
+REPLAYABILITY_LOW_TEMPLATE = "Low replayability score for {run_id}."
+COUNTERFACTUAL_CAUTION_TEMPLATE = "Counterfactual caution for {run_id}: this is not historical data."

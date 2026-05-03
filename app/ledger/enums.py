@@ -1,0 +1,76 @@
+from enum import Enum
+
+
+class LedgerAccountType(str, Enum):
+    ASSET = "ASSET"
+    LIABILITY = "LIABILITY"
+    EQUITY = "EQUITY"
+    REVENUE = "REVENUE"
+    EXPENSE = "EXPENSE"
+
+
+class LedgerEntryType(str, Enum):
+    TRADE_SETTLEMENT = "TRADE_SETTLEMENT"
+    FEE = "FEE"
+    FUNDING = "FUNDING"
+    INTEREST = "INTEREST"
+    TRANSFER = "TRANSFER"
+    DEPOSIT = "DEPOSIT"
+    WITHDRAWAL = "WITHDRAWAL"
+    ADJUSTMENT = "ADJUSTMENT"
+
+
+class MovementClass(str, Enum):
+    INFLOW = "INFLOW"
+    OUTFLOW = "OUTFLOW"
+    INTERNAL_TRANSFER = "INTERNAL_TRANSFER"
+    FEE_BURDEN = "FEE_BURDEN"
+    FUNDING_BURDEN = "FUNDING_BURDEN"
+
+
+class ReconciliationVerdict(str, Enum):
+    MATCH = "MATCH"
+    TOLERATED_DRIFT = "TOLERATED_DRIFT"
+    MISMATCH = "MISMATCH"
+    MISSING_EXTERNAL = "MISSING_EXTERNAL"
+    MISSING_INTERNAL = "MISSING_INTERNAL"
+
+
+class LotMethod(str, Enum):
+    FIFO = "FIFO"
+    LIFO = "LIFO"
+    HIFO = "HIFO"
+    WEIGHTED_AVERAGE = "WEIGHTED_AVERAGE"
+
+
+class BalanceStatus(str, Enum):
+    HEALTHY = "HEALTHY"
+    UNEXPLAINED_DELTA = "UNEXPLAINED_DELTA"
+    RECONCILIATION_FAILED = "RECONCILIATION_FAILED"
+
+
+class SourceSystem(str, Enum):
+    BINANCE_SPOT = "BINANCE_SPOT"
+    BINANCE_FUTURES = "BINANCE_FUTURES"
+    INTERNAL_ENGINE = "INTERNAL_ENGINE"
+
+
+class ScopeType(str, Enum):
+    LIVE = "LIVE"
+    PAPER = "PAPER"
+    TESTNET = "TESTNET"
+    SHADOW = "SHADOW"
+    RECOVERY_LAB = "RECOVERY_LAB"
+
+
+class DiscrepancySeverity(str, Enum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class LedgerVerdict(str, Enum):
+    VERIFIED = "VERIFIED"
+    SUSPICIOUS = "SUSPICIOUS"
+    AMBIGUOUS = "AMBIGUOUS"

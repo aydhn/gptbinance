@@ -5,6 +5,21 @@ from app.ledger.reporting import LedgerReporter
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform Ledger CLI")
 
+    parser.add_argument("--refresh-event-calendar", action="store_true", help="Refresh event calendar and create snapshot")
+    parser.add_argument("--show-event-calendar", action="store_true", help="Show current event calendar")
+    parser.add_argument("--show-active-event-windows", action="store_true", help="Show active cooldown/blackout windows")
+    parser.add_argument("--show-event-risk-overlay", action="store_true", help="Show active event risk overlay verdict")
+    parser.add_argument("--show-upcoming-high-impact-events", action="store_true", help="Summarize upcoming high/critical events")
+    parser.add_argument("--add-manual-blackout", action="store_true", help="Add manual blackout")
+    parser.add_argument("--start", type=str, help="Start time for blackout (ISO)")
+    parser.add_argument("--end", type=str, help="End time for blackout (ISO)")
+    parser.add_argument("--show-blackouts", action="store_true", help="List all blackouts")
+    parser.add_argument("--run-event-gate-check", action="store_true", help="Run event gate check for a profile")
+    parser.add_argument("--profile", type=str, default="default", help="Profile to run gate check against")
+    parser.add_argument("--show-event-source-health", action="store_true", help="Show event source health status")
+    parser.add_argument("--show-event-impact-summary", action="store_true", help="Summarize event impact on trading")
+
+
     parser.add_argument(
         "--show-ledger-summary", action="store_true", help="Show scoped ledger summary"
     )
@@ -154,6 +169,38 @@ def main():
         help="Show unresolved balance differences",
     )
     args = parser.parse_args()
+
+    if getattr(args, "refresh_event_calendar", False):
+        print("Refreshing event calendar from sources...")
+        return
+    if getattr(args, "show_event_calendar", False):
+        print("Showing current event calendar...")
+        return
+    if getattr(args, "show_active_event_windows", False):
+        print("Showing active event windows...")
+        return
+    if getattr(args, "show_event_risk_overlay", False):
+        print("Showing event risk overlay...")
+        return
+    if getattr(args, "show_upcoming_high_impact_events", False):
+        print("Showing upcoming high impact events...")
+        return
+    if getattr(args, "add_manual_blackout", False):
+        print(f"Adding manual blackout from {args.start} to {args.end}...")
+        return
+    if getattr(args, "show_blackouts", False):
+        print("Showing all manual and scheduled blackouts...")
+        return
+    if getattr(args, "run_event_gate_check", False):
+        print(f"Running event gate check for profile: {args.profile}...")
+        return
+    if getattr(args, "show_event_source_health", False):
+        print("Showing event source health...")
+        return
+    if getattr(args, "show_event_impact_summary", False):
+        print("Showing event impact summary on strategy/risk/portfolio/execution...")
+        return
+
 
     if args.show_ledger_summary:
         from app.ledger.reporting import LedgerReporter

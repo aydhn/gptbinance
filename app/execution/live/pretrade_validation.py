@@ -1,3 +1,5 @@
+from app.events.models import EventRiskOverlay
+from app.events.execution import validate_execution_against_events
 from app.products.enums import ProductType
 from app.execution.derivatives.pretrade_validation import DerivativePretradeValidator
 from typing import Dict, Any

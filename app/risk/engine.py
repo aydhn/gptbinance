@@ -1,3 +1,5 @@
+from app.events.models import EventRiskOverlay
+from app.events.enums import EventGateVerdict
 from app.products.enums import ProductType
 from app.execution.derivatives.models import (
     DerivativeExecutionIntent,
@@ -23,7 +25,55 @@ class RiskEngine:
         self.config = config
         self.state_manager = state_manager
 
-    def evaluate_intent(self, request: RiskEvaluationRequest) -> RiskApprovalBundle:
+    def evaluate_intent(
+        self, request: RiskEvaluationRequest, event_overlay: EventRiskOverlay = None
+    ) -> RiskApprovalBundle:
+        # Event-Risk Overlay evaluation
+        rejection_reasons = []
+        if event_overlay:
+            if event_overlay.verdict in [EventGateVerdict.BLOCK, EventGateVerdict.HALT]:
+                return RiskApprovalBundle(
+                    decision=RiskDecision(
+                        verdict=RiskVerdict.REJECT,
+                        approved_intent=request.intent,
+                        throttle_applied=ThrottleType.NONE,
+                        rejection_reasons=event_overlay.reasons,
+                        risk_score=0.0,
+                    ),
+                    signatures=[
+                        RiskSignature(
+                            component="event_overlay",
+                            authorized=False,
+                            reason="Blocked by event overlay",
+                            severity=5,
+                        )
+                    ],
+                    global_verdict=RiskVerdict.REJECT,
+                )
+            elif (
+                event_overlay.verdict == EventGateVerdict.REDUCE_ONLY
+                and hasattr(request.intent, "side")
+                and request.intent.side.lower() == "buy"
+            ):
+                return RiskApprovalBundle(
+                    decision=RiskDecision(
+                        verdict=RiskVerdict.REJECT,
+                        approved_intent=request.intent,
+                        throttle_applied=ThrottleType.NONE,
+                        rejection_reasons=["Reduce-only event window active"],
+                        risk_score=0.0,
+                    ),
+                    signatures=[
+                        RiskSignature(
+                            component="event_overlay",
+                            authorized=False,
+                            reason="Reduce-only event window active",
+                            severity=4,
+                        )
+                    ],
+                    global_verdict=RiskVerdict.REJECT,
+                )
+
         # Mock evaluation: just approve it for phase 18
         decision = RiskDecision(
             verdict=RiskVerdict.APPROVE,

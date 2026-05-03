@@ -1,3 +1,5 @@
+from app.events.models import EventRiskOverlay
+from app.events.portfolio import adjust_portfolio_for_event
 from app.portfolio.models import PortfolioSnapshot
 
 from app.products.enums import ProductType
@@ -24,7 +26,18 @@ class ConservativeAllocator(BasePortfolioAllocator):
         self.policy_manager = policy_manager
         self.budget_manager = budget_manager
 
-    def evaluate_intent(self, snapshot: PortfolioSnapshot, requested_intent) -> float:
+    def evaluate_intent(
+        self,
+        snapshot: PortfolioSnapshot,
+        requested_intent,
+        event_overlay: EventRiskOverlay = None,
+    ) -> float:
+        if event_overlay:
+            # Adjust overall budget internally
+            dummy_alloc = {"budget": 1.0}
+            adjusted = adjust_portfolio_for_event(dummy_alloc, event_overlay)
+            if adjusted.get("_event_adjusted"):
+                return 0.0  # block entirely if reduced or blocked
         # Penalize concentrated leveraged exposure
         if (
             hasattr(requested_intent, "product_type")

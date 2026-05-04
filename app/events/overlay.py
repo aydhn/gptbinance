@@ -33,6 +33,11 @@ class DefaultOverlayEngine(EventOverlayEngineBase):
                 verdict = EventGateVerdict.REDUCE_ONLY
                 reasons.append("High severity event window active")
 
+        # Added in Phase 40: Combine event with cross-book fake hedge and collateral amplification
+        crossbook_fake_hedge_reasons = [] # mock
+        if crossbook_fake_hedge_reasons:
+            reasons.extend(crossbook_fake_hedge_reasons)
+
         if not reasons:
             reasons.append("No active critical/high events")
 

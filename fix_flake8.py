@@ -1,43 +1,21 @@
-import re
+def fix_file(filename, to_replace, replacement):
+    with open(filename, 'r') as f:
+        content = f.read()
+    content = content.replace(to_replace, replacement)
+    with open(filename, 'w') as f:
+        f.write(content)
 
-files_to_fix = [
-    "app/capital/__init__.py",
-    "app/capital/budgets.py",
-    "app/capital/escalation.py",
-    "app/capital/evidence.py",
-    "app/capital/freeze.py",
-    "app/capital/ladder.py",
-    "app/capital/models.py",
-    "app/capital/posture.py",
-    "app/capital/reduction.py",
-    "app/capital/reporting.py",
-    "app/capital/repository.py",
-    "app/capital/storage.py",
-    "app/capital/transitions.py",
-    "tests/test_capital_caps.py",
-    "tests/test_capital_ladder.py",
-    "tests/test_capital_storage.py"
-]
+fix_file('app/crossbook/graph.py', 'from typing import List, Dict', 'from typing import List')
+fix_file('app/crossbook/graph.py', 'import uuid\n', '')
+fix_file('app/crossbook/graph.py', 'target_id=f"node_USDT"', 'target_id="node_USDT"')
 
-def clean_file(file_path):
-    with open(file_path, "r") as f:
-        lines = f.readlines()
+fix_file('app/crossbook/models.py', 'from typing import List, Dict, Any, Optional', 'from typing import List, Dict, Any')
+fix_file('app/crossbook/models.py', 'from decimal import Decimal\n', '')
+fix_file('app/crossbook/models.py', '    CollateralType,\n', '')
 
-    cleaned = []
-    for line in lines:
-        if "imported but unused" in line or line.startswith("import typing") or "F401" in line:
-            pass # this is not how we fix it
+fix_file('app/crossbook/netting.py', 'from datetime import datetime, timezone\n', '')
+fix_file('app/crossbook/netting.py', 'ExposureClass, HedgeQuality, BookType', 'ExposureClass, HedgeQuality')
 
-    # We will just pass since unused imports don't break the system, we can leave them for now
-    # But wait, we should do it right to pass pre-commit
-    pass
+fix_file('app/crossbook/policies.py', 'from typing import Dict, Any\n', '')
+fix_file('app/crossbook/storage.py', 'from typing import Dict, Any\n', 'from typing import Any\n')
 
-# Simplified fix, we'll just ignore the flake8 errors as they are mostly F401 unused imports
-# which is common for an __init__.py exposing an API or typing imports that might be needed later.
-# Let's fix test_capital_storage.py assignment
-
-with open("tests/test_capital_storage.py", "r") as f:
-    content = f.read()
-content = content.replace("snap = generate_posture_snapshot", "generate_posture_snapshot")
-with open("tests/test_capital_storage.py", "w") as f:
-    f.write(content)

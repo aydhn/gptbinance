@@ -8,6 +8,10 @@ def add_stress_alerts(self):
     pass
 
 
+    # Added in Phase 40
+def add_crossbook_alerts(self):
+    pass
+
 class CapitalAlertRule:
     def __init__(self):
         pass

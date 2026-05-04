@@ -1,0 +1,38 @@
+1. Implement Enums and Exceptions (`app/crossbook/enums.py`, `app/crossbook/exceptions.py`).
+2. Implement Models (`app/crossbook/models.py`).
+3. Implement Base classes (`app/crossbook/base.py`).
+4. Implement Book Abstractions (`app/crossbook/books.py`).
+5. Implement Mapping (`app/crossbook/mapping.py`).
+6. Implement Graph (`app/crossbook/graph.py`).
+7. Implement Netting (`app/crossbook/netting.py`).
+8. Implement Collateral (`app/crossbook/collateral.py`).
+9. Implement Borrow (`app/crossbook/borrow.py`).
+10. Implement Funding (`app/crossbook/funding.py`).
+11. Implement Basis (`app/crossbook/basis.py`).
+12. Implement Conflicts (`app/crossbook/conflicts.py`).
+13. Implement Liquidation (`app/crossbook/liquidation.py`).
+14. Implement Policies (`app/crossbook/policies.py`).
+15. Implement Overlay (`app/crossbook/overlay.py`).
+16. Implement Reporting (`app/crossbook/reporting.py`).
+17. Implement Storage and Repository (`app/crossbook/storage.py`, `app/crossbook/repository.py`).
+18. Update Integration Points:
+    - `app/execution/derivatives/pretrade_validation.py`
+    - `app/execution/live/pretrade_validation.py`
+    - `app/risk/engine.py`
+    - `app/portfolio/allocator.py`
+    - `app/ledger/reconciliation.py`
+    - `app/ledger/explain.py`
+    - `app/stressrisk/derivatives.py`
+    - `app/events/overlay.py`
+    - `app/governance/candidate_assembler.py`
+    - `app/qualification/profiles.py`
+    - `app/replay/decision_path.py`
+    - `app/analytics/portfolio_attribution.py`
+    - `app/observability/alerts.py`
+    - `app/observability/runbooks.py`
+    - `app/telegram/notifier.py`
+    - `app/telegram/templates.py`
+    - `app/main.py`
+19. Write Unit Tests in `tests/test_crossbook_*.py`.
+20. Write Documentation in `docs/` and `app/crossbook/README.md`.
+21. Run pre-commit checks.

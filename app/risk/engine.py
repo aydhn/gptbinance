@@ -1,3 +1,4 @@
+from app.crossbook.enums import CrossBookVerdict
 from app.events.models import EventRiskOverlay
 from app.events.enums import EventGateVerdict
 from app.products.enums import ProductType
@@ -131,4 +132,10 @@ class RiskEngine:
             self._logger.warning(
                 f"Stress budget breached. Applying restrictions. Reasons: {overlay_decision.reasons}"
             )
+        return True
+
+    # Added in Phase 40
+    def apply_crossbook_overlay(self, overlay_decision):
+        if overlay_decision.verdict in [CrossBookVerdict.BLOCK, CrossBookVerdict.REDUCE]:
+            logger.warning(f"Cross-book restrictions applied. Reasons: {overlay_decision.reasons}")
         return True

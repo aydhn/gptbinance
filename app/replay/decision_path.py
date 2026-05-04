@@ -24,7 +24,7 @@ class DummyDecisionPathBuilder:
                 stage="risk",
                 timestamp=now,
                 inputs={"signal": "buy"},
-                decision={"approved": True},
+                decision={"approved": True, "crossbook_conflicts": ["fake_hedge_conflict"]}, # Added in Phase 40
                 evidence_refs=["ref2"],
             ),
         ]

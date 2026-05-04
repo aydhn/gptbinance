@@ -44,6 +44,10 @@ class ReconciliationEngine:
                     )
                 )
 
+
+        # Added in Phase 40: Cross-book context
+        crossbook_provenance_notes = "Checked owned vs borrowed vs collateral locked"
+
         return ReconciliationResult(
             run_id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc),

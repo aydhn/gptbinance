@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 
 from app.data_governance.models import LineageNode, SchemaVersionRef, TrustVerdict
 from typing import Dict, Any
@@ -31,6 +33,14 @@ class CandidateAssembler:
         version = CandidateBundleVersion(
             major=1, minor=0, patch=0
         )  # Logic to increment based on parent
+
+# Cross-book integration: append policy refs
+        overlay = CrossBookOverlay()
+        decision = overlay.decide()
+        if decision.verdict == CrossBookVerdict.BLOCK:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Candidate assembled but cross-book is in block state: {decision.reasons}")
 
         return CandidateBundle(
             bundle_id=f"bundle_{uuid.uuid4().hex[:8]}",

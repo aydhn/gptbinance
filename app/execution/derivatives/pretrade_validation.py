@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 from app.products.registry import ProductRegistry
 from app.products.enums import ProductType
 from .models import DerivativeExecutionIntent
@@ -18,6 +20,13 @@ class DerivativePretradeValidator:
         self, intent: DerivativeExecutionIntent, current_position_qty: float
     ) -> bool:
         desc = self.registry.get_descriptor(intent.product_type)
+
+        # Cross-book integration
+        overlay = CrossBookOverlay()
+        decision = overlay.decide()
+        if decision.verdict == CrossBookVerdict.BLOCK:
+            logger.error(f"Pretrade validation failed: Cross-book block: {decision.reasons}")
+            return False
 
         if intent.is_reduce_only:
             req = ReduceOnlyExecutionRequest(

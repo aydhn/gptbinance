@@ -1,3 +1,4 @@
+from app.crossbook.reporting import CrossBookReporter
 import logging
 from typing import List
 
@@ -12,6 +13,10 @@ class DummyDecisionPathBuilder:
         from datetime import datetime, timezone
 
         now = datetime.now(timezone.utc)
+
+        # Cross-book integration: record state in inputs
+        reporter = CrossBookReporter()
+        crossbook_summary = reporter.generate_summary()
         return [
             DecisionPathSnapshot(
                 stage="signal",
@@ -23,7 +28,7 @@ class DummyDecisionPathBuilder:
             DecisionPathSnapshot(
                 stage="risk",
                 timestamp=now,
-                inputs={"signal": "buy"},
+                inputs={"signal": "buy", "crossbook_state": crossbook_summary},
                 decision={"approved": True},
                 evidence_refs=["ref2"],
             ),

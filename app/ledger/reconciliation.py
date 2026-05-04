@@ -1,3 +1,4 @@
+from app.crossbook.reporting import CrossBookReporter
 from app.ledger.models import ReconciliationResult, ReconciliationDifference
 from app.ledger.enums import ReconciliationVerdict, DiscrepancySeverity, ScopeType
 from datetime import datetime, timezone
@@ -43,6 +44,14 @@ class ReconciliationEngine:
                         recommended_action=rec,
                     )
                 )
+
+        # Cross-book integration: append context
+        reporter = CrossBookReporter()
+        crossbook_summary = reporter.generate_summary()
+        # You could log it or append it to differences, for simplicity just logging.
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Reconciliation crossbook posture: {crossbook_summary}")
 
         return ReconciliationResult(
             run_id=str(uuid.uuid4()),

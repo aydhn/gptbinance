@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 from app.events.models import EventRiskOverlay
 from app.events.execution import validate_execution_against_events
 from app.products.enums import ProductType
@@ -28,6 +30,12 @@ class PretradeValidator:
         self.exchange_rules = exchange_rules
 
     def validate(self, intent: ExecutionIntent) -> None:
+        # Cross-book integration
+        overlay = CrossBookOverlay()
+        decision = overlay.decide()
+        if decision.verdict == CrossBookVerdict.BLOCK:
+            raise PretradeValidationError(f"Cross-book overlay block: {decision.reasons}")
+
         if intent.symbol not in self.exchange_rules:
             raise PretradeValidationError(
                 f"No exchange rules found for symbol {intent.symbol}"

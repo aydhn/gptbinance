@@ -6,3 +6,7 @@
 # Added in Phase 38
 def tag_stress_vulnerable_sleeves(self, vulnerability_data):
     pass
+
+# Added in Phase 40
+def tag_fake_hedge_attribution(self, asset: str, drag: float):
+    pass

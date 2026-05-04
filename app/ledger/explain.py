@@ -1,3 +1,4 @@
+from app.crossbook.reporting import CrossBookReporter
 from app.ledger.models import BalanceExplainResult
 from app.ledger.enums import ScopeType, LedgerVerdict
 from app.ledger.provenance import ProvenanceTracker
@@ -29,6 +30,13 @@ class BalanceExplainer:
         verdict = (
             LedgerVerdict.VERIFIED if abs(delta) < 1e-4 else LedgerVerdict.SUSPICIOUS
         )
+
+# Cross-book integration: distinguish owned vs borrowed vs collateral locked
+        reporter = CrossBookReporter()
+        crossbook_summary = reporter.generate_summary()
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Balance explanation cross-book provenance refs: {crossbook_summary}")
 
         return BalanceExplainResult(
             asset=asset,

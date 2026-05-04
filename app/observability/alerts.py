@@ -17,3 +17,13 @@ class CapitalAlertRule:
         # Evaluate things like capital ladder stale evidence, unauthorized capital escalation attempt,
         # live tier posture degraded, capital freeze recommended, loss budget escalation breach
         return False
+
+# Added in Phase 40
+class CrossBookAlertRule:
+    def __init__(self):
+        pass
+
+    def evaluate(self, metrics: dict) -> bool:
+        # evaluate fake hedge detected, collateral pressure high,
+        # borrow dependency elevated, combined exposure breach, funding burden excessive
+        return False

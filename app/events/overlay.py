@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 import uuid
 from typing import List
 from datetime import datetime, timezone
@@ -32,6 +34,13 @@ class DefaultOverlayEngine(EventOverlayEngineBase):
             ):
                 verdict = EventGateVerdict.REDUCE_ONLY
                 reasons.append("High severity event window active")
+
+        # Cross-book integration
+        overlay = CrossBookOverlay()
+        decision_crossbook = overlay.decide()
+        if decision_crossbook.verdict == CrossBookVerdict.BLOCK:
+            verdict = EventGateVerdict.BLOCK
+            reasons.append(f"Cross-book overlay block: {decision_crossbook.reasons}")
 
         if not reasons:
             reasons.append("No active critical/high events")

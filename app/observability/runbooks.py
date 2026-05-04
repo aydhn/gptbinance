@@ -1,3 +1,4 @@
+from app.observability.models import RunbookRef
 # Integration hook for ledger accounting phase 35
 
 # Ledger accounting integration hook for phase 35 (balance provenance)
@@ -37,3 +38,7 @@ _RUNBOOK_REGISTRY["loss_budget_breach"] = RunbookRef(
     title="Loss Budget Breach",
     url="docs/runbooks/loss_budget_breach.md"
 )
+
+# Added in Phase 40
+def add_crossbook_runbook_refs(self):
+    pass

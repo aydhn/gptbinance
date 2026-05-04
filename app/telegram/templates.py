@@ -42,3 +42,38 @@ CAPITAL_POSTURE_DIGEST_TEMPLATE = """
 *Deployed Capital*: {deployed_capital}
 *Headroom*: {headroom}
 """
+
+# Added in Phase 40
+FAKE_HEDGE_DETECTED_TEMPLATE = """
+⚠️ *FAKE HEDGE DETECTED*
+*Details*:
+{details}
+"""
+
+COLLATERAL_PRESSURE_WARNING_TEMPLATE = """
+⚠️ *COLLATERAL PRESSURE WARNING*
+*Pressure*: {pressure}
+"""
+
+BORROW_DEPENDENCY_CAUTION_TEMPLATE = """
+⚠️ *BORROW DEPENDENCY CAUTION*
+*Dependency Class*: {dependency_class}
+"""
+
+COMBINED_EXPOSURE_BREACH_TEMPLATE = """
+🚨 *COMBINED EXPOSURE BREACH*
+*Details*:
+{details}
+"""
+
+FUNDING_BURDEN_DIGEST_TEMPLATE = """
+📊 *FUNDING BURDEN DIGEST*
+*Symbol*: {symbol}
+*Expected Drag*: {drag}
+"""
+
+CROSSBOOK_POSTURE_SUMMARY_TEMPLATE = """
+📊 *CROSSBOOK POSTURE SUMMARY*
+*Summary*:
+{summary}
+"""

@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 from app.events.models import EventRiskOverlay
 from app.events.portfolio import adjust_portfolio_for_event
 from app.portfolio.models import PortfolioSnapshot
@@ -32,6 +34,11 @@ class ConservativeAllocator(BasePortfolioAllocator):
         requested_intent,
         event_overlay: EventRiskOverlay = None,
     ) -> float:
+        # Cross-book integration
+        overlay = CrossBookOverlay()
+        decision_crossbook = overlay.decide()
+        if decision_crossbook.verdict == CrossBookVerdict.BLOCK:
+            return 0.0
         if event_overlay:
             # Adjust overall budget internally
             dummy_alloc = {"budget": 1.0}

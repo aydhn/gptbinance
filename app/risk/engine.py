@@ -1,3 +1,5 @@
+from app.crossbook.overlay import CrossBookOverlay
+from app.crossbook.enums import CrossBookVerdict
 from app.events.models import EventRiskOverlay
 from app.events.enums import EventGateVerdict
 from app.products.enums import ProductType
@@ -30,6 +32,22 @@ class RiskEngine:
     ) -> RiskApprovalBundle:
         # Event-Risk Overlay evaluation
         rejection_reasons = []
+        # Cross-book integration
+        overlay = CrossBookOverlay()
+        decision_crossbook = overlay.decide()
+        if decision_crossbook.verdict == CrossBookVerdict.BLOCK:
+             return RiskApprovalBundle(
+                    decision=RiskDecision(
+                        verdict=RiskVerdict.REJECT,
+                        approved_intent=request.intent,
+                        throttle_applied=ThrottleType.NONE,
+                        rejection_reasons=["Cross-book block: "] + decision_crossbook.reasons,
+                        risk_score=0.0,
+                    ),
+                    signatures=[],
+                    global_verdict=RiskVerdict.REJECT,
+                )
+
         if event_overlay:
             if event_overlay.verdict in [EventGateVerdict.BLOCK, EventGateVerdict.HALT]:
                 return RiskApprovalBundle(

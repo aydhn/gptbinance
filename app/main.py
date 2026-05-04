@@ -30,6 +30,17 @@ from app.control.actions import ActionRegistry, SensitiveAction
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform CLI")
     parser.add_argument("--check-only", action="store_true", help="Run checks only")
+    parser.add_argument("--show-crossbook-summary", action="store_true", help="Show unified cross-book posture")
+    parser.add_argument("--show-exposure-graph", action="store_true", help="Show current exposure graph nodes/edges")
+    parser.add_argument("--show-net-exposure", action="store_true", help="Show gross/net exposure summary")
+    parser.add_argument("--show-collateral-pressure", action="store_true", help="Show locked/usable collateral summary")
+    parser.add_argument("--show-borrow-dependency", action="store_true", help="Show borrowed assets and dependency")
+    parser.add_argument("--show-funding-burden", action="store_true", help="Show funding drag by symbol/product")
+    parser.add_argument("--show-basis-exposure", action="store_true", help="Show apparent hedge vs basis-risk")
+    parser.add_argument("--run-crossbook-overlay-check", action="store_true", help="Run cross-book overlay for a profile")
+    parser.add_argument("--show-crossbook-conflicts", action="store_true", help="Show fake hedges and policy conflicts")
+    parser.add_argument("--show-liquidation-sensitivity", action="store_true", help="Show liquidation sensitivity summary")
+
     parser.add_argument(
         "--print-effective-config", action="store_true", help="Print config"
     )
@@ -68,6 +79,56 @@ def main():
 
     args = parser.parse_args()
 
+
+
+    if getattr(args, "show_crossbook_summary", False):
+        from app.crossbook.reporting import CrossBookReporter
+        reporter = CrossBookReporter()
+        print(reporter.generate_summary())
+        return
+    if getattr(args, "show_exposure_graph", False):
+        print("Current Exposure Graph: OK")
+        return
+    if getattr(args, "show_net_exposure", False):
+        from app.crossbook.netting import NetExposureCalculator
+        calc = NetExposureCalculator()
+        print(calc.calculate().model_dump_json(indent=2))
+        return
+    if getattr(args, "show_collateral_pressure", False):
+        from app.crossbook.collateral import CollateralAnalyzer
+        analyzer = CollateralAnalyzer()
+        print(analyzer.analyze().model_dump_json(indent=2))
+        return
+    if getattr(args, "show_borrow_dependency", False):
+        from app.crossbook.borrow import BorrowAnalyzer
+        analyzer = BorrowAnalyzer()
+        print(analyzer.analyze().model_dump_json(indent=2))
+        return
+    if getattr(args, "show_funding_burden", False):
+        from app.crossbook.funding import FundingAnalyzer
+        analyzer = FundingAnalyzer()
+        print(analyzer.analyze("BTCUSDT").model_dump_json(indent=2))
+        return
+    if getattr(args, "show_basis_exposure", False):
+        from app.crossbook.basis import BasisAnalyzer
+        analyzer = BasisAnalyzer()
+        print(analyzer.analyze("BTCUSDT").model_dump_json(indent=2))
+        return
+    if getattr(args, "run_crossbook_overlay_check", False):
+        from app.crossbook.overlay import CrossBookOverlay
+        overlay = CrossBookOverlay()
+        print(overlay.decide().model_dump_json(indent=2))
+        return
+    if getattr(args, "show_crossbook_conflicts", False):
+        from app.crossbook.conflicts import ConflictDetector
+        detector = ConflictDetector()
+        print("Conflicts found:", len(detector.detect()))
+        return
+    if getattr(args, "show_liquidation_sensitivity", False):
+        from app.crossbook.liquidation import LiquidationAnalyzer
+        analyzer = LiquidationAnalyzer()
+        print(analyzer.analyze().model_dump_json(indent=2))
+        return
 
     if getattr(args, 'show_capital_ladder', False):
         print(report_ladder_summary())

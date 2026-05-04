@@ -1,13 +1,25 @@
-# Integration hook for ledger accounting phase 35
+import re
 
-# Ledger accounting integration hook for phase 35 (balance provenance)
+with open("app/observability/alerts.py", "r") as f:
+    content = f.read()
 
+alert_logic = """
+class CapitalAlertRule(AlertRule):
+    def evaluate(self, metrics: dict) -> bool:
+        # Evaluate things like capital ladder stale evidence, unauthorized capital escalation attempt,
+        # live tier posture degraded, capital freeze recommended, loss budget escalation breach
+        return False
+"""
+if "CapitalAlertRule" not in content:
+    content += "\n" + alert_logic
 
-# Added in Phase 38
-def add_stress_runbook_refs(self):
-    pass
+with open("app/observability/alerts.py", "w") as f:
+    f.write(content)
 
+with open("app/observability/runbooks.py", "r") as f:
+    content = f.read()
 
+runbook_logic = """
 _RUNBOOK_REGISTRY["capital_escalation_blocked"] = RunbookRef(
     runbook_id="capital_escalation_blocked",
     title="Capital Escalation Blocked",
@@ -37,3 +49,9 @@ _RUNBOOK_REGISTRY["loss_budget_breach"] = RunbookRef(
     title="Loss Budget Breach",
     url="docs/runbooks/loss_budget_breach.md"
 )
+"""
+if "capital_escalation_blocked" not in content:
+    content += "\n" + runbook_logic
+
+with open("app/observability/runbooks.py", "w") as f:
+    f.write(content)

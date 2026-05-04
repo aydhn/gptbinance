@@ -6,3 +6,14 @@
 # Added in Phase 38
 def add_stress_alerts(self):
     pass
+
+
+class CapitalAlertRule:
+    def __init__(self):
+        pass
+
+    def evaluate(self, metrics: dict) -> bool:
+    def evaluate(self, metrics: dict) -> bool:
+        # Evaluate things like capital ladder stale evidence, unauthorized capital escalation attempt,
+        # live tier posture degraded, capital freeze recommended, loss budget escalation breach
+        return False

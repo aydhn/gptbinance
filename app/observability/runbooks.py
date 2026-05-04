@@ -1,3 +1,4 @@
+from app.observability.models import RunbookRef
 # Integration hook for ledger accounting phase 35
 
 # Ledger accounting integration hook for phase 35 (balance provenance)
@@ -7,6 +8,10 @@
 def add_stress_runbook_refs(self):
     pass
 
+
+    # Added in Phase 40
+def add_crossbook_runbook_refs(self):
+    pass
 
 _RUNBOOK_REGISTRY["capital_escalation_blocked"] = RunbookRef(
     runbook_id="capital_escalation_blocked",

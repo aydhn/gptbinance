@@ -193,3 +193,7 @@ class ConservativeAllocator(BasePortfolioAllocator):
     # Added in Phase 38
     def adjust_for_stress_vulnerability(self, clusters, stress_vulns):
         pass
+
+    # Added in Phase 40
+    def adjust_for_crossbook_vulnerability(self, clusters, crossbook_vulns):
+        pass

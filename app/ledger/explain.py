@@ -30,6 +30,10 @@ class BalanceExplainer:
             LedgerVerdict.VERIFIED if abs(delta) < 1e-4 else LedgerVerdict.SUSPICIOUS
         )
 
+
+        # Added in Phase 40: Cross-book provenance refs
+        owned_vs_borrowed_vs_locked_split_notes = "Available: X, Locked: Y, Borrowed: Z"
+
         return BalanceExplainResult(
             asset=asset,
             scope=scope,

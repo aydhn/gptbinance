@@ -1,3 +1,4 @@
+from app.crossbook.enums import CrossBookVerdict
 from app.products.registry import ProductRegistry
 from app.products.enums import ProductType
 from .models import DerivativeExecutionIntent
@@ -37,6 +38,12 @@ class DerivativePretradeValidator:
             logger.error(
                 f"Pretrade validation failed: Current leverage {curr_lev} exceeds cap {desc.capabilities.max_leverage}"
             )
+            return False
+
+
+        # Added in Phase 40: Cross-book validation
+        if hasattr(intent, 'crossbook_verdict') and intent.crossbook_verdict == CrossBookVerdict.BLOCK:
+            logger.error("Blocked by cross-book exposure governance.")
             return False
 
         return True

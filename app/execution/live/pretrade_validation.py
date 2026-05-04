@@ -1,3 +1,4 @@
+from app.crossbook.enums import CrossBookVerdict
 from app.events.models import EventRiskOverlay
 from app.events.execution import validate_execution_against_events
 from app.products.enums import ProductType
@@ -71,3 +72,10 @@ class PretradeValidator:
     # Added in Phase 38
     def check_stress_overlay_verdict(self, verdict):
         pass
+
+    # Added in Phase 40
+    def check_crossbook_overlay_verdict(self, verdict):
+        if verdict == CrossBookVerdict.BLOCK:
+            raise PretradeValidationError("Blocked by cross-book exposure overlay.")
+        elif verdict == CrossBookVerdict.REDUCE:
+            logger.warning("Cross-book overlay suggests reducing exposure.")

@@ -1,0 +1,72 @@
+from enum import Enum
+
+
+class SourceType(str, Enum):
+    BINANCE_WEBSOCKET = "BINANCE_WEBSOCKET"
+    BINANCE_REST = "BINANCE_REST"
+
+
+class StreamType(str, Enum):
+    TRADE = "TRADE"
+    KLINE = "KLINE"
+    BOOK_TICKER = "BOOK_TICKER"
+    MARK_PRICE = "MARK_PRICE"
+    PARTIAL_BOOK_DEPTH = "PARTIAL_BOOK_DEPTH"
+
+
+class TruthDomain(str, Enum):
+    KLINE = "KLINE"
+    TRADE = "TRADE"
+    QUOTE = "QUOTE"
+    MARK_PRICE = "MARK_PRICE"
+    OVERALL = "OVERALL"
+
+
+class FreshnessClass(str, Enum):
+    HEALTHY = "HEALTHY"
+    DEGRADED = "DEGRADED"
+    STALE = "STALE"
+    BROKEN = "BROKEN"
+
+
+class GapType(str, Enum):
+    TRANSIENT_GAP = "TRANSIENT_GAP"
+    PERSISTENT_GAP = "PERSISTENT_GAP"
+    SUSPECTED_DATA_LOSS = "SUSPECTED_DATA_LOSS"
+    STALLED_FEED = "STALLED_FEED"
+    DUPLICATE_CLUSTER_SIDE_EFFECT = "DUPLICATE_CLUSTER_SIDE_EFFECT"
+    SNAPSHOT_MISMATCH_GAP = "SNAPSHOT_MISMATCH_GAP"
+
+
+class DedupVerdict(str, Enum):
+    UNIQUE = "UNIQUE"
+    DUPLICATE = "DUPLICATE"
+    REPEATED_SEQUENCE = "REPEATED_SEQUENCE"
+
+
+class OrderingSeverity(str, Enum):
+    IN_ORDER = "IN_ORDER"
+    SLIGHTLY_LATE = "SLIGHTLY_LATE"
+    SEVERE_OUT_OF_ORDER = "SEVERE_OUT_OF_ORDER"
+
+
+class ConvergenceVerdict(str, Enum):
+    ALIGNED = "ALIGNED"
+    TRANSIENT_DIVERGENCE = "TRANSIENT_DIVERGENCE"
+    PERSISTENT_DIVERGENCE = "PERSISTENT_DIVERGENCE"
+    SNAPSHOT_STALE = "SNAPSHOT_STALE"
+    STREAM_STALE = "STREAM_STALE"
+
+
+class TruthfulnessClass(str, Enum):
+    CLEAN = "CLEAN"
+    CAUTION = "CAUTION"
+    DEGRADED = "DEGRADED"
+    BLOCKED = "BLOCKED"
+    NEEDS_REVIEW = "NEEDS_REVIEW"
+
+
+class MarketTruthVerdict(str, Enum):
+    ALLOW = "ALLOW"
+    CAUTION = "CAUTION"
+    BLOCK = "BLOCK"

@@ -1,3 +1,5 @@
-class MigrationTemplates:
-    MIGRATION_PLAN_CREATED = "Migration Plan Created: {plan_id}"
-    MIGRATION_DRY_RUN_FAILED = "Migration Dry-Run Failed: {plan_id} - {reason}"
+# Stub for telegram templates
+TEMPLATES = {
+    "stale_feed_critical": "CRITICAL: Feed for {symbol} is stale.",
+    "market_truth_summary_digest": "Market Truth: {verdict}",
+}

@@ -1,10 +1,11 @@
 import uuid
-from typing import List
+from typing import List, Dict, Any
 from datetime import datetime, timezone
 from app.events.base import EventOverlayEngineBase
 from app.events.models import EventRecord, EventRiskOverlay
 from app.events.enums import EventGateVerdict, EventSeverity
 from app.events.windows import calculate_window, merge_windows
+from app.policy_kernel.enums import PolicyDomain, PolicyVerdict
 
 
 class DefaultOverlayEngine(EventOverlayEngineBase):
@@ -33,7 +34,6 @@ class DefaultOverlayEngine(EventOverlayEngineBase):
                 verdict = EventGateVerdict.REDUCE_ONLY
                 reasons.append("High severity event window active")
 
-        # Added in Phase 40: Combine event with cross-book fake hedge and collateral amplification
         crossbook_fake_hedge_reasons = []  # mock
         if crossbook_fake_hedge_reasons:
             reasons.extend(crossbook_fake_hedge_reasons)
@@ -48,3 +48,19 @@ class DefaultOverlayEngine(EventOverlayEngineBase):
             verdict=verdict,
             reasons=reasons,
         )
+
+    def get_policy_domain_outputs(self, overlay: EventRiskOverlay) -> Dict[str, Any]:
+        """Expose Event Overlay outputs for Policy Kernel Domain format"""
+        verdict = PolicyVerdict.ALLOW
+        if overlay.verdict == EventGateVerdict.BLOCK:
+            verdict = PolicyVerdict.BLOCK
+        elif overlay.verdict == EventGateVerdict.HALT:
+            verdict = PolicyVerdict.HARD_BLOCK
+        elif overlay.verdict == EventGateVerdict.REDUCE_ONLY:
+            verdict = PolicyVerdict.CAUTION
+
+        return {
+            "domain": PolicyDomain.EVENT_RISK,
+            "reasons": overlay.reasons,
+            "verdict": verdict,
+        }

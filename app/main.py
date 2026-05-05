@@ -1,179 +1,183 @@
 import argparse
 from datetime import datetime, timezone
+import json
 
-from app.remediation.models import RemediationFindingRef
-from app.remediation.compiler import RemediationCompiler
-from app.remediation.blast_radius import BlastRadiusAnalyzer
-from app.remediation.simulation import DryRunEngine
-from app.remediation.apply import ApplyExecutor
-from app.remediation.verification import VerificationEngine
-from app.remediation.debt import DebtGovernance
-from app.remediation.preflight import PreflightEngine
-from app.remediation.rollback import RollbackPlanner
-from app.remediation.reporting import RemediationReporter
+from app.policy_kernel.evaluation import evaluate_policy
+from app.policy_kernel.context import assemble_policy_context
+from app.policy_kernel.evidence import assemble_evidence_bundle
+from app.policy_kernel.storage import get_decision, get_conflicts
+from app.policy_kernel.rules import list_rules
+from app.policy_kernel.invariants import list_invariants
+from app.policy_kernel.waivers import list_active_waivers
+from app.policy_kernel.drift import list_drifts
+from app.policy_kernel.gaps import list_gaps
+from app.policy_kernel.reporting import generate_policy_audit_summary
+from app.policy_kernel.proofs import generate_decision_proof
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Trading Platform Core")
+    parser.add_argument("--check-only", action="store_true", help="Run checks only")
+    parser.add_argument(
+        "--print-effective-config", action="store_true", help="Print config"
+    )
+    parser.add_argument("--bootstrap-storage", action="store_true", help="Bootstrap db")
+
+    # Policy Kernel CLI Commands
+    parser.add_argument(
+        "--evaluate-policy",
+        action="store_true",
+        help="Evaluate unified policy for current context",
+    )
+    parser.add_argument(
+        "--show-policy-decision",
+        action="store_true",
+        help="Show policy decision for a run ID",
+    )
+    parser.add_argument(
+        "--show-policy-proof",
+        action="store_true",
+        help="Show policy proof for a run ID",
+    )
+    parser.add_argument(
+        "--show-policy-conflicts",
+        action="store_true",
+        help="Show policy conflicts for a run ID",
+    )
+    parser.add_argument(
+        "--show-policy-invariants",
+        action="store_true",
+        help="Show active invariants registry",
+    )
+    parser.add_argument(
+        "--show-policy-rules", action="store_true", help="Show normal rules registry"
+    )
+    parser.add_argument(
+        "--show-policy-waivers", action="store_true", help="Show active waivers"
+    )
+    parser.add_argument(
+        "--show-policy-drift",
+        action="store_true",
+        help="Show declared vs actual enforcement drift summary",
+    )
+    parser.add_argument(
+        "--show-policy-gaps",
+        action="store_true",
+        help="Show missing invariant coverage and stale rules",
+    )
+    parser.add_argument(
+        "--run-policy-audit",
+        action="store_true",
+        help="Run full policy constitution audit",
+    )
+    parser.add_argument(
+        "--run-invariant-check",
+        action="store_true",
+        help="Only run non-bypassable invariant evaluation",
+    )
+    parser.add_argument(
+        "--run-id",
+        type=str,
+        help="Run ID for decision/proof commands",
+        default="mock-decision",
+    )
+    return parser.parse_args()
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Trading Platform Remediation Orchestration CLI"
-    )
-    parser.add_argument(
-        "--build-remediation-pack",
-        type=str,
-        help="Finding ID to build pack for",
-        metavar="FINDING_ID",
-    )
-    parser.add_argument("--show-remediation-pack", type=str, help="Show pack details")
-    parser.add_argument(
-        "--show-remediation-blast-radius",
-        type=str,
-        help="Show blast radius for pack ID",
-    )
-    parser.add_argument(
-        "--run-remediation-preflight", type=str, help="Run preflight checks"
-    )
-    parser.add_argument(
-        "--run-remediation-dry-run", type=str, help="Simulate pack apply"
-    )
-    parser.add_argument(
-        "--request-remediation-apply",
-        type=str,
-        help="Apply or generate request for pack",
-    )
-    parser.add_argument(
-        "--show-remediation-apply-history",
-        action="store_true",
-        help="Show apply history",
-    )
-    parser.add_argument(
-        "--show-remediation-verification", type=str, help="Show verification for pack"
-    )
-    parser.add_argument(
-        "--show-remediation-debt",
-        action="store_true",
-        help="Show outstanding remediation debt",
-    )
-    parser.add_argument(
-        "--show-remediation-rollback-plan", type=str, help="Show rollback plan for pack"
-    )
-    parser.add_argument(
-        "--show-remediation-evidence", type=str, help="Show evidence for pack"
-    )
-    parser.add_argument(
-        "--show-remediation-conflicts", type=str, help="Show conflicts for pack"
-    )
+    args = parse_args()
 
-    args = parser.parse_args()
+    if args.evaluate_policy:
+        ctx = assemble_policy_context(
+            "mock_action", "workspace_1", "profile_1", "paper"
+        )
+        ev = assemble_evidence_bundle(workspace_refs={"ok": True})
+        decision = evaluate_policy("mock_action", ctx, ev)
+        print("=== UNIFIED POLICY EVALUATION ===")
+        print(f"Action: {decision.action_type}")
+        print(f"Final Verdict: {decision.final_verdict.name}")
+        print(f"Reasoning: {decision.reasoning}")
+        print("Winning Rules:", decision.winning_rules)
+        return
 
-    # Mock finding for demonstration
-    mock_finding = RemediationFindingRef(
-        finding_id=args.build_remediation_pack or "FND-999",
-        source_domain="order_lifecycle",
-        severity="high",
-        detected_at=datetime.now(timezone.utc),
-        context={"symbol": "BTCUSDT", "issue": "orphan_order_detected"},
-    )
-
-    compiler = RemediationCompiler()
-    analyzer = BlastRadiusAnalyzer()
-    simulator = DryRunEngine()
-    executor = ApplyExecutor()
-    verifier = VerificationEngine()
-    debt_gov = DebtGovernance()
-    preflight = PreflightEngine()
-    rollback = RollbackPlanner()
-    reporter = RemediationReporter()
-
-    if args.build_remediation_pack:
-        pack = compiler.compile_pack(mock_finding)
-        print(reporter.format_pack_summary(pack))
-
-    elif args.show_remediation_pack:
-        pack = compiler.compile_pack(mock_finding)
-        print(reporter.format_pack_summary(pack))
-
-    elif args.show_remediation_blast_radius:
-        pack = compiler.compile_pack(mock_finding)
-        report = analyzer.analyze(pack)
-        print(reporter.format_blast_radius(report))
-
-    elif args.run_remediation_preflight:
-        pack = compiler.compile_pack(mock_finding)
-        report = preflight.run_preflight(pack)
-        print(f"\n=== PREFLIGHT REPORT ===")
-        print(f"Passed: {report['passed']}")
-        if report["blockers"]:
-            print(f"Blockers: {report['blockers']}")
-        if report["warnings"]:
-            print(f"Warnings: {report['warnings']}")
-        print("======================\n")
-
-    elif args.run_remediation_dry_run:
-        pack = compiler.compile_pack(mock_finding)
-        res = simulator.simulate(pack)
-        print(reporter.format_simulation(res))
-
-    elif args.request_remediation_apply:
-        pack = compiler.compile_pack(mock_finding)
-        res = executor.execute(pack)
-        print("\n=== APPLY OUTCOME ===")
-        print(f"Mode Used: {res.mode_used.value}")
-        if res.generated_request_id:
-            print(f"Action: GENERATED APPROVAL REQUEST [{res.generated_request_id}]")
-            print(f"Reason: {res.error_message}")
+    if args.show_policy_decision:
+        decision = get_decision(args.run_id)
+        if decision:
+            print(f"Decision for {args.run_id}: {decision.final_verdict.name}")
         else:
-            print("Action: DIRECT SAFE APPLY COMPLETED")
-            print(
-                f"Before/After Snapshots: {res.before_snapshot_ref} -> {res.after_snapshot_ref}"
-            )
+            print("Decision not found.")
+        return
 
-        verdict = verifier.verify(pack)
-        print(f"\nPost-Apply Verification: {verdict.verdict.value} - {verdict.details}")
-        print("=====================\n")
-
-    elif args.show_remediation_apply_history:
-        print("\n=== APPLY HISTORY ===")
-        print("Mock: No history available in mock state.")
-        print("=====================\n")
-
-    elif args.show_remediation_verification:
-        pack = compiler.compile_pack(mock_finding)
-        verdict = verifier.verify(pack)
-        print(f"\n=== VERIFICATION ===")
-        print(f"Verdict: {verdict.verdict.value}")
-        print(f"Details: {verdict.details}")
-        print("====================\n")
-
-    elif args.show_remediation_debt:
-        debts = debt_gov.assess_debt([mock_finding])
-        print("\n=== REMEDIATION DEBT GOVERNANCE ===")
-        for d in debts:
-            print(
-                f"Debt ID: {d.debt_id} | Sev: {d.severity.value} | Aging: {d.aging_days} days | Qual Blocker: {d.is_qualification_blocker}"
-            )
-        print("===================================\n")
-
-    elif args.show_remediation_rollback_plan:
-        pack = compiler.compile_pack(mock_finding)
-        plan = rollback.plan_rollback(pack)
-        print("\n=== ROLLBACK PLAN ===")
-        print(f"Eligible: {plan.is_eligible}")
-        if not plan.is_eligible:
-            print(f"Reason: {plan.reason_if_not_eligible}")
+    if args.show_policy_proof:
+        decision = get_decision(args.run_id)
+        if decision:
+            print(generate_decision_proof(decision))
         else:
-            print(f"Steps: {plan.steps}")
-        print("=====================\n")
+            print("Decision not found for proof generation.")
+        return
 
-    elif args.show_remediation_evidence:
-        print("\n=== EVIDENCE ===")
-        print("Mock: Fetching evidence bundle for pack...")
-        print("Contains: Finding Ref, Pack Manifest, Apply Result, Verification Result")
-        print("================\n")
+    if args.show_policy_conflicts:
+        conflicts = get_conflicts(args.run_id)
+        print(f"Found {len(conflicts)} conflicts for {args.run_id}.")
+        for c in conflicts:
+            print(f"- {c.conflict_class.name}: {c.resolution_notes}")
+        return
 
-    elif args.show_remediation_conflicts:
-        print("\n=== CONFLICTS ===")
-        print("Mock: No conflicting packs found in active registry.")
-        print("=================\n")
+    if args.show_policy_invariants:
+        print("=== POLICY INVARIANTS ===")
+        for inv in list_invariants():
+            print(f"[{inv.domain.name}] {inv.rule_id} - {inv.severity.name}")
+            print(f"  Rationale: {inv.rationale}")
+        return
+
+    if args.show_policy_rules:
+        print("=== POLICY RULES ===")
+        for rule in list_rules():
+            print(
+                f"[{rule.domain.name}] {rule.rule_id} - {rule.severity.name} (Waivable: {rule.is_waivable})"
+            )
+            print(f"  Rationale: {rule.rationale}")
+        return
+
+    if args.show_policy_waivers:
+        print("=== ACTIVE WAIVERS ===")
+        for w in list_active_waivers():
+            print(
+                f"{w.waiver_id} -> Rule: {w.rule_id} [Scope: {w.scope}] Expires: {w.expires_at.isoformat()}"
+            )
+        return
+
+    if args.show_policy_drift:
+        print("=== POLICY DRIFT ===")
+        for d in list_drifts():
+            print(
+                f"[{d.severity.name}] {d.module_name}: Expected {d.declared_verdict.name}, Actual {d.actual_verdict.name}"
+            )
+        return
+
+    if args.show_policy_gaps:
+        print("=== POLICY GAPS ===")
+        for g in list_gaps():
+            print(f"[{g.severity.name}] Domain {g.domain.name}: {g.description}")
+        return
+
+    if args.run_policy_audit:
+        print(generate_policy_audit_summary())
+        return
+
+    if args.run_invariant_check:
+        ctx = assemble_policy_context(
+            "mock_action", "workspace_1", "profile_1", "paper"
+        )
+        ev = assemble_evidence_bundle(workspace_refs={"ok": True})
+        decision = evaluate_policy("mock_action", ctx, ev)
+        print("=== INVARIANT CHECK RESULTS ===")
+        print(f"Result: {decision.final_verdict.name}")
+        for r in decision.winning_rules:
+            print(f"Active rule: {r}")
+        return
+
+    print("Platform core starting...")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,9 @@
 import argparse
+from app.migrations.reporting import ReportingEngine
+from app.migrations.models import MigrationPlan
+from datetime import datetime
+from app.migrations.registry import migration_registry
+from app.migrations.domains import MigrationDomain
 from datetime import datetime, timezone
 import json
 
@@ -17,6 +22,20 @@ from app.policy_kernel.proofs import generate_decision_proof
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Trading Platform Core")
+    # Migration Fabric CLI commands
+    parser.add_argument("--build-migration-plan", action="store_true", help="Build a plan for pending migrations")
+    parser.add_argument("--show-migration-plan", type=str, help="Show steps for a given plan-id")
+    parser.add_argument("--show-migration-compatibility", type=str, help="Show compatibility verdict for a plan-id")
+    parser.add_argument("--show-migration-matrix", action="store_true", help="Show active compatibility matrix")
+    parser.add_argument("--run-migration-preflight", type=str, help="Run preflight checks for a plan-id")
+    parser.add_argument("--run-migration-dry-run", type=str, help="Run dry-run simulation for a plan-id")
+    parser.add_argument("--request-migration-apply", type=str, help="Request migration apply for a plan-id")
+    parser.add_argument("--show-migration-rollback-plan", type=str, help="Show rollback plan for a plan-id")
+    parser.add_argument("--show-migration-rollforward-plan", type=str, help="Show rollforward plan for a plan-id")
+    parser.add_argument("--show-migration-verification", type=str, help="Show verification results for a plan-id")
+    parser.add_argument("--show-migration-debt", action="store_true", help="Show migration debt summary")
+    parser.add_argument("--show-migration-evidence", type=str, help="Show migration evidence bundle for a plan-id")
+
     parser.add_argument("--check-only", action="store_true", help="Run checks only")
     parser.add_argument(
         "--print-effective-config", action="store_true", help="Print config"

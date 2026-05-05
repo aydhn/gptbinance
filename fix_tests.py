@@ -1,27 +1,34 @@
-import os
+import re
 
-with open("app/order_lifecycle/client_ids.py", "r") as f:
-    content = f.read()
+def fix():
+    files = [
+        'tests/test_experiments_ablation.py',
+        'tests/test_experiments_baselines.py',
+        'tests/test_experiments_candidates.py',
+        'tests/test_experiments_comparisons.py',
+        'tests/test_experiments_definitions.py',
+        'tests/test_experiments_findings.py',
+        'tests/test_experiments_fragility.py',
+        'tests/test_experiments_hypotheses.py',
+        'tests/test_experiments_offline.py',
+        'tests/test_experiments_packs.py',
+        'tests/test_experiments_scopes.py',
+        'tests/test_experiments_sensitivity.py',
+        'tests/test_experiments_metrics.py',
+        'tests/test_experiments_regimes.py',
+        'tests/test_experiments_timesplits.py',
+        'tests/test_experiments_paper_validation.py',
+        'tests/test_experiments_promotions.py',
+        'tests/test_experiments_policy.py',
+        'tests/test_experiments_storage.py',
+    ]
 
-content = content.replace(
-    """        short_plan = plan_id[-6:] if len(plan_id) > 6 else plan_id
-        short_leg = leg_id[-6:] if len(leg_id) > 6 else leg_id""",
-    """        short_plan = plan_id[-7:] if len(plan_id) > 7 else plan_id
-        short_leg = leg_id[-7:] if len(leg_id) > 7 else leg_id""",
-)
+    for f in files:
+        with open(f, 'r') as fp:
+            content = fp.read()
 
-with open("app/order_lifecycle/client_ids.py", "w") as f:
-    f.write(content)
+        with open(f, 'w') as fp:
+            fp.write(content)
 
-with open("app/order_lifecycle/state_machine.py", "r") as f:
-    content = f.read()
-
-content = content.replace(
-    """        if to_state not in allowed_next and to_state not in cls.TERMINAL_STATES and current_state.current_state != LifecycleState.TIMEOUT_UNKNOWN:
-             raise InvalidLifecycleTransitionError(f"Invalid transition {current_state.current_state} -> {to_state}")""",
-    """        if to_state not in allowed_next and current_state.current_state != LifecycleState.TIMEOUT_UNKNOWN:
-             raise InvalidLifecycleTransitionError(f"Invalid transition {current_state.current_state} -> {to_state}")""",
-)
-
-with open("app/order_lifecycle/state_machine.py", "w") as f:
-    f.write(content)
+if __name__ == '__main__':
+    fix()

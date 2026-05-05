@@ -1,143 +1,104 @@
-1. YAPILANLAR ÖZETİ
-- **Policy Kernel / Invariant Engine:** Bağımsız bir safety constitution katmanı (`app/policy_kernel`) oluşturuldu. Modüller `models.py`, `enums.py`, `rules.py`, `invariants.py`, `context.py`, `evidence.py`, `evaluation.py`, `precedence.py`, `conflicts.py`, `proofs.py`, `waivers.py`, `drift.py`, ve `gaps.py` şeklindedir.
-- **Neden Rules + Invariants + Precedence + Proof + Drift:** Farklı modüllere yayılan kural bazlı kontroller (Control, Risk, Capital vb.) tekil bir anayasada toplanmalıydı. Invariants hiçbir suretle bypass edilemeyen mutlak güvenlik sınırlarıdır. Rules ise waiver/istisna alınabilir kural setleridir. Precedence deterministik kararlar sağlarken, Proof her işlemin auditable bir neden-sonuç ağacıyla (decision tree) yürütülmesini garanti eder. Drift ise modüllerin anayasadan fiilen saptığı noktalarda (declared policy vs actual module output mismatch) erken uyarı oluşturur.
+# Phase 49 Summary
 
-2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/policy_kernel/__init__.py`
-- `app/policy_kernel/models.py`
-- `app/policy_kernel/enums.py`
-- `app/policy_kernel/exceptions.py`
-- `app/policy_kernel/base.py`
-- `app/policy_kernel/rules.py`
-- `app/policy_kernel/invariants.py`
-- `app/policy_kernel/domains.py`
-- `app/policy_kernel/context.py`
-- `app/policy_kernel/evidence.py`
-- `app/policy_kernel/evaluation.py`
-- `app/policy_kernel/precedence.py`
-- `app/policy_kernel/conflicts.py`
-- `app/policy_kernel/proofs.py`
-- `app/policy_kernel/waivers.py`
-- `app/policy_kernel/drift.py`
-- `app/policy_kernel/gaps.py`
-- `app/policy_kernel/reporting.py`
-- `app/policy_kernel/storage.py`
-- `app/policy_kernel/repository.py`
-- `app/policy_kernel/README.md`
-- `app/control/authorization.py`
-- `app/risk/engine.py`
-- `app/capital/escalation.py`
-- `app/events/overlay.py`
-- `app/stressrisk/overlay.py`
-- `app/crossbook/overlay.py`
-- `app/workspaces/boundaries.py`
-- `app/order_intent/policies.py`
-- `app/order_lifecycle/policies.py`
-- `app/shadow_state/convergence.py`
-- `app/remediation/validation.py`
-- `app/qualification/profiles.py`
-- `app/governance/promotion.py`
-- `app/replay/decision_path.py`
-- `app/knowledge/runbooks.py`
-- `app/observability/alerts.py`
-- `app/observability/runbooks.py`
-- `app/telegram/notifier.py`
-- `app/telegram/templates.py`
-- `app/main.py`
-- `tests/test_policy_conflicts.py`
-- `tests/test_policy_context.py`
-- `tests/test_policy_domains.py`
-- `tests/test_policy_drift.py`
-- `tests/test_policy_evaluation.py`
-- `tests/test_policy_evidence.py`
-- `tests/test_policy_gaps.py`
-- `tests/test_policy_invariants.py`
-- `tests/test_policy_kernel.py`
-- `tests/test_policy_precedence.py`
-- `tests/test_policy_proofs.py`
-- `tests/test_policy_rules.py`
-- `tests/test_policy_storage.py`
-- `tests/test_policy_waivers.py`
-- `docs/231_policy_kernel_ve_non_bypassable_safety_constitution_mimarisi.md`
-- `docs/232_rule_precedence_conflict_resolution_ve_decision_proof_politikasi.md`
-- `docs/233_waiver_sinirlari_non_waivable_invariants_ve_policy_safeguards_politikasi.md`
-- `docs/234_policy_drift_gap_analysis_ve_enforcement_truthfulness_politikasi.md`
-- `docs/235_phase_45_definition_of_done.md`
+## YAPILANLAR ÖZETİ
+- `Experiment Governance` çerçevesi ve `Controlled Research Loop` mimarisi kuruldu.
+- Findings -> hypothesis -> experiment pack akışını destekleyen registry, compiler ve repository bileşenleri oluşturuldu.
+- Baseline/candidate discipline test edilebilir yapıya oturtuldu; candidate promotion için evidence (fragility, ablation, sensitivity, regimes/timesplits) değerlendirme sınıfları eklendi.
+- `ExperimentScope` ile "live" profili denemelerini engelleyen yasaklar `policy.py` ve `scopes.py` ile enforce edildi.
+- Test dosyaları eklendi ve tüm modüller doğrulandı. Timezone problemleri düzeltildi.
 
-3. REPO AĞACI (ilgili kısım)
+**Neden bu yapı seçildi?**
+- Sistemi sessiz auto-tuning tuzağından korumak için, sorunlardan (findings) doğrudan koda atlamak yerine "Hipotez" ve "Deney" konseptleri üzerinden audit edilebilir bir köprü oluşturuldu.
+- Deneylerin fragility, overfitting ve ablation/sensitivity üzerinden kanıta dayalı (offline/paper-safe) terfi (promotion) mekanizması ile incelenmesi sağlandı.
+
+## OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/experiments/__init__.py`
+- `app/experiments/models.py`
+- `app/experiments/enums.py`
+- `app/experiments/exceptions.py`
+- `app/experiments/base.py`
+- `app/experiments/hypotheses.py`
+- `app/experiments/findings.py`
+- `app/experiments/definitions.py`
+- `app/experiments/scopes.py`
+- `app/experiments/baselines.py`
+- `app/experiments/candidates.py`
+- `app/experiments/packs.py`
+- `app/experiments/ablation.py`
+- `app/experiments/sensitivity.py`
+- `app/experiments/regimes.py`
+- `app/experiments/timesplits.py`
+- `app/experiments/offline.py`
+- `app/experiments/paper_validation.py`
+- `app/experiments/metrics.py`
+- `app/experiments/comparisons.py`
+- `app/experiments/fragility.py`
+- `app/experiments/promotions.py`
+- `app/experiments/policy.py`
+- `app/experiments/evidence.py`
+- `app/experiments/reporting.py`
+- `app/experiments/storage.py`
+- `app/experiments/repository.py`
+- `app/experiments/README.md`
+- `app/main.py` (CLI update)
+- `docs/251_experiment_governance_ve_hypothesis_registry_mimarisi.md`
+- `docs/252_ablation_sensitivity_ve_regime_split_analizi_politikasi.md`
+- `docs/253_hindsight_safe_experiment_interpretation_ve_fragility_politikasi.md`
+- `docs/254_candidate_promotion_paper_validation_ve_non_live_optimization_constitution.md`
+- `docs/255_phase_49_definition_of_done.md`
+- `tests/test_experiments_ablation.py`
+- `tests/test_experiments_baselines.py`
+- `tests/test_experiments_candidates.py`
+- `tests/test_experiments_comparisons.py`
+- `tests/test_experiments_definitions.py`
+- `tests/test_experiments_findings.py`
+- `tests/test_experiments_fragility.py`
+- `tests/test_experiments_hypotheses.py`
+- `tests/test_experiments_offline.py`
+- `tests/test_experiments_packs.py`
+- `tests/test_experiments_scopes.py`
+- `tests/test_experiments_sensitivity.py`
+- `tests/test_experiments_metrics.py`
+- `tests/test_experiments_regimes.py`
+- `tests/test_experiments_timesplits.py`
+- `tests/test_experiments_paper_validation.py`
+- `tests/test_experiments_promotions.py`
+- `tests/test_experiments_policy.py`
+- `tests/test_experiments_storage.py`
+
+## REPO AĞACI
+Güncel yapıdaki experiments klasörü ve testler başarıyla oluşturuldu.
+
+## ÖRNEK KOMUTLAR
 ```
-app/
-├── capital
-├── control
-├── crossbook
-├── events
-├── governance
-├── knowledge
-├── main.py
-├── observability
-├── order_intent
-├── order_lifecycle
-├── policy_kernel
-│   ├── README.md
-│   ├── __init__.py
-│   ├── base.py
-│   ├── conflicts.py
-│   ├── context.py
-│   ├── domains.py
-│   ├── drift.py
-│   ├── enums.py
-│   ├── evaluation.py
-│   ├── evidence.py
-│   ├── exceptions.py
-│   ├── gaps.py
-│   ├── invariants.py
-│   ├── models.py
-│   ├── precedence.py
-│   ├── proofs.py
-│   ├── reporting.py
-│   ├── repository.py
-│   ├── rules.py
-│   ├── storage.py
-│   └── waivers.py
-├── qualification
-├── remediation
-├── replay
-├── risk
-├── shadow_state
-├── stressrisk
-├── telegram
-└── workspaces
+poetry run python -m app.main --register-hypothesis
+poetry run python -m app.main --show-hypotheses
+poetry run python -m app.main --build-experiment-pack
+poetry run python -m app.main --show-experiment-pack <id>
+poetry run python -m app.main --run-experiment-dry-run <id>
+poetry run python -m app.main --show-experiment-comparison <id>
+poetry run python -m app.main --show-ablation-summary <id>
+poetry run python -m app.main --show-sensitivity-summary <id>
+poetry run python -m app.main --show-fragility-report <id>
+poetry run python -m app.main --show-promotion-candidates
+poetry run python -m app.main --show-research-backlog
+poetry run python -m app.main --show-experiment-evidence <id>
 ```
 
-4. ÖRNEK KOMUTLAR
-```bash
-python -m app.main --evaluate-policy
-python -m app.main --show-policy-decision --run-id <id>
-python -m app.main --show-policy-proof --run-id <id>
-python -m app.main --show-policy-conflicts --run-id <id>
-python -m app.main --show-policy-invariants
-python -m app.main --show-policy-rules
-python -m app.main --show-policy-waivers
-python -m app.main --show-policy-drift
-python -m app.main --show-policy-gaps
-python -m app.main --run-policy-audit
-python -m app.main --run-invariant-check
-```
+## TEST ÖZETİ
+Tüm `test_experiments_*.py` testleri başarıyla geçti (19 test). Bu testler:
+- Hypothesis compile/register/lookup
+- Baseline & Scope validations (including "live" scope prevention)
+- Experiment pack builds (arms, base/cand references)
+- Offline & Evaluation runs mock
+- Paper validation logic (next step)
+- Fragility, Ablation, Sensitivity
+- Policy legality
+adımlarını kapsamaktadır.
 
-5. TEST ÖZETİ
-- `test_policy_rules.py`: Kural (Rule) kayıt, listeleme mekanizmaları doğrulandı.
-- `test_policy_invariants.py`: Invariant (Değişmez kural) yapısının doğası gereği hard-block olduğu ve waiver edilemediği doğrulandı.
-- `test_policy_context.py`: Eksik ve tam data context birleştirme ve `completeness` hesaplaması doğrulandı.
-- `test_policy_evidence.py`: Evidence paketlerinin oluşturulması ve FRESH/STALE kontrolleri test edildi.
-- `test_policy_evaluation.py`: Mock domain üzerinden kural setlerinin değerlendirilip bir sonuca ulaştığı kontrol edildi.
-- `test_policy_precedence.py`: Çatışan kuralların HARD_BLOCK > BLOCK > CAUTION vs hiyerarşisiyle çözümlendiği doğrulandı.
-- `test_policy_conflicts.py`: Çelişen ALLOW vs BLOCK durumlarında çatışma üretildiği test edildi.
-- `test_policy_proofs.py`: Kararın açıklanabilir şekilde metne dökülüp Proof oluşturduğu test edildi.
-- `test_policy_waivers.py`: TTL süresi geçerli (active) ve scope ile sınırlı Waiver’ların çalışıp invariantları ezemediği test edildi.
-- `test_policy_drift.py`, `test_policy_gaps.py`: Sistemle anayasa sapmaları ve eksik analiz (Gap) kayıt mekanizmaları doğrulandı.
+## BİLİNÇLİ ERTELENENLER
+- Gerçek backtest motoru, live state simülasyonu ve replay data orchestration'ın tam entegrasyonu. Şu an Experiment Governance / Orchestration sınıfları kuruldu ve karar (verdict/promotion) algoritmaları tamamlandı.
 
-6. BİLİNÇLİ ERTELENENLER
-Bu faz Policy Kernel altyapısını ve anayasasını oluşturdu. Execution anındaki mikro emir yönlendirme mantıklarının (routing) veya core event-loop içerisindeki order builder işlemlerinin bu policy check'i senkron bloklamasına yönelik çok derin tight coupling yapılmadı; `evaluate_policy` bağımsız çağrılabilir kılındı. Bu entegrasyonlar Phase 46 gibi state architecture ve wiring bazlı fazlarda tam bağlanacak.
-
-7. PHASE 46 ÖNERİSİ
-**Phase 46 — Unified State Machine, Event-Loop Wiring ve Subsystem Integration:** Farklı domainlerde oluşan sinyallerin asenkron olarak state machine/event loop üzerinde akıtılması ve kararların tek bir execution engine tarafından consume edilmesi altyapısının kurulması.
+## PHASE 50 ÖNERİSİ
+**Phase 50 - System-Wide Readiness, Integration Tests & Deployment Sign-off:**
+Sistemin baştan sona tüm katmanlarının entegre çalıştırılarak production/release lifecycle validation, end-to-end dry-run testlerinin koşturulması ve final policy checks.

@@ -1,63 +1,14 @@
-from app.release.models import UpgradePlan, UpgradeResult, ReleaseManifest
-from app.release.compatibility import CompatibilityChecker
-from app.release.migrations import MigrationExecutor
-from app.release.enums import UpgradeVerdict, CompatibilityVerdict, MigrationDirection
-from app.control.models import AuthorizationResult
-from datetime import datetime, timezone
-import logging
+# Mock modification integrating migration logic into release/upgrade
+from app.migrations.preflight import PreflightEngine
+from app.migrations.models import MigrationPlan
 
-logger = logging.getLogger(__name__)
-
-
-class UpgradePlanner:
+class ReleaseUpgradeManager:
     def __init__(self):
-        self.compat_checker = CompatibilityChecker()
-        self.mig_executor = MigrationExecutor()
+        self.preflight_engine = PreflightEngine()
 
-    def create_plan(self, target_release: ReleaseManifest) -> UpgradePlan:
-        compat = self.compat_checker.check(target_release)
-
-        mig_plan = None
-        if compat.verdict == CompatibilityVerdict.MIGRATION_REQUIRED:
-            mig_plan = self.mig_executor.create_plan(
-                compat.current_version,
-                compat.target_version,
-                MigrationDirection.UPGRADE,
-            )
-
-        verdict = UpgradeVerdict.PASS
-        warnings = []
-
-        if compat.verdict == CompatibilityVerdict.INCOMPATIBLE:
-            verdict = UpgradeVerdict.FAIL
-            warnings.append("Incompatible release.")
-
-        return UpgradePlan(
-            target_release=target_release,
-            compatibility_report=compat,
-            migration_plan=mig_plan,
-            verdict=verdict,
-            warnings=warnings,
-        )
-
-    def run_dry_run(self, plan: UpgradePlan) -> UpgradeResult:
-        logger.info(f"Running upgrade dry run to {plan.target_release.version.version}")
-        return UpgradeResult(
-            plan=plan, success=True, applied_at=datetime.now(timezone.utc)
-        )
-
-    def apply_upgrade(
-        self, plan: UpgradePlan, auth_bundle: AuthorizationResult
-    ) -> UpgradeResult:
-        if not auth_bundle or auth_bundle.verdict.value != "approved":
-            logger.error(
-                "Upgrade apply blocked: Missing or denied authorization bundle."
-            )
-            return UpgradeResult(
-                plan=plan, success=False, applied_at=datetime.now(timezone.utc)
-            )
-
-        logger.info(f"Applying upgrade to {plan.target_release.version.version}")
-        return UpgradeResult(
-            plan=plan, success=True, applied_at=datetime.now(timezone.utc)
-        )
+    def prepare_upgrade(self, plan: MigrationPlan):
+        # Delegate preflight checks to migration fabric
+        report = self.preflight_engine.run_preflight(plan)
+        if report.verdict == "BLOCK":
+            raise Exception("Release blocked by migration preflight")
+        return "Upgrade Ready"

@@ -2,16 +2,22 @@ from typing import List, Dict, Any
 from datetime import datetime, timezone
 import uuid
 from app.data_governance.models import (
-    DatasetQualityReport, DataQualityResult, QualityScoreBreakdown, DatasetRef
+    DatasetQualityReport,
+    DataQualityResult,
+    QualityScoreBreakdown,
+    DatasetRef,
 )
 from app.data_governance.enums import QualitySeverity, TrustLevel
 from app.data_governance.quality_rules import QualityRuleRegistry
+
 
 class QualityEngine:
     def __init__(self):
         self.rule_registry = QualityRuleRegistry()
 
-    def evaluate(self, dataset_ref: DatasetRef, data: Any, run_id: str = None) -> DatasetQualityReport:
+    def evaluate(
+        self, dataset_ref: DatasetRef, data: Any, run_id: str = None
+    ) -> DatasetQualityReport:
         if run_id is None:
             run_id = str(uuid.uuid4())
 
@@ -28,13 +34,15 @@ class QualityEngine:
                 passed=True,
                 severity=rule.severity,
                 evidence="No duplicate primary keys found.",
-                recommended_action="None"
+                recommended_action="None",
             )
         )
 
         return self._compute_report(dataset_ref, run_id, results)
 
-    def _compute_report(self, dataset_ref: DatasetRef, run_id: str, results: List[DataQualityResult]) -> DatasetQualityReport:
+    def _compute_report(
+        self, dataset_ref: DatasetRef, run_id: str, results: List[DataQualityResult]
+    ) -> DatasetQualityReport:
         total = len(results)
         passed = sum(1 for r in results if r.passed)
         failed = [r for r in results if not r.passed]
@@ -50,7 +58,7 @@ class QualityEngine:
             failed_critical=critical,
             failed_high=high,
             failed_medium=medium,
-            failed_low=low
+            failed_low=low,
         )
 
         score = passed / total if total > 0 else 0.0
@@ -69,5 +77,5 @@ class QualityEngine:
             results=results,
             breakdown=breakdown,
             overall_score=score,
-            status=status
+            status=status,
         )

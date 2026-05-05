@@ -4,6 +4,7 @@ from app.universe.storage import UniverseStorage
 from app.universe.registry import InstrumentRegistry
 from app.universe.enums import InstrumentType
 
+
 class UniverseRepository:
     def __init__(self, storage: UniverseStorage):
         self.storage = storage
@@ -18,7 +19,9 @@ class UniverseRepository:
     def save_registry(self):
         self.storage.save_registry_snapshot(self.registry.get_all_instruments())
 
-    def get_instrument(self, symbol: str, product_type: InstrumentType) -> Optional[ProductInstrument]:
+    def get_instrument(
+        self, symbol: str, product_type: InstrumentType
+    ) -> Optional[ProductInstrument]:
         return self.registry.get_instrument(symbol, product_type)
 
     def get_active_instruments(self) -> List[ProductInstrument]:

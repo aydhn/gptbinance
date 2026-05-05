@@ -67,8 +67,6 @@ class HonestyGuardEvaluator:
 
 
 class MLEvaluationGuard:
-
     def check(self, run_id: str):
-
         # Check calibration, drift, leakage, temporal split honesty
         return GuardResult(passed=True, caution_flags=[])

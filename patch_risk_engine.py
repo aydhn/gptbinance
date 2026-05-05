@@ -1,4 +1,4 @@
-with open('app/risk/engine.py', 'r') as f:
+with open("app/risk/engine.py", "r") as f:
     content = f.read()
 
 import_stmt = "from app.crossbook.enums import CrossBookVerdict\n"
@@ -15,5 +15,5 @@ if "apply_crossbook_overlay" not in content:
 """
     content += new_method
 
-with open('app/risk/engine.py', 'w') as f:
+with open("app/risk/engine.py", "w") as f:
     f.write(content)

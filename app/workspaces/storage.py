@@ -1,6 +1,7 @@
 from typing import Dict
 from app.workspaces.models import WorkspaceProfile, ScopedPathSet
 
+
 class StorageOrchestrator:
     def __init__(self, base_dir: str = ".workspaces"):
         self.base_dir = base_dir

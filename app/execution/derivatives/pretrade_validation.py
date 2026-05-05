@@ -40,9 +40,11 @@ class DerivativePretradeValidator:
             )
             return False
 
-
         # Added in Phase 40: Cross-book validation
-        if hasattr(intent, 'crossbook_verdict') and intent.crossbook_verdict == CrossBookVerdict.BLOCK:
+        if (
+            hasattr(intent, "crossbook_verdict")
+            and intent.crossbook_verdict == CrossBookVerdict.BLOCK
+        ):
             logger.error("Blocked by cross-book exposure governance.")
             return False
 

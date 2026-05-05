@@ -33,7 +33,6 @@ class BinanceTestnetExecutor:
             )
 
     async def submit_order(self, request: ExecutionRequest) -> ExchangeAck:
-
         try:
             logger.info(f"Submitting order to testnet: {request.client_order_id}")
             # Mock submission

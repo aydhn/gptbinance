@@ -1,4 +1,14 @@
-from app.universe.models import ProductInstrument, TradabilityReport, LiquiditySnapshot, SpreadSnapshot, UniverseSnapshot, UniverseDiff, LifecycleEvent, UniverseImpactReport
+from app.universe.models import (
+    ProductInstrument,
+    TradabilityReport,
+    LiquiditySnapshot,
+    SpreadSnapshot,
+    UniverseSnapshot,
+    UniverseDiff,
+    LifecycleEvent,
+    UniverseImpactReport,
+)
+
 
 class UniverseReporter:
     def format_instrument(self, inst: ProductInstrument) -> str:

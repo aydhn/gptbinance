@@ -4,5 +4,5 @@ class HostProbe:
             "status": "PASS",
             "bare_minimum_met": True,
             "recommended_host_class": "LOCAL_AVERAGE",
-            "message": "Host meets minimum criteria."
+            "message": "Host meets minimum criteria.",
         }

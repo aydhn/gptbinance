@@ -10,19 +10,24 @@ class AutomationStorage:
 
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS jobs (
                     id TEXT PRIMARY KEY,
                     data TEXT NOT NULL
                 )
-            """)
-            conn.execute("""
+            """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS workflows (
                     id TEXT PRIMARY KEY,
                     data TEXT NOT NULL
                 )
-            """)
-            conn.execute("""
+            """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS job_runs (
                     id TEXT PRIMARY KEY,
                     job_id TEXT NOT NULL,
@@ -31,8 +36,10 @@ class AutomationStorage:
                     started_at TEXT,
                     data TEXT NOT NULL
                 )
-            """)
-            conn.execute("""
+            """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS workflow_runs (
                     id TEXT PRIMARY KEY,
                     workflow_id TEXT NOT NULL,
@@ -40,7 +47,8 @@ class AutomationStorage:
                     started_at TEXT,
                     data TEXT NOT NULL
                 )
-            """)
+            """
+            )
 
     def save_job(self, job: JobDefinition):
         with sqlite3.connect(self.db_path) as conn:

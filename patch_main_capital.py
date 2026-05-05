@@ -21,7 +21,7 @@ from app.capital.tranches import tranche_manager
 from app.control.actions import ActionRegistry, SensitiveAction
 """
     # Insert right after other app. imports
-    content = re.sub(r'(from app\.[^\n]+)', r'\1\n' + imports, content, count=1)
+    content = re.sub(r"(from app\.[^\n]+)", r"\1\n" + imports, content, count=1)
 
 # Add CLI arguments
 arg_pattern = r'parser\.add_argument\("--run-workspaces-tests", action="store_true"\)'
@@ -40,14 +40,19 @@ capital_args = """    parser.add_argument("--run-workspaces-tests", action="stor
 """
 
 if "--show-capital-ladder" not in content:
-    content = content.replace('parser.add_argument("--run-workspaces-tests", action="store_true")', capital_args)
-    if capital_args not in content: # If replace failed
+    content = content.replace(
+        'parser.add_argument("--run-workspaces-tests", action="store_true")',
+        capital_args,
+    )
+    if capital_args not in content:  # If replace failed
         # Try appending to argument list
-        content = re.sub(r'(parser\.parse_args\(\))', capital_args + r'\n    \1', content)
+        content = re.sub(
+            r"(parser\.parse_args\(\))", capital_args + r"\n    \1", content
+        )
 
 
 # Add command handlers in main()
-handlers_pattern = r'if args\.show_telemetry_digest:'
+handlers_pattern = r"if args\.show_telemetry_digest:"
 
 capital_handlers = """if args.show_capital_ladder:
         print(report_ladder_summary())

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.execution import validate_execution_against_events
 from app.events.models import EventRiskOverlay

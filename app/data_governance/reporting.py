@@ -1,8 +1,13 @@
 import json
 from app.data_governance.models import (
-    DataContract, DataSchema, DatasetQualityReport,
-    SchemaDiffReport, TrustVerdict, DownstreamImpactReport
+    DataContract,
+    DataSchema,
+    DatasetQualityReport,
+    SchemaDiffReport,
+    TrustVerdict,
+    DownstreamImpactReport,
 )
+
 
 class GovernanceReporter:
     @staticmethod
@@ -11,7 +16,9 @@ class GovernanceReporter:
 
     @staticmethod
     def format_schema(schema: DataSchema) -> str:
-        fields_str = "\n  ".join([f"- {f.name}: {f.dtype} (Nullable: {f.nullable})" for f in schema.fields])
+        fields_str = "\n  ".join(
+            [f"- {f.name}: {f.dtype} (Nullable: {f.nullable})" for f in schema.fields]
+        )
         return f"Schema ID: {schema.schema_id}\nVersion: {schema.version}\nFields:\n  {fields_str}"
 
     @staticmethod
@@ -22,11 +29,13 @@ class GovernanceReporter:
             f"Run ID: {report.run_id}",
             f"Status: {report.status.value} (Score: {score_pct:.1f}%)",
             f"Breakdown: {report.breakdown.passed_rules}/{report.breakdown.total_rules} passed",
-            "Rule Results:"
+            "Rule Results:",
         ]
         for res in report.results:
-             status_marker = "✓" if res.passed else "✗"
-             lines.append(f"  [{status_marker}] {res.rule_name} (Severity: {res.severity.value}) - {res.evidence}")
+            status_marker = "✓" if res.passed else "✗"
+            lines.append(
+                f"  [{status_marker}] {res.rule_name} (Severity: {res.severity.value}) - {res.evidence}"
+            )
         return "\n".join(lines)
 
     @staticmethod
@@ -38,13 +47,13 @@ class GovernanceReporter:
             "Reasons:",
         ]
         if verdict.reasons:
-             for r in verdict.reasons:
-                 lines.append(f"  - {r}")
+            for r in verdict.reasons:
+                lines.append(f"  - {r}")
         else:
-             lines.append("  None")
+            lines.append("  None")
         lines.append("Evidence:")
         for k, v in verdict.evidence_breakdown.items():
-             lines.append(f"  - {k}: {v}")
+            lines.append(f"  - {k}: {v}")
         lines.append(f"\nRecommendation: {verdict.usage_recommendation}")
         return "\n".join(lines)
 
@@ -55,7 +64,7 @@ class GovernanceReporter:
             f"Severity: {report.severity.value}",
             f"Impacted Components: {', '.join(report.impacted_components) if report.impacted_components else 'None'}",
             f"Recommended Checks: {', '.join(report.recommended_checks) if report.recommended_checks else 'None'}",
-            f"Likely Blockers: {', '.join(report.likely_blockers) if report.likely_blockers else 'None'}"
+            f"Likely Blockers: {', '.join(report.likely_blockers) if report.likely_blockers else 'None'}",
         ]
         return "\n".join(lines)
 
@@ -64,7 +73,7 @@ class GovernanceReporter:
         lines = [
             f"Schema Diff: {report.from_schema.schema_id} (v{report.from_schema.version}) -> {report.to_schema.schema_id} (v{report.to_schema.version})",
             f"Breaking Change: {'Yes' if report.is_breaking else 'No'}",
-            "Changes:"
+            "Changes:",
         ]
         has_changes = False
         for change_type, items in report.changes.items():
@@ -72,7 +81,7 @@ class GovernanceReporter:
                 has_changes = True
                 lines.append(f"  {change_type.value}:")
                 for item in items:
-                     lines.append(f"    - {item}")
+                    lines.append(f"    - {item}")
         if not has_changes:
-             lines.append("  No changes detected.")
+            lines.append("  No changes detected.")
         return "\n".join(lines)

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.strategy import check_strategy_event_gate
 from app.events.models import EventRiskOverlay

@@ -1,4 +1,4 @@
-with open('app/events/overlay.py', 'r') as f:
+with open("app/events/overlay.py", "r") as f:
     content = f.read()
 
 if "Added in Phase 40" not in content:
@@ -11,5 +11,5 @@ if "Added in Phase 40" not in content:
         if not reasons:"""
     content = content.replace(old_code, new_code)
 
-with open('app/events/overlay.py', 'w') as f:
+with open("app/events/overlay.py", "w") as f:
     f.write(content)

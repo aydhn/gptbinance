@@ -2,6 +2,7 @@ import pytest
 from app.universe.normalization import BinanceMetadataNormalizer
 from app.universe.enums import InstrumentType, InstrumentStatus
 
+
 def test_normalize_spot_instrument():
     normalizer = BinanceMetadataNormalizer()
     raw_data = {
@@ -11,9 +12,19 @@ def test_normalize_spot_instrument():
         "baseAsset": "BTC",
         "quoteAsset": "USDT",
         "filters": [
-            {"filterType": "PRICE_FILTER", "tickSize": "0.01", "minPrice": "0.01", "maxPrice": "100000.0"},
-            {"filterType": "LOT_SIZE", "stepSize": "0.00001", "minQty": "0.00001", "maxQty": "100.0"}
-        ]
+            {
+                "filterType": "PRICE_FILTER",
+                "tickSize": "0.01",
+                "minPrice": "0.01",
+                "maxPrice": "100000.0",
+            },
+            {
+                "filterType": "LOT_SIZE",
+                "stepSize": "0.00001",
+                "minQty": "0.00001",
+                "maxQty": "100.0",
+            },
+        ],
     }
 
     inst = normalizer.normalize(raw_data)

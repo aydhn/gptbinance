@@ -4,6 +4,7 @@ from typing import Optional
 from app.workspaces.models import WorkspaceProfile, ScopedPathSet
 from app.workspaces.exceptions import ScopedPathError
 
+
 class PathResolver:
     def __init__(self, base_dir: str = ".workspaces"):
         self.base_dir = Path(base_dir)
@@ -20,7 +21,7 @@ class PathResolver:
             backup_root=str(profile_dir / "backups"),
             metrics_root=str(profile_dir / "metrics"),
             replays_root=str(profile_dir / "replays"),
-            analytics_root=str(profile_dir / "analytics")
+            analytics_root=str(profile_dir / "analytics"),
         )
         return paths
 

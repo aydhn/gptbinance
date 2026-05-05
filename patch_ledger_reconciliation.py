@@ -1,4 +1,4 @@
-with open('app/ledger/reconciliation.py', 'r') as f:
+with open("app/ledger/reconciliation.py", "r") as f:
     content = f.read()
 
 if "Cross-book context" not in content:
@@ -22,5 +22,5 @@ if "Cross-book context" not in content:
         )"""
     content = content.replace(old_code, new_code)
 
-with open('app/ledger/reconciliation.py', 'w') as f:
+with open("app/ledger/reconciliation.py", "w") as f:
     f.write(content)

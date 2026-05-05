@@ -33,7 +33,6 @@ class PeriodicSummaryGenerator:
         end_time: datetime,
         summaries: List[SessionSummary],
     ) -> PeriodicAggregation:
-
         total_pnl = sum(s.net_pnl for s in summaries)
         return PeriodicAggregation(
             granularity=granularity,

@@ -6,6 +6,7 @@ from app.universe.exceptions import ExchangeFilterError
 
 logger = logging.getLogger(__name__)
 
+
 class FilterEvaluator:
     @staticmethod
     def validate_price(price: float, filters: ExchangeFilterSet) -> bool:
@@ -44,7 +45,7 @@ class FilterEvaluator:
     @staticmethod
     def validate_notional(price: float, qty: float, filters: ExchangeFilterSet) -> bool:
         if not filters.min_notional:
-            return True # Notional filter is not always present
+            return True  # Notional filter is not always present
 
         notional = price * qty
         return notional >= filters.min_notional.min_notional

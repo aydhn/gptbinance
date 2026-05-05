@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from typing import Optional, Dict, Any
 
+
 class WorkspaceStorageBackend:
     def __init__(self, data_dir: str = ".workspaces_data"):
         self.data_dir = Path(data_dir)

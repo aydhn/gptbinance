@@ -4,8 +4,11 @@ from app.universe.models import InstrumentRef, TurnoverSnapshot
 from app.universe.enums import LiquiditySeverity
 from app.universe.exceptions import LiquidityEvaluationError
 
+
 class TurnoverEvaluator:
-    def evaluate(self, ref: InstrumentRef, market_data: Dict[str, Any]) -> TurnoverSnapshot:
+    def evaluate(
+        self, ref: InstrumentRef, market_data: Dict[str, Any]
+    ) -> TurnoverSnapshot:
         try:
             count = int(market_data.get("count", 0))
             quote_vol = float(market_data.get("quoteVolume", 0))
@@ -24,7 +27,7 @@ class TurnoverEvaluator:
                 turnover_24h=quote_vol,
                 trade_count_24h=count,
                 severity=severity,
-                snapshot_time=datetime.now(timezone.utc)
+                snapshot_time=datetime.now(timezone.utc),
             )
         except Exception as e:
             raise LiquidityEvaluationError(f"Failed to evaluate turnover: {e}")

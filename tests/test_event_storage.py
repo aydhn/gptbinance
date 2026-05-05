@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.storage import MemoryEventStorage
 from app.events.repository import EventRepository

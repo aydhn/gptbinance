@@ -5,8 +5,12 @@ from app.workspaces.enums import ProfileType
 from app.universe.enums import InstrumentType
 from datetime import datetime, timezone
 
+
 def create_ref(symbol):
-    return InstrumentRef(symbol=symbol, product_type=InstrumentType.SPOT, canonical_symbol=symbol)
+    return InstrumentRef(
+        symbol=symbol, product_type=InstrumentType.SPOT, canonical_symbol=symbol
+    )
+
 
 def test_compute_diff():
     engine = DiffEngine()
@@ -22,17 +26,17 @@ def test_compute_diff():
         eligible_instruments=[ref1, ref2],
         caution_instruments=[],
         blocked_instruments=[],
-        manifest_ref="man1"
+        manifest_ref="man1",
     )
 
     new_snap = UniverseSnapshot(
         snapshot_id="snap2",
         profile=ProfileType.PAPER_DEFAULT,
         created_at=datetime.now(timezone.utc),
-        eligible_instruments=[ref1, ref3], # removed ref2, added ref3
+        eligible_instruments=[ref1, ref3],  # removed ref2, added ref3
         caution_instruments=[],
         blocked_instruments=[],
-        manifest_ref="man2"
+        manifest_ref="man2",
     )
 
     diff = engine.compute_diff(old_snap, new_snap)
@@ -48,6 +52,7 @@ def test_compute_diff():
 
     assert len(diff.eligibility_changed) == 0
 
+
 def test_compute_diff_eligibility_changed():
     engine = DiffEngine()
     ref1 = create_ref("BTCUSDT")
@@ -59,7 +64,7 @@ def test_compute_diff_eligibility_changed():
         eligible_instruments=[ref1],
         caution_instruments=[],
         blocked_instruments=[],
-        manifest_ref="man1"
+        manifest_ref="man1",
     )
 
     new_snap = UniverseSnapshot(
@@ -67,9 +72,9 @@ def test_compute_diff_eligibility_changed():
         profile=ProfileType.PAPER_DEFAULT,
         created_at=datetime.now(timezone.utc),
         eligible_instruments=[],
-        caution_instruments=[ref1], # Changed from eligible to caution
+        caution_instruments=[ref1],  # Changed from eligible to caution
         blocked_instruments=[],
-        manifest_ref="man2"
+        manifest_ref="man2",
     )
 
     diff = engine.compute_diff(old_snap, new_snap)

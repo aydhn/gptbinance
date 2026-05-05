@@ -1,4 +1,4 @@
-with open('app/execution/derivatives/pretrade_validation.py', 'r') as f:
+with open("app/execution/derivatives/pretrade_validation.py", "r") as f:
     content = f.read()
 
 import_stmt = "from app.crossbook.enums import CrossBookVerdict\n"
@@ -16,5 +16,5 @@ if "crossbook_verdict" not in content:
         return True"""
     content = content.replace(old_code, new_code)
 
-with open('app/execution/derivatives/pretrade_validation.py', 'w') as f:
+with open("app/execution/derivatives/pretrade_validation.py", "w") as f:
     f.write(content)

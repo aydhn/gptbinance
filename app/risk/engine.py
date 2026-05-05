@@ -136,6 +136,11 @@ class RiskEngine:
 
     # Added in Phase 40
     def apply_crossbook_overlay(self, overlay_decision):
-        if overlay_decision.verdict in [CrossBookVerdict.BLOCK, CrossBookVerdict.REDUCE]:
-            logger.warning(f"Cross-book restrictions applied. Reasons: {overlay_decision.reasons}")
+        if overlay_decision.verdict in [
+            CrossBookVerdict.BLOCK,
+            CrossBookVerdict.REDUCE,
+        ]:
+            logger.warning(
+                f"Cross-book restrictions applied. Reasons: {overlay_decision.reasons}"
+            )
         return True

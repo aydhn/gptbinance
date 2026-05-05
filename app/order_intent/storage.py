@@ -10,7 +10,8 @@ class IntentStorage:
 
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS compile_results (
                     run_id TEXT PRIMARY KEY,
                     intent_id TEXT,
@@ -20,7 +21,8 @@ class IntentStorage:
                     result_json TEXT,
                     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
-            """)
+            """
+            )
             conn.commit()
 
     def save_result(self, result: IntentCompilationResult):

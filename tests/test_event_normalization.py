@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.normalization import DefaultEventNormalizer
 from app.events.enums import EventSeverity

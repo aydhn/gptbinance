@@ -17,7 +17,6 @@ def calculate_score(
     findings: List[QualificationFinding],
     evidence_pack: EvidencePack,
 ) -> QualificationScore:
-
     score = QualificationScore()
 
     if scenarios:

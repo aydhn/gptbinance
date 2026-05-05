@@ -75,7 +75,6 @@ def emit_telemetry(
 
 
 class StructuredJSONFormatter(logging.Formatter):
-
     def format(self, record: logging.LogRecord) -> str:
         ctx = get_active_context()
         log_obj = {

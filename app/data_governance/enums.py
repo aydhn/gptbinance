@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DatasetType(str, Enum):
     RAW_MARKET_DATA = "RAW_MARKET_DATA"
     NORMALIZED_DATA = "NORMALIZED_DATA"
@@ -9,6 +10,7 @@ class DatasetType(str, Enum):
     GOVERNANCE_BUNDLE = "GOVERNANCE_BUNDLE"
     UNKNOWN = "UNKNOWN"
 
+
 class ContractType(str, Enum):
     RAW = "RAW"
     NORMALIZED = "NORMALIZED"
@@ -16,11 +18,13 @@ class ContractType(str, Enum):
     ML = "ML"
     ANALYTICS = "ANALYTICS"
 
+
 class SchemaCompatibility(str, Enum):
     FULLY_COMPATIBLE = "FULLY_COMPATIBLE"
     BACKWARD_COMPATIBLE = "BACKWARD_COMPATIBLE"
     FORWARD_COMPATIBLE = "FORWARD_COMPATIBLE"
     INCOMPATIBLE = "INCOMPATIBLE"
+
 
 class QualitySeverity(str, Enum):
     CRITICAL = "CRITICAL"
@@ -29,15 +33,18 @@ class QualitySeverity(str, Enum):
     LOW = "LOW"
     INFO = "INFO"
 
+
 class TrustLevel(str, Enum):
     TRUSTED = "TRUSTED"
     CAUTION = "CAUTION"
     BLOCKED = "BLOCKED"
 
+
 class LineageEdgeType(str, Enum):
     DERIVED_FROM = "DERIVED_FROM"
     USES_MODEL = "USES_MODEL"
     CONTRIBUTES_TO = "CONTRIBUTES_TO"
+
 
 class CanonicalEntityType(str, Enum):
     SYMBOL = "SYMBOL"
@@ -45,16 +52,19 @@ class CanonicalEntityType(str, Enum):
     INTERVAL = "INTERVAL"
     EXCHANGE = "EXCHANGE"
 
+
 class ImpactSeverity(str, Enum):
     CRITICAL = "CRITICAL"
     HIGH = "HIGH"
     MEDIUM = "MEDIUM"
     LOW = "LOW"
 
+
 class GovernanceVerdict(str, Enum):
     APPROVED = "APPROVED"
     CAUTION = "CAUTION"
     REJECTED = "REJECTED"
+
 
 class SchemaChangeType(str, Enum):
     FIELD_ADDED = "FIELD_ADDED"

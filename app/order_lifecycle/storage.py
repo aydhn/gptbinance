@@ -1,0 +1,2 @@
+class LifecycleStorage:
+    pass

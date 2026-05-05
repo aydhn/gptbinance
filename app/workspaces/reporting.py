@@ -1,11 +1,26 @@
 from typing import List
-from app.workspaces.models import WorkspaceHealthSummary, WorkspaceCatalogEntry, ProfileBoundary, ContaminationFinding
+from app.workspaces.models import (
+    WorkspaceHealthSummary,
+    WorkspaceCatalogEntry,
+    ProfileBoundary,
+    ContaminationFinding,
+)
 from app.workspaces.enums import WorkspaceReadiness, BoundarySeverity
 
-class WorkspaceReporter:
-    def generate_health_summary(self, catalog_entry: WorkspaceCatalogEntry, boundaries: List[ProfileBoundary], findings: List[ContaminationFinding]) -> WorkspaceHealthSummary:
 
-        blockers = sum(1 for b in boundaries for c in b.checks if c.severity == BoundarySeverity.BLOCKER and not c.passed)
+class WorkspaceReporter:
+    def generate_health_summary(
+        self,
+        catalog_entry: WorkspaceCatalogEntry,
+        boundaries: List[ProfileBoundary],
+        findings: List[ContaminationFinding],
+    ) -> WorkspaceHealthSummary:
+        blockers = sum(
+            1
+            for b in boundaries
+            for c in b.checks
+            if c.severity == BoundarySeverity.BLOCKER and not c.passed
+        )
 
         readiness = WorkspaceReadiness.READY
         if blockers > 0 or len(findings) > 0:
@@ -15,7 +30,7 @@ class WorkspaceReporter:
             workspace_id=catalog_entry.workspace.workspace_id,
             readiness=readiness,
             boundary_violations=blockers,
-            contamination_suspicions=len(findings)
+            contamination_suspicions=len(findings),
         )
 
     def format_boundary_report(self, boundary: ProfileBoundary) -> str:

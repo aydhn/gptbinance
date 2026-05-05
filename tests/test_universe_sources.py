@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 from app.universe.sources import BinanceSpotSourceAdapter
 from datetime import datetime, timezone
 
+
 def test_binance_spot_source_adapter_success():
     adapter = BinanceSpotSourceAdapter()
 
@@ -17,7 +18,10 @@ def test_binance_spot_source_adapter_success():
 
         assert len(symbols) == 1
         assert symbols[0]["symbol"] == "BTCUSDT"
-        assert adapter.get_source_freshness() > datetime.min.replace(tzinfo=timezone.utc)
+        assert adapter.get_source_freshness() > datetime.min.replace(
+            tzinfo=timezone.utc
+        )
+
 
 def test_binance_spot_source_adapter_failure():
     adapter = BinanceSpotSourceAdapter()
@@ -28,4 +32,6 @@ def test_binance_spot_source_adapter_failure():
         symbols = adapter.fetch_instruments()
 
         assert len(symbols) == 0
-        assert adapter.get_source_freshness() == datetime.min.replace(tzinfo=timezone.utc)
+        assert adapter.get_source_freshness() == datetime.min.replace(
+            tzinfo=timezone.utc
+        )

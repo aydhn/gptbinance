@@ -1,4 +1,3 @@
-
 from app.events.cooldowns import get_policy_for_profile
 from app.events.enums import CooldownMode
 

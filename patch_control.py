@@ -11,7 +11,9 @@ action_classes = """    capital_escalation = "capital_escalation"
 """
 
 if "capital_escalation" not in content:
-    content = re.sub(r'(class ActionClass\(str, Enum\):)', r'\1\n' + action_classes, content)
+    content = re.sub(
+        r"(class ActionClass\(str, Enum\):)", r"\1\n" + action_classes, content
+    )
 
 with open("app/control/actions.py", "w") as f:
     f.write(content)
@@ -34,7 +36,9 @@ stale_logic = """
 """
 
 if "capital_escalation" not in content:
-    content = re.sub(r'(def authorize_action\(.*?\).*?:)', r'\1\n' + stale_logic, content, count=1)
+    content = re.sub(
+        r"(def authorize_action\(.*?\).*?:)", r"\1\n" + stale_logic, content, count=1
+    )
 
 with open("app/control/authorization.py", "w") as f:
     f.write(content)

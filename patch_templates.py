@@ -1,4 +1,4 @@
-with open('app/telegram/templates.py', 'r') as f:
+with open("app/telegram/templates.py", "r") as f:
     content = f.read()
 
 if "CROSSBOOK_FAKE_HEDGE_TEMPLATE" not in content:
@@ -26,5 +26,5 @@ CROSSBOOK_COMBINED_EXPOSURE_BREACH_TEMPLATE = \"\"\"
 {details}
 \"\"\"
 """
-with open('app/telegram/templates.py', 'w') as f:
+with open("app/telegram/templates.py", "w") as f:
     f.write(content)

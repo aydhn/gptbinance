@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.models import EventRecord
 from app.events.enums import (

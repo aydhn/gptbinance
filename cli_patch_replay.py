@@ -38,7 +38,10 @@ cli_args = """
     parser.add_argument("--run-id", type=str, help="Run ID for displaying results")
 """
 
-content = content.replace('parser.add_argument("--run-governance",', cli_args + '\n    parser.add_argument("--run-governance",')
+content = content.replace(
+    'parser.add_argument("--run-governance",',
+    cli_args + '\n    parser.add_argument("--run-governance",',
+)
 
 # Add CLI logic
 cli_logic = """
@@ -120,7 +123,9 @@ cli_logic = """
          sys.exit(0)
 """
 
-content = content.replace("if args.run_governance:", cli_logic + "\n    if args.run_governance:")
+content = content.replace(
+    "if args.run_governance:", cli_logic + "\n    if args.run_governance:"
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

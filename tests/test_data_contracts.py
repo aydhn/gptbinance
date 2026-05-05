@@ -1,5 +1,12 @@
 import pytest
-from app.data_governance import DataContractRegistry, DataContract, ContractType, SchemaVersionRef, InvalidDataContractError
+from app.data_governance import (
+    DataContractRegistry,
+    DataContract,
+    ContractType,
+    SchemaVersionRef,
+    InvalidDataContractError,
+)
+
 
 def test_data_contract_registration():
     registry = DataContractRegistry()
@@ -10,10 +17,11 @@ def test_data_contract_registration():
         required_fields=["id"],
         optional_fields=["notes"],
         unique_keys=["id"],
-        description="Test contract"
+        description="Test contract",
     )
     registry.register_contract(contract)
     assert registry.get_contract("c1").contract_id == "c1"
+
 
 def test_data_contract_duplicate():
     registry = DataContractRegistry()
@@ -24,8 +32,8 @@ def test_data_contract_duplicate():
         required_fields=[],
         optional_fields=[],
         unique_keys=[],
-        description=""
+        description="",
     )
     registry.register_contract(contract)
     with pytest.raises(InvalidDataContractError):
-         registry.register_contract(contract)
+        registry.register_contract(contract)

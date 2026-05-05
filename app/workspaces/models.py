@@ -14,14 +14,17 @@ from app.workspaces.enums import (
     ContaminationSeverity,
 )
 
+
 class WorkspaceRef(BaseModel):
     workspace_id: str
     name: str
+
 
 class WorkspaceProfileRef(BaseModel):
     workspace_id: str
     profile_id: str
     profile_type: ProfileType
+
 
 class WorkspaceConfig(BaseModel):
     workspace_id: str
@@ -33,6 +36,7 @@ class WorkspaceConfig(BaseModel):
     archived: bool = False
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class ScopedPathSet(BaseModel):
     config_root: str
     state_root: str
@@ -43,6 +47,7 @@ class ScopedPathSet(BaseModel):
     metrics_root: str
     replays_root: str
     analytics_root: str
+
 
 class WorkspaceProfile(BaseModel):
     profile_id: str
@@ -58,6 +63,7 @@ class WorkspaceProfile(BaseModel):
     scoped_paths: Optional[ScopedPathSet] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class WorkspaceManifest(BaseModel):
     workspace_id: str
     schema_version: str = "1.0"
@@ -70,6 +76,7 @@ class WorkspaceManifest(BaseModel):
     scoped_paths: Optional[ScopedPathSet] = None
     generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class ProfileContextSnapshot(BaseModel):
     snapshot_id: str
     profile_ref: WorkspaceProfileRef
@@ -77,11 +84,13 @@ class ProfileContextSnapshot(BaseModel):
     active_bundle_ref: Optional[str] = None
     active_release_ref: Optional[str] = None
 
+
 class WorkspaceContext(BaseModel):
     active_workspace: Optional[WorkspaceConfig] = None
     active_profile: Optional[WorkspaceProfile] = None
     status: ContextStatus = ContextStatus.STALE
     last_switch_at: Optional[datetime] = None
+
 
 class BoundaryCheckResult(BaseModel):
     check_id: str
@@ -91,10 +100,12 @@ class BoundaryCheckResult(BaseModel):
     evidence: Optional[Dict[str, Any]] = None
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class ProfileBoundary(BaseModel):
     profile_ref: WorkspaceProfileRef
     checks: List[BoundaryCheckResult] = Field(default_factory=list)
     last_verified: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 
 class WorkspaceSwitchRecord(BaseModel):
     switch_id: str
@@ -104,12 +115,14 @@ class WorkspaceSwitchRecord(BaseModel):
     reason: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class ScopedStorageRef(BaseModel):
     ref_id: str
     scope_type: ScopeType
     target_id: str
     path: str
     read_only: bool = False
+
 
 class WorkspaceHealthSummary(BaseModel):
     workspace_id: str
@@ -118,10 +131,12 @@ class WorkspaceHealthSummary(BaseModel):
     contamination_suspicions: int = 0
     last_checked: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class WorkspaceCatalogEntry(BaseModel):
     workspace: WorkspaceConfig
     profiles: List[WorkspaceProfile]
     health: Optional[WorkspaceHealthSummary] = None
+
 
 class WorkspaceAuditRecord(BaseModel):
     audit_id: str
@@ -131,11 +146,13 @@ class WorkspaceAuditRecord(BaseModel):
     details: Dict[str, Any] = Field(default_factory=dict)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class WorkspaceArtifactManifest(BaseModel):
     artifact_id: str
     profile_ref: WorkspaceProfileRef
     paths: List[str]
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 
 class ContaminationFinding(BaseModel):
     finding_id: str

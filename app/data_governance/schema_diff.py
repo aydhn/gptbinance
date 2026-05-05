@@ -2,6 +2,7 @@ from typing import Dict, List
 from app.data_governance.models import DataSchema, SchemaDiffReport, SchemaVersionRef
 from app.data_governance.enums import SchemaChangeType
 
+
 class SchemaDiffAnalyzer:
     def diff(self, from_schema: DataSchema, to_schema: DataSchema) -> SchemaDiffReport:
         changes = {
@@ -9,7 +10,7 @@ class SchemaDiffAnalyzer:
             SchemaChangeType.FIELD_REMOVED: [],
             SchemaChangeType.TYPE_CHANGED: [],
             SchemaChangeType.NULLABILITY_CHANGED: [],
-            SchemaChangeType.METADATA_CHANGED: []
+            SchemaChangeType.METADATA_CHANGED: [],
         }
 
         is_breaking = False
@@ -27,22 +28,30 @@ class SchemaDiffAnalyzer:
                     changes[SchemaChangeType.TYPE_CHANGED].append(name)
                     is_breaking = True
                 if from_f.nullable and not to_f.nullable:
-                    changes[SchemaChangeType.NULLABILITY_CHANGED].append(f"{name} (now required)")
+                    changes[SchemaChangeType.NULLABILITY_CHANGED].append(
+                        f"{name} (now required)"
+                    )
                     is_breaking = True
                 elif not from_f.nullable and to_f.nullable:
-                     changes[SchemaChangeType.NULLABILITY_CHANGED].append(f"{name} (now nullable)")
+                    changes[SchemaChangeType.NULLABILITY_CHANGED].append(
+                        f"{name} (now nullable)"
+                    )
 
         for name in to_fields:
             if name not in from_fields:
                 changes[SchemaChangeType.FIELD_ADDED].append(name)
                 if not to_fields[name].nullable:
-                     # adding required field is a breaking change for producers
-                     # we'll conservatively flag it
-                     is_breaking = True
+                    # adding required field is a breaking change for producers
+                    # we'll conservatively flag it
+                    is_breaking = True
 
         return SchemaDiffReport(
-            from_schema=SchemaVersionRef(schema_id=from_schema.schema_id, version=from_schema.version),
-            to_schema=SchemaVersionRef(schema_id=to_schema.schema_id, version=to_schema.version),
+            from_schema=SchemaVersionRef(
+                schema_id=from_schema.schema_id, version=from_schema.version
+            ),
+            to_schema=SchemaVersionRef(
+                schema_id=to_schema.schema_id, version=to_schema.version
+            ),
             changes=changes,
-            is_breaking=is_breaking
+            is_breaking=is_breaking,
         )

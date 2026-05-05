@@ -13,7 +13,10 @@ gov_logic = """
 """
 
 if "capital_escalation_ready" not in content:
-    content = content.replace('if not bundle.integrity_verified:', gov_logic + '\n        if not bundle.integrity_verified:')
+    content = content.replace(
+        "if not bundle.integrity_verified:",
+        gov_logic + "\n        if not bundle.integrity_verified:",
+    )
 
 with open("app/governance/promotion.py", "w") as f:
     f.write(content)
@@ -26,7 +29,12 @@ qual_logic = """        self.capital_evidence_requirements = []
 """
 
 if "capital_evidence_requirements" not in content:
-    content = re.sub(r'(class QualificationProfile:.*?\n.*?def __init__\(self.*?\):.*?\n)', r'\1' + qual_logic, content, count=1)
+    content = re.sub(
+        r"(class QualificationProfile:.*?\n.*?def __init__\(self.*?\):.*?\n)",
+        r"\1" + qual_logic,
+        content,
+        count=1,
+    )
 
 with open("app/qualification/profiles.py", "w") as f:
     f.write(content)
@@ -43,7 +51,12 @@ ledger_logic = """
         return True
 """
 if "is_escalation_friendly" not in content:
-    content = re.sub(r'(class ReconciliationReport.*?\n.*?)(?=class)', r'\1' + ledger_logic + '\n\n', content, count=1)
+    content = re.sub(
+        r"(class ReconciliationReport.*?\n.*?)(?=class)",
+        r"\1" + ledger_logic + "\n\n",
+        content,
+        count=1,
+    )
 
 with open("app/ledger/reconciliation.py", "w") as f:
     f.write(content)
@@ -75,7 +88,12 @@ event_logic = """
 """
 
 if "get_capital_escalation_advisory" not in content:
-    content = re.sub(r'(class EventOverlay.*?\n.*?)(?=class|$)', r'\1' + event_logic + '\n\n', content, count=1)
+    content = re.sub(
+        r"(class EventOverlay.*?\n.*?)(?=class|$)",
+        r"\1" + event_logic + "\n\n",
+        content,
+        count=1,
+    )
 
 with open("app/events/overlay.py", "w") as f:
     f.write(content)
@@ -90,7 +108,12 @@ analytics_logic = """
         return {"tier_id": tier_id, "comparison_vs_micro_canary": {}}
 """
 if "get_tier_aware_attribution" not in content:
-    content = re.sub(r'(class PortfolioAttribution.*?\n.*?)(?=class|$)', r'\1' + analytics_logic + '\n\n', content, count=1)
+    content = re.sub(
+        r"(class PortfolioAttribution.*?\n.*?)(?=class|$)",
+        r"\1" + analytics_logic + "\n\n",
+        content,
+        count=1,
+    )
 
 with open("app/analytics/portfolio_attribution.py", "w") as f:
     f.write(content)
@@ -104,7 +127,9 @@ replay_logic = """    capital_posture_history: list = []
 """
 
 if "capital_posture_history" not in content:
-    content = content.replace('    alerts_fired: list = []', '    alerts_fired: list = []\n' + replay_logic)
+    content = content.replace(
+        "    alerts_fired: list = []", "    alerts_fired: list = []\n" + replay_logic
+    )
 
 with open("app/replay/forensics.py", "w") as f:
     f.write(content)

@@ -6,11 +6,13 @@ from app.universe.base import InstrumentSourceAdapter
 
 logger = logging.getLogger(__name__)
 
+
 class BinanceSpotSourceAdapter(InstrumentSourceAdapter):
     """
     Fetches official exchange info from Binance Spot API.
     Strictly prohibits HTML scraping. Uses only official JSON endpoints.
     """
+
     def __init__(self):
         self.endpoint = "https://api.binance.com/api/v3/exchangeInfo"
         self._last_fetch_time = None
@@ -33,6 +35,7 @@ class BinanceSpotSourceAdapter(InstrumentSourceAdapter):
 
     def get_source_freshness(self) -> datetime:
         return self._last_fetch_time or datetime.min.replace(tzinfo=timezone.utc)
+
 
 class BinanceFuturesSourceAdapter(InstrumentSourceAdapter):
     def __init__(self):

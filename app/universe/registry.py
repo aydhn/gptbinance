@@ -6,6 +6,7 @@ from app.universe.enums import InstrumentType, InstrumentStatus
 
 logger = logging.getLogger(__name__)
 
+
 class InstrumentRegistry:
     def __init__(self):
         # Format: {canonical_symbol: {product_type: ProductInstrument}}
@@ -22,7 +23,9 @@ class InstrumentRegistry:
         self._instruments[canonical][p_type] = instrument
         self._last_update = datetime.now(timezone.utc)
 
-    def get_instrument(self, symbol: str, product_type: InstrumentType) -> Optional[ProductInstrument]:
+    def get_instrument(
+        self, symbol: str, product_type: InstrumentType
+    ) -> Optional[ProductInstrument]:
         canonical = symbol.upper().replace("-", "").replace("/", "")
         return self._instruments.get(canonical, {}).get(product_type)
 

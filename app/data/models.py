@@ -1,5 +1,8 @@
-
-from app.data_governance.models import CanonicalEntityRef, SchemaVersionRef, ProvenanceRecord
+from app.data_governance.models import (
+    CanonicalEntityRef,
+    SchemaVersionRef,
+    ProvenanceRecord,
+)
 from enum import Enum
 import pandas as pd
 from pydantic import BaseModel, ConfigDict

@@ -2,6 +2,7 @@
 from app.migrations.preflight import PreflightEngine
 from app.migrations.models import MigrationPlan
 
+
 class ReleaseUpgradeManager:
     def __init__(self):
         self.preflight_engine = PreflightEngine()

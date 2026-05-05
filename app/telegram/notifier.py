@@ -1,4 +1,3 @@
-class TelegramNotifier:
-    def notify_migration_event(self, event_type, details):
-        # Use rate limiting and severity logic
-        pass
+# Stub for telegram
+def notify_market_truth_event(event_type, severity):
+    print(f"Telegram: [{severity}] {event_type}")

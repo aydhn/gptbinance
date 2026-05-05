@@ -1,6 +1,7 @@
 from app.migrations.rollback import RollbackPlanner
 from app.migrations.models import MigrationPlan
 
+
 class ReleaseRollbackManager:
     def __init__(self):
         self.planner = RollbackPlanner()

@@ -1,0 +1,17 @@
+{
+  "intent_id": "i-storage-test",
+  "activation_class": "canary_limited",
+  "board_decision_ref": "b-1",
+  "candidate_id": "c-1",
+  "scope": {
+    "allowed_symbols": [],
+    "allowed_profiles": [],
+    "allowed_sessions": [],
+    "allowed_capital_tiers": [],
+    "ttl_seconds": null,
+    "is_no_new_exposure": false
+  },
+  "forbidden_expansions": [],
+  "probation_requirements": {},
+  "created_at": "2026-05-05T20:52:28.677249Z"
+}

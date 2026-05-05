@@ -1,0 +1,19 @@
+{
+  "intent_id": "intent-156bc5e6",
+  "activation_class": "canary_limited",
+  "board_decision_ref": "board-456",
+  "candidate_id": "cand-cli-1",
+  "scope": {
+    "allowed_symbols": [
+      "BTCUSDT"
+    ],
+    "allowed_profiles": [],
+    "allowed_sessions": [],
+    "allowed_capital_tiers": [],
+    "ttl_seconds": 3600,
+    "is_no_new_exposure": false
+  },
+  "forbidden_expansions": [],
+  "probation_requirements": {},
+  "created_at": "2026-05-05T20:45:03.323107Z"
+}

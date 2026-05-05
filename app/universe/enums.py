@@ -1,10 +1,12 @@
 from enum import Enum
 
+
 class InstrumentType(str, Enum):
     SPOT = "spot"
     MARGIN = "margin"
     FUTURES = "futures"
     UNKNOWN = "unknown"
+
 
 class InstrumentStatus(str, Enum):
     TRADING = "trading"
@@ -16,12 +18,14 @@ class InstrumentStatus(str, Enum):
     POST_TRADING = "post_trading"
     UNKNOWN = "unknown"
 
+
 class LiquiditySeverity(str, Enum):
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
     VERY_LOW = "very_low"
     UNKNOWN = "unknown"
+
 
 class SpreadSeverity(str, Enum):
     TIGHT = "tight"
@@ -30,10 +34,12 @@ class SpreadSeverity(str, Enum):
     VERY_WIDE = "very_wide"
     UNKNOWN = "unknown"
 
+
 class EligibilityVerdict(str, Enum):
     ELIGIBLE = "eligible"
     CAUTION = "caution"
     BLOCKED = "blocked"
+
 
 class LifecycleEventType(str, Enum):
     LISTED = "listed"
@@ -44,10 +50,12 @@ class LifecycleEventType(str, Enum):
     MAINTENANCE_ENDED = "maintenance_ended"
     UNKNOWN = "unknown"
 
+
 class MetadataFreshness(str, Enum):
     FRESH = "fresh"
     STALE = "stale"
     UNKNOWN = "unknown"
+
 
 class TradabilityClass(str, Enum):
     PREMIUM = "premium"

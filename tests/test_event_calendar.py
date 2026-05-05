@@ -1,5 +1,3 @@
-
-
 from app.events.calendar_provider import DefaultCalendarProvider
 
 

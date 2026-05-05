@@ -1,6 +1,7 @@
 from typing import Dict, List
 from app.data_governance.models import ProvenanceRecord, DatasetRef
 
+
 class ProvenanceStore:
     def __init__(self):
         self._records: Dict[str, ProvenanceRecord] = {}

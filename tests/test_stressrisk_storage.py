@@ -1,5 +1,12 @@
 from app.stressrisk.enums import LossSeverity, BudgetVerdict, StressOverlayVerdict
-from app.stressrisk.models import StressRun, PortfolioStressSnapshot, StressBudgetResult, CorrelationStressSnapshot, LiquidityStressSnapshot, StressOverlayDecision
+from app.stressrisk.models import (
+    StressRun,
+    PortfolioStressSnapshot,
+    StressBudgetResult,
+    CorrelationStressSnapshot,
+    LiquidityStressSnapshot,
+    StressOverlayDecision,
+)
 from app.stressrisk.storage import StressStorage
 from app.stressrisk.repository import StressRepository
 

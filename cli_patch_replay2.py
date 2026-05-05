@@ -39,7 +39,10 @@ cli_args = """
 """
 
 if "--run-replay" not in content:
-    content = content.replace('parser.add_argument("--run-perf-profile",', cli_args + '\n    parser.add_argument("--run-perf-profile",')
+    content = content.replace(
+        'parser.add_argument("--run-perf-profile",',
+        cli_args + '\n    parser.add_argument("--run-perf-profile",',
+    )
 
 # Add CLI logic
 cli_logic = """
@@ -151,7 +154,9 @@ cli_logic = """
          sys.exit(0)
 """
 
-content = content.replace("    if args.run_perf_profile:", cli_logic + "\n    elif args.run_perf_profile:")
+content = content.replace(
+    "    if args.run_perf_profile:", cli_logic + "\n    elif args.run_perf_profile:"
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

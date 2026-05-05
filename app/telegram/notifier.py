@@ -8,5 +8,7 @@ async def notify_tail_risk_breach(self, profile: str, amount: float, reasons: st
     pass
 
     # Added in Phase 40
+
+
 async def notify_crossbook_breach(self, profile: str, amount: float, reasons: str):
     pass

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone
 from app.events.portfolio import adjust_portfolio_for_event
 from app.events.models import EventRiskOverlay

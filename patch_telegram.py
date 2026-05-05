@@ -43,7 +43,12 @@ notifier_logic = """
 """
 
 if "notify_capital_escalation_blocked" not in content:
-    content = re.sub(r'(class TelegramNotifier.*?\n.*?)(?=class|$)', r'\1' + notifier_logic + '\n', content, count=1)
+    content = re.sub(
+        r"(class TelegramNotifier.*?\n.*?)(?=class|$)",
+        r"\1" + notifier_logic + "\n",
+        content,
+        count=1,
+    )
 
 with open("app/telegram/notifier.py", "w") as f:
     f.write(content)

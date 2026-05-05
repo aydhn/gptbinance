@@ -20,7 +20,10 @@ from app.release.rollback import RollbackPlanner
 """
 
 if "from app.release.manifest import" not in content:
-    content = content.replace("from app.automation.jobs import", import_str + "\nfrom app.automation.jobs import")
+    content = content.replace(
+        "from app.automation.jobs import",
+        import_str + "\nfrom app.automation.jobs import",
+    )
 
 args_str = """
     parser.add_argument("--build-release-bundle", action="store_true", help="Build release bundle")
@@ -40,7 +43,11 @@ args_str = """
 """
 
 if "--build-release-bundle" not in content:
-    content = content.replace("parser.add_argument(\"--show-rotation-readiness\", action=\"store_true\", help=\"Show rotation readiness summary\")", "parser.add_argument(\"--show-rotation-readiness\", action=\"store_true\", help=\"Show rotation readiness summary\")\n" + args_str)
+    content = content.replace(
+        'parser.add_argument("--show-rotation-readiness", action="store_true", help="Show rotation readiness summary")',
+        'parser.add_argument("--show-rotation-readiness", action="store_true", help="Show rotation readiness summary")\n'
+        + args_str,
+    )
 
 logic_str = """
     if args.build_release_bundle:
@@ -118,10 +125,14 @@ logic_str = """
 """
 
 if "if args.build_release_bundle:" not in content:
-    content = content.replace("if args.run_security_checks:", logic_str + "\n    if args.run_security_checks:")
+    content = content.replace(
+        "if args.run_security_checks:", logic_str + "\n    if args.run_security_checks:"
+    )
 
 # Fix the syntax error in my logic_str above before writing it out:
-content = content.replace("if args.run_rollback-dry_run:", "if args.run_rollback_dry_run:")
+content = content.replace(
+    "if args.run_rollback-dry_run:", "if args.run_rollback_dry_run:"
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

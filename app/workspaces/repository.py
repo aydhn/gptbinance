@@ -4,6 +4,7 @@ from app.workspaces.models import WorkspaceConfig, WorkspaceProfile
 from app.workspaces.catalog import WorkspaceCatalog
 from app.workspaces.paths import PathResolver
 
+
 class WorkspaceRepository:
     def __init__(self, catalog: WorkspaceCatalog, path_resolver: PathResolver):
         self.catalog = catalog
@@ -11,14 +12,14 @@ class WorkspaceRepository:
 
     def create_workspace(self, name: str, description: str = "") -> WorkspaceConfig:
         ws = WorkspaceConfig(
-            workspace_id=str(uuid.uuid4())[:8],
-            name=name,
-            description=description
+            workspace_id=str(uuid.uuid4())[:8], name=name, description=description
         )
         self.catalog.register_workspace(ws)
         return ws
 
-    def create_profile(self, workspace_id: str, name: str, profile_type) -> WorkspaceProfile:
+    def create_profile(
+        self, workspace_id: str, name: str, profile_type
+    ) -> WorkspaceProfile:
         ws = self.catalog.get_workspace(workspace_id)
         if not ws:
             raise ValueError(f"Workspace {workspace_id} not found")
@@ -27,7 +28,7 @@ class WorkspaceRepository:
             profile_id=str(uuid.uuid4())[:8],
             workspace_id=workspace_id,
             name=name,
-            profile_type=profile_type
+            profile_type=profile_type,
         )
 
         # Resolve and create paths

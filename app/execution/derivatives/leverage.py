@@ -14,9 +14,9 @@ class LeverageState(BaseModel):
 class LeverageManager:
     def __init__(self, registry: ProductRegistry):
         self.registry = registry
-        self._state: Dict[str, Dict[str, int]] = (
-            {}
-        )  # product_type -> symbol -> leverage
+        self._state: Dict[
+            str, Dict[str, int]
+        ] = {}  # product_type -> symbol -> leverage
 
     def get_leverage(self, product_type: ProductType, symbol: str) -> int:
         return self._state.get(product_type.value, {}).get(symbol, 1)  # Default 1x

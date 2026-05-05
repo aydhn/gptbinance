@@ -1,0 +1,2 @@
+class LifecycleReporter:
+    pass

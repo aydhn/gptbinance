@@ -5,7 +5,7 @@ with open("app/main.py", "r") as f:
 
 # Let's fix the argument parsing logic safely without relying on regex regex replacing that might fail
 # First, find parser.parse_args() and replace with capital args + parse args
-if "parser.add_argument(\"--show-capital-ladder" not in content:
+if 'parser.add_argument("--show-capital-ladder' not in content:
     capital_args = """
     # Capital Governance Commands
     parser.add_argument("--show-capital-ladder", action="store_true", help="Show defined tiers, tranches and transitions")
@@ -96,7 +96,9 @@ if "report_ladder_summary()" not in content:
 
     if getattr(args, 'check_only', False):
 """
-    content = content.replace("if getattr(args, 'check_only', False):", capital_handlers)
+    content = content.replace(
+        "if getattr(args, 'check_only', False):", capital_handlers
+    )
 
 
 with open("app/main.py", "w") as f:

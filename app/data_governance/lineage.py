@@ -3,6 +3,7 @@ from app.data_governance.models import LineageNode, LineageEdge, DatasetRef
 from app.data_governance.enums import LineageEdgeType
 from app.data_governance.exceptions import LineageIntegrityError
 
+
 class LineageGraph:
     def __init__(self):
         self._nodes: Dict[str, LineageNode] = {}
@@ -16,9 +17,11 @@ class LineageGraph:
             raise LineageIntegrityError("Source or target node does not exist")
         # simple cycle guard
         if self._path_exists(target_id, source_id):
-             raise LineageIntegrityError("Cycle detected in lineage graph")
+            raise LineageIntegrityError("Cycle detected in lineage graph")
 
-        self._edges.append(LineageEdge(source_id=source_id, target_id=target_id, edge_type=edge_type))
+        self._edges.append(
+            LineageEdge(source_id=source_id, target_id=target_id, edge_type=edge_type)
+        )
 
     def _path_exists(self, start: str, end: str, visited=None) -> bool:
         if visited is None:

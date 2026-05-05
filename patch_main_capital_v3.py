@@ -20,8 +20,11 @@ from app.control.actions import ActionRegistry, SensitiveAction
 """
 
 # Insert imports
-content = content.replace("from app.stressrisk.enums import LossSeverity, BudgetVerdict, StressOverlayVerdict",
-                          "from app.stressrisk.enums import LossSeverity, BudgetVerdict, StressOverlayVerdict\n" + imports)
+content = content.replace(
+    "from app.stressrisk.enums import LossSeverity, BudgetVerdict, StressOverlayVerdict",
+    "from app.stressrisk.enums import LossSeverity, BudgetVerdict, StressOverlayVerdict\n"
+    + imports,
+)
 
 capital_args = """
     # Capital Governance Commands
@@ -38,7 +41,7 @@ capital_args = """
 """
 
 # Insert args before parser.parse_args()
-content = re.sub(r'(\s*args = parser\.parse_args\(\))', capital_args + r'\1', content)
+content = re.sub(r"(\s*args = parser\.parse_args\(\))", capital_args + r"\1", content)
 
 capital_handlers = """
     if getattr(args, 'show_capital_ladder', False):
@@ -112,7 +115,11 @@ capital_handlers = """
 """
 
 # Insert handlers before checking for args.check_only
-content = re.sub(r'(\s*if getattr\(args, \'check_only\', False\):)', capital_handlers + r'\1', content)
+content = re.sub(
+    r"(\s*if getattr\(args, \'check_only\', False\):)",
+    capital_handlers + r"\1",
+    content,
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

@@ -4,22 +4,24 @@ from app.universe.models import (
     ProductInstrument,
     LiquiditySnapshot,
     SpreadSnapshot,
-    TradabilityReport
+    TradabilityReport,
 )
 from app.universe.enums import (
     EligibilityVerdict,
     TradabilityClass,
     LiquiditySeverity,
     SpreadSeverity,
-    InstrumentStatus
+    InstrumentStatus,
 )
 
-class TradabilityEvaluator:
-    def evaluate(self,
-                 instrument: ProductInstrument,
-                 liquidity: Optional[LiquiditySnapshot] = None,
-                 spread: Optional[SpreadSnapshot] = None) -> TradabilityReport:
 
+class TradabilityEvaluator:
+    def evaluate(
+        self,
+        instrument: ProductInstrument,
+        liquidity: Optional[LiquiditySnapshot] = None,
+        spread: Optional[SpreadSnapshot] = None,
+    ) -> TradabilityReport:
         reasons = []
         evidence = []
         verdict = EligibilityVerdict.ELIGIBLE
@@ -69,8 +71,16 @@ class TradabilityEvaluator:
                 verdict = EligibilityVerdict.CAUTION
             reasons.append("Missing spread data")
 
-        if verdict == EligibilityVerdict.ELIGIBLE and t_class == TradabilityClass.STANDARD:
-            if liquidity and liquidity.severity == LiquiditySeverity.HIGH and spread and spread.severity == SpreadSeverity.TIGHT:
+        if (
+            verdict == EligibilityVerdict.ELIGIBLE
+            and t_class == TradabilityClass.STANDARD
+        ):
+            if (
+                liquidity
+                and liquidity.severity == LiquiditySeverity.HIGH
+                and spread
+                and spread.severity == SpreadSeverity.TIGHT
+            ):
                 t_class = TradabilityClass.PREMIUM
 
         return TradabilityReport(
@@ -79,5 +89,5 @@ class TradabilityEvaluator:
             tradability_class=t_class,
             reasons=reasons,
             evidence_refs=evidence,
-            report_time=datetime.now(timezone.utc)
+            report_time=datetime.now(timezone.utc),
         )

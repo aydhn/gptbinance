@@ -74,7 +74,10 @@ handlers = """
         return
 """
 
-content = content.replace("    if args.run_stress_scenarios:", handlers + "\n    if args.run_stress_scenarios:")
+content = content.replace(
+    "    if args.run_stress_scenarios:",
+    handlers + "\n    if args.run_stress_scenarios:",
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

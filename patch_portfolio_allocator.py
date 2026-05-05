@@ -1,4 +1,4 @@
-with open('app/portfolio/allocator.py', 'r') as f:
+with open("app/portfolio/allocator.py", "r") as f:
     content = f.read()
 
 if "adjust_for_crossbook_vulnerability" not in content:
@@ -9,5 +9,5 @@ if "adjust_for_crossbook_vulnerability" not in content:
 """
     content += new_method
 
-with open('app/portfolio/allocator.py', 'w') as f:
+with open("app/portfolio/allocator.py", "w") as f:
     f.write(content)

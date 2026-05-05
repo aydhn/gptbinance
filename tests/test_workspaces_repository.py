@@ -4,6 +4,7 @@ from app.workspaces.catalog import WorkspaceCatalog
 from app.workspaces.paths import PathResolver
 from app.workspaces.enums import ProfileType
 
+
 def test_create_workspace_and_profile():
     catalog = WorkspaceCatalog()
     resolver = PathResolver(base_dir="/tmp/repo_test")

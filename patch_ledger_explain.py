@@ -1,4 +1,4 @@
-with open('app/ledger/explain.py', 'r') as f:
+with open("app/ledger/explain.py", "r") as f:
     content = f.read()
 
 if "Cross-book provenance refs" not in content:
@@ -28,5 +28,5 @@ if "Cross-book provenance refs" not in content:
         )"""
     content = content.replace(old_code, new_code)
 
-with open('app/ledger/explain.py', 'w') as f:
+with open("app/ledger/explain.py", "w") as f:
     f.write(content)

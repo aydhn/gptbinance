@@ -1,15 +1,20 @@
 import uuid
 from datetime import datetime, timezone
 from typing import List, Dict
-from app.universe.models import UniverseSnapshot, ProductInstrument, InstrumentRef, UniverseEligibilityResult
+from app.universe.models import (
+    UniverseSnapshot,
+    ProductInstrument,
+    InstrumentRef,
+    UniverseEligibilityResult,
+)
 from app.workspaces.enums import ProfileType
 from app.universe.enums import EligibilityVerdict
 
-class SnapshotBuilder:
-    def build(self,
-              profile: ProfileType,
-              evaluations: List[UniverseEligibilityResult]) -> UniverseSnapshot:
 
+class SnapshotBuilder:
+    def build(
+        self, profile: ProfileType, evaluations: List[UniverseEligibilityResult]
+    ) -> UniverseSnapshot:
         eligible = []
         caution = []
         blocked = []
@@ -31,5 +36,5 @@ class SnapshotBuilder:
             eligible_instruments=eligible,
             caution_instruments=caution,
             blocked_instruments=blocked,
-            manifest_ref=f"manifest_{snapshot_id}"
+            manifest_ref=f"manifest_{snapshot_id}",
         )

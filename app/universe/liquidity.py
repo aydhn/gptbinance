@@ -1,15 +1,24 @@
 from datetime import datetime, timezone
 from typing import Dict, Any
 from app.universe.base import LiquidityScorer
-from app.universe.models import InstrumentRef, LiquiditySnapshot, SpreadSnapshot, TurnoverSnapshot
+from app.universe.models import (
+    InstrumentRef,
+    LiquiditySnapshot,
+    SpreadSnapshot,
+    TurnoverSnapshot,
+)
 from app.universe.enums import LiquiditySeverity, SpreadSeverity
 from app.universe.exceptions import LiquidityEvaluationError
+
 
 class SimpleLiquidityScorer(LiquidityScorer):
     """
     Evaluates liquidity based on coarse 24h ticker data.
     """
-    def score_liquidity(self, ref: InstrumentRef, market_data: Dict[str, Any]) -> LiquiditySnapshot:
+
+    def score_liquidity(
+        self, ref: InstrumentRef, market_data: Dict[str, Any]
+    ) -> LiquiditySnapshot:
         try:
             quote_vol = float(market_data.get("quoteVolume", 0))
             volume = float(market_data.get("volume", 0))
@@ -28,14 +37,16 @@ class SimpleLiquidityScorer(LiquidityScorer):
                 ref=ref,
                 rolling_volume=volume,
                 quote_volume=quote_vol,
-                activity_score=quote_vol / 1_000_000, # basic normalization
+                activity_score=quote_vol / 1_000_000,  # basic normalization
                 severity=severity,
-                snapshot_time=datetime.now(timezone.utc)
+                snapshot_time=datetime.now(timezone.utc),
             )
         except Exception as e:
             raise LiquidityEvaluationError(f"Failed to score liquidity: {e}")
 
-    def score_spread(self, ref: InstrumentRef, market_data: Dict[str, Any]) -> SpreadSnapshot:
+    def score_spread(
+        self, ref: InstrumentRef, market_data: Dict[str, Any]
+    ) -> SpreadSnapshot:
         try:
             bid = float(market_data.get("bidPrice", 0))
             ask = float(market_data.get("askPrice", 0))
@@ -48,11 +59,11 @@ class SimpleLiquidityScorer(LiquidityScorer):
                 spread_val = ask - bid
                 rel_spread = spread_val / ((ask + bid) / 2)
 
-                if rel_spread < 0.0005: # 5 bps
+                if rel_spread < 0.0005:  # 5 bps
                     severity = SpreadSeverity.TIGHT
-                elif rel_spread < 0.0020: # 20 bps
+                elif rel_spread < 0.0020:  # 20 bps
                     severity = SpreadSeverity.NORMAL
-                elif rel_spread < 0.0050: # 50 bps
+                elif rel_spread < 0.0050:  # 50 bps
                     severity = SpreadSeverity.WIDE
                 else:
                     severity = SpreadSeverity.VERY_WIDE
@@ -62,7 +73,7 @@ class SimpleLiquidityScorer(LiquidityScorer):
                 bid_ask_spread=spread_val,
                 relative_spread=rel_spread,
                 severity=severity,
-                snapshot_time=datetime.now(timezone.utc)
+                snapshot_time=datetime.now(timezone.utc),
             )
         except Exception as e:
             raise LiquidityEvaluationError(f"Failed to score spread: {e}")

@@ -1,4 +1,3 @@
-
 from app.data_governance.models import DataContract, TrustVerdict
 from typing import Dict, List
 from app.qualification.models import TraceabilityEntry

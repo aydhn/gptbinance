@@ -21,7 +21,9 @@ from app.capital.tranches import tranche_manager
 from app.control.actions import ActionRegistry, SensitiveAction
 """
     # Insert right after app.stressrisk.enums
-    content = re.sub(r'(from app\.stressrisk\.enums import .*?\n)', r'\1' + imports, content, count=1)
+    content = re.sub(
+        r"(from app\.stressrisk\.enums import .*?\n)", r"\1" + imports, content, count=1
+    )
 
 # Add CLI arguments
 arg_pattern = r'parser\.add_argument\("--run-workspaces-tests", action="store_true"\)'
@@ -40,11 +42,14 @@ capital_args = """    parser.add_argument("--run-workspaces-tests", action="stor
 """
 
 if "--show-capital-ladder" not in content:
-    content = content.replace('parser.add_argument("--run-workspaces-tests", action="store_true")', capital_args)
+    content = content.replace(
+        'parser.add_argument("--run-workspaces-tests", action="store_true")',
+        capital_args,
+    )
 
 
 # Add command handlers in main()
-handlers_pattern = r'if args\.show_telemetry_digest:'
+handlers_pattern = r"if args\.show_telemetry_digest:"
 
 capital_handlers = """if args.show_capital_ladder:
         print(report_ladder_summary())

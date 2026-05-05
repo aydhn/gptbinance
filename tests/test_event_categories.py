@@ -1,4 +1,3 @@
-
 from app.events.categories import categorize_title
 from app.events.enums import EventCategory
 

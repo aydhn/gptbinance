@@ -1,4 +1,3 @@
-
 from app.events.severity import adjust_severity
 from app.events.enums import EventSeverity, EventCategory
 

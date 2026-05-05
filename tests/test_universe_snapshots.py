@@ -5,31 +5,44 @@ from app.universe.enums import InstrumentType, EligibilityVerdict
 from app.workspaces.enums import ProfileType
 from datetime import datetime, timezone
 
+
 def test_build_snapshot():
     builder = SnapshotBuilder()
 
     evals = [
         UniverseEligibilityResult(
-            ref=InstrumentRef(symbol="BTCUSDT", product_type=InstrumentType.SPOT, canonical_symbol="BTCUSDT"),
+            ref=InstrumentRef(
+                symbol="BTCUSDT",
+                product_type=InstrumentType.SPOT,
+                canonical_symbol="BTCUSDT",
+            ),
             profile=ProfileType.PAPER_DEFAULT,
             verdict=EligibilityVerdict.ELIGIBLE,
             reasons=[],
-            evaluation_time=datetime.now(timezone.utc)
+            evaluation_time=datetime.now(timezone.utc),
         ),
         UniverseEligibilityResult(
-            ref=InstrumentRef(symbol="SHIBUSDT", product_type=InstrumentType.SPOT, canonical_symbol="SHIBUSDT"),
+            ref=InstrumentRef(
+                symbol="SHIBUSDT",
+                product_type=InstrumentType.SPOT,
+                canonical_symbol="SHIBUSDT",
+            ),
             profile=ProfileType.PAPER_DEFAULT,
             verdict=EligibilityVerdict.BLOCKED,
             reasons=["Denylist"],
-            evaluation_time=datetime.now(timezone.utc)
+            evaluation_time=datetime.now(timezone.utc),
         ),
         UniverseEligibilityResult(
-            ref=InstrumentRef(symbol="ETHUSDT", product_type=InstrumentType.SPOT, canonical_symbol="ETHUSDT"),
+            ref=InstrumentRef(
+                symbol="ETHUSDT",
+                product_type=InstrumentType.SPOT,
+                canonical_symbol="ETHUSDT",
+            ),
             profile=ProfileType.PAPER_DEFAULT,
             verdict=EligibilityVerdict.CAUTION,
             reasons=["Stale data"],
-            evaluation_time=datetime.now(timezone.utc)
-        )
+            evaluation_time=datetime.now(timezone.utc),
+        ),
     ]
 
     snapshot = builder.build(ProfileType.PAPER_DEFAULT, evals)

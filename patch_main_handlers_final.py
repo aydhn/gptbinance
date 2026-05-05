@@ -74,7 +74,7 @@ handlers = """
         return
 """
 
-content = re.sub(r'(\s*if args\.check_only:)', handlers + r'\1', content)
+content = re.sub(r"(\s*if args\.check_only:)", handlers + r"\1", content)
 
 with open("app/main.py", "w") as f:
     f.write(content)

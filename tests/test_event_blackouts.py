@@ -1,4 +1,3 @@
-
 from datetime import datetime, timezone, timedelta
 from app.events.blackouts import BlackoutManager
 

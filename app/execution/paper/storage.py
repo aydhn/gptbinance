@@ -37,7 +37,8 @@ class PaperStorage:
     def _init_db(self):
         with sqlite3.connect(self.db_path) as conn:
             c = conn.cursor()
-            c.execute("""
+            c.execute(
+                """
                 CREATE TABLE IF NOT EXISTS session_manifests (
                     run_id TEXT PRIMARY KEY,
                     config_json TEXT,
@@ -45,8 +46,10 @@ class PaperStorage:
                     start_time TEXT,
                     end_time TEXT
                 )
-            """)
-            c.execute("""
+            """
+            )
+            c.execute(
+                """
                 CREATE TABLE IF NOT EXISTS paper_orders (
                     run_id TEXT,
                     order_id TEXT,
@@ -60,8 +63,10 @@ class PaperStorage:
                     rejection_reason TEXT,
                     PRIMARY KEY (run_id, order_id)
                 )
-            """)
-            c.execute("""
+            """
+            )
+            c.execute(
+                """
                 CREATE TABLE IF NOT EXISTS paper_fills (
                     run_id TEXT,
                     fill_id TEXT,
@@ -75,8 +80,10 @@ class PaperStorage:
                     timestamp TEXT,
                     PRIMARY KEY (run_id, fill_id)
                 )
-            """)
-            c.execute("""
+            """
+            )
+            c.execute(
+                """
                 CREATE TABLE IF NOT EXISTS paper_snapshots (
                     run_id TEXT,
                     timestamp TEXT,
@@ -85,7 +92,8 @@ class PaperStorage:
                     health TEXT,
                     PRIMARY KEY (run_id, timestamp)
                 )
-            """)
+            """
+            )
             conn.commit()
 
     def save_manifest(self, manifest: PaperArtifactManifest):

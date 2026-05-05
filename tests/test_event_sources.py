@@ -1,4 +1,3 @@
-
 from app.events.sources import DummyMacroCalendarAdapter
 from app.events.enums import EventFreshness
 

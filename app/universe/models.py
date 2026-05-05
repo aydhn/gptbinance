@@ -9,24 +9,28 @@ from app.universe.enums import (
     EligibilityVerdict,
     LifecycleEventType,
     MetadataFreshness,
-    TradabilityClass
+    TradabilityClass,
 )
 from app.workspaces.enums import ProfileType
+
 
 class TickSizeRule(BaseModel):
     tick_size: float
     min_price: float
     max_price: float
 
+
 class StepSizeRule(BaseModel):
     step_size: float
     min_qty: float
     max_qty: float
 
+
 class MinNotionalRule(BaseModel):
     min_notional: float
     apply_to_market: bool
     avg_price_mins: int
+
 
 class ExchangeFilterSet(BaseModel):
     tick_size: Optional[TickSizeRule] = None
@@ -34,9 +38,11 @@ class ExchangeFilterSet(BaseModel):
     min_notional: Optional[MinNotionalRule] = None
     raw_filters: List[Dict[str, Any]] = Field(default_factory=list)
 
+
 class SymbolAlias(BaseModel):
     symbol: str
     canonical: str
+
 
 class InstrumentMetadata(BaseModel):
     base_asset: str
@@ -46,10 +52,12 @@ class InstrumentMetadata(BaseModel):
     contract_size: Optional[float] = None
     margin_asset: Optional[str] = None
 
+
 class InstrumentRef(BaseModel):
     symbol: str
     product_type: InstrumentType
     canonical_symbol: str
+
 
 class ProductInstrument(BaseModel):
     ref: InstrumentRef
@@ -60,6 +68,7 @@ class ProductInstrument(BaseModel):
     last_update: datetime
     raw_data: Dict[str, Any] = Field(default_factory=list)
 
+
 class LiquiditySnapshot(BaseModel):
     ref: InstrumentRef
     rolling_volume: float
@@ -68,6 +77,7 @@ class LiquiditySnapshot(BaseModel):
     severity: LiquiditySeverity
     snapshot_time: datetime
 
+
 class SpreadSnapshot(BaseModel):
     ref: InstrumentRef
     bid_ask_spread: float
@@ -75,12 +85,14 @@ class SpreadSnapshot(BaseModel):
     severity: SpreadSeverity
     snapshot_time: datetime
 
+
 class TurnoverSnapshot(BaseModel):
     ref: InstrumentRef
     turnover_24h: float
     trade_count_24h: int
     severity: LiquiditySeverity
     snapshot_time: datetime
+
 
 class TradabilityReport(BaseModel):
     ref: InstrumentRef
@@ -90,6 +102,7 @@ class TradabilityReport(BaseModel):
     evidence_refs: List[str] = Field(default_factory=list)
     report_time: datetime
 
+
 class UniverseProfileConfig(BaseModel):
     allowed_products: List[InstrumentType]
     min_liquidity: LiquiditySeverity
@@ -98,12 +111,14 @@ class UniverseProfileConfig(BaseModel):
     allowlist: List[str] = Field(default_factory=list)
     denylist: List[str] = Field(default_factory=list)
 
+
 class UniverseEligibilityResult(BaseModel):
     ref: InstrumentRef
     profile: ProfileType
     verdict: EligibilityVerdict
     reasons: List[str] = Field(default_factory=list)
     evaluation_time: datetime
+
 
 class UniverseSnapshot(BaseModel):
     snapshot_id: str
@@ -114,6 +129,7 @@ class UniverseSnapshot(BaseModel):
     blocked_instruments: List[InstrumentRef]
     manifest_ref: str
 
+
 class LifecycleEvent(BaseModel):
     event_id: str
     ref: InstrumentRef
@@ -122,6 +138,7 @@ class LifecycleEvent(BaseModel):
     new_status: Optional[InstrumentStatus] = None
     description: str
     event_time: datetime
+
 
 class UniverseDiff(BaseModel):
     diff_id: str
@@ -132,6 +149,7 @@ class UniverseDiff(BaseModel):
     status_changed: List[InstrumentRef]
     eligibility_changed: List[InstrumentRef]
     created_at: datetime
+
 
 class UniverseImpactReport(BaseModel):
     report_id: str

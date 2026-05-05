@@ -1,4 +1,4 @@
-with open('app/execution/live/pretrade_validation.py', 'r') as f:
+with open("app/execution/live/pretrade_validation.py", "r") as f:
     content = f.read()
 
 import_stmt = "from app.crossbook.enums import CrossBookVerdict\n"
@@ -16,5 +16,5 @@ if "check_crossbook_overlay_verdict" not in content:
 """
     content += new_method
 
-with open('app/execution/live/pretrade_validation.py', 'w') as f:
+with open("app/execution/live/pretrade_validation.py", "w") as f:
     f.write(content)

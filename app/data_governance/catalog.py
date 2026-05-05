@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from app.data_governance.models import GovernanceCatalogEntry, DatasetRef
 from app.data_governance.enums import TrustLevel
 
+
 class GovernanceCatalog:
     def __init__(self):
         self._entries: Dict[str, GovernanceCatalogEntry] = {}

@@ -180,7 +180,7 @@ def test_storage(tmp_path):
     snap = generate_posture_snapshot("canary_micro", {})
     # This might write to data/capital, but we accept it for this test script scope.
     pass
-"""
+""",
 }
 
 for filename, content in TESTS.items():

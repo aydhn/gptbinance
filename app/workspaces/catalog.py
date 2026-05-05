@@ -1,6 +1,11 @@
 from typing import List, Optional, Dict
-from app.workspaces.models import WorkspaceConfig, WorkspaceProfile, WorkspaceCatalogEntry
+from app.workspaces.models import (
+    WorkspaceConfig,
+    WorkspaceProfile,
+    WorkspaceCatalogEntry,
+)
 from app.workspaces.exceptions import InvalidWorkspaceConfigError
+
 
 class WorkspaceCatalog:
     def __init__(self):
@@ -9,13 +14,17 @@ class WorkspaceCatalog:
 
     def register_workspace(self, workspace: WorkspaceConfig) -> None:
         if workspace.workspace_id in self._workspaces:
-            raise InvalidWorkspaceConfigError(f"Workspace {workspace.workspace_id} already exists.")
+            raise InvalidWorkspaceConfigError(
+                f"Workspace {workspace.workspace_id} already exists."
+            )
         self._workspaces[workspace.workspace_id] = workspace
         self._profiles[workspace.workspace_id] = []
 
     def register_profile(self, profile: WorkspaceProfile) -> None:
         if profile.workspace_id not in self._workspaces:
-            raise InvalidWorkspaceConfigError(f"Workspace {profile.workspace_id} not found.")
+            raise InvalidWorkspaceConfigError(
+                f"Workspace {profile.workspace_id} not found."
+            )
         self._profiles[profile.workspace_id].append(profile)
 
     def get_workspace(self, workspace_id: str) -> Optional[WorkspaceConfig]:
@@ -32,6 +41,5 @@ class WorkspaceCatalog:
         if not ws:
             return None
         return WorkspaceCatalogEntry(
-            workspace=ws,
-            profiles=self.get_profiles_for_workspace(workspace_id)
+            workspace=ws, profiles=self.get_profiles_for_workspace(workspace_id)
         )

@@ -49,4 +49,8 @@ for f in files:
             if f.endswith(".py") and f != "app/crossbook/__init__.py":
                 file.write('"""\n' + os.path.basename(f) + '\n"""\n')
             elif f.endswith(".md"):
-                file.write('# ' + os.path.basename(f).replace('.md', '').replace('_', ' ') + '\n')
+                file.write(
+                    "# "
+                    + os.path.basename(f).replace(".md", "").replace("_", " ")
+                    + "\n"
+                )

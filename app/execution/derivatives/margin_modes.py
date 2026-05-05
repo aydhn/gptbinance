@@ -7,9 +7,9 @@ from .exceptions import InvalidMarginModeTransition
 class MarginModeManager:
     def __init__(self, registry: ProductRegistry):
         self.registry = registry
-        self._state: Dict[str, Dict[str, MarginMode]] = (
-            {}
-        )  # product_type -> symbol -> margin_mode
+        self._state: Dict[
+            str, Dict[str, MarginMode]
+        ] = {}  # product_type -> symbol -> margin_mode
 
     def get_mode(self, product_type: ProductType, symbol: str) -> MarginMode:
         return self._state.get(product_type.value, {}).get(symbol, MarginMode.ISOLATED)

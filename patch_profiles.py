@@ -1,4 +1,4 @@
-with open('app/qualification/profiles.py', 'r') as f:
+with open("app/qualification/profiles.py", "r") as f:
     content = f.read()
 
 if "check_crossbook_evidence_requirements" not in content:
@@ -7,5 +7,5 @@ if "check_crossbook_evidence_requirements" not in content:
 def check_crossbook_evidence_requirements(self, profile):
     pass
 """
-with open('app/qualification/profiles.py', 'w') as f:
+with open("app/qualification/profiles.py", "w") as f:
     f.write(content)

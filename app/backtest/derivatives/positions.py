@@ -6,9 +6,9 @@ logger = logging.getLogger(__name__)
 
 class BacktestDerivativePositionState:
     def __init__(self):
-        self.positions: Dict[str, float] = (
-            {}
-        )  # symbol -> net_quantity (positive for long, negative for short)
+        self.positions: Dict[
+            str, float
+        ] = {}  # symbol -> net_quantity (positive for long, negative for short)
         self.entry_prices: Dict[str, float] = {}
 
     def apply_fill(

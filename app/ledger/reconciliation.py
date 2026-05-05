@@ -44,7 +44,6 @@ class ReconciliationEngine:
                     )
                 )
 
-
         # Added in Phase 40: Cross-book context
         crossbook_provenance_notes = "Checked owned vs borrowed vs collateral locked"
 

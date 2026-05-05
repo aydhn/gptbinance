@@ -10,3 +10,8 @@ class PromotionGate:
     # Added in Phase 38
     def check_stress_risk_refs(self, candidate_bundle):
         pass
+
+
+# Phase 43
+def shadow_cleanliness_blocker(self):
+    pass

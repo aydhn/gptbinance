@@ -110,3 +110,16 @@ class ActionRegistry:
 
 
 registry = ActionRegistry()
+
+
+# Phase 43
+def request_shadow_reconcile_review(self):
+    pass
+
+
+def request_shadow_remediation_review(self):
+    pass
+
+
+def request_account_mode_truth_review(self):
+    pass

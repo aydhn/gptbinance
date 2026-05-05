@@ -15,3 +15,8 @@ class OrphanManager:
             timestamp=datetime.now(timezone.utc),
             remediation_notes=notes,
         )
+
+
+# Phase 43
+def evaluate_shadow_orphan_severity(self):
+    pass

@@ -65,3 +65,8 @@ CROSSBOOK_COMBINED_EXPOSURE_BREACH_TEMPLATE = """
 *Details*:
 {details}
 """
+
+
+# Phase 43
+def shadow_drift_detected_template(self):
+    pass

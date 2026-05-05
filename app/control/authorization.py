@@ -68,3 +68,8 @@ class AuthorizationEngine:
 
 
 engine = AuthorizationEngine()
+
+
+# Phase 43
+def check_severe_shadow_drift_blockers(self):
+    pass

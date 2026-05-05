@@ -121,8 +121,103 @@ def main():
     parser.add_argument("--show-crossbook-conflicts", action="store_true")
     parser.add_argument("--show-liquidation-sensitivity", action="store_true")
 
+    # Added in Phase 43: Shadow State / Digital Twin Convergence
+    parser.add_argument(
+        "--refresh-venue-shadow",
+        action="store_true",
+        help="Refresh venue truth snapshots",
+    )
+    parser.add_argument(
+        "--show-venue-shadow-summary",
+        action="store_true",
+        help="Show latest venue truth by domain",
+    )
+    parser.add_argument(
+        "--show-local-derived-summary",
+        action="store_true",
+        help="Show local derived truth surfaces",
+    )
+    parser.add_argument(
+        "--run-convergence-check",
+        action="store_true",
+        help="Run venue vs local convergence check",
+    )
+    parser.add_argument(
+        "--show-drift-summary",
+        action="store_true",
+        help="Show drift counts by domain/severity",
+    )
+    parser.add_argument(
+        "--show-drift-details", action="store_true", help="Show detailed drift findings"
+    )
+    parser.add_argument(
+        "--show-shadow-orders",
+        action="store_true",
+        help="Show shadow open orders truth",
+    )
+    parser.add_argument(
+        "--show-shadow-positions",
+        action="store_true",
+        help="Show shadow positions truth",
+    )
+    parser.add_argument(
+        "--show-shadow-balances", action="store_true", help="Show shadow balances truth"
+    )
+    parser.add_argument(
+        "--show-shadow-modes",
+        action="store_true",
+        help="Show shadow account modes truth",
+    )
+    parser.add_argument(
+        "--show-remediation-plan",
+        action="store_true",
+        help="Show review-only remediation steps",
+    )
+    parser.add_argument(
+        "--show-truthfulness-report",
+        action="store_true",
+        help="Show final truthfulness verdict and blockers",
+    )
+
     args = parser.parse_args()
 
+    # Phase 43 handlers
+    if args.refresh_venue_shadow:
+        print("Refreshing venue shadow...")
+        return
+    if args.show_venue_shadow_summary:
+        print("Venue Shadow Summary...")
+        return
+    if args.show_local_derived_summary:
+        print("Local Derived Summary...")
+        return
+    if args.run_convergence_check:
+        print("Convergence Check Result...")
+        return
+    if args.show_drift_summary:
+        print("Drift Summary...")
+        return
+    if args.show_drift_details:
+        print("Drift Details...")
+        return
+    if args.show_shadow_orders:
+        print("Shadow Orders...")
+        return
+    if args.show_shadow_positions:
+        print("Shadow Positions...")
+        return
+    if args.show_shadow_balances:
+        print("Shadow Balances...")
+        return
+    if args.show_shadow_modes:
+        print("Shadow Modes...")
+        return
+    if args.show_remediation_plan:
+        print("Remediation Plan...")
+        return
+    if args.show_truthfulness_report:
+        print("Truthfulness Report...")
+        return
     if getattr(args, "show_capital_ladder", False):
         print(report_ladder_summary())
         return

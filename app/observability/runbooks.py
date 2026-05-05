@@ -45,3 +45,8 @@ _RUNBOOK_REGISTRY["loss_budget_breach"] = RunbookRef(
     title="Loss Budget Breach",
     url="docs/runbooks/loss_budget_breach.md",
 )
+
+
+# Phase 43
+def shadow_runbook_refs(self):
+    pass

@@ -49,3 +49,8 @@ class AccountModeResolver:
                 )
             return self.snapshot.futures_position_mode
         return None
+
+
+# Phase 43
+def verify_mode_truthfulness(self, shadow_modes):
+    pass

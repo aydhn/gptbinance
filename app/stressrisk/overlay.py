@@ -27,3 +27,8 @@ class StressOverlayEngine:
             reasons=reasons,
             evidence_refs=["run_x"],
         )
+
+
+# Phase 43
+def stress_collateral_truth_caution(self):
+    pass

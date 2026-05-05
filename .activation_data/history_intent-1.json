@@ -1,0 +1,32 @@
+[
+  {
+    "record_id": "hist-c6a68c33",
+    "intent_id": "intent-1",
+    "event_type": "STAGE_TRANSITION",
+    "details": {
+      "from": "PREFLIGHT",
+      "to": "OBSERVE"
+    },
+    "timestamp": "2026-05-05T20:42:27.324395Z"
+  },
+  {
+    "record_id": "hist-41f8bcf7",
+    "intent_id": "intent-1",
+    "event_type": "STAGE_TRANSITION",
+    "details": {
+      "from": "PREFLIGHT",
+      "to": "OBSERVE"
+    },
+    "timestamp": "2026-05-05T20:47:54.921739Z"
+  },
+  {
+    "record_id": "hist-330ac73a",
+    "intent_id": "intent-1",
+    "event_type": "STAGE_TRANSITION",
+    "details": {
+      "from": "PREFLIGHT",
+      "to": "OBSERVE"
+    },
+    "timestamp": "2026-05-05T20:52:28.674987Z"
+  }
+]

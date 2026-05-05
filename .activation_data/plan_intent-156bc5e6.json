@@ -1,0 +1,63 @@
+{
+  "intent_id": "intent-156bc5e6",
+  "steps": [
+    {
+      "stage": "preflight",
+      "preconditions": [
+        "Board decision verified",
+        "Shadow tests clean"
+      ],
+      "success_criteria": [
+        "Preflight checks passed"
+      ],
+      "probation_window": null,
+      "halt_triggers": [
+        "Preflight verification failed"
+      ]
+    },
+    {
+      "stage": "stage_0_observe_only",
+      "preconditions": [
+        "Preflight complete"
+      ],
+      "success_criteria": [
+        "Observe window clean"
+      ],
+      "probation_window": {
+        "start_time": "2026-05-05T20:45:03.323569Z",
+        "end_time": "2026-05-05T21:45:03.323569Z",
+        "required_metrics": [
+          "market_truth_health",
+          "shadow_cleanliness"
+        ],
+        "status": "pending"
+      },
+      "halt_triggers": [
+        "Shadow drift detected"
+      ]
+    },
+    {
+      "stage": "stage_1_limited_symbols",
+      "preconditions": [
+        "Stage 0 complete and clean"
+      ],
+      "success_criteria": [
+        "Limited symbol window clean"
+      ],
+      "probation_window": {
+        "start_time": "2026-05-05T21:45:03.323569Z",
+        "end_time": "2026-05-05T22:45:03.323569Z",
+        "required_metrics": [
+          "lifecycle_health",
+          "execution_friction"
+        ],
+        "status": "pending"
+      },
+      "halt_triggers": [
+        "Execution friction spike"
+      ]
+    }
+  ],
+  "current_stage": "preflight",
+  "created_at": "2026-05-05T20:45:03.323614Z"
+}

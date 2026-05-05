@@ -1,5 +1,7 @@
 from app.stressrisk.models import StressOverlayDecision, StressBudgetResult
 from app.stressrisk.enums import StressOverlayVerdict, BudgetVerdict
+from app.policy_kernel.enums import PolicyDomain, PolicyVerdict
+from typing import Dict, Any
 import uuid
 
 
@@ -28,7 +30,23 @@ class StressOverlayEngine:
             evidence_refs=["run_x"],
         )
 
+    def stress_collateral_truth_caution(self):
+        pass
 
-# Phase 43
-def stress_collateral_truth_caution(self):
-    pass
+    def get_policy_domain_outputs(
+        self, overlay: StressOverlayDecision
+    ) -> Dict[str, Any]:
+        """Expose Stress Overlay outputs for Policy Kernel Domain format"""
+        verdict = PolicyVerdict.ALLOW
+        if overlay.verdict == StressOverlayVerdict.BLOCK:
+            verdict = PolicyVerdict.BLOCK
+        elif overlay.verdict == StressOverlayVerdict.REDUCE:
+            verdict = PolicyVerdict.CAUTION
+        elif overlay.verdict == StressOverlayVerdict.CAUTION:
+            verdict = PolicyVerdict.ADVISORY
+
+        return {
+            "domain": PolicyDomain.STRESS_RISK,
+            "reasons": overlay.reasons,
+            "verdict": verdict,
+        }

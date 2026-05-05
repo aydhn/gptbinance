@@ -121,3 +121,10 @@ class RiskAuditRecord(BaseModel):
     approved_size: float
     rationale: str
     rejection_reasons: List[Dict[str, str]] = Field(default_factory=list)
+
+
+class RiskSignature(BaseModel):
+    component: str
+    authorized: bool
+    reason: str
+    severity: int

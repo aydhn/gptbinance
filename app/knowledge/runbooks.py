@@ -17,5 +17,9 @@ class RunbookRegistry:
     def list_runbooks(self) -> List[Runbook]:
         return [item for item in catalog_registry.list_by_type(KnowledgeItemType.RUNBOOK)]  # type: ignore
 
+    def check_policy_invariant_coverage(self, invariant_id: str) -> bool:
+        # Mock logic to see if a runbook covers the given invariant
+        return True
+
 
 runbook_registry = RunbookRegistry()

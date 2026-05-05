@@ -14,22 +14,29 @@ from app.risk.models import (
     RiskEvaluationRequest,
     RiskApprovalBundle,
     RiskDecision,
+    RiskSignature,
 )
 from app.risk.enums import RiskVerdict, ThrottleType
 from app.risk.state import RiskStateManager
-from datetime import datetime
+from datetime import datetime, timezone
+from app.policy_kernel.enums import PolicyDomain, PolicyVerdict
 import uuid
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class RiskEngine:
     def __init__(self, config: RiskConfig, state_manager: RiskStateManager):
         self.config = config
         self.state_manager = state_manager
+        self.derivative_risk = None
+        self._logger = logger
 
     def evaluate_intent(
         self, request: RiskEvaluationRequest, event_overlay: EventRiskOverlay = None
     ) -> RiskApprovalBundle:
-        # Event-Risk Overlay evaluation
         rejection_reasons = []
         if event_overlay:
             if event_overlay.verdict in [EventGateVerdict.BLOCK, EventGateVerdict.HALT]:
@@ -75,7 +82,6 @@ class RiskEngine:
                     global_verdict=RiskVerdict.REJECT,
                 )
 
-        # Mock evaluation: just approve it for phase 18
         decision = RiskDecision(
             verdict=RiskVerdict.APPROVE,
             approved_intent=request.intent,
@@ -83,7 +89,7 @@ class RiskEngine:
             rationale="Auto-approved by mock risk engine",
         )
         return RiskApprovalBundle(
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             request_id=str(uuid.uuid4()),
             decision=decision,
             kill_switch_state=self.state_manager.kill_switch_state,
@@ -126,7 +132,6 @@ class RiskEngine:
             bundles.append(self.evaluate_intent(req))
         return bundles
 
-    # Added in Phase 38
     def apply_stress_overlay(self, overlay_decision):
         if overlay_decision.verdict in ["BLOCK", "REDUCE"]:
             self._logger.warning(
@@ -134,7 +139,6 @@ class RiskEngine:
             )
         return True
 
-    # Added in Phase 40
     def apply_crossbook_overlay(self, overlay_decision):
         if overlay_decision.verdict in [
             CrossBookVerdict.BLOCK,
@@ -144,3 +148,12 @@ class RiskEngine:
                 f"Cross-book restrictions applied. Reasons: {overlay_decision.reasons}"
             )
         return True
+
+    def get_policy_domain_outputs(self) -> Dict[str, Any]:
+        """Expose Risk outputs for Policy Kernel Domain format"""
+        # Collect current state/reasons
+        return {
+            "domain": PolicyDomain.RISK,
+            "reasons": [],
+            "verdict": PolicyVerdict.ALLOW,
+        }

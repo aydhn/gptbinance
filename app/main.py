@@ -1,3 +1,6 @@
+from app.evidence_graph.models import EvidenceGraphConfig
+from app.evidence_graph.repository import EvidenceGraphRepository
+from app.evidence_graph.reporting import GraphReporter
 import argparse
 import sys
 from app.incidents.cli import handle_incident_cli
@@ -35,7 +38,86 @@ def main():
     parser.add_argument("--show-incident-metrics", action="store_true")
     parser.add_argument("--show-incident-clusters", action="store_true")
 
+    # Evidence Graph options
+    parser.add_argument("--show-evidence-graph-summary", action="store_true", help="Show evidence graph summary")
+    parser.add_argument("--show-artefact", type=str, help="Show artefact metadata")
+    parser.add_argument("--show-lineage", type=str, help="Show artefact lineage")
+    parser.add_argument("--show-dependencies", type=str, help="Show downstream dependencies")
+    parser.add_argument("--build-case-file", type=str, help="Build case file by ID")
+    parser.add_argument("--case-class", type=str, help="Case file class (e.g. incident_case)")
+    parser.add_argument("--show-case-file", type=str, help="Show existing case file")
+    parser.add_argument("--build-evidence-pack", type=str, help="Build evidence pack by ID")
+    parser.add_argument("--pack-class", type=str, help="Evidence pack class")
+    parser.add_argument("--show-evidence-pack", type=str, help="Show evidence pack")
+    parser.add_argument("--query-evidence-by-symbol", type=str, help="Query evidence graph by symbol")
+    parser.add_argument("--query-evidence-by-candidate", type=str, help="Query evidence graph by candidate ID")
+    parser.add_argument("--show-graph-gaps", action="store_true", help="Show graph gaps")
+    parser.add_argument("--show-redaction-summary", action="store_true", help="Show redaction summary")
     args = parser.parse_args()
+
+    if args.show_evidence_graph_summary:
+        repo = EvidenceGraphRepository(EvidenceGraphConfig())
+        arts = repo.artefact_registry.list_artefacts()
+        rels = repo.relation_registry.get_all_relations()
+        gaps = repo.gap_detector.find_gaps()
+        print(GraphReporter.generate_summary(arts, rels, gaps, []))
+        return
+
+    if getattr(args, 'show_artefact', None):
+        repo = EvidenceGraphRepository(EvidenceGraphConfig())
+        art = repo.artefact_registry.get_artefact(args.show_artefact)
+        if art:
+            rels = repo.relation_registry.get_all_relations()
+            print(GraphReporter.format_artefact(art, rels))
+        else:
+            print("Artefact not found or repository empty in mock.")
+        return
+
+    if getattr(args, 'show_lineage', None):
+        print(f"Lineage for {args.show_lineage}: [Mock: Backward trace: COMPLETE]")
+        return
+
+    if getattr(args, 'show_dependencies', None):
+        print(f"Dependencies for {args.show_dependencies}: [Mock: Fanout: 0]")
+        return
+
+    if getattr(args, 'build_case_file', None) and getattr(args, 'case_class', None):
+        print(f"Building {args.case_class} for {args.build_case_file}...")
+        print("Case File Assembled: [Mock: COMPLETE]")
+        return
+
+    if getattr(args, 'show_case_file', None):
+        print(f"Case File {args.show_case_file}: [Mock: 3 sections, COMPLETE]")
+        return
+
+    if getattr(args, 'build_evidence_pack', None) and getattr(args, 'pack_class', None):
+        print(f"Building {args.pack_class} for {args.build_evidence_pack}...")
+        print("Evidence Pack Built: [Mock: 5 artefacts, COMPLETE]")
+        return
+
+    if getattr(args, 'show_evidence_pack', None):
+        print(f"Evidence Pack {args.show_evidence_pack}: [Mock: Freshness: GOOD]")
+        return
+
+    if getattr(args, 'query_evidence_by_symbol', None):
+        print(f"Querying evidence for symbol {args.query_evidence_by_symbol}: [Mock: 0 artefacts found]")
+        return
+
+    if getattr(args, 'query_evidence_by_candidate', None):
+        print(f"Querying evidence for candidate {args.query_evidence_by_candidate}: [Mock: 0 artefacts found]")
+        return
+
+    if getattr(args, 'show_graph_gaps', None):
+        repo = EvidenceGraphRepository(EvidenceGraphConfig())
+        gaps = repo.gap_detector.find_gaps()
+        print(f"Graph Gaps Detected: {len(gaps)}")
+        return
+
+    if getattr(args, 'show_redaction_summary', None):
+        print("Redaction Summary: [Mock: 0 restricted records]")
+        return
+
+
 
     # Determine if an activation command was called
     activation_commands = [

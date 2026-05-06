@@ -19,3 +19,22 @@ class CrossbookOverlay:
             "reasons": ["Crossbook overlay assessment"],
             "verdict": verdict,
         }
+
+import uuid
+from typing import Dict, Any
+from app.incidents.enums import SignalType, IncidentSeverity, IncidentScopeType
+from app.incidents.signals import SignalMapper
+from app.incidents.intake import IncidentCommand
+
+def emit_crossbook_conflict_signal(symbol: str, details: Dict[str, Any] = None):
+    cmd = IncidentCommand()
+    signal = SignalMapper.create_signal(
+        signal_id=f"cb-{uuid.uuid4().hex[:8]}",
+        signal_type=SignalType.CROSS_BOOK_CONFLICT,
+        domain="crossbook",
+        scope_type=IncidentScopeType.SYMBOL,
+        scope_ref=symbol,
+        severity=IncidentSeverity.CRITICAL_INCIDENT,
+        details=details or {"reason": "Fake hedge detected"}
+    )
+    cmd.ingest_signal(signal)

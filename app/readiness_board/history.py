@@ -18,3 +18,6 @@ class HistoryManager:
             d for d in self.storage.decisions.values() if d.dossier_id in dossier_ids
         ]
         return sorted(decisions, key=lambda x: x.decided_at, reverse=True)
+
+
+# Incident integration: include board decision lineage in snapshots

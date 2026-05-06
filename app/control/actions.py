@@ -28,3 +28,6 @@ class ActivationControlActions:
     def request_activation_revert_review(intent_id: str):
         # Request revert review
         pass
+
+
+# Incident integration: request_incident_review, request_containment_review

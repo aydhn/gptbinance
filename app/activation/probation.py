@@ -25,3 +25,8 @@ class ProbationEvaluator(ProbationEvaluatorBase):
         return ProbationStatus(
             intent_id=intent_id, verdict=verdict, metrics=metrics, blockers=blockers
         )
+
+
+# Exported signals to incident command: Probation failures -> Incident Intake
+
+# Exported signals to incident command: Probation failures -> Incident Intake

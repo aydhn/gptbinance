@@ -1,0 +1,1 @@
+def test_recovery_gates_rules(): pass

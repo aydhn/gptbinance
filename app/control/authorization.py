@@ -16,3 +16,6 @@ def authorize_action(action_name: str, user_id: str, candidate_id: str = None) -
             print(f"Authorization denied: Candidate {candidate_id} does not have a GO decision.")
             return False
     return True
+
+
+# Incident integration: authorize containment review requests

@@ -40,3 +40,22 @@ class GlobalTruthfulnessEvaluator:
             verdicts=verdicts,
             overall_verdict=overall,
         )
+
+from typing import Dict, Any, List
+import uuid
+from app.incidents.enums import SignalType, IncidentSeverity, IncidentScopeType
+from app.incidents.signals import SignalMapper
+from app.incidents.intake import IncidentCommand
+
+def emit_stale_market_truth_signal(symbol: str, details: Dict[str, Any] = None):
+    cmd = IncidentCommand()
+    signal = SignalMapper.create_signal(
+        signal_id=f"mt-{uuid.uuid4().hex[:8]}",
+        signal_type=SignalType.MARKET_TRUTH_BROKEN,
+        domain="market_truth",
+        scope_type=IncidentScopeType.SYMBOL,
+        scope_ref=symbol,
+        severity=IncidentSeverity.CRITICAL_INCIDENT,
+        details=details or {"reason": "Stale data"}
+    )
+    cmd.ingest_signal(signal)

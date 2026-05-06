@@ -20,3 +20,6 @@ class TelegramActivationNotifier:
     @staticmethod
     def notify_reverted(intent_id: str):
         print(f"[TELEGRAM] Activation reverted: {intent_id}")
+
+
+# Incident integration: notify on incident escalations

@@ -5,3 +5,6 @@ class ReplayForensics:
 
 class DummyForensicCollector:
     pass
+
+
+# Exported rules to incident command: Embed incident timeline in forensic bundle

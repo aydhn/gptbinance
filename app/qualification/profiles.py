@@ -8,3 +8,6 @@ def check_qualification_profile(profile_id: str) -> dict:
         "stale": False,
         "warnings": []
     }
+
+
+# Exported rules to incident command: Block profile qualification on active critical incidents

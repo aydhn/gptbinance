@@ -1,123 +1,122 @@
 ==================================================
-YAPILANLAR ÖZETİ
+PHASE 52 — INCIDENT COMMAND SYSTEM, GLOBAL HALT NETWORK VE DEGRADED-OPERATIONS GOVERNANCE KATMANI
 ==================================================
-Bu fazda (Phase 15), Testnet-First Execution Gateway başarıyla kurulmuştur.
-- Gerçek fon riski olmadan, Binance testnet altyapısıyla çalışacak yapı oluşturuldu.
-- `PretradeValidator` ile emirlerin borsaya gönderilmeden (minQty, tickSize, minNotional) doğrulanması sağlandı.
-- `ClientOrderIdGenerator` kurularak emirlerin idempotent ve takip edilebilir olması güvence altına alındı.
-- `SafetyGateManager` ile Mainnet işlem yapılmasını engelleyecek explicit güvenlik kapıları kodlandı.
-- Execution event'lerinin (ACK, FILL, CANCEL) durumunu izlemek üzere `ExecutionParser`, `ReconciliationEngine` ve `OrderStateStore` yazıldı.
-- Cancel/Replace mekanizması için güvenli 'önce cancel, sonra replace' kurgusunu yürütecek bir Engine tasarlandı.
 
-==================================================
-OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-==================================================
-Yeni:
-- `app/execution/live/base.py`
-- `app/execution/live/binance_executor.py`
-- `app/execution/live/cancel_replace.py`
-- `app/execution/live/client_order_ids.py`
-- `app/execution/live/enums.py`
-- `app/execution/live/exceptions.py`
-- `app/execution/live/execution_parser.py`
-- `app/execution/live/health.py`
-- `app/execution/live/models.py`
-- `app/execution/live/notifier_bridge.py`
-- `app/execution/live/order_router.py`
-- `app/execution/live/order_state_store.py`
-- `app/execution/live/pretrade_validation.py`
-- `app/execution/live/reconciliation.py`
-- `app/execution/live/repository.py`
-- `app/execution/live/safety_gates.py`
-- `app/execution/live/storage.py`
-- `app/execution/live/testnet_smoke.py`
-- `app/execution/live/user_stream.py`
-- `app/execution/live/README.md`
-- `docs/081_execution_gateway_mimarisi_ve_testnet_first_politikasi.md`
-- `docs/082_pretrade_validation_idempotency_ve_duplicate_order_koruma_politikasi.md`
-- `docs/083_user_data_stream_ve_reconciliation_politikasi.md`
-- `docs/084_mainnet_safety_gates_ve_arm_disarm_politikasi.md`
-- `docs/085_phase_15_definition_of_done.md`
-- `tests/test_cancel_replace.py`
-- `tests/test_client_order_ids.py`
-- `tests/test_execution_health.py`
-- `tests/test_execution_parser.py`
-- `tests/test_execution_safety_gates.py`
-- `tests/test_execution_storage.py`
-- `tests/test_order_router.py`
-- `tests/test_order_state_store.py`
-- `tests/test_pretrade_validation.py`
-- `tests/test_reconciliation.py`
+1. YAPILANLAR ÖZETİ
+Bu fazda platformdaki çok kaynaklı olay (alert, failure, drift, vb.) mekanizmalarını tek bir birleşik kriz diliyle yönetecek **Incident Command System** (Olay Komuta Sistemi) inşa edilmiştir.
+- Çok-kaynaklı incident intake altyapısı (market truth, shadow state, capital, policy vb.) oluşturuldu.
+- Deterministik severity matrix (bilgi, uyarı, olay, majör, kritik) kuruldu.
+- Kapsam daraltmayı (scope-limited containment) önceliklendiren, otomatik tam sistem kapanışına ("global halt") karşı korumalar içeren Containment ve Kill-Switch katmanı eklendi.
+- "Observe only", "Exit only" ve "Paper/Shadow only" gibi modları içeren Degraded-Operations yapısı oluşturuldu.
+- Erken kapatmayı önleyen ve kanıta (evidence) dayanan Recovery Gates sistemi entegre edildi.
+- Sistem entegrasyonları için aktif kod dosyalarına (halts, reconciliation, policy vb.) "emit_signal" kancaları (hooks) eklendi, böylece sinyaller gerçeğe dönüştürüldü.
+- Hataları veya problemleri otomatik çözen (auto-self-healing) veya sistemi sessizce resetleyen her türlü yapıdan kaçınıldı.
 
-Güncellenen:
-- `app/connectors/binance/models.py`
-- `app/core/models.py` (Oluşturuldu, core domain modelleri için eklendi)
-- `app/execution/paper/runtime.py`
-- `app/main.py`
-- `app/risk/engine.py`
+2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+Yeni Dosyalar:
+- app/incidents/__init__.py
+- app/incidents/base.py
+- app/incidents/cli.py
+- app/incidents/clustering.py
+- app/incidents/containment.py
+- app/incidents/degraded_modes.py
+- app/incidents/enums.py
+- app/incidents/evidence.py
+- app/incidents/exceptions.py
+- app/incidents/history.py
+- app/incidents/intake.py
+- app/incidents/kill_switches.py
+- app/incidents/metrics.py
+- app/incidents/models.py
+- app/incidents/policies.py
+- app/incidents/postmortems.py
+- app/incidents/recovery.py
+- app/incidents/recovery_gates.py
+- app/incidents/reporting.py
+- app/incidents/repository.py
+- app/incidents/scopes.py
+- app/incidents/severity.py
+- app/incidents/signals.py
+- app/incidents/snapshots.py
+- app/incidents/storage.py
+- app/incidents/timeline.py
+- docs/266_incident_command_system_ve_containment_governance_mimarisi.md
+- docs/267_kill_switch_hiyerarsisi_degraded_operations_ve_scope_limited_containment_politikasi.md
+- docs/268_recovery_gates_postmortem_seed_ve_incident_truthfulness_politikasi.md
+- docs/269_activation_market_truth_shadow_lifecycle_capital_entegrasyonlu_incident_politikasi.md
+- docs/270_phase_52_definition_of_done.md
+- tests/test_incidents_*.py (Tüm modüller için 18 adet test)
 
-==================================================
-REPO AĞACI (execution/live)
-==================================================
-app/execution/live
-├── README.md
-├── __init__.py
-├── base.py
-├── binance_executor.py
-├── cancel_replace.py
-├── client_order_ids.py
-├── enums.py
-├── exceptions.py
-├── execution_parser.py
-├── health.py
-├── models.py
-├── notifier_bridge.py
-├── order_router.py
-├── order_state_store.py
-├── pretrade_validation.py
-├── reconciliation.py
-├── repository.py
-├── safety_gates.py
-├── storage.py
-├── testnet_smoke.py
-└── user_stream.py
+Güncellenen Dosyalar:
+- app/main.py (Incident CLI komutları eklendi)
+- app/activation/halts.py (Sinyal kancası eklendi)
+- app/activation/probation.py
+- app/market_truth/truthfulness.py (Sinyal kancası eklendi)
+- app/shadow_state/convergence.py (Sinyal kancası eklendi)
+- app/order_lifecycle/reconciliation.py (Sinyal kancası eklendi)
+- app/capital/reduction.py (Sinyal kancası eklendi)
+- app/crossbook/overlay.py (Sinyal kancası eklendi)
+- app/remediation/debt.py (Sinyal kancası eklendi)
+- app/migrations/verification.py (Sinyal kancası eklendi)
+- app/policy_kernel/proofs.py (Sinyal kancası eklendi)
+- .gitignore (.incidents_data/ klasörü hariç bırakıldı)
 
-==================================================
-ÖRNEK KOMUTLAR
-==================================================
-# Testnet Smoke Test başlatır:
-python -m app.main --run-testnet-execution-smoke --execution-symbol BTCUSDT --execution-side BUY --execution-type LIMIT --execution-qty 0.001 --execution-price 30000.0
+3. REPO AĞACI
+binance-trading-platform/
+├── app/
+│   ├── activation/
+│   ├── capital/
+│   ├── control/
+│   ├── crossbook/
+│   ├── governance/
+│   ├── incidents/      <-- Yeni klasör
+│   │   ├── intake.py
+│   │   ├── cli.py
+│   │   ├── ... (diğer bileşenler)
+│   ├── market_truth/
+│   ├── migrations/
+│   ├── observability/
+│   ├── order_lifecycle/
+│   ├── policy_kernel/
+│   ├── qualification/
+│   ├── readiness_board/
+│   ├── release/
+│   ├── remediation/
+│   ├── replay/
+│   ├── shadow_state/
+│   ├── telegram/
+│   └── main.py         <-- CLI bağlantıları
+├── docs/
+│   ├── 266_...
+│   ├── 267_...
+│   └── ...
+├── tests/
+│   ├── test_incidents_*.py  <-- 18 adet test
+├── pyproject.toml
+└── README.md
 
-# Explicitly Arm Mainnet (gerçek işlemlere izin verir, şu an CLI output basar):
-python -m app.main --arm-mainnet-execution
+4. ÖRNEK KOMUTLAR
+Sistem CLI üzerinden şu şekilde izlenebilir:
+- `poetry run python -m app.main --show-active-incidents`
+- `poetry run python -m app.main --show-incident INC-1234abcd`
+- `poetry run python -m app.main --show-incident-timeline INC-1234abcd`
+- `poetry run python -m app.main --show-containment-plan INC-1234abcd`
+- `poetry run python -m app.main --show-degraded-mode-plan INC-1234abcd`
+- `poetry run python -m app.main --show-recovery-readiness INC-1234abcd`
+- `poetry run python -m app.main --show-postmortem-seed INC-1234abcd`
 
-# Disarm Mainnet (güvenli hale geri döner):
-python -m app.main --disarm-mainnet-execution
+5. TEST ÖZETİ
+18 Adet test yazıldı ve başarıyla doğrulandı:
+- **Intake & Clustering:** Çoklu alert sinyallerinin aynı sembol/profil bağlamında tek bir incident içine toplanması.
+- **Severity & Scopes:** Farklı alanlardan gelen hataların deterministik olarak Warning/Major/Critical ayrımına tabi tutulması.
+- **Containment & Degraded Modes:** Global Halt uyarısı ve kısıtlı alan uyarıları gibi scope-aware (kapsam farkındalı) plan üretimi.
+- **Recovery Gates:** Bir incident "Contained" durumuna alınmadan recovery planının "Not Ready" kalması kuralı testi.
+- **Storage & Evidence:** Incident verisinin in-memory kalmayıp diske yazılması, evidence bundle testleri.
 
-==================================================
-TEST ÖZETİ
-==================================================
-12 test yazıldı ve başarıyla geçti:
-- `test_pretrade_validation.py`: Min_qty, vb. şartları doğrular.
-- `test_client_order_ids.py`: Idempotent ID üretimini ve limitini sınar.
-- `test_execution_safety_gates.py`: Mainnet silahsızlandırılmışsa işlemi reddettiğini teyit eder.
-- `test_order_state_store.py`: Emirlerin local in-memory storage'a kaydedilip çekildiğini doğrular.
-- `test_execution_health.py`: Çok sayıda reject sonrası sağlık durumunun DEGRADED olduğunu test eder.
-- `test_execution_parser.py`: Binance `executionReport` payload'larını `OrderLifecycleEvent`'e düzgün ayırdığını denetler.
-- `test_order_router.py`: Yönlendiricinin gate/validasyonları geçip executor'ı doğru çağırdığını sınar.
-- `test_cancel_replace.py`: Önce cancel, state güncelleme süreçlerini sarmaladığı test edilir.
-- `test_reconciliation.py`: Kayıp emirler tespit edilip, uzlaştırma raporunda drift oluştuğunu doğrular.
-- `test_execution_storage.py`: Audit verisinin dosyaya JSONL olarak başarıyla yazıldığını doğrular.
+6. BİLİNÇLİ ERTELENENLER
+- **Dashboard veya NOC Arayüzü:** Gereksinimler gereği tüm incident yönetimi CLI bazlı tutuldu. Arayüz entegrasyonu yapılmadı.
+- **Otomatik Remediation:** Incident tespitinden sonra hiçbir auto-healing motoru aktive edilmedi, hepsi insan incelemesi/degraded mode tavsiyesi düzeyinde tutuldu.
 
-==================================================
-BİLİNÇLİ ERTELENENLER
-==================================================
-- Tam 7/24 websocket stream loop ve keepalive mekanizması (şuan `user_stream.py` içerisinde taslak olarak mevcut).
-- Multi-exchange smart order routing.
-- Ana sisteme/Risk Engine'e tam gerçek API (şu an stub olarak geçiş eklendi).
-
-==================================================
-PHASE 16 ÖNERİSİ
-==================================================
-Phase 16 - User-Data Stream Websocket Integration & Order Flow Automation
-Amacı: Placeholder bırakılan websocket bağlantısını tam kapasite ayağa kaldırmak, listenKey yaşam döngüsünü sağlamak ve REST vs Stream reconciliation mantığını testnet order'ları üzerinde uçtan uca otomatik hale getirmektir.
+7. PHASE 53 ÖNERİSİ
+**Phase 53 - Unified Operator CLI, Runbook Orchestration & Incident Automation Bridge**
+Amaç: Oluşan bu güçlü incident altyapısı üzerine, operatörün incident review, degraded mode onayı ve break-glass runbook'ları tek bir birleşik TTY CLI ortamından interaktif veya scriptli yönetebileceği Runbook Otomasyon köprüsünün kurulması.

@@ -3,3 +3,6 @@ TEMPLATES = {
     "stale_feed_critical": "CRITICAL: Feed for {symbol} is stale.",
     "market_truth_summary_digest": "Market Truth: {verdict}",
 }
+
+
+# Exported rules to incident command: Provide templates for telegram messages

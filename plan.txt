@@ -1,0 +1,8 @@
+1. We successfully implemented the evidence graph using artefacts and relations.
+2. We implemented lineage traversal and dependency logic.
+3. We implemented case files and evidence packs logic.
+4. We implemented query, scope enforcement, redaction policy logic.
+5. We implemented graph gaps and historical snapshots logic.
+6. We patched `app/main.py` with CLI arguments to access the graph summaries.
+7. We successfully wrote and executed tests.
+8. Ready to finalize the task.

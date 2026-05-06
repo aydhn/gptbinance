@@ -1,13 +1,8 @@
-feat(crossbook): implement cross-book exposure governance phase 40
+feat: Implement Evidence Graph and Queryable Governance Memory
 
-- Create unified exposure graph for Spot, Margin, and Futures books
-- Add net directional exposure calculation
-- Implement collateral dependency and borrow burden analyzers
-- Add funding burden and basis exposure tracking
-- Develop mode conflict and fake hedge detection
-- Define cross-book overlay decision engine with profile-aware policies
-- Integrate cross-book checks into execution, risk, and portfolio layers
-- Update ledger reconciliation and balance explanation with cross-book provenance
-- Append cross-book reasoning to governance replay and Telegram notifications
-- Add CLI reporting endpoints for cross-book outputs
-- Write test suite and Markdown documentation for the cross-book architecture
+- Add core `evidence_graph` framework (`artefacts.py`, `relations.py`, `lineage.py`, `dependencies.py`).
+- Add Case File and Evidence Pack builders (`cases.py`, `packs.py`).
+- Implement scopes, redaction, queries, graph gaps, and history snapshots.
+- Update `app/main.py` CLI to include `--show-evidence-graph-summary`, `--build-case-file`, and other evidence query actions.
+- Add comprehensive documentation to `docs/` detailing evidence graph policies and traceability.
+- Successfully write and pass unit tests in `tests/test_evidence_graph.py`.

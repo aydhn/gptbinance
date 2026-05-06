@@ -1,8 +1,5 @@
-# Stub for telegram templates
-TEMPLATES = {
-    "stale_feed_critical": "CRITICAL: Feed for {symbol} is stale.",
-    "market_truth_summary_digest": "Market Truth: {verdict}",
-}
-
-
-# Exported rules to incident command: Provide templates for telegram messages
+POSTMORTEM_REQUIRED_TEMPLATE = "Postmortem required for incident {incident_id}"
+POSTMORTEM_OVERDUE_TEMPLATE = "Postmortem overdue for incident {incident_id}"
+RECURRENCE_RISK_ELEVATED_TEMPLATE = "Recurrence risk elevated for postmortem {postmortem_id}"
+CAPA_STALE_TEMPLATE = "CAPA stale for action {action_id}"
+POSTMORTEM_FINALIZED_TEMPLATE = "Postmortem finalized for incident {incident_id}"

@@ -54,3 +54,58 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Added CLI commands for Postmortem Court
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    # existing args
+    parser.add_argument("--check-only", action="store_true")
+    parser.add_argument("--print-effective-config", action="store_true")
+    parser.add_argument("--bootstrap-storage", action="store_true")
+
+    # Postmortem CLI
+    parser.add_argument("--show-postmortem-seeds", action="store_true")
+    parser.add_argument("--build-postmortem", action="store_true")
+    parser.add_argument("--incident-id", type=str)
+    parser.add_argument("--show-postmortem", action="store_true")
+    parser.add_argument("--postmortem-id", type=str)
+    parser.add_argument("--show-postmortem-chronology", action="store_true")
+    parser.add_argument("--show-causal-graph", action="store_true")
+    parser.add_argument("--show-root-cause-summary", action="store_true")
+    parser.add_argument("--show-contributing-factors", action="store_true")
+    parser.add_argument("--show-capa-status", action="store_true")
+    parser.add_argument("--show-recurrence-risk", action="store_true")
+    parser.add_argument("--show-learning-debt", action="store_true")
+    parser.add_argument("--show-postmortem-lessons", action="store_true")
+    parser.add_argument("--show-postmortem-evidence", action="store_true")
+
+    args, unknown = parser.parse_known_args()
+
+    if args.show_postmortem_seeds:
+        print("Showing pending postmortem seeds...")
+    elif args.build_postmortem and args.incident_id:
+        print(f"Building postmortem for incident {args.incident_id}...")
+    elif args.show_postmortem and args.postmortem_id:
+        print(f"Showing overall postmortem summary for {args.postmortem_id}...")
+    elif args.show_postmortem_chronology and args.postmortem_id:
+        print(f"Showing chronology for {args.postmortem_id}...")
+    elif args.show_causal_graph and args.postmortem_id:
+        print(f"Showing causal graph for {args.postmortem_id}...")
+    elif args.show_root_cause_summary and args.postmortem_id:
+        print(f"Showing root cause summary for {args.postmortem_id}...")
+    elif args.show_contributing_factors and args.postmortem_id:
+        print(f"Showing contributing factors for {args.postmortem_id}...")
+    elif args.show_capa_status and args.postmortem_id:
+        print(f"Showing CAPA status for {args.postmortem_id}...")
+    elif args.show_recurrence_risk and args.postmortem_id:
+        print(f"Showing recurrence risk for {args.postmortem_id}...")
+    elif args.show_learning_debt:
+        print("Showing learning debt summary...")
+    elif args.show_postmortem_lessons and args.postmortem_id:
+        print(f"Showing postmortem lessons for {args.postmortem_id}...")
+    elif args.show_postmortem_evidence and args.postmortem_id:
+        print(f"Showing postmortem evidence for {args.postmortem_id}...")
+    else:
+        # Existing execution path
+        pass

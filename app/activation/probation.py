@@ -29,4 +29,7 @@ class ProbationEvaluator(ProbationEvaluatorBase):
 
 # Exported signals to incident command: Probation failures -> Incident Intake
 
+
 # Exported signals to incident command: Probation failures -> Incident Intake
+def export_probation_metrics_to_scorecard() -> Dict[str, Any]:
+    return {"status": "healthy", "recent_breaches": []}

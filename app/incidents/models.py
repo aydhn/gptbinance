@@ -3,6 +3,7 @@ from typing import List, Dict, Optional, Any
 from datetime import datetime, timezone
 from .enums import *
 
+
 class IncidentSignal(BaseModel):
     signal_id: str
     type: SignalType
@@ -14,10 +15,12 @@ class IncidentSignal(BaseModel):
     details: Dict[str, Any] = Field(default_factory=dict)
     evidence_refs: List[str] = Field(default_factory=list)
 
+
 class IncidentScope(BaseModel):
     type: IncidentScopeType
     ref: str
     blast_radius_summary: str
+
 
 class IncidentSnapshot(BaseModel):
     snapshot_id: str
@@ -29,10 +32,12 @@ class IncidentSnapshot(BaseModel):
     policy_refs: List[str]
     is_complete: bool
 
+
 class IncidentTimelineEvent(BaseModel):
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     event_type: str
     description: str
+
 
 class ContainmentPlan(BaseModel):
     intent: ContainmentIntentType
@@ -40,15 +45,18 @@ class ContainmentPlan(BaseModel):
     affected_scope: IncidentScope
     recommended_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class DegradedModePlan(BaseModel):
     mode: DegradedModeType
     constraints: str
     affected_scope: IncidentScope
 
+
 class RecoveryPlan(BaseModel):
     verdict: RecoveryVerdict
     unresolved_blockers: List[str]
     cleared_gates: List[str]
+
 
 class PostmortemSeed(BaseModel):
     incident_id: str
@@ -57,6 +65,7 @@ class PostmortemSeed(BaseModel):
     frozen_evidence_refs: List[str]
     unresolved_questions: List[str]
     follow_up_seeds: List[str]
+
 
 class IncidentRecord(BaseModel):
     incident_id: str

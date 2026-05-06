@@ -16,11 +16,13 @@ class VerificationEngine:
             notes="All verifications passed.",
         )
 
+
 import uuid
 from typing import Dict, Any
 from app.incidents.enums import SignalType, IncidentSeverity, IncidentScopeType
 from app.incidents.signals import SignalMapper
 from app.incidents.intake import IncidentCommand
+
 
 def emit_migration_failed_signal(workspace_id: str, details: Dict[str, Any] = None):
     cmd = IncidentCommand()
@@ -31,6 +33,6 @@ def emit_migration_failed_signal(workspace_id: str, details: Dict[str, Any] = No
         scope_type=IncidentScopeType.WORKSPACE,
         scope_ref=workspace_id,
         severity=IncidentSeverity.CRITICAL_INCIDENT,
-        details=details or {"reason": "Migration failed"}
+        details=details or {"reason": "Migration failed"},
     )
     cmd.ingest_signal(signal)

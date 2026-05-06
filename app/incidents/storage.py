@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 from .models import IncidentRecord
 
+
 class IncidentStorage:
     def __init__(self, storage_dir: str = ".incidents_data"):
         self.storage_dir = storage_dir

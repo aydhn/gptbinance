@@ -2,6 +2,7 @@ from typing import List, Dict
 from .models import IncidentRecord, IncidentSnapshot
 from .repository import IncidentRepository
 
+
 class EvidenceManager:
     def __init__(self, repo: IncidentRepository):
         self.repo = repo
@@ -13,5 +14,5 @@ class EvidenceManager:
 
         return {
             "snapshots": [s.snapshot_id for s in inc.snapshots],
-            "signals": [s.signal_id for s in inc.signals]
+            "signals": [s.signal_id for s in inc.signals],
         }

@@ -2,6 +2,7 @@ import sys
 from .storage import IncidentStorage
 from .repository import IncidentRepository
 
+
 def handle_incident_cli(args):
     repo = IncidentRepository(IncidentStorage())
 
@@ -9,7 +10,9 @@ def handle_incident_cli(args):
         active = repo.list_active()
         print(f"Active Incidents: {len(active)}")
         for inc in active:
-            print(f"[{inc.incident_id}] {inc.severity.value} - {inc.state.value} - Scope: {inc.scope.type.value}:{inc.scope.ref}")
+            print(
+                f"[{inc.incident_id}] {inc.severity.value} - {inc.state.value} - Scope: {inc.scope.type.value}:{inc.scope.ref}"
+            )
         sys.exit(0)
 
     if args.show_incident:
@@ -87,7 +90,7 @@ def handle_incident_cli(args):
         all_inc = repo.list_all()
         print(f"Total Incidents in History: {len(all_inc)}")
         for inc in all_inc:
-             print(f"[{inc.incident_id}] {inc.severity.value} - {inc.state.value}")
+            print(f"[{inc.incident_id}] {inc.severity.value} - {inc.state.value}")
         sys.exit(0)
 
     if args.show_postmortem_seed:
@@ -115,9 +118,13 @@ def handle_incident_cli(args):
         sys.exit(0)
 
     if args.show_incident_metrics:
-        print("Metrics: Time-to-detect and Time-to-contain are currently under simulation.")
+        print(
+            "Metrics: Time-to-detect and Time-to-contain are currently under simulation."
+        )
         sys.exit(0)
 
     if args.show_incident_clusters:
-        print("Clusters: Clustering logic active. See active incidents for grouped signals.")
+        print(
+            "Clusters: Clustering logic active. See active incidents for grouped signals."
+        )
         sys.exit(0)

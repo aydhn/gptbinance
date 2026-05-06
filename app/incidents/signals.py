@@ -2,6 +2,7 @@ from typing import Dict, Any
 from .enums import SignalType, IncidentSeverity, IncidentScopeType
 from .models import IncidentSignal
 
+
 class SignalMapper:
     @staticmethod
     def create_signal(
@@ -11,7 +12,7 @@ class SignalMapper:
         scope_type: IncidentScopeType,
         scope_ref: str,
         severity: IncidentSeverity,
-        details: Dict[str, Any] = None
+        details: Dict[str, Any] = None,
     ) -> IncidentSignal:
         return IncidentSignal(
             signal_id=signal_id,
@@ -20,5 +21,5 @@ class SignalMapper:
             scope_type=scope_type,
             scope_ref=scope_ref,
             severity_hint=severity,
-            details=details or {}
+            details=details or {},
         )

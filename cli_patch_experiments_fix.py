@@ -1,7 +1,8 @@
 import re
 
+
 def update_main():
-    with open('app/main.py', 'r') as f:
+    with open("app/main.py", "r") as f:
         content = f.read()
 
     handlers = """
@@ -62,10 +63,14 @@ def update_main():
 """
 
     if "args.register_hypothesis:" not in content:
-        content = content.replace('print("Trading Platform starting...")', handlers + '\n    print("Trading Platform starting...")')
+        content = content.replace(
+            'print("Trading Platform starting...")',
+            handlers + '\n    print("Trading Platform starting...")',
+        )
 
-    with open('app/main.py', 'w') as f:
+    with open("app/main.py", "w") as f:
         f.write(content)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     update_main()

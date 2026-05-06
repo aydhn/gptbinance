@@ -28,10 +28,17 @@ class HaltEvaluator:
                 signal_id=f"halt-{uuid.uuid4().hex[:8]}",
                 signal_type=SignalType.ACTIVATION_PROBATION_FAIL,
                 domain="activation",
-                scope_type=IncidentScopeType.PROFILE if scope.profile_id else IncidentScopeType.GLOBAL,
+                scope_type=IncidentScopeType.PROFILE
+                if scope.profile_id
+                else IncidentScopeType.GLOBAL,
                 scope_ref=scope.profile_id if scope.profile_id else "GLOBAL",
-                severity=IncidentSeverity.CRITICAL_INCIDENT if critical else IncidentSeverity.MAJOR_INCIDENT,
-                details={"intent_id": probation_status.intent_id, "triggers": probation_status.blockers}
+                severity=IncidentSeverity.CRITICAL_INCIDENT
+                if critical
+                else IncidentSeverity.MAJOR_INCIDENT,
+                details={
+                    "intent_id": probation_status.intent_id,
+                    "triggers": probation_status.blockers,
+                },
             )
             cmd.ingest_signal(sig)
 

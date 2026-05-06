@@ -6,13 +6,17 @@ from app.incidents.storage import IncidentStorage
 from app.incidents.repository import IncidentRepository
 from app.incidents.evidence import EvidenceManager
 
+
 def test_evidence():
     repo = IncidentRepository(IncidentStorage(".test_incidents_evidence"))
     cmd = IncidentCommand(repo)
     sig = IncidentSignal(
-        signal_id="sig-1", type=SignalType.MARKET_TRUTH_BROKEN,
-        source_domain="mkt", scope_type=IncidentScopeType.GLOBAL,
-        scope_ref="GLOBAL", severity_hint=IncidentSeverity.CRITICAL_INCIDENT
+        signal_id="sig-1",
+        type=SignalType.MARKET_TRUTH_BROKEN,
+        source_domain="mkt",
+        scope_type=IncidentScopeType.GLOBAL,
+        scope_ref="GLOBAL",
+        severity_hint=IncidentSeverity.CRITICAL_INCIDENT,
     )
     inc = cmd.ingest_signal(sig)
 
@@ -25,4 +29,5 @@ def test_evidence():
 
     # cleanup
     import shutil
+
     shutil.rmtree(".test_incidents_evidence", ignore_errors=True)

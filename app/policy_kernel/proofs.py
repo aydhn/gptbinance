@@ -37,11 +37,13 @@ def generate_decision_proof(decision: PolicyDecision) -> str:
 
     return "\n".join(lines)
 
+
 import uuid
 from typing import Dict, Any
 from app.incidents.enums import SignalType, IncidentSeverity, IncidentScopeType
 from app.incidents.signals import SignalMapper
 from app.incidents.intake import IncidentCommand
+
 
 def emit_policy_hard_block_signal(profile_id: str, details: Dict[str, Any] = None):
     cmd = IncidentCommand()
@@ -52,6 +54,6 @@ def emit_policy_hard_block_signal(profile_id: str, details: Dict[str, Any] = Non
         scope_type=IncidentScopeType.PROFILE,
         scope_ref=profile_id,
         severity=IncidentSeverity.MAJOR_INCIDENT,
-        details=details or {"reason": "Policy blocked"}
+        details=details or {"reason": "Policy blocked"},
     )
     cmd.ingest_signal(signal)

@@ -1,1 +1,2 @@
-def test_recovery_gates_rules(): pass
+def test_recovery_gates_rules():
+    pass

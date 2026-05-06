@@ -1,4 +1,6 @@
 from .enums import RecoveryVerdict
+
+
 class RecoveryGates:
     @staticmethod
     def check_gates(incident):

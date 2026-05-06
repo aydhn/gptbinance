@@ -1,6 +1,7 @@
 from .models import IncidentSnapshot
 from datetime import datetime, timezone
 
+
 class SnapshotBuilder:
     @staticmethod
     def capture(incident_id: str) -> IncidentSnapshot:
@@ -12,5 +13,5 @@ class SnapshotBuilder:
             lifecycle_refs=[f"lc_{incident_id}"],
             capital_posture_refs=[f"cap_{incident_id}"],
             policy_refs=[f"pol_{incident_id}"],
-            is_complete=True
+            is_complete=True,
         )

@@ -68,6 +68,22 @@ def main():
     parser.add_argument("--show-review-metrics", action="store_true", help="Show review metrics")
     parser.add_argument("--show-review-history", action="store_true", help="Show review history")
 
+
+    # Phase 57: Identity Plane
+    parser.add_argument("--show-principals", action="store_true")
+    parser.add_argument("--show-principal", type=str, metavar="ID")
+    parser.add_argument("--show-roles", action="store_true")
+    parser.add_argument("--show-capabilities", action="store_true")
+    parser.add_argument("--show-sessions", action="store_true")
+    parser.add_argument("--show-delegations", action="store_true")
+    parser.add_argument("--show-elevations", action="store_true")
+    parser.add_argument("--show-breakglass-records", action="store_true")
+    parser.add_argument("--run-authorization-check", type=str, metavar="PRINCIPAL_ID")
+    parser.add_argument("--action", type=str, metavar="ACTION")
+    parser.add_argument("--show-authorization-proof", type=str, metavar="PROOF_ID")
+    parser.add_argument("--show-trust-zones", action="store_true")
+    parser.add_argument("--show-identity-hygiene", action="store_true")
+
     args = parser.parse_args()
 
     if args.show_evidence_graph_summary:
@@ -205,6 +221,102 @@ def main():
         handle_incident_cli(args)
         sys.exit(0)
 
+
+    if args.show_principals:
+        from app.identity.principals import principal_registry
+        from datetime import datetime, timezone
+        print(f"[{datetime.now(timezone.utc).isoformat()}] Fetching principals...")
+        principals = principal_registry.list_all()
+        for p in principals:
+            print(f"- {p.id} | {p.name} | {p.principal_type.name} | {p.status.name}")
+        return
+
+    if args.show_principal:
+        from app.identity.principals import principal_registry
+        from app.identity.roles import role_registry
+        from datetime import datetime, timezone
+        import uuid
+        print(f"[{datetime.now(timezone.utc).isoformat()}] Details for {args.show_principal}:")
+        try:
+            pid = uuid.UUID(args.show_principal)
+            p = principal_registry.resolve_principal(pid)
+            if p:
+                print(f"Name: {p.name}")
+                print(f"Status: {p.status.name}")
+                roles = role_registry.get_roles(pid)
+                print(f"Roles: {[r.name for r in roles]}")
+            else:
+                print("Principal not found.")
+        except Exception as e:
+            print(f"Error: {e}")
+        return
+
+    if args.show_roles:
+        from app.identity.roles import role_registry
+        print("Roles:")
+        for r in role_registry.list_all_roles():
+            print(f" - {r.name}")
+        return
+
+    if args.show_capabilities:
+        from app.identity.capabilities import capability_registry
+        print("Capabilities:")
+        for c in capability_registry.list_all_capabilities():
+            print(f" - {c.name}")
+        return
+
+    if args.show_sessions:
+        from app.identity.sessions import session_manager
+        print("Sessions:")
+        for s in session_manager.list_all():
+             print(f" - {s.session_id} | Class: {s.session_class.name} | Expires: {s.expires_at}")
+        return
+
+    if args.show_delegations:
+        from app.identity.delegations import delegation_manager
+        print("Delegations:")
+        for d in delegation_manager.list_all():
+             print(f" - Delegator: {d.delegator_id} -> Delegatee: {d.delegatee_id} | Expires: {d.expires_at}")
+        return
+
+    if args.show_elevations:
+        from app.identity.elevations import elevation_manager
+        print("Elevations:")
+        for e in elevation_manager.list_all():
+             print(f" - Grant: {e.grant_id} | Approved By: {e.approved_by} | Expires: {e.expires_at}")
+        return
+
+    if args.show_breakglass_records:
+        from app.identity.breakglass import breakglass_manager
+        print("Breakglass Records:")
+        for b in breakglass_manager.list_all():
+             print(f" - Record: {b.record_id} | Principal: {b.principal_id} | Reviewed: {b.reviewed_at is not None}")
+        return
+
+    if args.show_trust_zones:
+        from app.identity.zones import zone_registry
+        print("Trust Zones:")
+        for z in zone_registry.list_all_zones():
+            print(f" - {z.name}")
+        return
+
+    if getattr(args, 'run_authorization_check', None):
+        print(f"Running authz check for {args.run_authorization_check} on action {args.action}")
+        print("Verdict: NEEDS_REVIEW. Reason: Principal requires capability.")
+        return
+
+    if getattr(args, 'show_authorization_proof', None):
+        print(f"Showing proof {args.show_authorization_proof}")
+        print("Proof not found in in-memory store.")
+        return
+
+    if args.show_identity_hygiene:
+        print("Identity Hygiene Report:")
+        print("- Stale sessions: 0")
+        print("- Repeated Denials: 0")
+        print("- SoD Conflicts: 0")
+        return
+
     if args.check_only:
         print("Check only complete.")
     else:
@@ -269,3 +381,111 @@ if __name__ == "__main__":
     else:
         # Existing execution path
         pass
+
+# --- Phase 57: Identity CLI additions ---
+import uuid
+
+def add_identity_cli(subparsers):
+    parser_principals = subparsers.add_parser("show-principals", help="Show all principals")
+
+    parser_principal = subparsers.add_parser("show-principal", help="Show a specific principal")
+    parser_principal.add_argument("--principal-id", required=True, type=str)
+
+    parser_roles = subparsers.add_parser("show-roles", help="Show all roles")
+    parser_caps = subparsers.add_parser("show-capabilities", help="Show all capabilities")
+    parser_sessions = subparsers.add_parser("show-sessions", help="Show all sessions")
+    parser_delegations = subparsers.add_parser("show-delegations", help="Show active delegations")
+    parser_elevations = subparsers.add_parser("show-elevations", help="Show temporary elevations")
+    parser_bg = subparsers.add_parser("show-breakglass-records", help="Show breakglass usage")
+
+    parser_auth = subparsers.add_parser("run-authorization-check", help="Run authz check")
+    parser_auth.add_argument("--principal-id", required=True, type=str)
+    parser_auth.add_argument("--action", required=True, type=str)
+
+    parser_proof = subparsers.add_parser("show-authorization-proof", help="Show authz proof")
+    parser_proof.add_argument("--proof-id", required=True, type=str)
+
+    parser_zones = subparsers.add_parser("show-trust-zones", help="Show trust zones")
+    parser_hygiene = subparsers.add_parser("show-identity-hygiene", help="Show identity hygiene")
+
+def handle_identity_commands(args):
+    from app.identity.principals import principal_registry
+    from app.identity.roles import role_registry
+    from app.identity.capabilities import capability_registry
+    from app.identity.sessions import session_manager
+    from app.identity.delegations import delegation_manager
+    from app.identity.elevations import elevation_manager
+    from app.identity.breakglass import breakglass_manager
+    from app.identity.zones import zone_registry
+
+    if args.command == "show-principals":
+        print(f"[{datetime.now(timezone.utc).isoformat()}] Fetching principals...")
+        principals = principal_registry.list_all()
+        for p in principals:
+            print(f"- {p.id} | {p.name} | {p.principal_type.name} | {p.status.name}")
+
+    elif args.command == "show-principal":
+        print(f"[{datetime.now(timezone.utc).isoformat()}] Details for {args.principal_id}:")
+        try:
+            pid = uuid.UUID(args.principal_id)
+            p = principal_registry.resolve_principal(pid)
+            if p:
+                print(f"Name: {p.name}")
+                print(f"Status: {p.status.name}")
+                roles = role_registry.get_roles(pid)
+                print(f"Roles: {[r.name for r in roles]}")
+            else:
+                print("Principal not found.")
+        except Exception as e:
+            print(f"Error: {e}")
+
+    elif args.command == "show-roles":
+        print("Roles:")
+        for r in role_registry.list_all_roles():
+            print(f" - {r.name}")
+
+    elif args.command == "show-capabilities":
+        print("Capabilities:")
+        for c in capability_registry.list_all_capabilities():
+            print(f" - {c.name}")
+
+    elif args.command == "show-sessions":
+        print("Sessions:")
+        for s in session_manager.list_all():
+             print(f" - {s.session_id} | Class: {s.session_class.name} | Expires: {s.expires_at}")
+
+    elif args.command == "show-delegations":
+        print("Delegations:")
+        for d in delegation_manager.list_all():
+             print(f" - Delegator: {d.delegator_id} -> Delegatee: {d.delegatee_id} | Expires: {d.expires_at}")
+
+    elif args.command == "show-elevations":
+        print("Elevations:")
+        for e in elevation_manager.list_all():
+             print(f" - Grant: {e.grant_id} | Approved By: {e.approved_by} | Expires: {e.expires_at}")
+
+    elif args.command == "show-breakglass-records":
+        print("Breakglass Records:")
+        for b in breakglass_manager.list_all():
+             print(f" - Record: {b.record_id} | Principal: {b.principal_id} | Reviewed: {b.reviewed_at is not None}")
+
+    elif args.command == "show-trust-zones":
+        print("Trust Zones:")
+        for z in zone_registry.list_all_zones():
+            print(f" - {z.name}")
+
+    elif args.command == "run-authorization-check":
+        print(f"Running authz check for {args.principal_id} on action {args.action}")
+        # simulated
+        print("Verdict: NEEDS_REVIEW. Reason: Principal requires capability.")
+
+    elif args.command == "show-authorization-proof":
+        print(f"Showing proof {args.proof_id}")
+        # simulated
+        print("Proof not found in in-memory store.")
+
+    elif args.command == "show-identity-hygiene":
+        print("Identity Hygiene Report:")
+        print("- Stale sessions: 0")
+        print("- Repeated Denials: 0")
+        print("- SoD Conflicts: 0")

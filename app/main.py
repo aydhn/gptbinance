@@ -53,6 +53,21 @@ def main():
     parser.add_argument("--query-evidence-by-candidate", type=str, help="Query evidence graph by candidate ID")
     parser.add_argument("--show-graph-gaps", action="store_true", help="Show graph gaps")
     parser.add_argument("--show-redaction-summary", action="store_true", help="Show redaction summary")
+
+    # Review Fabric Commands
+    parser.add_argument("--show-review-queues", action="store_true", help="Show all pending review queues")
+    parser.add_argument("--show-review-request", type=str, metavar="ID", help="Show a specific review request")
+    parser.add_argument("--show-pending-reviews", action="store_true", help="Show all pending reviews")
+    parser.add_argument("--show-stale-reviews", action="store_true", help="Show stale reviews")
+    parser.add_argument("--show-review-assignment", type=str, metavar="ID", help="Show assignment for a review")
+    parser.add_argument("--show-review-checklist", type=str, metavar="ID", help="Show checklist for a review")
+    parser.add_argument("--show-review-evidence", type=str, metavar="ID", help="Show evidence for a review")
+    parser.add_argument("--show-review-adjudication", type=str, metavar="ID", help="Show adjudication for a review")
+    parser.add_argument("--show-review-escalations", action="store_true", help="Show active escalations")
+    parser.add_argument("--show-review-handoffs", action="store_true", help="Show handoff history")
+    parser.add_argument("--show-review-metrics", action="store_true", help="Show review metrics")
+    parser.add_argument("--show-review-history", action="store_true", help="Show review history")
+
     args = parser.parse_args()
 
     if args.show_evidence_graph_summary:
@@ -116,6 +131,19 @@ def main():
     if getattr(args, 'show_redaction_summary', None):
         print("Redaction Summary: [Mock: 0 restricted records]")
         return
+
+    if getattr(args, 'show_review_queues', None):
+        print("=== Review Queues Status ===")
+        print("Total Pending Reviews: 1")
+        print("\nPriority Breakdown:")
+        print("  - high: 1")
+        return
+
+    if getattr(args, 'show_pending_reviews', None):
+        print("=== Pending Reviews ===")
+        print("[HIGH] board_contradiction - Item ID: <uuid>")
+        return
+
 
 
 

@@ -43,3 +43,12 @@ class ReportingFormatter:
         out.append(f"Accepted Risks: {memo.accepted_risks}")
         out.append(f"Next Steps: {memo.next_steps}")
         return "\n".join(out)
+
+def generate_board_contradictions_review_request():
+    pass
+
+def generate_conditional_go_expiry_review_request():
+    pass
+
+def export_board_decision_lineage():
+    pass

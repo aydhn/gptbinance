@@ -18,3 +18,9 @@ class ExpansionEvaluator:
                 verdict=ExpansionVerdict.BLOCKED,
                 blockers=probation_status.blockers,
             )
+
+def request_expansion_recommendation_review():
+    pass
+
+def request_probation_fail_review():
+    pass

@@ -3,6 +3,7 @@ from app.incidents.severity import SeverityMatrix
 from app.incidents.models import IncidentSignal
 from app.incidents.enums import SignalType, IncidentSeverity, IncidentScopeType
 
+
 def test_severity_matrix():
     sig = IncidentSignal(
         signal_id="sig-2",
@@ -10,7 +11,7 @@ def test_severity_matrix():
         source_domain="market",
         scope_type=IncidentScopeType.GLOBAL,
         scope_ref="*",
-        severity_hint=IncidentSeverity.WARNING
+        severity_hint=IncidentSeverity.WARNING,
     )
     sev = SeverityMatrix.evaluate_initial(sig)
     assert sev == IncidentSeverity.CRITICAL_INCIDENT

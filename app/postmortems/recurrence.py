@@ -17,3 +17,7 @@ class RecurrenceScorer:
 
         score = min(1.0, max(0.0, base_score))
         return RecurrenceRiskReport(score=score, factors=factors)
+
+    def export_recurrence_risk(self, root_causes: Any, actions: Any) -> float:
+        report = self.score(root_causes, actions)
+        return report.score

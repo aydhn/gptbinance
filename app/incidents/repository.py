@@ -2,6 +2,7 @@ from typing import List, Optional
 from .models import IncidentRecord
 from .storage import IncidentStorage
 
+
 class IncidentRepository:
     def __init__(self, storage: IncidentStorage):
         self.storage = storage

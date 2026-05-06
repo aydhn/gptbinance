@@ -11,7 +11,8 @@ def promote_candidate(run_id: str, candidate_data: dict) -> None:
     orch = ReadinessBoardOrchestrator(ReadinessBoardConfig())
     cand = orch.candidate_registry.register_candidate(
         CandidateClass.EXPERIMENT_PROMOTION,
-        CandidateScope(symbols=candidate_data.get("symbols", []))
+        CandidateScope(symbols=candidate_data.get("symbols", [])),
     )
-    print(f"Registered experiment candidate {cand.candidate_id} for Readiness Board review.")
-
+    print(
+        f"Registered experiment candidate {cand.candidate_id} for Readiness Board review."
+    )

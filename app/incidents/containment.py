@@ -1,6 +1,7 @@
 from .models import ContainmentPlan, IncidentRecord
 from .enums import IncidentSeverity, ContainmentIntentType
 
+
 class ContainmentPlanner:
     @staticmethod
     def recommend(incident: IncidentRecord) -> ContainmentPlan:
@@ -13,5 +14,5 @@ class ContainmentPlanner:
         return ContainmentPlan(
             intent=intent,
             rationale=f"Recommended due to severity {incident.severity.value}",
-            affected_scope=incident.scope
+            affected_scope=incident.scope,
         )

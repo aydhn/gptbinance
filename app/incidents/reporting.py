@@ -1,6 +1,7 @@
 from typing import List
 from .models import IncidentRecord
 
+
 class IncidentReporter:
     @staticmethod
     def format_incident_summary(inc: IncidentRecord) -> str:

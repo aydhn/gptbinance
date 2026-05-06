@@ -1,16 +1,25 @@
 import argparse
 import sys
 from app.incidents.cli import handle_incident_cli
+from app.reliability.cli import add_reliability_args, handle_reliability_cli
 from app.main_activation_cli import add_activation_args, handle_activation_cli
+
 
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform CLI")
 
     # Platform generic commands
-    parser.add_argument("--check-only", action="store_true", help="Run in check-only mode")
-    parser.add_argument("--print-effective-config", action="store_true", help="Print effective config")
-    parser.add_argument("--bootstrap-storage", action="store_true", help="Bootstrap storage")
+    parser.add_argument(
+        "--check-only", action="store_true", help="Run in check-only mode"
+    )
+    parser.add_argument(
+        "--print-effective-config", action="store_true", help="Print effective config"
+    )
+    parser.add_argument(
+        "--bootstrap-storage", action="store_true", help="Bootstrap storage"
+    )
 
+    add_reliability_args(parser)
     add_activation_args(parser)
 
     parser.add_argument("--show-active-incidents", action="store_true")
@@ -30,27 +39,67 @@ def main():
 
     # Determine if an activation command was called
     activation_commands = [
-        "build_activation_intent", "show_activation_intent", "show_rollout_plan",
-        "show_active_set", "show_active_set_history", "show_probation_status",
-        "show_probation_metrics", "show_expansion_recommendation",
-        "show_halt_recommendation", "show_revert_plan", "show_activation_memo",
-        "show_activation_evidence"
+        "build_activation_intent",
+        "show_activation_intent",
+        "show_rollout_plan",
+        "show_active_set",
+        "show_active_set_history",
+        "show_probation_status",
+        "show_probation_metrics",
+        "show_expansion_recommendation",
+        "show_halt_recommendation",
+        "show_revert_plan",
+        "show_activation_memo",
+        "show_activation_evidence",
     ]
+
+    reliability_commands = [
+        "show_reliability_summary",
+        "show_slo_registry",
+        "show_error_budgets",
+        "show_burn_rate",
+        "show_readiness_decay",
+        "show_health_scorecards",
+        "show_freeze_recommendations",
+        "show_operational_holds",
+        "show_reliability_trends",
+        "show_operational_cadence",
+        "show_reliability_evidence",
+        "show_domain_health",
+    ]
+    if any(getattr(args, cmd, False) for cmd in reliability_commands):
+        handle_reliability_cli(args)
+        sys.exit(0)
 
     if any(getattr(args, cmd, False) for cmd in activation_commands):
         handle_activation_cli(args)
         sys.exit(0)
 
-
-    if any(getattr(args, cmd, False) for cmd in ['show_active_incidents', 'show_incident', 'show_incident_timeline', 'show_incident_snapshot', 'show_containment_plan', 'show_degraded_mode_plan', 'show_recovery_readiness', 'show_incident_history', 'show_postmortem_seed', 'show_incident_evidence', 'show_incident_metrics', 'show_incident_clusters']):
+    if any(
+        getattr(args, cmd, False)
+        for cmd in [
+            "show_active_incidents",
+            "show_incident",
+            "show_incident_timeline",
+            "show_incident_snapshot",
+            "show_containment_plan",
+            "show_degraded_mode_plan",
+            "show_recovery_readiness",
+            "show_incident_history",
+            "show_postmortem_seed",
+            "show_incident_evidence",
+            "show_incident_metrics",
+            "show_incident_clusters",
+        ]
+    ):
         handle_incident_cli(args)
         sys.exit(0)
-
 
     if args.check_only:
         print("Check only complete.")
     else:
         print("Starting core application...")
+
 
 if __name__ == "__main__":
     main()
@@ -58,6 +107,7 @@ if __name__ == "__main__":
 # Added CLI commands for Postmortem Court
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
     # existing args
     parser.add_argument("--check-only", action="store_true")

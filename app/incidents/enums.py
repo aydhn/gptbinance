@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class IncidentState(str, Enum):
     OPEN = "OPEN"
     ESCALATED = "ESCALATED"
@@ -9,6 +10,7 @@ class IncidentState(str, Enum):
     CLOSED = "CLOSED"
     REOPENED = "REOPENED"
 
+
 class IncidentSeverity(str, Enum):
     INFO = "INFO"
     WARNING = "WARNING"
@@ -16,12 +18,14 @@ class IncidentSeverity(str, Enum):
     MAJOR_INCIDENT = "MAJOR_INCIDENT"
     CRITICAL_INCIDENT = "CRITICAL_INCIDENT"
 
+
 class IncidentScopeType(str, Enum):
     SYMBOL = "SYMBOL"
     PROFILE = "PROFILE"
     SESSION = "SESSION"
     WORKSPACE = "WORKSPACE"
     GLOBAL = "GLOBAL"
+
 
 class SignalType(str, Enum):
     MARKET_TRUTH_BROKEN = "MARKET_TRUTH_BROKEN"
@@ -35,6 +39,7 @@ class SignalType(str, Enum):
     REMEDIATION_FAILED = "REMEDIATION_FAILED"
     UNKNOWN = "UNKNOWN"
 
+
 class ContainmentIntentType(str, Enum):
     NO_NEW_EXPOSURE = "NO_NEW_EXPOSURE"
     SYMBOL_QUARANTINE = "SYMBOL_QUARANTINE"
@@ -44,6 +49,7 @@ class ContainmentIntentType(str, Enum):
     CAPITAL_FREEZE_ADVISORY = "CAPITAL_FREEZE_ADVISORY"
     GLOBAL_HALT_ADVISORY = "GLOBAL_HALT_ADVISORY"
 
+
 class DegradedModeType(str, Enum):
     OBSERVE_ONLY = "OBSERVE_ONLY"
     NO_NEW_EXPOSURE = "NO_NEW_EXPOSURE"
@@ -52,6 +58,7 @@ class DegradedModeType(str, Enum):
     PAPER_SHADOW_ONLY = "PAPER_SHADOW_ONLY"
     CAPITAL_CONSTRAINED = "CAPITAL_CONSTRAINED"
     DATA_DEGRADED = "DATA_DEGRADED"
+
 
 class RecoveryVerdict(str, Enum):
     NOT_READY = "NOT_READY"

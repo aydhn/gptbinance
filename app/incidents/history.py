@@ -2,6 +2,7 @@ from typing import List, Dict
 from .models import IncidentRecord
 from .repository import IncidentRepository
 
+
 class IncidentHistoryManager:
     def __init__(self, repo: IncidentRepository):
         self.repo = repo
@@ -13,3 +14,6 @@ class IncidentHistoryManager:
             key = f"{inc.scope.type.value}:{inc.scope.ref}"
             clusters[key] = clusters.get(key, 0) + 1
         return {k: v for k, v in clusters.items() if v > 1}
+
+    def export_recurring_families(self) -> Dict[str, int]:
+        return self.get_repeated_clusters()

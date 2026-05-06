@@ -6,13 +6,17 @@ from app.incidents.storage import IncidentStorage
 from app.incidents.repository import IncidentRepository
 from app.incidents.policies import IncidentPolicyChecker
 
+
 def test_policies():
     repo = IncidentRepository(IncidentStorage(".test_incidents_policies"))
     cmd = IncidentCommand(repo)
     sig = IncidentSignal(
-        signal_id="sig-1", type=SignalType.MARKET_TRUTH_BROKEN,
-        source_domain="mkt", scope_type=IncidentScopeType.GLOBAL,
-        scope_ref="GLOBAL", severity_hint=IncidentSeverity.CRITICAL_INCIDENT
+        signal_id="sig-1",
+        type=SignalType.MARKET_TRUTH_BROKEN,
+        source_domain="mkt",
+        scope_type=IncidentScopeType.GLOBAL,
+        scope_ref="GLOBAL",
+        severity_hint=IncidentSeverity.CRITICAL_INCIDENT,
     )
     inc = cmd.ingest_signal(sig)
 
@@ -21,4 +25,5 @@ def test_policies():
 
     # cleanup
     import shutil
+
     shutil.rmtree(".test_incidents_policies", ignore_errors=True)

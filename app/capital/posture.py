@@ -59,3 +59,7 @@ def generate_posture_snapshot(
 # Phase 43
 def shadow_cleanliness_check(self):
     pass
+
+
+def export_capital_operability() -> Dict[str, Any]:
+    return {"freeze_density": 0.0, "capital_instability": 0.0}

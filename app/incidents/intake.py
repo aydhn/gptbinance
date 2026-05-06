@@ -14,6 +14,7 @@ from .postmortems import PostmortemBuilder
 from .repository import IncidentRepository
 from .storage import IncidentStorage
 
+
 class IncidentCommand:
     def __init__(self, repository: IncidentRepository = None):
         self.repository = repository or IncidentRepository(IncidentStorage())
@@ -28,8 +29,12 @@ class IncidentCommand:
                 new_sev = SeverityMatrix.escalate(inc.severity, signal)
                 if new_sev != inc.severity:
                     inc.severity = new_sev
-                    TimelineManager.add_event(inc, "SEVERITY_ESCALATED", f"Escalated to {new_sev.value}")
-                TimelineManager.add_event(inc, "SIGNAL_ADDED", f"Signal {signal.type.value} appended")
+                    TimelineManager.add_event(
+                        inc, "SEVERITY_ESCALATED", f"Escalated to {new_sev.value}"
+                    )
+                TimelineManager.add_event(
+                    inc, "SIGNAL_ADDED", f"Signal {signal.type.value} appended"
+                )
                 inc.updated_at = datetime.now(timezone.utc)
                 self._update_plans(inc)
                 self.repository.save(inc)
@@ -39,8 +44,12 @@ class IncidentCommand:
         inc_id = f"INC-{uuid.uuid4().hex[:8]}"
         scope = ScopeResolver.resolve_blast_radius(signal.scope_type, signal.scope_ref)
         sev = SeverityMatrix.evaluate_initial(signal)
-        inc = IncidentRecord(incident_id=inc_id, severity=sev, scope=scope, signals=[signal])
-        TimelineManager.add_event(inc, "INCIDENT_OPENED", f"Created from {signal.type.value}")
+        inc = IncidentRecord(
+            incident_id=inc_id, severity=sev, scope=scope, signals=[signal]
+        )
+        TimelineManager.add_event(
+            inc, "INCIDENT_OPENED", f"Created from {signal.type.value}"
+        )
         inc.snapshots.append(SnapshotBuilder.capture(inc_id))
         self._update_plans(inc)
         self.repository.save(inc)
@@ -56,7 +65,9 @@ class IncidentCommand:
         inc = self.repository.get(incident_id)
         if inc:
             inc.state = IncidentState.CONTAINED
-            TimelineManager.add_event(inc, "STATE_CHANGED", "Incident marked as contained.")
+            TimelineManager.add_event(
+                inc, "STATE_CHANGED", "Incident marked as contained."
+            )
             inc.recovery_plan = RecoveryPlanner.evaluate(inc)
             inc.updated_at = datetime.now(timezone.utc)
             self.repository.save(inc)

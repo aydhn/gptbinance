@@ -1,7 +1,8 @@
 import re
 
+
 def update_main():
-    with open('app/main.py', 'r') as f:
+    with open("app/main.py", "r") as f:
         content = f.read()
 
     new_args = """
@@ -20,7 +21,9 @@ def update_main():
 """
 
     if "--register-hypothesis" not in content:
-        content = content.replace('args = parser.parse_args()', new_args + '\n    args = parser.parse_args()')
+        content = content.replace(
+            "args = parser.parse_args()", new_args + "\n    args = parser.parse_args()"
+        )
 
     handlers = """
     if args.register_hypothesis:
@@ -80,10 +83,13 @@ def update_main():
 """
 
     if "args.register_hypothesis" not in content:
-        content = content.replace('if args.check_only:', handlers + '\n    if args.check_only:')
+        content = content.replace(
+            "if args.check_only:", handlers + "\n    if args.check_only:"
+        )
 
-    with open('app/main.py', 'w') as f:
+    with open("app/main.py", "w") as f:
         f.write(content)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     update_main()

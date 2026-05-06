@@ -5,12 +5,15 @@ from app.incidents.models import IncidentRecord
 from app.incidents.enums import IncidentSeverity, IncidentScopeType
 from app.incidents.scopes import IncidentScope
 
+
 def test_storage():
     storage = IncidentStorage(".test_incidents_storage")
     inc = IncidentRecord(
         incident_id="INC-123",
         severity=IncidentSeverity.INFO,
-        scope=IncidentScope(type=IncidentScopeType.SYMBOL, ref="ETHUSDT", blast_radius_summary="Test")
+        scope=IncidentScope(
+            type=IncidentScopeType.SYMBOL, ref="ETHUSDT", blast_radius_summary="Test"
+        ),
     )
     storage.save(inc)
 
@@ -20,4 +23,5 @@ def test_storage():
 
     # cleanup
     import shutil
+
     shutil.rmtree(".test_incidents_storage", ignore_errors=True)

@@ -7,6 +7,7 @@ from app.activation.reporting import ActivationReporter
 from app.activation.intents import IntentCompiler
 from app.activation.plans import RolloutPlanner
 
+
 def handle_activation_cli(args):
     if args.build_activation_intent:
         # Mock board decision for CLI demonstration
@@ -15,10 +16,7 @@ def handle_activation_cli(args):
             "candidate_id": args.candidate_id or "cand-123",
             "decision_id": "board-456",
             "activation_class": "canary_limited",
-            "scope": {
-                "allowed_symbols": ["BTCUSDT"],
-                "ttl_seconds": 3600
-            }
+            "scope": {"allowed_symbols": ["BTCUSDT"], "ttl_seconds": 3600},
         }
         compiler = IntentCompiler()
         try:
@@ -57,22 +55,27 @@ def handle_activation_cli(args):
             print(f"Probation status for intent {args.intent_id} not found.")
 
     elif args.show_expansion_recommendation:
-         print(f"Showing expansion recommendation for intent {args.intent_id} (mocked for CLI)...")
+        print(
+            f"Showing expansion recommendation for intent {args.intent_id} (mocked for CLI)..."
+        )
 
     elif args.show_halt_recommendation:
-         print(f"Showing halt recommendation for intent {args.intent_id} (mocked for CLI)...")
+        print(
+            f"Showing halt recommendation for intent {args.intent_id} (mocked for CLI)..."
+        )
 
     elif args.show_revert_plan:
-         print(f"Showing revert plan for intent {args.intent_id} (mocked for CLI)...")
+        print(f"Showing revert plan for intent {args.intent_id} (mocked for CLI)...")
 
     elif args.show_active_set:
-         print("Showing current active sets (mocked for CLI)...")
+        print("Showing current active sets (mocked for CLI)...")
 
     elif args.show_active_set_history:
-         print("Showing active set history (mocked for CLI)...")
+        print("Showing active set history (mocked for CLI)...")
 
     else:
         print("Command executed. Use specific flags to see more details.")
+
 
 def add_activation_args(parser):
     group = parser.add_argument_group("Staged Activation Controller")

@@ -29,11 +29,14 @@ def request_operational_hold_review():
 def request_burn_rate_review():
     pass
 
+
 def request_dual_control_review():
     pass
 
+
 def request_sla_escalation_review():
     pass
+
 
 def request_evidence_refresh_review():
     pass

@@ -22,8 +22,10 @@ class ReportingEngine:
             summary += f"[{rec.severity.value}] {rec.migration_id} in {rec.domain.value} - {rec.status.value}\n"
         return summary
 
+
 def generate_non_reversible_migration_review_request():
     pass
+
 
 def export_migration_evidence_pack_suitability():
     pass

@@ -17,5 +17,6 @@ class ContainmentPlanner:
             affected_scope=incident.scope,
         )
 
+
 def generate_containment_review_request():
     pass

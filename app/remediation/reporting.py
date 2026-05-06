@@ -31,8 +31,10 @@ Deltas: {res.expected_deltas}
 Expectations: {res.verification_expectations}
 """
 
+
 def generate_remediation_apply_review_request():
     pass
+
 
 def generate_remediation_rollback_review_request():
     pass

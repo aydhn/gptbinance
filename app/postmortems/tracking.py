@@ -8,3 +8,9 @@ class ActionTracker:
 
     def export_capa_closure_metrics(self) -> Dict[str, Any]:
         return {"overdue_critical_capa_ratio": 0.0}
+
+def request_stale_capa_review():
+    pass
+
+def request_action_verification_review():
+    pass

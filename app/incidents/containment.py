@@ -16,3 +16,6 @@ class ContainmentPlanner:
             rationale=f"Recommended due to severity {incident.severity.value}",
             affected_scope=incident.scope,
         )
+
+def generate_containment_review_request():
+    pass

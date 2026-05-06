@@ -12,7 +12,7 @@ from app.evidence_graph.enums import (
     RedactionClass,
     GraphGapSeverity,
     ScopeClass,
-    )
+)
 
 
 @dataclass

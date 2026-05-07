@@ -11,3 +11,7 @@ def export_lifecycle_health() -> Dict[str, Any]:
         "orphan_density": 0.0,
         "timeout_unknown_counts": 0,
     }
+
+class LifecycleHealthFeatures:
+    def export_features(self):
+        pass

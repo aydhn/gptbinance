@@ -63,3 +63,7 @@ def shadow_cleanliness_check(self):
 
 def export_capital_operability() -> Dict[str, Any]:
     return {"freeze_density": 0.0, "capital_instability": 0.0}
+
+class CapitalPostureFeatures:
+    def export_features(self):
+        pass

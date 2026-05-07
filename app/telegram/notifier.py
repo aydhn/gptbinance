@@ -11,3 +11,13 @@ class ConfigPlaneTelegramNotifier:
 
     def notify_drift_detected(self, finding: ConfigDriftFinding):
         print(f"[TELEGRAM] DRIFT DETECTED! Parameter {finding.parameter_ref.name} expected {finding.expected_value} got {finding.actual_value}")
+
+class FeatureTelegramEvents:
+    def __init__(self):
+        self.events = [
+            "feature_manifest_ready",
+            "feature_leakage_detected",
+            "feature_skew_elevated",
+            "feature_integrity_degraded",
+            "feature_review_required"
+        ]

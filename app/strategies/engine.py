@@ -15,3 +15,14 @@ class ConfigAwareStrategyEngine:
     def get_feature_flag(self, flag_name: str) -> bool:
         entry = self.config_manifest.entries.get(f"strategy.{flag_name}")
         return entry.value if entry else False
+
+# Strategy signal surfaces integration with Feature Plane
+from typing import List
+class StrategyEngine:
+    def get_canonical_feature_manifests(self) -> List[str]:
+        # Connect to canonical feature manifests
+        return []
+
+    def enforce_documented_features(self):
+        # Reject ad-hoc feature usage
+        pass

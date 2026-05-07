@@ -7,3 +7,8 @@ def export_market_truth_incident(incident_id: str):
 
 def export_market_truth_freshness_health() -> Dict[str, Any]:
     return {"status": "healthy", "staleness_ms": 150}
+
+# Market truth derived features export
+class MarketTruthFeatures:
+    def export_canonical(self):
+        pass

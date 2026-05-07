@@ -64,3 +64,7 @@ class DefaultOverlayEngine(EventOverlayEngineBase):
             "reasons": overlay.reasons,
             "verdict": verdict,
         }
+
+class EventFeatures:
+    def typed_registry_link(self):
+        pass

@@ -42,3 +42,7 @@ class ExperimentDefinitionBuilder:
             arms=self.arms,
             metrics=metrics,
         )
+
+class ExperimentDefinitions:
+    def require_feature_contracts(self):
+        pass

@@ -20,3 +20,12 @@ def check_activation_config_invariant(equivalence_report: ConfigEquivalenceRepor
     if equivalence_report.verdict in [EquivalenceVerdict.BLOCKED, EquivalenceVerdict.DEGRADED]:
         return False
     return True
+
+class FeaturePolicyInvariants:
+    def __init__(self):
+        self.invariants = [
+            "no_high_risk_candidate_progression_with_critical_feature_leakage_unresolved",
+            "no_runtime_activation_under_broken_feature_equivalence_for_required_manifests",
+            "no_trusted_decision_path_under_unresolved_point_in_time_violation",
+            "no_experiment_promotion_with_contractless_feature_set"
+        ]

@@ -15,3 +15,7 @@ class BaselineComparisonEvaluator(ComparisonEvaluatorBase):
             "metrics_delta": {"pnl": 0.05, "friction": -0.1},
             "caveats": ["Sample size is somewhat small"],
         }
+
+class ExperimentComparisons:
+    def evaluate_skew_drift(self):
+        pass

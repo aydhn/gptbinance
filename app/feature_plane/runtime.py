@@ -1,0 +1,2 @@
+class RuntimeFeatureManager:
+    pass

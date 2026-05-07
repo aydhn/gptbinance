@@ -14,3 +14,11 @@ class ConfigAwareRiskEngine:
     def get_max_daily_loss_pct(self):
         entry = self.config_manifest.entries.get("risk.max_daily_loss_pct")
         return entry.value if entry else 2.0
+
+# Risk filters feature input linkage
+class RiskEngine:
+    def link_features(self):
+        pass
+
+    def export_trust_posture(self):
+        pass

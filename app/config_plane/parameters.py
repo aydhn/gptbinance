@@ -75,3 +75,7 @@ def bootstrap_registry():
     ))
 
 bootstrap_registry()
+
+class ConfigFeatureLinkage:
+    def link_params(self):
+        pass

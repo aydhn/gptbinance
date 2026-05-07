@@ -1,13 +1,9 @@
-# Mock implementation
 class IncidentIntake:
-    pass
-
-
-# Added Incident Signals
-INCIDENT_SIGNALS = [
-    "runtime_build_mismatch",
-    "lock_integrity_broken",
-    "missing_attestation_critical",
-    "reproducibility_regression",
-    "unexpected_dependency_drift",
-]
+    def __init__(self):
+        self.config_driven_signals = [
+            "unresolved_config_drift",
+            "forbidden_runtime_patch_attempt",
+            "hidden_default_detected",
+            "runtime_release_config_mismatch",
+            "stale_degraded_overlay_persisting"
+        ]

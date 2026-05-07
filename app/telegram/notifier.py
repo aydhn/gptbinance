@@ -1,3 +1,3 @@
-# Mock implementation
 class TelegramNotifier:
-    pass
+    def notify_config_event(self, event_type: str):
+        pass

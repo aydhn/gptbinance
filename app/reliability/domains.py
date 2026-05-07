@@ -1,3 +1,2 @@
-# Mock implementation
 class ReliabilityDomains:
-    pass
+    CONFIG_INTEGRITY = "config_integrity"

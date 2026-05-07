@@ -1,3 +1,3 @@
-# Mock implementation
 class ActivationGuards:
-    pass
+    def __init__(self):
+        self.require_effective_config_equivalence = True

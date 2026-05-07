@@ -1,5 +1,6 @@
-# Stub for strategy engine integration
-def evaluate_strategy_candidates(candidates, truth_verdict):
-    if truth_verdict == "BLOCK":
-        return []
-    return candidates
+class StrategyEngine:
+    def __init__(self):
+        self.effective_config_manifest_ref = None
+
+    def set_config(self, manifest_ref):
+        self.effective_config_manifest_ref = manifest_ref

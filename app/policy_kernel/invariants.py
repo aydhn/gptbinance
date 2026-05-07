@@ -1,12 +1,5 @@
-# Mock implementation
 class PolicyInvariants:
-    pass
-
-
-# Added Invariants
-INVARIANTS = [
-    "no_activation_without_provenance",
-    "no_release_with_runtime_mismatch",
-    "no_trusted_verdict_with_broken_lock",
-    "no_high_risk_progression_without_attestation",
-]
+    NO_ACTIVATION_WITH_UNRESOLVED_CRITICAL_CONFIG_DRIFT = True
+    NO_RUNTIME_SAFE_PATCH_OUTSIDE_ALLOWED_MUTABILITY_CLASS = True
+    NO_TRUSTED_RUNTIME_POSTURE_UNDER_BROKEN_CONFIG_EQUIVALENCE = True
+    NO_HIDDEN_DEFAULT_ON_HIGH_RISK_CONFIG_SURFACES = True

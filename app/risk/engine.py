@@ -1,5 +1,3 @@
-# Stub for risk engine integration
-def evaluate_risk(exposure, truth_confidence):
-    if truth_confidence == "DEGRADED":
-        return "STRICTER_LIMITS"
-    return "NORMAL"
+class RiskEngine:
+    def __init__(self):
+        self.effective_config_manifest_ref = None

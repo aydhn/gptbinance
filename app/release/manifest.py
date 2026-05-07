@@ -1,8 +1,4 @@
-# Mock implementation
 class ReleaseManifest:
-    pass
-
-
-# Added Supply Chain Metadata Reference
-def append_supply_chain_trust_ref(manifest, trust_verdict_id):
-    pass
+    def __init__(self):
+        self.effective_candidate_config_hash = None
+        self.resolved_manifest_refs = []

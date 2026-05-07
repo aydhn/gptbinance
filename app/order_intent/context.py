@@ -1,4 +1,3 @@
-# Stub for order intent compile context
-class CompileContext:
-    def __init__(self, market_truth_summary):
-        self.market_truth_summary = market_truth_summary
+class OrderIntentContext:
+    def __init__(self):
+        self.effective_config_manifest_refs = []

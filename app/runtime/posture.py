@@ -1,3 +1,3 @@
-# Mock implementation
 class RuntimePosture:
-    pass
+    def __init__(self):
+        self.runtime_effective_config_refs = []

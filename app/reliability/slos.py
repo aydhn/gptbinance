@@ -1,3 +1,4 @@
-# Mock implementation
-class ReliabilitySLOs:
-    pass
+class ConfigIntegritySLOs:
+    RUNTIME_RELEASE_EQUIVALENCE = 99.9
+    HIDDEN_DEFAULT_ABSENCE = 100.0
+    UNRESOLVED_DRIFT_RATIO = 0.0

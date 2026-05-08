@@ -1,14 +1,7 @@
-class IncidentIntake:
-    def report_allocation_incident(self, signal: str):
-        # allocation_budget_broken, capacity_clip_critical_cluster, crowding_burst_detected, etc.
-        pass
-
-class ExecutionIncidentSignals:
-    SIGNALS = [
-        "duplicate_send_attempt_detected",
-        "venue_filter_integrity_broken",
-        "cancel_replace_ambiguity_critical",
-        "runtime_execution_manifest_missing",
-        "execution_equivalence_broken",
-        "slippage_cluster_critical"
-    ]
+class PositionPlaneIncidentSignal:
+    POSITION_DIVERGENCE_CRITICAL = "position_divergence_critical"
+    STALE_MARK_UNREALIZED_PNL_CRITICAL = "stale_mark_unrealized_pnl_critical"
+    INCOMPLETE_FUNDING_ATTRIBUTION = "incomplete_funding_attribution"
+    BROKEN_HEDGE_TRUTH_DETECTED = "broken_hedge_truth_detected"
+    RUNTIME_POSITION_MANIFEST_MISSING = "runtime_position_manifest_missing"
+    LOT_ACCOUNTING_MISMATCH_CLUSTER = "lot_accounting_mismatch_cluster"

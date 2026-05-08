@@ -4,20 +4,20 @@ import uuid
 from app.config_plane.models import ConfigSourceRecord, ConfigScope
 from app.config_plane.enums import LayerClass
 
+
 class ConfigSourceFactory:
     @staticmethod
     def create_source(
-        layer_id: str,
-        scope: ConfigScope,
-        payload: Dict[str, Any]
+        layer_id: str, scope: ConfigScope, payload: Dict[str, Any]
     ) -> ConfigSourceRecord:
         return ConfigSourceRecord(
             source_id=f"src_{uuid.uuid4().hex[:8]}",
             layer_id=layer_id,
             scope=scope,
             payload=payload,
-            loaded_at=datetime.now(timezone.utc)
+            loaded_at=datetime.now(timezone.utc),
         )
+
 
 # A simple in-memory repository for sources for this phase
 class SourceRepository:
@@ -32,5 +32,6 @@ class SourceRepository:
 
     def list_sources(self) -> list[ConfigSourceRecord]:
         return list(self._sources.values())
+
 
 source_repository = SourceRepository()

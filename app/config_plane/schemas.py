@@ -3,6 +3,7 @@ from app.config_plane.models import ConfigSchema, ConfigParameter, ConfigSchemaV
 from app.config_plane.enums import ConfigDomain
 from app.config_plane.exceptions import InvalidConfigSchema
 
+
 class SchemaRegistry:
     def __init__(self):
         self._schemas: Dict[ConfigDomain, ConfigSchema] = {}
@@ -16,7 +17,9 @@ class SchemaRegistry:
     def get_schema(self, domain: ConfigDomain) -> Optional[ConfigSchema]:
         return self._schemas.get(domain)
 
-    def get_parameter(self, domain: ConfigDomain, name: str) -> Optional[ConfigParameter]:
+    def get_parameter(
+        self, domain: ConfigDomain, name: str
+    ) -> Optional[ConfigParameter]:
         schema = self.get_schema(domain)
         if not schema:
             return None
@@ -24,5 +27,6 @@ class SchemaRegistry:
 
     def list_schemas(self) -> Dict[ConfigDomain, ConfigSchema]:
         return self._schemas.copy()
+
 
 registry = SchemaRegistry()

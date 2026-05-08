@@ -1,4 +1,3 @@
-
 from app.position_plane.models import (
     PositionState,
     PositionExposureView,

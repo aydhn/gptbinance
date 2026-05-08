@@ -1,5 +1,10 @@
-from app.execution_plane.models import ExecutionArtifactManifest, ExecutionPlan, OrderSpecRef
+from app.execution_plane.models import (
+    ExecutionArtifactManifest,
+    ExecutionPlan,
+    OrderSpecRef,
+)
 import hashlib
+
 
 class ManifestBuilder:
     @staticmethod
@@ -19,9 +24,9 @@ class ManifestBuilder:
             order_specs=order_refs,
             routing_refs=routing_refs,
             slice_refs=[],
-            filter_refs=["filter_v1"], # Stub
-            idempotency_refs=[], # Filled at send
-            guard_refs=[], # From plan entries
+            filter_refs=["filter_v1"],  # Stub
+            idempotency_refs=[],  # Filled at send
+            guard_refs=[],  # From plan entries
             hash_signature=sig,
-            lineage_ref="manifest_builder_v1"
+            lineage_ref="manifest_builder_v1",
         )

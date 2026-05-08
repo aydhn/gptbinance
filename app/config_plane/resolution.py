@@ -5,8 +5,12 @@ import uuid
 from datetime import datetime, timezone
 
 from app.config_plane.models import (
-    EffectiveConfigManifest, EffectiveConfigEntry, ConfigSourceRecord,
-    ConfigLineageRecord, ConfigParameterRef, ConfigScope
+    EffectiveConfigManifest,
+    EffectiveConfigEntry,
+    ConfigSourceRecord,
+    ConfigLineageRecord,
+    ConfigParameterRef,
+    ConfigScope,
 )
 from app.config_plane.schemas import registry as schema_registry
 from app.config_plane.layers import layer_registry
@@ -15,10 +19,18 @@ from app.config_plane.scopes import is_scope_applicable
 from app.config_plane.enums import SecretVisibility, ParameterClass
 from app.config_plane.exceptions import ConfigResolutionError
 
+
 class ResolutionEngine:
-    def resolve(self, profile: str, target_scope: ConfigScope, active_sources: List[ConfigSourceRecord]) -> EffectiveConfigManifest:
+    def resolve(
+        self,
+        profile: str,
+        target_scope: ConfigScope,
+        active_sources: List[ConfigSourceRecord],
+    ) -> EffectiveConfigManifest:
         # Filter sources that apply to the target scope
-        applicable_sources = [s for s in active_sources if is_scope_applicable(s.scope, target_scope)]
+        applicable_sources = [
+            s for s in active_sources if is_scope_applicable(s.scope, target_scope)
+        ]
 
         # Sort from lowest priority (base) to highest (patch)
         sorted_sources = sort_sources_by_precedence(applicable_sources)
@@ -54,7 +66,9 @@ class ResolutionEngine:
                         final_layer_id = "hidden_default_layer"
                         source_chain.append("default")
                     elif param_def.type_name != "Optional":
-                        raise ConfigResolutionError(f"Missing required parameter: {ref_key}")
+                        raise ConfigResolutionError(
+                            f"Missing required parameter: {ref_key}"
+                        )
 
                 # Redaction logic for EffectiveConfig (actual value is stored but marked for downstream redaction)
                 is_secret = param_def.parameter_class == ParameterClass.SECRET_ADJACENT
@@ -63,9 +77,9 @@ class ResolutionEngine:
                     parameter_ref=ref,
                     effective_value=final_val if not is_secret else "REDACTED",
                     source_chain=source_chain,
-                    override_chain=[], # Expand this logic if using explicit overrides
+                    override_chain=[],  # Expand this logic if using explicit overrides
                     is_hidden_default=is_hidden_default,
-                    secret_redacted=is_secret
+                    secret_redacted=is_secret,
                 )
 
                 entries[ref_key] = EffectiveConfigEntry(
@@ -73,22 +87,23 @@ class ResolutionEngine:
                     value=final_val,
                     source_id=final_source_id,
                     layer_id=final_layer_id,
-                    lineage=lineage
+                    lineage=lineage,
                 )
 
         # Generate hash
         hasher = hashlib.sha256()
         # Sort keys to ensure consistent hash
         for k in sorted(entries.keys()):
-            hasher.update(f"{k}:{entries[k].value}".encode('utf-8'))
+            hasher.update(f"{k}:{entries[k].value}".encode("utf-8"))
 
         manifest = EffectiveConfigManifest(
             manifest_id=f"eff_{uuid.uuid4().hex[:8]}",
             profile=profile,
             entries=entries,
             config_hash=hasher.hexdigest(),
-            resolved_at=datetime.now(timezone.utc)
+            resolved_at=datetime.now(timezone.utc),
         )
         return manifest
+
 
 resolution_engine = ResolutionEngine()

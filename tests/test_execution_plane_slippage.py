@@ -1,6 +1,7 @@
 from app.execution_plane.slippage import SlippageEvaluator
 from app.execution_plane.enums import SlippageSeverityClass
 
+
 def test_slippage_eval():
     # Buy, expected 100, filled 101. Diff = -1. Slippage = +1%. Bps = +100
     rep1 = SlippageEvaluator.evaluate("s1", 100.0, 101.0, "buy")

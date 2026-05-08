@@ -1,9 +1,12 @@
 from app.execution_plane.enums import RoutingClass
 from app.execution_plane.models import RoutingPolicy, ExecutionCandidate
 
+
 class RoutingEngine:
     @staticmethod
-    def evaluate(candidate: ExecutionCandidate, max_slippage_bps: float) -> RoutingPolicy:
+    def evaluate(
+        candidate: ExecutionCandidate, max_slippage_bps: float
+    ) -> RoutingPolicy:
         # Default to passive for safety.
         routing_class = RoutingClass.PASSIVE
         rationale = "Default to passive execution for minimal slippage."
@@ -22,5 +25,5 @@ class RoutingEngine:
             routing_class=routing_class,
             urgency=urgency,
             rationale=rationale,
-            max_slippage_bps=max_slippage_bps
+            max_slippage_bps=max_slippage_bps,
         )

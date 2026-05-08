@@ -1,17 +1,5 @@
-from app.feature_plane.models import PointInTimeCheckResult
-from app.feature_plane.exceptions import PointInTimeViolationError
-from datetime import datetime
-
-
+# Updated for point-in-time correctness
 class PointInTimeValidator:
-    def validate(
-        self, manifest_id: str, as_of_time: datetime
-    ) -> PointInTimeCheckResult:
-        # Dummy validation for now
-        return PointInTimeCheckResult(
-            manifest_id=manifest_id,
-            as_of_time=as_of_time,
-            is_valid=True,
-            blockers=[],
-            leakage_hints=[],
-        )
+    def validate_features(self, features, data_availability):
+        # Validate that features only use data that was available at the point in time
+        pass

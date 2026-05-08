@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ConfigDomain(str, Enum):
     STRATEGY = "strategy"
     RISK = "risk"
@@ -21,6 +22,7 @@ class ConfigDomain(str, Enum):
     RELEASE = "release"
     RUNTIME = "runtime"
 
+
 class MutabilityClass(str, Enum):
     IMMUTABLE = "immutable"
     RELEASE_ONLY = "release_only"
@@ -29,9 +31,11 @@ class MutabilityClass(str, Enum):
     EMERGENCY_OVERLAY_ONLY = "emergency_overlay_only"
     EXPERIMENT_ONLY = "experiment_only"
 
+
 class ParameterClass(str, Enum):
     STANDARD = "standard"
     SECRET_ADJACENT = "secret_adjacent"
+
 
 class LayerClass(str, Enum):
     BASE_DEFAULTS = "base_defaults"
@@ -46,6 +50,7 @@ class LayerClass(str, Enum):
     REMEDIATION_RECOVERY_OVERLAY = "remediation_recovery_overlay"
     RUNTIME_SAFE_PATCH_INTENT = "runtime_safe_patch_intent"
 
+
 class ScopeClass(str, Enum):
     GLOBAL = "global"
     WORKSPACE = "workspace"
@@ -56,16 +61,19 @@ class ScopeClass(str, Enum):
     ACTIVATION_STAGE = "activation_stage"
     CAPITAL_TIER = "capital_tier"
 
+
 class DiffSeverity(str, Enum):
     MINOR = "minor"
     MODERATE = "moderate"
     CRITICAL = "critical"
+
 
 class DriftSeverity(str, Enum):
     NEGLIGIBLE = "negligible"
     MODERATE = "moderate"
     SEVERE = "severe"
     CRITICAL_BLOCKER = "critical_blocker"
+
 
 class EquivalenceVerdict(str, Enum):
     CLEAN = "clean"
@@ -74,9 +82,11 @@ class EquivalenceVerdict(str, Enum):
     REVIEW_REQUIRED = "review_required"
     BLOCKED = "blocked"
 
+
 class ConfigVerdict(str, Enum):
     VALID = "valid"
     INVALID = "invalid"
+
 
 class SecretVisibility(str, Enum):
     REDACTED = "redacted"

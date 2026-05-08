@@ -3,12 +3,14 @@ from app.config_plane.enums import LayerClass, MutabilityClass
 from app.config_plane.schemas import registry as schema_registry
 from app.config_plane.mutability import validate_mutability
 
+
 def request_runtime_patch(domain_str: str, name_str: str, value: any) -> dict:
     """
     Creates a patch intent request. Validates if the parameter is allowed to be patched at runtime.
     """
     domain = None
     from app.config_plane.enums import ConfigDomain
+
     for d in ConfigDomain:
         if d.value == domain_str:
             domain = d
@@ -27,5 +29,5 @@ def request_runtime_patch(domain_str: str, name_str: str, value: any) -> dict:
     return {
         "status": "patch_intent_created",
         "parameter": f"{domain_str}.{name_str}",
-        "new_value": value
+        "new_value": value,
     }

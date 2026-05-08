@@ -33,8 +33,12 @@ args_patch = """
 """
 
 if "--show-evidence-graph-summary" not in content:
-    content = content.replace("parser.parse_args()", args_patch + "\n    args = parser.parse_args()")
-    content = content.replace("args = parser.parse_args()", "") # clean up duplicate if any
+    content = content.replace(
+        "parser.parse_args()", args_patch + "\n    args = parser.parse_args()"
+    )
+    content = content.replace(
+        "args = parser.parse_args()", ""
+    )  # clean up duplicate if any
 
 
 logic_patch = """
@@ -103,7 +107,7 @@ logic_patch = """
 """
 
 if "args.show_evidence_graph_summary" not in content:
-    content = re.sub(r'(if args\.run_live:)', logic_patch + r'\n    \1', content)
+    content = re.sub(r"(if args\.run_live:)", logic_patch + r"\n    \1", content)
 
 with open("app/main.py", "w") as f:
     f.write(content)

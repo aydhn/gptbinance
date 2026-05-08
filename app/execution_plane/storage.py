@@ -1,13 +1,14 @@
 import json
 from typing import Dict, Any
 
+
 class ExecutionStorage:
     def __init__(self):
         self.data: Dict[str, Dict[str, Any]] = {
             "manifests": {},
             "attempts": {},
             "idempotency": {},
-            "quality_reports": {}
+            "quality_reports": {},
         }
 
     def save_manifest(self, manifest):

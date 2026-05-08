@@ -1,5 +1,6 @@
 from typing import Dict, Any
 
+
 class RiskEngine:
     # Uses account/balance truth as an input surface.
     # Emits risk cautions on incomplete collateral truth.

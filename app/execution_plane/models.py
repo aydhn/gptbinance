@@ -4,9 +4,16 @@ from datetime import datetime, timezone
 import uuid
 
 from app.execution_plane.enums import (
-    VenueClass, ProductClass, ExecutionClass, RoutingClass,
-    OrderType, TIFClass, FillQualityClass, SlippageSeverityClass,
-    EquivalenceVerdictClass, TrustedExecutionVerdictClass
+    VenueClass,
+    ProductClass,
+    ExecutionClass,
+    RoutingClass,
+    OrderType,
+    TIFClass,
+    FillQualityClass,
+    SlippageSeverityClass,
+    EquivalenceVerdictClass,
+    TrustedExecutionVerdictClass,
 )
 
 

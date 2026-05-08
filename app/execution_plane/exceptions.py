@@ -1,5 +1,6 @@
 class ExecutionPlaneError(Exception):
     """Base exception for all execution plane errors."""
+
     pass
 
 

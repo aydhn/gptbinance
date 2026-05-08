@@ -1,6 +1,21 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
+from app.performance_plane.models import (
+    PerformanceTrustVerdict,
+    BenchmarkRelativeReport,
+)
+
 
 class ReadinessEvidenceCollector:
-    # Integrates ledger trust, balance/collateral/equity summaries, and divergence reports into readiness bundles.
-    # Sets critical ledger integrity failures as blockers/cautions.
-    pass
+    @staticmethod
+    def collect_performance_evidence(
+        trust_verdict: PerformanceTrustVerdict,
+        benchmark_report: BenchmarkRelativeReport = None,
+    ) -> dict:
+        evidence = {
+            "trust_verdict": trust_verdict.verdict.value,
+            "blockers": trust_verdict.blockers,
+        }
+        if benchmark_report:
+            evidence["benchmark_cautions"] = benchmark_report.mismatch_cautions
+
+        return evidence

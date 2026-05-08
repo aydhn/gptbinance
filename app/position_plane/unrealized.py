@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 from app.position_plane.models import PositionState, UnrealizedPnLRecord
 from app.position_plane.enums import Side
+from app.performance_plane.enums import TrustVerdict
+from app.performance_plane.models import PerformanceTrustVerdict
 
 
 class UnrealizedPnLCalculator:
@@ -31,4 +33,23 @@ class UnrealizedPnLCalculator:
             mark_timestamp=datetime.now(timezone.utc),
             confidence=confidence,
             caveats=caveats,
+        )
+
+    @staticmethod
+    def export_trust_verdict(confidence: float) -> PerformanceTrustVerdict:
+        verdict = TrustVerdict.TRUSTED
+        blockers = []
+        if confidence < 0.5:
+            verdict = TrustVerdict.DEGRADED
+            blockers.append("Critically low confidence in mark price.")
+        elif confidence < 0.9:
+            verdict = TrustVerdict.CAUTION
+            blockers.append("Low confidence in mark price.")
+
+        return PerformanceTrustVerdict(
+            verdict_id=str(uuid.uuid4()),
+            manifest_id="dummy",  # Replaced dynamically
+            verdict=verdict,
+            blockers=blockers,
+            factors={"confidence": confidence},
         )

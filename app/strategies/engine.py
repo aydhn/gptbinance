@@ -1,21 +1,23 @@
-# Strategy Engine Integration with Allocation Plane Canonical Intake Format
+import uuid
 from typing import List, Dict, Any
-from app.allocation.models import AllocationCandidate
-from app.allocation.enums import AllocationClass, SignalFamily
+from app.performance_plane.models import AttributionNode
+from app.performance_plane.enums import AttributionClass
+from decimal import Decimal
+
 
 class StrategyEngine:
-    def produce_candidates(self) -> List[AllocationCandidate]:
-        # Emits signals in the format required by the allocation plane
-        return [
-            AllocationCandidate(
-                candidate_id="cand_1",
-                symbol="BTCUSDT",
-                signal_source_ref="strat_momentum_btc",
-                signal_family=SignalFamily.MOMENTUM,
-                sleeve_ref="primary_alpha_01",
-                confidence=0.85,
-                requested_notional=10000.0,
-                allocation_class=AllocationClass.DIRECTIONAL_LONG,
-                regime_refs=["regime_bull"]
-            )
-        ]
+    @staticmethod
+    def execute(strategy_id: str, context: Dict[str, Any]) -> dict:
+        # Dummy execution
+        return {"strategy_id": strategy_id, "status": "executed"}
+
+    @staticmethod
+    def export_signal_attribution(
+        strategy_id: str, pnl_impact: Decimal, currency: str
+    ) -> AttributionNode:
+        return AttributionNode(
+            attribution_class=AttributionClass.SIGNAL_SELECTION,
+            contribution_value=pnl_impact,
+            currency=currency,
+            proof_notes=[f"Signal generation by strategy {strategy_id}"],
+        )

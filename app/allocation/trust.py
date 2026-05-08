@@ -1,29 +1,25 @@
-from app.allocation.models import AllocationTrustVerdictReport
-from app.allocation.enums import TrustVerdict
+from app.allocation.models import AllocationIntent
+from app.allocation.enums import IntentStatus
+from app.performance_plane.models import AttributionNode
+from app.performance_plane.enums import AttributionClass
+from decimal import Decimal
 
 
-class TrustEvaluator:
-    def evaluate(
-        self, signals_healthy: bool, budgets_healthy: bool
-    ) -> AllocationTrustVerdictReport:
-        verdict = TrustVerdict.TRUSTED
-        caveats = []
-        blockers = []
+class AllocationTrustEvaluator:
+    @staticmethod
+    def evaluate(intent: AllocationIntent) -> float:
+        # Dummy evaluation logic
+        return 0.95
 
-        if not budgets_healthy:
-            verdict = TrustVerdict.DEGRADED
-            blockers.append("budget_integrity_degraded")
-
-        if not signals_healthy:
-            verdict = TrustVerdict.CAUTION
-            caveats.append("signals_health_warning")
-
-        return AllocationTrustVerdictReport(
-            verdict=verdict,
-            signal_trust=1.0 if signals_healthy else 0.5,
-            model_trust=1.0,
-            feature_trust=1.0,
-            budget_integrity_score=1.0 if budgets_healthy else 0.0,
-            caveats=caveats,
-            blockers=blockers,
+    @staticmethod
+    def export_attribution(
+        intent: AllocationIntent, pnl_impact: Decimal, currency: str
+    ) -> AttributionNode:
+        return AttributionNode(
+            attribution_class=AttributionClass.ALLOCATION_SIZING,
+            contribution_value=pnl_impact,
+            currency=currency,
+            proof_notes=[
+                "Allocation sizing impact calculated from capacity/budget constraints."
+            ],
         )

@@ -1,10 +1,10 @@
-from typing import Dict, Any
-
-class IdentityCapabilities:
-    # Adds capabilities:
-    # - inspect_ledger_manifest
-    # - review_collateral_truth
-    # - review_balance_equivalence
-    # - review_transfer_lineage
-    # - review_funding_fee_posting
-    pass
+class UserCapabilities:
+    @staticmethod
+    def get_performance_capabilities() -> list:
+        return [
+            "inspect_performance_manifest",
+            "review_benchmark_integrity",
+            "review_performance_attribution",
+            "review_opportunity_surface",
+            "review_performance_equivalence",
+        ]

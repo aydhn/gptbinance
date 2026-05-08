@@ -2,6 +2,7 @@ import pytest
 from app.ledger_plane.manifests import LedgerManifestBuilder
 from app.ledger_plane.models import LedgerManifestEntry
 
+
 def test_ledger_manifest_creation():
     entry1 = LedgerManifestEntry(ref_id="ref1", ref_type="entry")
     entry2 = LedgerManifestEntry(ref_id="ref2", ref_type="balance")

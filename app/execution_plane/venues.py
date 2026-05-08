@@ -3,13 +3,16 @@ from app.execution_plane.models import VenueDefinition, VenueConstraint
 from app.execution_plane.enums import VenueClass, ProductClass
 from app.execution_plane.exceptions import InvalidVenueDefinitionError
 
+
 class VenueRegistry:
     def __init__(self):
         self._venues: Dict[str, VenueDefinition] = {}
 
     def register_venue(self, venue: VenueDefinition):
         if not venue.is_active:
-            raise InvalidVenueDefinitionError(f"Cannot register inactive venue: {venue.venue_id}")
+            raise InvalidVenueDefinitionError(
+                f"Cannot register inactive venue: {venue.venue_id}"
+            )
         self._venues[venue.venue_id] = venue
 
     def get_venue(self, venue_id: str) -> Optional[VenueDefinition]:
@@ -18,8 +21,11 @@ class VenueRegistry:
     def list_venues(self) -> List[VenueDefinition]:
         return list(self._venues.values())
 
-    def get_venues_by_product(self, product_class: ProductClass) -> List[VenueDefinition]:
+    def get_venues_by_product(
+        self, product_class: ProductClass
+    ) -> List[VenueDefinition]:
         return [v for v in self._venues.values() if v.product_class == product_class]
+
 
 # Canonical Venue Factory
 def create_default_venue_registry() -> VenueRegistry:
@@ -31,17 +37,17 @@ def create_default_venue_registry() -> VenueRegistry:
         venue_class=VenueClass.BINANCE_SPOT_MAINNET,
         product_class=ProductClass.SPOT,
         constraints=VenueConstraint(
-            min_notional=5.0, # e.g. 5 USDT
+            min_notional=5.0,  # e.g. 5 USDT
             min_qty=0.00001,
             step_size=0.00001,
             tick_size=0.01,
             price_band_pct=5.0,
-            reduce_only_allowed=False, # Not applicable for spot
+            reduce_only_allowed=False,  # Not applicable for spot
             margin_modes_allowed=["cross", "isolated"],
             is_fresh=True,
-            evidence_ref="static_default"
+            evidence_ref="static_default",
         ),
-        metadata={"maker_fee": 0.001, "taker_fee": 0.001}
+        metadata={"maker_fee": 0.001, "taker_fee": 0.001},
     )
     registry.register_venue(binance_spot)
 
@@ -59,9 +65,9 @@ def create_default_venue_registry() -> VenueRegistry:
             reduce_only_allowed=True,
             margin_modes_allowed=["cross", "isolated"],
             is_fresh=True,
-            evidence_ref="static_default"
+            evidence_ref="static_default",
         ),
-        metadata={"maker_fee": 0.0002, "taker_fee": 0.0004}
+        metadata={"maker_fee": 0.0002, "taker_fee": 0.0004},
     )
     registry.register_venue(binance_futures)
 
@@ -79,9 +85,9 @@ def create_default_venue_registry() -> VenueRegistry:
             reduce_only_allowed=True,
             margin_modes_allowed=["cross", "isolated"],
             is_fresh=True,
-            evidence_ref="paper_env"
+            evidence_ref="paper_env",
         ),
-        metadata={"maker_fee": 0.0, "taker_fee": 0.0}
+        metadata={"maker_fee": 0.0, "taker_fee": 0.0},
     )
     registry.register_venue(paper_spot)
 

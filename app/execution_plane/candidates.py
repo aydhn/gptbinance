@@ -3,8 +3,10 @@ from app.execution_plane.base import CandidateCompilerBase
 from app.execution_plane.venues import VenueRegistry
 from typing import Any
 
+
 class AllocationIntentCompiler(CandidateCompilerBase):
     """Compiles an Allocation Intent into an Execution Candidate."""
+
     def __init__(self, venue_registry: VenueRegistry):
         self.venue_registry = venue_registry
 
@@ -19,13 +21,13 @@ class AllocationIntentCompiler(CandidateCompilerBase):
             is_reduce_only=getattr(intent, "is_reduce_only", False),
             venue_eligibility=[],
             instrument_compatibility=True,
-            size_viable=True
+            size_viable=True,
         )
 
         pref = getattr(intent, "venue_class_preference", "paper")
         for v in self.venue_registry.list_venues():
             if v.venue_class.value == pref:
-                 candidate.venue_eligibility.append(v.venue_id)
+                candidate.venue_eligibility.append(v.venue_id)
 
         if not candidate.venue_eligibility:
             candidate.reject_reason = "No eligible venues found for preference."

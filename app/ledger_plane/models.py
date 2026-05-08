@@ -3,8 +3,10 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime, timezone
 from app.ledger_plane.enums import *
 
+
 class LedgerEntryRef(BaseModel):
     entry_id: str
+
 
 class LedgerEntry(BaseModel):
     id: str
@@ -16,8 +18,10 @@ class LedgerEntry(BaseModel):
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class CashflowRef(BaseModel):
     cashflow_id: str
+
 
 class CashflowRecord(BaseModel):
     id: str
@@ -25,9 +29,10 @@ class CashflowRecord(BaseModel):
     asset: str
     amount: float
     account_scope: str
-    direction: str # in, out
+    direction: str  # in, out
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
+
 
 class BalanceBucket(BaseModel):
     bucket_class: BalanceClass
@@ -35,8 +40,10 @@ class BalanceBucket(BaseModel):
     asset: str
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class BalanceStateRef(BaseModel):
     state_id: str
+
 
 class BalanceState(BaseModel):
     id: str
@@ -47,8 +54,10 @@ class BalanceState(BaseModel):
     authoritative: bool = False
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class CollateralStateRef(BaseModel):
     state_id: str
+
 
 class CollateralState(BaseModel):
     id: str
@@ -59,6 +68,7 @@ class CollateralState(BaseModel):
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class TransferRecord(BaseModel):
     id: str
     transfer_class: TransferClass
@@ -66,13 +76,15 @@ class TransferRecord(BaseModel):
     amount: float
     source_scope: str
     target_scope: str
-    status: str # pending, settled
+    status: str  # pending, settled
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
+
 
 class TransferChain(BaseModel):
     chain_id: str
     records: List[TransferRecord]
+
 
 class EquityView(BaseModel):
     id: str
@@ -83,20 +95,24 @@ class EquityView(BaseModel):
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class AccountScope(BaseModel):
     scope_id: str
     scope_class: AccountScopeClass
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class LedgerManifestEntry(BaseModel):
     ref_id: str
-    ref_type: str # entry, balance, collateral, etc.
+    ref_type: str  # entry, balance, collateral, etc.
+
 
 class LedgerManifest(BaseModel):
     manifest_id: str
     entries: List[LedgerManifestEntry]
     timestamp: datetime
     hash_value: str
+
 
 class LedgerDivergenceReport(BaseModel):
     id: str
@@ -105,12 +121,14 @@ class LedgerDivergenceReport(BaseModel):
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class LedgerEquivalenceReport(BaseModel):
     id: str
     verdict: EquivalenceVerdict
     description: str
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
+
 
 class LedgerTrustVerdict(BaseModel):
     id: str
@@ -119,11 +137,13 @@ class LedgerTrustVerdict(BaseModel):
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+
 class LedgerAuditRecord(BaseModel):
     id: str
     action: str
     timestamp: datetime
     metadata: Dict[str, Any] = Field(default_factory=dict)
+
 
 class LedgerArtifactManifest(BaseModel):
     id: str

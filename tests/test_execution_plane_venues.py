@@ -2,6 +2,7 @@ import pytest
 from app.execution_plane.venues import create_default_venue_registry
 from app.execution_plane.enums import ProductClass
 
+
 def test_venue_registry_creation():
     registry = create_default_venue_registry()
     assert len(registry.list_venues()) == 3

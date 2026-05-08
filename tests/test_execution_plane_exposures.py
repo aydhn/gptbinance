@@ -1,5 +1,6 @@
 from app.execution_plane.exposures import ExposureDeltaEngine
 
+
 def test_exposure_delta():
     delta = ExposureDeltaEngine.calculate_delta(fill_qty=1.5, price=10.0, side="buy")
     assert delta["qty_delta"] == 1.5

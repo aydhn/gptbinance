@@ -1,6 +1,7 @@
 from app.execution_plane.trust import TrustVerdictEngine
 from app.execution_plane.enums import TrustedExecutionVerdictClass
 
+
 def test_trust_engine():
     t1 = TrustVerdictEngine.evaluate("m1", [], "clean", 100)
     assert t1.verdict == TrustedExecutionVerdictClass.TRUSTED

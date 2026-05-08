@@ -66,7 +66,10 @@ patch = """
 """
 
 import re
-content = re.sub(r'args = parser\.parse_args\(\)\n', r'args = parser.parse_args()\n' + patch, content)
+
+content = re.sub(
+    r"args = parser\.parse_args\(\)\n", r"args = parser.parse_args()\n" + patch, content
+)
 
 with open("app/main.py", "w") as f:
     f.write(content)

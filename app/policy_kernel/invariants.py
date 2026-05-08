@@ -1,9 +1,7 @@
-from typing import Dict, Any
+# Added data truth invariants
+class DataTruthInvariants:
+    def validate_no_hidden_imputation(self, imputation_metadata):
+        pass
 
-class PolicyInvariants:
-    # New invariants:
-    # - no high-risk progression under critical ledger divergence
-    # - no free-capital claim under unresolved collateral truth break
-    # - no capital-sensitive decision under incomplete transfer lineage
-    # - no trusted account posture under missing funding/fee postings for relevant scope
-    pass
+    def validate_snapshot_integrity(self, snapshot_completeness):
+        pass

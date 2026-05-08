@@ -12,7 +12,7 @@ with open("app/evidence_graph/lineage.py", "r") as f:
 # So traversing backward means following edges from A to B.
 
 content = content.replace(
-"""                if direction == TraversalClass.BACKWARD:
+    """                if direction == TraversalClass.BACKWARD:
                     # Look for relations where current_id is the target (it depends on source)
                     edges = self.relation_registry.get_relations_for_target(current_id)
                     for edge in edges:
@@ -24,7 +24,7 @@ content = content.replace(
                     for edge in edges:
                         visited_edges.append(edge)
                         queue.append((edge.target_id, depth + 1))""",
-"""                if direction == TraversalClass.BACKWARD:
+    """                if direction == TraversalClass.BACKWARD:
                     # Look for relations where current_id is the source (it depends on target)
                     edges = self.relation_registry.get_relations_for_source(current_id)
                     for edge in edges:
@@ -35,7 +35,7 @@ content = content.replace(
                     edges = self.relation_registry.get_relations_for_target(current_id)
                     for edge in edges:
                         visited_edges.append(edge)
-                        queue.append((edge.source_id, depth + 1))"""
+                        queue.append((edge.source_id, depth + 1))""",
 )
 with open("app/evidence_graph/lineage.py", "w") as f:
     f.write(content)

@@ -1,5 +1,6 @@
 from app.execution_plane.markouts import MarkoutEvaluator
 
+
 def test_markout():
     # Buy, filled 100, market now 105. Favorable.
     rep1 = MarkoutEvaluator.evaluate("s1", 100.0, "buy", 105.0, 60000)

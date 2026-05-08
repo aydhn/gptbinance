@@ -1,7 +1,18 @@
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 from datetime import datetime
-from .enums import LimitClass, RiskDomain, DrawdownClass, MarginClass, LiquidationClass, BreachClass, ResponseClass, CooldownClass, EquivalenceVerdict, TrustVerdict
+from .enums import (
+    LimitClass,
+    RiskDomain,
+    DrawdownClass,
+    MarginClass,
+    LiquidationClass,
+    BreachClass,
+    ResponseClass,
+    CooldownClass,
+    EquivalenceVerdict,
+    TrustVerdict,
+)
 
 
 class RiskLimitRef(BaseModel):

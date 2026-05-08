@@ -10,5 +10,9 @@ class RuntimeExecutionEnv:
 
     def record_receipt(self, idempotency_key: str, receipt: dict):
         # No secret leakage, only metadata
-        safe_receipt = {k: v for k, v in receipt.items() if "secret" not in k.lower() and "key" not in k.lower()}
+        safe_receipt = {
+            k: v
+            for k, v in receipt.items()
+            if "secret" not in k.lower() and "key" not in k.lower()
+        }
         self.send_receipts[idempotency_key] = safe_receipt

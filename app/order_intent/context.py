@@ -3,6 +3,7 @@ class OrderIntentContext:
         # Tie allocation manifest to order intent lineage
         pass
 
+
 class CompileContext:
     def __init__(self):
         self.execution_plan_refs = []

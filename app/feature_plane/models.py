@@ -15,10 +15,12 @@ from app.feature_plane.enums import (
     LeakageSeverity,
 )
 
+
 class FeatureSchemaVersion(BaseModel):
     version_id: str
     created_at: datetime
     is_deprecated: bool = False
+
 
 class FeatureSchemaDef(BaseModel):
     schema_id: str
@@ -28,25 +30,30 @@ class FeatureSchemaDef(BaseModel):
     is_redaction_aware: bool = False
     version: FeatureSchemaVersion
 
+
 class FeatureWindow(BaseModel):
     window_class: FeatureWindowClass
     lookback_duration: Optional[timedelta] = None
     lookback_ticks: Optional[int] = None
     is_session_bound: bool = False
 
+
 class FeatureInputSurface(BaseModel):
     source_class: FeatureSourceClass
     source_id: str
     expected_freshness_ms: Optional[int] = None
+
 
 class FeatureComputationSpec(BaseModel):
     transform_type: str
     parameters: Dict[str, Any] = Field(default_factory=dict)
     is_deterministic: bool = True
 
+
 class FeatureRef(BaseModel):
     feature_id: str
     version_id: str
+
 
 class FeatureDefinition(BaseModel):
     feature_id: str
@@ -59,10 +66,12 @@ class FeatureDefinition(BaseModel):
     owner_domain: str
     is_experimental: bool = False
 
+
 class FeatureManifestEntry(BaseModel):
     feature_ref: FeatureRef
     schema_hash: str
     transform_hash: str
+
 
 class FeatureManifest(BaseModel):
     manifest_id: str
@@ -70,9 +79,11 @@ class FeatureManifest(BaseModel):
     entries: List[FeatureManifestEntry]
     manifest_hash: str
 
+
 class LabelWindow(BaseModel):
     horizon_duration: timedelta
     is_event_sensitive: bool = False
+
 
 class LabelDefinition(BaseModel):
     label_id: str
@@ -80,10 +91,12 @@ class LabelDefinition(BaseModel):
     window: LabelWindow
     computation_spec: FeatureComputationSpec
 
+
 class TargetDefinition(BaseModel):
     target_id: str
     target_class: TargetClass
     window: LabelWindow
+
 
 class DatasetContract(BaseModel):
     contract_id: str
@@ -93,10 +106,12 @@ class DatasetContract(BaseModel):
     allowed_consumers: List[str]
     features_required: List[FeatureRef]
 
+
 class DatasetSlice(BaseModel):
     slice_id: str
     start_time: datetime
     end_time: datetime
+
 
 class DatasetSnapshot(BaseModel):
     snapshot_id: str
@@ -105,12 +120,14 @@ class DatasetSnapshot(BaseModel):
     slices: List[DatasetSlice]
     snapshot_hash: str
 
+
 class PointInTimeCheckResult(BaseModel):
     manifest_id: str
     as_of_time: datetime
     is_valid: bool
     blockers: List[str]
     leakage_hints: List[str]
+
 
 class FeatureEquivalenceReport(BaseModel):
     report_id: str
@@ -119,11 +136,13 @@ class FeatureEquivalenceReport(BaseModel):
     verdict: EquivalenceVerdict
     differences: Dict[str, str]
 
+
 class FeatureSkewReport(BaseModel):
     report_id: str
     severity: SkewSeverity
     suspected_causes: List[str]
     impact_hints: List[str]
+
 
 class FeatureDriftReport(BaseModel):
     report_id: str
@@ -131,10 +150,12 @@ class FeatureDriftReport(BaseModel):
     drifted_features: List[str]
     explanations: List[str]
 
+
 class FeatureFreshnessReport(BaseModel):
     report_id: str
     stale_features: List[str]
     consumer_impact_summary: str
+
 
 class TrustedFeatureVerdictSummary(BaseModel):
     verdict: TrustedFeatureVerdict
@@ -145,12 +166,14 @@ class TrustedFeatureVerdictSummary(BaseModel):
     has_freshness_issues: bool
     blocker_reasons: List[str]
 
+
 class FeatureAuditRecord(BaseModel):
     audit_id: str
     timestamp: datetime
     action: str
     feature_id: str
     details: str
+
 
 class FeatureArtifactManifest(BaseModel):
     artifact_id: str

@@ -1,6 +1,7 @@
 from app.execution_plane.candidates import AllocationIntentCompiler
 from app.execution_plane.venues import create_default_venue_registry
 
+
 class DummyIntent:
     intent_id = "i1"
     symbol = "ETHUSDT"
@@ -8,6 +9,7 @@ class DummyIntent:
     direction = "long"
     is_reduce_only = False
     venue_class_preference = "binance_spot_mainnet"
+
 
 def test_intent_compiler():
     registry = create_default_venue_registry()

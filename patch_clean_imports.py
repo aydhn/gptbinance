@@ -16,8 +16,14 @@ with open("app/evidence_graph/models.py", "w") as f:
 with open("app/evidence_graph/artefacts.py", "r") as f:
     content = f.read()
 
-content = content.replace("from typing import Dict, Any, List, Optional", "from typing import Dict, List, Optional")
-content = content.replace("from app.evidence_graph.enums import ArtefactType, ScopeClass", "from app.evidence_graph.enums import ArtefactType")
+content = content.replace(
+    "from typing import Dict, Any, List, Optional",
+    "from typing import Dict, List, Optional",
+)
+content = content.replace(
+    "from app.evidence_graph.enums import ArtefactType, ScopeClass",
+    "from app.evidence_graph.enums import ArtefactType",
+)
 
 with open("app/evidence_graph/artefacts.py", "w") as f:
     f.write(content)

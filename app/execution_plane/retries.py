@@ -4,7 +4,11 @@ class RetryPolicyEngine:
         if attempts_count >= max_budget:
             return False
 
-        non_retryable = ["insufficient_funds", "invalid_symbol", "venue_filter_violation"]
+        non_retryable = [
+            "insufficient_funds",
+            "invalid_symbol",
+            "venue_filter_violation",
+        ]
 
         for nr in non_retryable:
             if nr in reject_reason.lower():
@@ -14,4 +18,4 @@ class RetryPolicyEngine:
 
     @staticmethod
     def get_backoff_ms(attempts_count: int) -> int:
-        return 1000 * (2 ** attempts_count)
+        return 1000 * (2**attempts_count)

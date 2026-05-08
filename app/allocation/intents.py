@@ -56,3 +56,16 @@ class IntentBuilder:
             budget_ref="none",
             route_ref="none",
         )
+
+class AllocationIntent:
+    def __init__(self, intent_id: str, symbol: str, target_size: float, direction: str, is_reduce_only: bool = False):
+        self.intent_id = intent_id
+        self.symbol = symbol
+        self.target_size = target_size
+        self.direction = direction
+        self.is_reduce_only = is_reduce_only
+        self.venue_class_preference = "paper"
+        self.clipped_reasons = []
+
+    def add_clip_reason(self, reason: str):
+        self.clipped_reasons.append(reason)

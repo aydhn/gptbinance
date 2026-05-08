@@ -3,3 +3,8 @@ class ExperimentDefinition:
         # Experiment arms carry allocation manifests, sleeve budgets
         # Allocation-contractless usage rejected
         pass
+
+class ExecutionExperimentArm:
+    def __init__(self, manifest_ref: str, routing_policy: str):
+        self.manifest_ref = manifest_ref
+        self.routing_policy = routing_policy

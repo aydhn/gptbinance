@@ -1,12 +1,7 @@
-class TelegramTemplates:
-    TEMPLATES = {
-        "allocation_manifest_ready": "Allocation Manifest {manifest_id} is ready. Trust: {trust_verdict}",
-        "crowding_burst_detected": "CRITICAL: Crowding burst detected in candidates.",
-        "allocation_trust_degraded": "WARNING: Allocation trust degraded. Reason: {reason}"
-    }
-
-class ExecutionTemplates:
-    TEMPLATES = {
-        "execution_manifest_ready": "Manifest {manifest_id} is ready for execution.",
-        "execution_trust_degraded": "WARNING: Execution trust degraded for {manifest_id}."
-    }
+class PositionPlaneTemplates:
+    POSITION_MANIFEST_READY = "Position manifest is ready for review."
+    POSITION_TRUTH_DEGRADED = "Position truth is degraded for symbol {symbol}. Caveats: {caveats}"
+    PNL_ATTRIBUTION_INCOMPLETE = "PnL attribution is incomplete. Missing: {missing_components}"
+    CRITICAL_POSITION_DIVERGENCE = "CRITICAL: Position divergence detected on {symbol}. Severity: {severity}. {description}"
+    POSITION_REVIEW_REQUIRED = "Position review required for {symbol}. Reason: {reason}"
+    POSITION_SUMMARY_DIGEST = "Position Summary: Realized PnL: {realized}, Unrealized PnL: {unrealized}"

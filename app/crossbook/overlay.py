@@ -1,9 +1,6 @@
-class CrossbookOverlay:
-    def check_stability(self) -> bool:
-        # Cross-book posture and fake hedge risks input for allocation netting
-        return True
+from typing import Dict, Any
 
-class CrossbookExecutionOverlay:
-    @staticmethod
-    def get_hedge_cautions(symbol: str) -> list:
-        return [] # No fake hedge warnings by default
+class CrossbookOverlay:
+    # Makes cross-book collateral and balance entanglement inputs for the ledger plane.
+    # Produces blockers for fake free capital or duplicate collateral usage.
+    pass

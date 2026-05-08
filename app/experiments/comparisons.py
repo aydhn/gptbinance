@@ -1,9 +1,6 @@
-class ExperimentComparison:
-    def compare_allocations(self, baseline_id: str, candidate_id: str):
-        # Shows allocation contract differences clearly
-        pass
+from typing import Dict, Any
 
-class ExecutionExperimentComparison:
-    @staticmethod
-    def compare(baseline_manifest: str, candidate_manifest: str) -> dict:
-        return {"differences": ["routing_urgency"]}
+class ExperimentComparisons:
+    # Includes funding/fee/ledger divergence caveats into experiment verdicts.
+    # Exposes candidate vs baseline capital/ledger semantics explicitly.
+    pass

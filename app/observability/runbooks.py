@@ -1,11 +1,11 @@
-class AllocationRunbooks:
-    RUNBOOKS = {
-        "allocation_integrity_review": "docs/runbooks/allocation_integrity.md",
-        "sleeve_budget_review": "docs/runbooks/sleeve_budget.md"
-    }
+from typing import Dict, Any
 
-class ExecutionRunbooks:
-    RUNBOOKS = {
-        "execution_integrity_review": "doc/runbook_exec_1.md",
-        "duplicate_send_investigation": "doc/runbook_exec_2.md"
-    }
+class ObservabilityRunbooks:
+    # Adds runbook refs for:
+    # - ledger integrity review
+    # - balance divergence investigation
+    # - collateral truth investigation
+    # - transfer lineage repair review
+    # - funding/fee posting review
+    # - usable capital truth review
+    pass

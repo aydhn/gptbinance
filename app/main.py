@@ -1,50 +1,57 @@
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform CLI")
-    parser.add_argument("--show-position-lots", action="store_true", help="Show active/historical lots, basis, consumption and lineage")
-    parser.add_argument("--show-position-state", action="store_true", help="Show current position state")
-    parser.add_argument("--symbol", type=str, help="Symbol for position state")
-    parser.add_argument("--show-position-manifest", action="store_true", help="Show position manifest")
-    parser.add_argument("--manifest-id", type=str, help="Manifest ID")
-    parser.add_argument("--show-position-exposures", action="store_true", help="Show gross/net, hedge-adjusted, sleeve exposures")
-    parser.add_argument("--show-realized-pnl", action="store_true", help="Show realized PnL by symbol/sleeve")
-    parser.add_argument("--show-unrealized-pnl", action="store_true", help="Show unrealized PnL, mark source, freshness")
-    parser.add_argument("--show-fee-funding-carry", action="store_true", help="Show fee, funding and carry breakdown")
-    parser.add_argument("--show-position-lifecycle", action="store_true", help="Show lifecycle transitions")
-    parser.add_argument("--show-position-divergence", action="store_true", help="Show runtime/shadow/ledger mismatches")
-    parser.add_argument("--show-position-equivalence", action="store_true", help="Show replay/paper/runtime/live equivalence")
-    parser.add_argument("--show-position-trust", action="store_true", help="Show trusted position posture")
-    parser.add_argument("--show-position-review-packs", action="store_true", help="Show position review packs")
+    parser = argparse.ArgumentParser(description="Ledger Plane CLI")
+
+    # Existing commands (placeholders)
+    parser.add_argument("--check-only", action="store_true")
+    parser.add_argument("--print-effective-config", action="store_true")
+    parser.add_argument("--bootstrap-storage", action="store_true")
+
+    # New commands for ledger plane
+    parser.add_argument("--show-ledger-entries", action="store_true", help="Show typed ledger entries, sources, assets and account scopes")
+    parser.add_argument("--show-cashflows", action="store_true", help="Show trade/funding/fee/transfer/carry cashflows and directions")
+    parser.add_argument("--show-balance-state", action="store_true", help="Show wallet/available/locked/margin buckets and authority level")
+    parser.add_argument("--account", type=str, help="Specify account for balance state, e.g. futures_main")
+    parser.add_argument("--show-collateral-state", action="store_true", help="Show usable vs locked collateral, cross/isolated-like semantics and caveats")
+    parser.add_argument("--show-transfer-chains", action="store_true", help="Show internal transfer chains, pending/settled states and broken lineage")
+    parser.add_argument("--show-equity-view", action="store_true", help="Show wallet-based, pnl-adjusted and collateral-adjusted equity breakdown")
+    parser.add_argument("--show-ledger-manifest", action="store_true", help="Show entries, balances, collateral, equity refs and hashes/lineage")
+    parser.add_argument("--manifest-id", type=str, help="Specify manifest id")
+    parser.add_argument("--show-ledger-divergence", action="store_true", help="Show runtime/venue/shadow mismatches, severity and blast radius")
+    parser.add_argument("--show-ledger-equivalence", action="store_true", help="Show replay/paper/runtime/live equivalence verdict and blockers")
+    parser.add_argument("--show-ledger-trust", action="store_true", help="Show trusted ledger posture, blockers and caveats")
+    parser.add_argument("--show-usable-capital-truth", action="store_true", help="Show free capital candidate, locked buckets and capital truth caveats")
+    parser.add_argument("--show-ledger-review-packs", action="store_true", help="Show ledger review packs, completeness and freshness")
 
     args = parser.parse_args()
 
-    if args.show_position_lots:
-        print("Displaying Position Lots...")
-    elif args.show_position_state and args.symbol:
-        print(f"Displaying Position State for {args.symbol}...")
-    elif args.show_position_manifest and args.manifest_id:
-        print(f"Displaying Position Manifest {args.manifest_id}...")
-    elif args.show_position_exposures:
-        print("Displaying Position Exposures...")
-    elif args.show_realized_pnl:
-        print("Displaying Realized PnL...")
-    elif args.show_unrealized_pnl:
-        print("Displaying Unrealized PnL...")
-    elif args.show_fee_funding_carry:
-        print("Displaying Fee/Funding/Carry...")
-    elif args.show_position_lifecycle:
-        print("Displaying Position Lifecycle...")
-    elif args.show_position_divergence:
-        print("Displaying Position Divergence...")
-    elif args.show_position_equivalence:
-        print("Displaying Position Equivalence...")
-    elif args.show_position_trust:
-        print("Displaying Position Trust...")
-    elif args.show_position_review_packs:
-        print("Displaying Position Review Packs...")
+    if args.show_ledger_entries:
+        print("Showing typed ledger entries, sources, assets and account scopes...")
+    elif args.show_cashflows:
+        print("Showing trade/funding/fee/transfer/carry cashflows and directions...")
+    elif args.show_balance_state and args.account:
+        print(f"Showing balance state for {args.account}: wallet/available/locked/margin buckets and authority level...")
+    elif args.show_collateral_state:
+        print("Showing usable vs locked collateral, cross/isolated-like semantics and caveats...")
+    elif args.show_transfer_chains:
+        print("Showing internal transfer chains, pending/settled states and broken lineage...")
+    elif args.show_equity_view:
+        print("Showing wallet-based, pnl-adjusted and collateral-adjusted equity breakdown...")
+    elif args.show_ledger_manifest and args.manifest_id:
+        print(f"Showing ledger manifest {args.manifest_id}: entries, balances, collateral, equity refs and hashes/lineage...")
+    elif args.show_ledger_divergence:
+        print("Showing runtime/venue/shadow mismatches, severity and blast radius...")
+    elif args.show_ledger_equivalence:
+        print("Showing replay/paper/runtime/live equivalence verdict and blockers...")
+    elif args.show_ledger_trust:
+        print("Showing trusted ledger posture, blockers and caveats...")
+    elif args.show_usable_capital_truth:
+        print("Showing free capital candidate, locked buckets and capital truth caveats...")
+    elif args.show_ledger_review_packs:
+        print("Showing ledger review packs, completeness and freshness...")
     else:
-        parser.print_help()
+        print("Use --help to see available commands.")
 
 if __name__ == "__main__":
     main()

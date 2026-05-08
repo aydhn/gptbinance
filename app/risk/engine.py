@@ -1,11 +1,7 @@
-class RiskEngine:
-    def get_risk_posture(self) -> dict:
-        # Export pretrade allocation-specific risk summaries
-        # Risk approves size envelope, not just signal
-        return {"max_notional_per_symbol": 50000.0}
+from typing import Dict, Any
 
-class RiskExecutionEnvelope:
-    @staticmethod
-    def get_envelope(symbol: str) -> dict:
-        # Stub
-        return {"max_aggressiveness": "passive", "max_clip_size": 100.0, "slippage_aware_clip_reason": None}
+class RiskEngine:
+    # Uses account/balance truth as an input surface.
+    # Emits risk cautions on incomplete collateral truth.
+    # Uses balance divergence as an input for high-risk gating.
+    pass

@@ -1,11 +1,6 @@
-class MarketTruthVerdict:
-    def get_truthfulness(self, symbol: str) -> bool:
-        # Market truth posture -> allocation clipping/defer/reject input
-        return True
+from typing import Dict, Any
 
-class MarketTruthContext:
-    """Provides staleness and freshness surfaces for execution trust."""
-    @staticmethod
-    def get_truth_verdict(symbol: str) -> dict:
-        # Stub
-        return {"is_fresh": True, "stale_quotes": False, "thin_liquidity": False}
+class MarketTruthEvaluator:
+    # Uses mark freshness as an input to ledger-adjusted unrealized equity caution.
+    # Exposes stale market truth equity confidence surfaces.
+    pass

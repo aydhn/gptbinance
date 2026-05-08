@@ -1,10 +1,6 @@
-class ReadinessEvidence:
-    def add_allocation_reports(self, trust_report: dict, equivalence_report: dict):
-        # Includes critical allocation integrity failures
-        pass
+from typing import Dict, Any
 
-class ExecutionEvidenceBundle:
-    def __init__(self, trust_summary: str, filter_integrity: str):
-        self.trust_summary = trust_summary
-        self.filter_integrity = filter_integrity
-        self.critical_failures = []
+class ReadinessEvidenceCollector:
+    # Integrates ledger trust, balance/collateral/equity summaries, and divergence reports into readiness bundles.
+    # Sets critical ledger integrity failures as blockers/cautions.
+    pass

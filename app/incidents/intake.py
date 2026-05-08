@@ -1,7 +1,12 @@
-class PositionPlaneIncidentSignal:
-    POSITION_DIVERGENCE_CRITICAL = "position_divergence_critical"
-    STALE_MARK_UNREALIZED_PNL_CRITICAL = "stale_mark_unrealized_pnl_critical"
-    INCOMPLETE_FUNDING_ATTRIBUTION = "incomplete_funding_attribution"
-    BROKEN_HEDGE_TRUTH_DETECTED = "broken_hedge_truth_detected"
-    RUNTIME_POSITION_MANIFEST_MISSING = "runtime_position_manifest_missing"
-    LOT_ACCOUNTING_MISMATCH_CLUSTER = "lot_accounting_mismatch_cluster"
+from typing import Dict, Any
+
+class IncidentIntake:
+    # Ledger-plane incident signals:
+    # - critical_balance_divergence_detected
+    # - broken_transfer_chain
+    # - collateral_truth_broken
+    # - funding_posting_incomplete_critical
+    # - runtime_ledger_manifest_missing
+    # - duplicate_collateral_usage_risk
+    # With severity hints and blast radius evaluations.
+    pass

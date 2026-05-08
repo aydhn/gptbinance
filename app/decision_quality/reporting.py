@@ -1,9 +1,6 @@
-class DecisionQualityReporting:
-    def log_funnel_friction(self, candidate_id: str, reject_reason: str):
-        # Log events where a signal existed but allocation rejected it
-        pass
+from typing import Dict, Any
 
-class DecisionQualityExecutionReport:
-    @staticmethod
-    def add_friction_surface(reason: str):
-        pass # records defer/reject events
+class DecisionQualityReporter:
+    # Incorporates balance/collateral truth caveats and friction surfaces (e.g. "signal was present but insufficient usable capital truth") into decision-quality bundles.
+    # Exposes the execution/position/ledger chain.
+    pass

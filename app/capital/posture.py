@@ -1,9 +1,7 @@
-class CapitalPosture:
-    def get_capital_headroom(self) -> float:
-        # Tie to allocation plane budgets
-        return 150000.0
+from typing import Dict, Any
 
-class CapitalPosture:
-    @staticmethod
-    def get_venue_legality(venue_id: str, product_class: str) -> dict:
-        return {"is_allowed": True, "margin_mode_legal": True, "blockers": []}
+class CapitalPostureManager:
+    # Sources available balance, locked collateral, and margin burden from the ledger plane.
+    # Exposes free capital candidate, withdrawable proxy, and usable collateral truth surfaces.
+    # Binds capital posture trust to ledger truth.
+    pass

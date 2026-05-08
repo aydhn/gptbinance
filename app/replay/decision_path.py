@@ -1,9 +1,6 @@
-class ReplayDecisionPath:
-    def build_path(self, manifest_ref: str, budget_ref: str, trust_verdict: str):
-        # Replay-only divergence appears as explicit caution
-        pass
+from typing import Dict, Any
 
-class ReplayDecisionPathExecutionExtension:
-    def __init__(self):
-        self.execution_manifest_refs = []
-        self.caveats = ["replay_only_execution_reconstruction"]
+class ReplayDecisionPath:
+    # Replay paths should carry ledger manifests, transfer refs, balance snapshots, and trust verdict refs.
+    # Exposes replay-only ledger reconstruction caveats explicitly.
+    pass

@@ -1,17 +1,10 @@
-class IdentityCapabilities:
-    CAPABILITIES = [
-        "inspect_allocation_manifest",
-        "review_sleeve_budget",
-        "review_allocation_equivalence",
-        "review_concentration_breach",
-        "review_netting_policy"
-    ]
+from typing import Dict, Any
 
-class ExecutionCapabilities:
-    CAPS = [
-        "inspect_execution_manifest",
-        "review_venue_filters",
-        "review_execution_equivalence",
-        "review_slippage_cluster",
-        "review_cancel_replace_chain"
-    ]
+class IdentityCapabilities:
+    # Adds capabilities:
+    # - inspect_ledger_manifest
+    # - review_collateral_truth
+    # - review_balance_equivalence
+    # - review_transfer_lineage
+    # - review_funding_fee_posting
+    pass

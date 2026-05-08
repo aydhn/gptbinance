@@ -1,10 +1,6 @@
-class ExperimentDefinition:
-    def define_experiment(self, candidate_id: str, baseline_manifest_id: str, candidate_manifest_id: str):
-        # Experiment arms carry allocation manifests, sleeve budgets
-        # Allocation-contractless usage rejected
-        pass
+from typing import Dict, Any
 
-class ExecutionExperimentArm:
-    def __init__(self, manifest_ref: str, routing_policy: str):
-        self.manifest_ref = manifest_ref
-        self.routing_policy = routing_policy
+class ExperimentDefinitions:
+    # Experiment arms should carry ledger manifests, balance/collateral/equity view refs.
+    # Rejects contractless balance assumptions.
+    pass

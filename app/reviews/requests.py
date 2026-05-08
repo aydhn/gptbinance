@@ -1,2 +1,3 @@
-class ReviewRequests:
-    CLASSES = ["simulation_integrity_review", "walk_forward_review"]
+class ReviewRequestClass:
+    RESEARCH_INTEGRITY = "research_integrity_review"
+    CONTRADICTION_REVIEW = "contradiction_review"

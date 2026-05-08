@@ -1,3 +1,4 @@
-class Artefacts:
-    FAMILIES = ["simulation_definitions", "runs", "assumption_manifests"]
-    RELATIONS = ["simulated_under", "assumed_by"]
+class EvidenceArtefactType:
+    RESEARCH_ITEM = "research_item"
+    RESEARCH_QUESTION = "research_question"
+    EVIDENCE_BUNDLE = "evidence_bundle"

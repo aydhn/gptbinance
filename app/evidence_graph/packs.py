@@ -1,2 +1,3 @@
-class EvidencePacks:
-    PACKS = ["simulation_integrity_pack", "walk_forward_review_pack"]
+class EvidencePackType:
+    RESEARCH_INTEGRITY = "research_integrity_pack"
+    CONTRADICTION_REVIEW = "contradiction_review_pack"

@@ -1,2 +1,2 @@
-class ReadinessDomains:
-    DOMAINS = ["simulation_integrity"]
+class ReadinessDomain:
+    RESEARCH_INTEGRITY = "research_integrity"

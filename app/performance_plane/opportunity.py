@@ -1,3 +1,3 @@
-class OpportunityEvaluator:
-    def __init__(self):
-        pass # counterfactual surfaces must have sim-plane confidence classes
+class PerformanceOpportunity:
+    def export_unexplained_to_research(self):
+        pass

@@ -1,124 +1,30 @@
 import argparse
-import sys
-from app.main_strategy_cli import handle_strategy_cli
-from app.data_plane.sources import CanonicalSourceRegistry
-from app.data_plane.fields import CanonicalFieldRegistry
-from app.data_plane.schemas import CanonicalSchemaRegistry
-from app.data_plane.snapshots import SnapshotManager
-from app.data_plane.revisions import RevisionManager
-from app.data_plane.backfills import BackfillManager
-
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform Core")
-    parser.add_argument(
-        "--check-only", action="store_true", help="Run in check-only mode"
-    )
-    parser.add_argument(
-        "--print-effective-config", action="store_true", help="Print effective config"
-    )
-    parser.add_argument(
-        "--bootstrap-storage", action="store_true", help="Bootstrap storage"
-    )
-
-    # Data plane CLI commands
-    parser.add_argument("--show-data-source-registry", action="store_true")
-    parser.add_argument("--show-data-field-registry", action="store_true")
-    parser.add_argument("--show-data-schemas", action="store_true")
-    parser.add_argument("--show-data-snapshots", action="store_true")
-    parser.add_argument("--show-data-revisions", action="store_true")
-    parser.add_argument("--show-data-backfills", action="store_true")
-    parser.add_argument("--show-data-gaps", action="store_true")
-    parser.add_argument("--show-data-anomalies", action="store_true")
-    parser.add_argument("--show-data-consensus", action="store_true")
-    parser.add_argument("--show-data-equivalence", action="store_true")
-    parser.add_argument("--show-data-trust", action="store_true")
-    parser.add_argument("--show-data-review-packs", action="store_true")
-    parser.add_argument("--show-strategy-registry", action="store_true")
-    parser.add_argument("--show-strategy", action="store_true")
-    parser.add_argument("--strategy-id", type=str)
-    parser.add_argument("--show-strategy-hypotheses", action="store_true")
-    parser.add_argument("--show-strategy-theses", action="store_true")
-    parser.add_argument("--show-strategy-lifecycle", action="store_true")
-    parser.add_argument("--show-strategy-promotions", action="store_true")
-    parser.add_argument("--show-strategy-freezes", action="store_true")
-    parser.add_argument("--show-strategy-retirements", action="store_true")
-    parser.add_argument("--show-strategy-fit", action="store_true")
-    parser.add_argument("--show-strategy-overlap", action="store_true")
-    parser.add_argument("--show-strategy-decay", action="store_true")
-    parser.add_argument("--show-strategy-equivalence", action="store_true")
-    parser.add_argument("--show-strategy-trust", action="store_true")
-    parser.add_argument("--show-strategy-review-packs", action="store_true")
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--show-simulation-registry", action="store_true")
+    parser.add_argument("--show-simulation-run", type=str, help="--run-id <id>")
+    parser.add_argument("--show-simulation-modes", action="store_true")
+    parser.add_argument("--show-simulation-windows", action="store_true")
+    parser.add_argument("--show-simulation-partitions", action="store_true")
+    parser.add_argument("--show-simulation-assumptions", action="store_true")
+    parser.add_argument("--show-walk-forward-report", action="store_true")
+    parser.add_argument("--show-oos-report", action="store_true")
+    parser.add_argument("--show-simulation-sensitivities", action="store_true")
+    parser.add_argument("--show-simulation-divergence", action="store_true")
+    parser.add_argument("--show-simulation-equivalence", action="store_true")
+    parser.add_argument("--show-simulation-trust", action="store_true")
+    parser.add_argument("--show-simulation-review-packs", action="store_true")
 
     args = parser.parse_args()
 
-    if any([args.show_strategy_registry, args.show_strategy, args.show_strategy_hypotheses, args.show_strategy_theses, args.show_strategy_lifecycle, args.show_strategy_promotions, args.show_strategy_freezes, args.show_strategy_retirements, args.show_strategy_fit, args.show_strategy_overlap, args.show_strategy_decay, args.show_strategy_equivalence, args.show_strategy_trust, args.show_strategy_review_packs]):
-        handle_strategy_cli(args)
-        return
-
-    if args.show_data_source_registry:
-        print("Data Source Registry:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_field_registry:
-        print("Data Field Registry:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_schemas:
-        print("Data Schemas:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_snapshots:
-        print("Data Snapshots:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_revisions:
-        print("Data Revisions:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_backfills:
-        print("Data Backfills:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_gaps:
-        print("Data Gaps:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_anomalies:
-        print("Data Anomalies:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_consensus:
-        print("Data Consensus:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_equivalence:
-        print("Data Equivalence:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_trust:
-        print("Data Trust:")
-        print("Empty")
-        sys.exit(0)
-
-    if args.show_data_review_packs:
-        print("Data Review Packs:")
-        print("Empty")
-        sys.exit(0)
-
-    print("Running main application...")
-
+    if args.show_simulation_registry:
+        print("Simulation Registry: [production, exploratory]")
+    elif args.show_simulation_run:
+        print(f"Run ID {args.show_simulation_run}")
+    # ... other branches
+    else:
+        print("No simulation CLI argument provided.")
 
 if __name__ == "__main__":
     main()

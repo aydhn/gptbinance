@@ -1,6 +1,3 @@
-from .models import DataTrustVerdict
-
-
-class TrustEngine:
-    def evaluate(self, inputs: dict) -> DataTrustVerdict:
-        pass
+class DataTrust:
+    def __init__(self):
+        pass # gap burden -> sim trust

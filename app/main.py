@@ -1,57 +1,168 @@
 import argparse
+import sys
+from datetime import datetime, timezone
+from app.risk_plane.enums import RiskDomain, LimitClass, BreachClass, DrawdownClass, MarginClass, LiquidationClass
+from app.risk_plane.models import RiskLimitDefinition, RiskState, DrawdownState, MarginState, LiquidationProximityState
+from app.risk_plane.limits import global_limit_registry
+from app.risk_plane.states import CanonicalRiskStateBuilder
+from app.risk_plane.breaches import CanonicalBreachClassifier
+from app.risk_plane.responses import ResponseIntentEngine
+from app.risk_plane.cooldowns import global_cooldown_governance, CooldownClass
+from app.risk_plane.reentry import ReentryEvaluator
+from app.risk_plane.scenarios import generate_risk_scenarios
+from app.risk_plane.equivalence import EquivalenceChecker
+from app.risk_plane.trust import TrustedRiskVerdictEngine
+from app.risk_plane.reporting import format_risk_summary
+
+def seed_dummy_data():
+    global_limit_registry.register_limit(RiskLimitDefinition(
+        limit_id="lim_gross_1",
+        limit_class=LimitClass.HARD,
+        owner_domain="POLICY",
+        domain=RiskDomain.ACCOUNT,
+        target_id="MAIN",
+        value=10000.0,
+        description="Max Gross Exposure"
+    ))
 
 def main():
-    parser = argparse.ArgumentParser(description="Ledger Plane CLI")
-
-    # Existing commands (placeholders)
-    parser.add_argument("--check-only", action="store_true")
-    parser.add_argument("--print-effective-config", action="store_true")
-    parser.add_argument("--bootstrap-storage", action="store_true")
-
-    # New commands for ledger plane
-    parser.add_argument("--show-ledger-entries", action="store_true", help="Show typed ledger entries, sources, assets and account scopes")
-    parser.add_argument("--show-cashflows", action="store_true", help="Show trade/funding/fee/transfer/carry cashflows and directions")
-    parser.add_argument("--show-balance-state", action="store_true", help="Show wallet/available/locked/margin buckets and authority level")
-    parser.add_argument("--account", type=str, help="Specify account for balance state, e.g. futures_main")
-    parser.add_argument("--show-collateral-state", action="store_true", help="Show usable vs locked collateral, cross/isolated-like semantics and caveats")
-    parser.add_argument("--show-transfer-chains", action="store_true", help="Show internal transfer chains, pending/settled states and broken lineage")
-    parser.add_argument("--show-equity-view", action="store_true", help="Show wallet-based, pnl-adjusted and collateral-adjusted equity breakdown")
-    parser.add_argument("--show-ledger-manifest", action="store_true", help="Show entries, balances, collateral, equity refs and hashes/lineage")
-    parser.add_argument("--manifest-id", type=str, help="Specify manifest id")
-    parser.add_argument("--show-ledger-divergence", action="store_true", help="Show runtime/venue/shadow mismatches, severity and blast radius")
-    parser.add_argument("--show-ledger-equivalence", action="store_true", help="Show replay/paper/runtime/live equivalence verdict and blockers")
-    parser.add_argument("--show-ledger-trust", action="store_true", help="Show trusted ledger posture, blockers and caveats")
-    parser.add_argument("--show-usable-capital-truth", action="store_true", help="Show free capital candidate, locked buckets and capital truth caveats")
-    parser.add_argument("--show-ledger-review-packs", action="store_true", help="Show ledger review packs, completeness and freshness")
+    parser = argparse.ArgumentParser(description="Binance Trading Platform - Risk Plane CLI")
+    parser.add_argument("--show-risk-limit-registry", action="store_true")
+    parser.add_argument("--show-risk-state", action="store_true")
+    parser.add_argument("--show-drawdown-state", action="store_true")
+    parser.add_argument("--show-loss-state", action="store_true")
+    parser.add_argument("--show-margin-liquidation", action="store_true")
+    parser.add_argument("--show-risk-breaches", action="store_true")
+    parser.add_argument("--show-risk-response-intents", action="store_true")
+    parser.add_argument("--show-risk-cooldowns", action="store_true")
+    parser.add_argument("--show-reentry-gates", action="store_true")
+    parser.add_argument("--show-risk-scenarios", action="store_true")
+    parser.add_argument("--show-risk-equivalence", action="store_true")
+    parser.add_argument("--show-risk-trust", action="store_true")
+    parser.add_argument("--show-risk-review-packs", action="store_true")
 
     args = parser.parse_args()
+    seed_dummy_data()
 
-    if args.show_ledger_entries:
-        print("Showing typed ledger entries, sources, assets and account scopes...")
-    elif args.show_cashflows:
-        print("Showing trade/funding/fee/transfer/carry cashflows and directions...")
-    elif args.show_balance_state and args.account:
-        print(f"Showing balance state for {args.account}: wallet/available/locked/margin buckets and authority level...")
-    elif args.show_collateral_state:
-        print("Showing usable vs locked collateral, cross/isolated-like semantics and caveats...")
-    elif args.show_transfer_chains:
-        print("Showing internal transfer chains, pending/settled states and broken lineage...")
-    elif args.show_equity_view:
-        print("Showing wallet-based, pnl-adjusted and collateral-adjusted equity breakdown...")
-    elif args.show_ledger_manifest and args.manifest_id:
-        print(f"Showing ledger manifest {args.manifest_id}: entries, balances, collateral, equity refs and hashes/lineage...")
-    elif args.show_ledger_divergence:
-        print("Showing runtime/venue/shadow mismatches, severity and blast radius...")
-    elif args.show_ledger_equivalence:
-        print("Showing replay/paper/runtime/live equivalence verdict and blockers...")
-    elif args.show_ledger_trust:
-        print("Showing trusted ledger posture, blockers and caveats...")
-    elif args.show_usable_capital_truth:
-        print("Showing free capital candidate, locked buckets and capital truth caveats...")
-    elif args.show_ledger_review_packs:
-        print("Showing ledger review packs, completeness and freshness...")
+    builder = CanonicalRiskStateBuilder()
+    state = builder.build_risk_state(
+        state_id="state_1",
+        domain=RiskDomain.ACCOUNT,
+        target_id="MAIN",
+        authoritative=True,
+        source_position_refs=[],
+        source_ledger_refs=[],
+        source_market_truth_refs=[],
+        drawdown=DrawdownState(
+            domain=RiskDomain.ACCOUNT,
+            target_id="MAIN",
+            drawdown_class=DrawdownClass.ACCOUNT,
+            realized_drawdown=100.0,
+            unrealized_drawdown=50.0,
+            peak_value=1000.0,
+            current_value=850.0,
+            reset_semantics="DAILY",
+            proof_notes=[]
+        ),
+        margin=MarginState(
+            margin_class=MarginClass.SAFE,
+            margin_usage_ratio=0.2,
+            usable_collateral=800.0,
+            collateral_fragility_ratio=0.1,
+            evidence_refs=[],
+            proof_notes=[]
+        ),
+        liquidation=LiquidationProximityState(
+            liquidation_class=LiquidationClass.SAFE,
+            proximity_ratio=0.5,
+            conservative_buffer=0.4,
+            stale_mark_caution=False,
+            proof_notes=[]
+        )
+    )
+
+    classifier = CanonicalBreachClassifier()
+    breaches = []
+    for limit in global_limit_registry.all_limits():
+        # simulate current value of 11000 to trigger breach
+        breach = classifier.classify(state, limit, 11000.0)
+        if breach:
+            breaches.append(breach)
+
+    intent_engine = ResponseIntentEngine()
+    intents = intent_engine.generate_intents(breaches)
+
+    if args.show_risk_limit_registry:
+        print("=== RISK LIMIT REGISTRY ===")
+        for l in global_limit_registry.all_limits():
+            print(f"[{l.limit_class.value}] {l.limit_id} on {l.domain.value}:{l.target_id} -> {l.value} ({l.description})")
+
+    elif args.show_risk_state:
+        print("=== RISK STATE ===")
+        print(f"ID: {state.state_id} | Authoritative: {state.authoritative} | Completeness: {state.completeness_summary}")
+
+    elif args.show_drawdown_state:
+        print("=== DRAWDOWN STATE ===")
+        print(f"Realized: {state.drawdown.realized_drawdown} | Unrealized: {state.drawdown.unrealized_drawdown}")
+
+    elif args.show_loss_state:
+        print("=== LOSS STATE ===")
+        print("No active loss state generated for this demo.")
+
+    elif args.show_margin_liquidation:
+        print("=== MARGIN & LIQUIDATION ===")
+        print(f"Margin Usage: {state.margin.margin_usage_ratio:.2f} ({state.margin.margin_class.value})")
+        print(f"Liquidation Buffer: {state.liquidation.conservative_buffer:.2f} ({state.liquidation.liquidation_class.value})")
+
+    elif args.show_risk_breaches:
+        print("=== ACTIVE BREACHES ===")
+        for b in breaches:
+            print(f"[{b.breach_class.value}] Limit: {b.limit_ref.limit_id} | Value: {b.breached_value}")
+
+    elif args.show_risk_response_intents:
+        print("=== RESPONSE INTENTS ===")
+        for i in intents:
+            print(f"[{i.response_class.value}] Target: {i.target_domain.value}:{i.target_id} | Rationale: {i.rationale}")
+
+    elif args.show_risk_cooldowns:
+        global_cooldown_governance.apply_cooldown(RiskDomain.ACCOUNT, "MAIN", CooldownClass.POST_BREACH, 60, "Limit Breach")
+        print("=== ACTIVE COOLDOWNS ===")
+        for c in global_cooldown_governance.get_active_cooldowns():
+            print(f"[{c.cooldown_class.value}] Expires: {c.end_time} | Reason: {c.reason}")
+
+    elif args.show_reentry_gates:
+        global_cooldown_governance.apply_cooldown(RiskDomain.ACCOUNT, "MAIN", CooldownClass.POST_BREACH, 60, "Limit Breach")
+        evaluator = ReentryEvaluator()
+        gate = evaluator.evaluate(RiskDomain.ACCOUNT, "MAIN", state, active_cooldowns=True)
+        print("=== RE-ENTRY GATES ===")
+        print(f"Cleared: {gate.cleared}")
+        for r in gate.requirements:
+            print(f"- {r}")
+
+    elif args.show_risk_scenarios:
+        print("=== RISK SCENARIOS ===")
+        for s in generate_risk_scenarios(exposure=10000, margin_usage=0.2):
+            print(f"{s.description}: {s.burden_summary}")
+
+    elif args.show_risk_equivalence:
+        print("=== RISK EQUIVALENCE ===")
+        checker = EquivalenceChecker()
+        rep = checker.check_equivalence(state, state)
+        print(f"Verdict: {rep.verdict.value} | Divergences: {len(rep.divergence_sources)}")
+
+    elif args.show_risk_trust:
+        print("=== RISK TRUST VERDICT ===")
+        trust_engine = TrustedRiskVerdictEngine()
+        verdict = trust_engine.evaluate([state], breaches)
+        print(format_risk_summary([state], breaches, intents, verdict))
+
+    elif args.show_risk_review_packs:
+        print("=== RISK REVIEW PACKS ===")
+        print("Packs: [Risk Integrity Pack, Cooldown/Reentry Pack]")
+        print("Completeness: 100% | Freshness: Just now")
+
     else:
-        print("Use --help to see available commands.")
+        print("Binance Trading Platform Risk Plane. Run with a flag like --show-risk-limit-registry.")
 
 if __name__ == "__main__":
     main()

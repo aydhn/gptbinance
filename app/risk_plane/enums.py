@@ -1,0 +1,75 @@
+from enum import Enum
+
+
+class RiskDomain(str, Enum):
+    ACCOUNT = "ACCOUNT"
+    SLEEVE = "SLEEVE"
+    SYMBOL = "SYMBOL"
+    CLUSTER = "CLUSTER"
+
+
+class LimitClass(str, Enum):
+    ADVISORY = "ADVISORY"
+    SOFT = "SOFT"
+    HARD = "HARD"
+    EMERGENCY = "EMERGENCY"
+
+
+class BreachClass(str, Enum):
+    ADVISORY = "ADVISORY"
+    SOFT = "SOFT"
+    HARD = "HARD"
+    EMERGENCY = "EMERGENCY"
+
+
+class ResponseClass(str, Enum):
+    NO_NEW_EXPOSURE = "NO_NEW_EXPOSURE"
+    REDUCE_EXPOSURE = "REDUCE_EXPOSURE"
+    DEALLOCATE_SLEEVE = "DEALLOCATE_SLEEVE"
+    FREEZE_SYMBOL = "FREEZE_SYMBOL"
+    FREEZE_SLEEVE = "FREEZE_SLEEVE"
+    REVIEW_REQUIRED = "REVIEW_REQUIRED"
+    HARD_BLOCK = "HARD_BLOCK"
+    EMERGENCY_DELEVERAGE_INTENT = "EMERGENCY_DELEVERAGE_INTENT"
+
+
+class CooldownClass(str, Enum):
+    POST_LOSS = "POST_LOSS"
+    POST_BREACH = "POST_BREACH"
+    POST_LIQUIDATION_PROXIMITY = "POST_LIQUIDATION_PROXIMITY"
+    POST_INCIDENT = "POST_INCIDENT"
+
+
+class DrawdownClass(str, Enum):
+    INTRADAY = "INTRADAY"
+    ROLLING = "ROLLING"
+    ACCOUNT = "ACCOUNT"
+    SLEEVE = "SLEEVE"
+
+
+class MarginClass(str, Enum):
+    SAFE = "SAFE"
+    ELEVATED = "ELEVATED"
+    PRESSURE = "PRESSURE"
+    CRITICAL = "CRITICAL"
+
+
+class LiquidationClass(str, Enum):
+    SAFE = "SAFE"
+    WARNING = "WARNING"
+    PROXIMITY = "PROXIMITY"
+    CRITICAL = "CRITICAL"
+
+
+class EquivalenceVerdict(str, Enum):
+    EQUIVALENT = "EQUIVALENT"
+    DIVERGENT = "DIVERGENT"
+    PARTIAL = "PARTIAL"
+
+
+class TrustVerdict(str, Enum):
+    TRUSTED = "TRUSTED"
+    CAUTION = "CAUTION"
+    DEGRADED = "DEGRADED"
+    BLOCKED = "BLOCKED"
+    REVIEW_REQUIRED = "REVIEW_REQUIRED"

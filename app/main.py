@@ -1,5 +1,6 @@
 import argparse
 import sys
+from app.main_strategy_cli import handle_strategy_cli
 from app.data_plane.sources import CanonicalSourceRegistry
 from app.data_plane.fields import CanonicalFieldRegistry
 from app.data_plane.schemas import CanonicalSchemaRegistry
@@ -33,8 +34,28 @@ def main():
     parser.add_argument("--show-data-equivalence", action="store_true")
     parser.add_argument("--show-data-trust", action="store_true")
     parser.add_argument("--show-data-review-packs", action="store_true")
+    parser.add_argument("--show-strategy-registry", action="store_true")
+    parser.add_argument("--show-strategy", action="store_true")
+    parser.add_argument("--strategy-id", type=str)
+    parser.add_argument("--show-strategy-hypotheses", action="store_true")
+    parser.add_argument("--show-strategy-theses", action="store_true")
+    parser.add_argument("--show-strategy-lifecycle", action="store_true")
+    parser.add_argument("--show-strategy-promotions", action="store_true")
+    parser.add_argument("--show-strategy-freezes", action="store_true")
+    parser.add_argument("--show-strategy-retirements", action="store_true")
+    parser.add_argument("--show-strategy-fit", action="store_true")
+    parser.add_argument("--show-strategy-overlap", action="store_true")
+    parser.add_argument("--show-strategy-decay", action="store_true")
+    parser.add_argument("--show-strategy-equivalence", action="store_true")
+    parser.add_argument("--show-strategy-trust", action="store_true")
+    parser.add_argument("--show-strategy-review-packs", action="store_true")
+
 
     args = parser.parse_args()
+
+    if any([args.show_strategy_registry, args.show_strategy, args.show_strategy_hypotheses, args.show_strategy_theses, args.show_strategy_lifecycle, args.show_strategy_promotions, args.show_strategy_freezes, args.show_strategy_retirements, args.show_strategy_fit, args.show_strategy_overlap, args.show_strategy_decay, args.show_strategy_equivalence, args.show_strategy_trust, args.show_strategy_review_packs]):
+        handle_strategy_cli(args)
+        return
 
     if args.show_data_source_registry:
         print("Data Source Registry:")

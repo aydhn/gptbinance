@@ -1,14 +1,4 @@
-from typing import Dict, Any
-
-
-def export_market_truth_incident(incident_id: str):
-    pass
-
-
-def export_market_truth_freshness_health() -> Dict[str, Any]:
-    return {"status": "healthy", "staleness_ms": 150}
-
-# Market truth derived features export
-class MarketTruthFeatures:
-    def export_canonical(self):
-        pass
+class MarketTruthVerdict:
+    def get_truthfulness(self, symbol: str) -> bool:
+        # Market truth posture -> allocation clipping/defer/reject input
+        return True

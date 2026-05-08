@@ -1,28 +1,21 @@
-# Stub for strategy engine integration
-def evaluate_strategy_candidates(candidates, truth_verdict):
-    if truth_verdict == "BLOCK":
-        return []
-    return candidates
+# Strategy Engine Integration with Allocation Plane Canonical Intake Format
+from typing import List, Dict, Any
+from app.allocation.models import AllocationCandidate
+from app.allocation.enums import AllocationClass, SignalFamily
 
-# --- CONFIGURATION PLANE INTEGRATION ---
-from app.config_plane.models import EffectiveConfigManifest
-
-class ConfigAwareStrategyEngine:
-    def __init__(self, config_manifest: EffectiveConfigManifest):
-        self.config_manifest = config_manifest
-        self.effective_refs = config_manifest.manifest_id
-
-    def get_feature_flag(self, flag_name: str) -> bool:
-        entry = self.config_manifest.entries.get(f"strategy.{flag_name}")
-        return entry.value if entry else False
-
-# Strategy signal surfaces integration with Feature Plane
-from typing import List
 class StrategyEngine:
-    def get_canonical_feature_manifests(self) -> List[str]:
-        # Connect to canonical feature manifests
-        return []
-
-    def enforce_documented_features(self):
-        # Reject ad-hoc feature usage
-        pass
+    def produce_candidates(self) -> List[AllocationCandidate]:
+        # Emits signals in the format required by the allocation plane
+        return [
+            AllocationCandidate(
+                candidate_id="cand_1",
+                symbol="BTCUSDT",
+                signal_source_ref="strat_momentum_btc",
+                signal_family=SignalFamily.MOMENTUM,
+                sleeve_ref="primary_alpha_01",
+                confidence=0.85,
+                requested_notional=10000.0,
+                allocation_class=AllocationClass.DIRECTIONAL_LONG,
+                regime_refs=["regime_bull"]
+            )
+        ]

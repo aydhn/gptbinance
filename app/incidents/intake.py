@@ -1,23 +1,4 @@
-# Mock implementation
 class IncidentIntake:
-    pass
-
-
-# Added Incident Signals
-INCIDENT_SIGNALS = [
-    "runtime_build_mismatch",
-    "lock_integrity_broken",
-    "missing_attestation_critical",
-    "reproducibility_regression",
-    "unexpected_dependency_drift",
-]
-
-class FeatureIncidentSignals:
-    def __init__(self):
-        self.signals = [
-            "feature_leakage_detected",
-            "training_serving_skew_critical",
-            "runtime_feature_manifest_missing",
-            "point_in_time_violation",
-            "stale_feature_surface_critical"
-        ]
+    def report_allocation_incident(self, signal: str):
+        # allocation_budget_broken, capacity_clip_critical_cluster, crowding_burst_detected, etc.
+        pass

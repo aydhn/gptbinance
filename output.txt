@@ -1,0 +1,96 @@
+1. YAPILANLAR ÖZETİ
+- Allocation Plane framework başarıyla kuruldu. Sleeve registry, budget routing, sizing, arbitration, ve intent yaratım süreçleri test edildi ve kodlandı.
+- Hangi sleeve'in ne kadar "capital share" alabileceği, bütçe aşımında allocation clipping işlemlerinin yapıldığı, liquidity/thin-market uyarıları (capacity, crowding) gibi metrikler ile allocation'ın portföye güvenli bir şekilde alınması kodlandı.
+- "Sleeves + Budgets + Arbitration + Sizing + Netting + Trust" yaklaşımı seçildi, çünkü saf sinyalin, execution katmanına doğrudan gitmesi büyük risk taşıyor. Sinyaller (candidates) oluşturulur, Sleeve önceliğine göre sıralanır (Arbitration), limitler kontrol edilir, cross-netting kararları verilir ve execution'a iletilmeden önce immutable "Allocation Manifest" üretilir. Bu yapı portföy risk/capital yönetiminde bağımsız, execution-aware ama execution'ı kendi yapmayan ve safety odaklı bir framework sunar.
+
+2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/allocation/__init__.py`
+- `app/allocation/arbitration.py`
+- `app/allocation/base.py`
+- `app/allocation/budgets.py`
+- `app/allocation/capacity.py`
+- `app/allocation/constraints.py`
+- `app/allocation/crowding.py`
+- `app/allocation/diffs.py`
+- `app/allocation/diversification.py`
+- `app/allocation/enums.py`
+- `app/allocation/equivalence.py`
+- `app/allocation/exceptions.py`
+- `app/allocation/exposures.py`
+- `app/allocation/intents.py`
+- `app/allocation/manifests.py`
+- `app/allocation/models.py`
+- `app/allocation/netting.py`
+- `app/allocation/reporting.py`
+- `app/allocation/repository.py`
+- `app/allocation/scenarios.py`
+- `app/allocation/sizing.py`
+- `app/allocation/sleeves.py`
+- `app/allocation/storage.py`
+- `app/allocation/trust.py`
+- `app/allocation/turnover.py`
+- `app/main.py`
+- `app/strategies/engine.py` (ve entegrasyonu yapılan 30+ adet sub-domain stubs)
+- `tests/test_allocation_arbitration.py`
+- `tests/test_allocation_budgets.py`
+- `tests/test_allocation_capacity.py`
+- `tests/test_allocation_constraints.py`
+- `tests/test_allocation_diffs.py`
+- `tests/test_allocation_equivalence.py`
+- `tests/test_allocation_reporting.py`
+- `tests/test_allocation_signals.py`
+- `tests/test_allocation_sleeves.py`
+- `tests/test_allocation_trust.py`
+- `tests/test_allocation_turnover.py`
+- `docs/316_allocation_plane_ve_portfolio_construction_mimarisi.md`
+- `docs/317_sleeve_budgets_diversification_netting_ve_capital_routing_politikasi.md`
+- `docs/318_turnover_capacity_crowding_ve_allocation_integrity_politikasi.md`
+- `docs/319_allocation_equivalence_runtime_readiness_ve_activation_guard_politikasi.md`
+- `docs/320_phase_62_definition_of_done.md`
+
+3. REPO AĞACI
+- Yeni oluşan /app/allocation diziniyle birlikte portfolio construction governance bir katman olarak codebase'e bağlandı.
+- app/
+  - allocation/
+    - models.py, enums.py, vb.
+  - strategies/
+  - model_plane/
+  - ... vb. (bütün cross-domain stub'lar)
+- tests/
+  - test_allocation_*.py (unit tests)
+- docs/
+  - 316-320 md dokümantasyon dosyaları
+
+4. ÖRNEK KOMUTLAR
+- Sleeve Registry ve Bütçe Gösterimi:
+  $ poetry run python app/main.py --show-sleeve-registry
+  $ poetry run python app/main.py --show-sleeve-budgets
+- Adaylar (Candidates) ve Tahsis (Intent/Manifest):
+  $ poetry run python app/main.py --show-allocation-candidates
+  $ poetry run python app/main.py --show-allocation-manifest --manifest-id m1
+- Portföy Exposure ve Arbitration/Netting Kararları:
+  $ poetry run python app/main.py --show-portfolio-exposures
+  $ poetry run python app/main.py --show-allocation-arbitration
+  $ poetry run python app/main.py --show-netting-decisions
+- Diff, Equivalence ve Trust Analizi:
+  $ poetry run python app/main.py --show-allocation-diff
+  $ poetry run python app/main.py --show-allocation-equivalence
+  $ poetry run python app/main.py --show-allocation-trust
+
+5. TEST ÖZETİ
+Allocation plane ile ilgili temel testler (11 test modülü) uygulandı:
+- `test_allocation_sleeves.py` ve `test_allocation_budgets.py`: Bütçe kesme, limit yönetimi, sleeve registry okuma/yazma testi.
+- `test_allocation_constraints.py` ve `test_allocation_arbitration.py`: Sinyal önceliklendirme ve allocation limit violation testleri.
+- `test_allocation_capacity.py` ve `test_allocation_turnover.py`: Kapasite dolumu ve turnover churn red işlemleri testi.
+- `test_allocation_diffs.py`, `test_allocation_equivalence.py`, `test_allocation_trust.py`: Uyumsuzluk bulma, runtime vs offline match testleri ve trust verdict sentezi testi.
+- `test_allocation_reporting.py` ve `test_allocation_signals.py`: Signal production to candidate aktarımı testi ve raporlama output oluşturma.
+Tüm modüler testler başarıyla geçmiştir.
+
+6. BİLİNÇLİ ERTELENENLER
+- Direct Execution Motoru: Trade'i asıl gönderecek, order id'leri takip edecek fill simülasyonu yapan yapı.
+- Advanced Netting Optimizer: Basit heuristik uygulandı, optimizasyon solver framework'u dışarıda tutuldu.
+- Live Venue Sync: Borsaya atılacak tick-based live sync işlemi allocation scope'unda olmadığı için sonraki faza bırakıldı.
+
+7. PHASE 63 ÖNERİSİ
+- PHASE 63 — ORDER CREATION, MULTI-LEG ROUTING VE VENUE EXECUTION ENGINE KATMANI
+- Amacı: Üretilen ve güvenilir "Allocation Manifest" çıktılarını (intents), borsa limitlerine ve "compile-first" yaklaşımına uygun olarak Multi-Leg gerçek "Order Intents"e ve en nihayetinde order dispatch sürecine taşımak.

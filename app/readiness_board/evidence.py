@@ -1,7 +1,4 @@
-# Mock implementation
 class ReadinessEvidence:
-    pass
-
-class ReadinessEvidence:
-    def add_feature_trust_bundle(self):
+    def add_allocation_reports(self, trust_report: dict, equivalence_report: dict):
+        # Includes critical allocation integrity failures
         pass

@@ -1,12 +1,4 @@
-# Mock implementation
-class EvidencePacks:
-    pass
-
-class FeatureEvidencePacks:
-    def __init__(self):
-        self.packs = [
-            "feature_review_pack",
-            "dataset_contract_pack",
-            "runtime_feature_equivalence_pack",
-            "experiment_feature_integrity_pack"
-        ]
+class EvidencePackBuilder:
+    def build_allocation_pack(self) -> dict:
+        # allocation review pack, readiness allocation integrity pack, runtime allocation equivalence pack
+        return {"type": "allocation_review_pack"}

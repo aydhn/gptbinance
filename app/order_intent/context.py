@@ -1,4 +1,4 @@
-# Stub for order intent compile context
-class CompileContext:
-    def __init__(self, market_truth_summary):
-        self.market_truth_summary = market_truth_summary
+class OrderIntentContext:
+    def compile_intent(self, allocation_intent_ref: str):
+        # Tie allocation manifest to order intent lineage
+        pass

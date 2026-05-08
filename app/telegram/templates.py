@@ -1,14 +1,6 @@
-# Mock implementation
 class TelegramTemplates:
-    pass
-
-class FeatureTelegramTemplates:
-    def __init__(self):
-        self.templates = [
-            "feature_manifest_ready",
-            "feature_leakage_detected",
-            "feature_skew_elevated",
-            "feature_integrity_degraded",
-            "feature_review_required",
-            "feature_summary_digest"
-        ]
+    TEMPLATES = {
+        "allocation_manifest_ready": "Allocation Manifest {manifest_id} is ready. Trust: {trust_verdict}",
+        "crowding_burst_detected": "CRITICAL: Crowding burst detected in candidates.",
+        "allocation_trust_degraded": "WARNING: Allocation trust degraded. Reason: {reason}"
+    }

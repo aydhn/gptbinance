@@ -1,7 +1,4 @@
-# Stub for decision path refs
-def log_decision_path(decision, was_data_stale):
-    pass
-
 class ReplayDecisionPath:
-    def link_point_in_time(self):
+    def build_path(self, manifest_ref: str, budget_ref: str, trust_verdict: str):
+        # Replay-only divergence appears as explicit caution
         pass

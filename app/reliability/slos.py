@@ -1,12 +1,7 @@
-# Mock implementation
-class ReliabilitySLOs:
-    pass
-
-class FeatureIntegritySLOs:
-    def __init__(self):
-        self.slos = [
-            "point_in_time_correctness_cleanliness",
-            "runtime_equivalence_cleanliness",
-            "skew_violation_rate",
-            "stale_feature_ratio"
-        ]
+class AllocationIntegritySLOs:
+    def get_slos(self) -> dict:
+        return {
+            "runtime_equivalence_cleanliness": 0.999,
+            "budget_integrity_cleanliness": 1.0,
+            "concentration_breach_near_miss_rate": 0.05
+        }

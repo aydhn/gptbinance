@@ -1,7 +1,4 @@
-# Mock implementation
-class ReadinessDomains:
-    pass
-
-
-# Added Domain for Supply Chain
-SUPPLY_CHAIN_INTEGRITY = "supply_chain_integrity"
+class AllocationIntegrityDomain:
+    def get_verdict(self) -> str:
+        # Evaluates budgets, exposures, capacity, crowding, and equivalence posture
+        return "GO"

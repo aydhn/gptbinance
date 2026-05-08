@@ -1,13 +1,8 @@
-# Mock implementation
 class IdentityCapabilities:
-    pass
-
-class FeatureIdentityCapabilities:
-    def __init__(self):
-        self.capabilities = [
-            "inspect_feature_manifest",
-            "review_dataset_contract",
-            "review_feature_leakage",
-            "review_feature_equivalence",
-            "review_feature_skew"
-        ]
+    CAPABILITIES = [
+        "inspect_allocation_manifest",
+        "review_sleeve_budget",
+        "review_allocation_equivalence",
+        "review_concentration_breach",
+        "review_netting_policy"
+    ]

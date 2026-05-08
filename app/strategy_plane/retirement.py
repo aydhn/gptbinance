@@ -1,0 +1,2 @@
+class StrategyRetirementGovernance:
+    pass

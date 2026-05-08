@@ -1,0 +1,2 @@
+class DegradationClassifier:
+    pass

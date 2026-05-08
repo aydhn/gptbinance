@@ -1,44 +1,27 @@
+from app.risk_plane.models import RiskState
+from app.performance_plane.enums import TrustVerdict
+from app.performance_plane.models import PerformanceTrustVerdict
 import uuid
-from datetime import datetime, timezone
-from typing import List, Dict
-from .models import RiskState, RiskBreachRecord, RiskTrustVerdict
-from .enums import TrustVerdict, BreachClass
 
 
-class TrustedRiskVerdictEngine:
-    def evaluate(
-        self, states: List[RiskState], breaches: List[RiskBreachRecord]
-    ) -> RiskTrustVerdict:
-        factors: Dict[str, str] = {}
-        breakdown: List[str] = []
+class RiskTrustEvaluator:
+    @staticmethod
+    def evaluate(state: RiskState) -> float:
+        # Dummy evaluation logic
+        return 1.0
+
+    @staticmethod
+    def export_trust_verdict(state: RiskState) -> PerformanceTrustVerdict:
         verdict = TrustVerdict.TRUSTED
-
-        # Check authority
-        unauthoritative = [s for s in states if not s.authoritative]
-        if unauthoritative:
-            factors["authority"] = "APPROXIMATE"
-            breakdown.append(f"{len(unauthoritative)} states are not authoritative.")
+        blockers = []
+        if not state.authoritative:
             verdict = TrustVerdict.DEGRADED
+            blockers.append("Risk state is non-authoritative.")
 
-        # Check breaches
-        emergency = [b for b in breaches if b.breach_class == BreachClass.EMERGENCY]
-        if emergency:
-            factors["breaches"] = "EMERGENCY"
-            breakdown.append(f"{len(emergency)} emergency breaches detected.")
-            verdict = TrustVerdict.BLOCKED
-        elif [b for b in breaches if b.breach_class == BreachClass.HARD]:
-            factors["breaches"] = "HARD"
-            breakdown.append("Hard breaches detected.")
-            verdict = TrustVerdict.CAUTION
-
-        if verdict == TrustVerdict.TRUSTED:
-            factors["status"] = "ALL_CLEAR"
-            breakdown.append("Risk posture is clean and authoritative.")
-
-        return RiskTrustVerdict(
+        return PerformanceTrustVerdict(
             verdict_id=str(uuid.uuid4()),
+            manifest_id="dummy",  # Replaced dynamically
             verdict=verdict,
-            factors=factors,
-            breakdown=breakdown,
-            timestamp=datetime.now(timezone.utc),
+            blockers=blockers,
+            factors={"authoritative": state.authoritative},
         )

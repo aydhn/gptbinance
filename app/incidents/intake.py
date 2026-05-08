@@ -1,12 +1,23 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
+
 
 class IncidentIntake:
-    # Ledger-plane incident signals:
-    # - critical_balance_divergence_detected
-    # - broken_transfer_chain
-    # - collateral_truth_broken
-    # - funding_posting_incomplete_critical
-    # - runtime_ledger_manifest_missing
-    # - duplicate_collateral_usage_risk
-    # With severity hints and blast radius evaluations.
-    pass
+    @staticmethod
+    def register_signal(
+        signal_type: str, severity: str, details: Dict[str, Any]
+    ) -> dict:
+        performance_signals = [
+            "benchmark_integrity_broken",
+            "attribution_chain_missing_critical",
+            "performance_equivalence_broken",
+            "unexplained_pnl_component_cluster",
+            "opportunity_surface_misclassification",
+            "runtime_performance_manifest_missing",
+        ]
+
+        return {
+            "signal_type": signal_type,
+            "severity": severity,
+            "is_performance_related": signal_type in performance_signals,
+            "details": details,
+        }

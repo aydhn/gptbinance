@@ -1,96 +1,65 @@
 1. YAPILANLAR ÖZETİ
-- Allocation Plane framework başarıyla kuruldu. Sleeve registry, budget routing, sizing, arbitration, ve intent yaratım süreçleri test edildi ve kodlandı.
-- Hangi sleeve'in ne kadar "capital share" alabileceği, bütçe aşımında allocation clipping işlemlerinin yapıldığı, liquidity/thin-market uyarıları (capacity, crowding) gibi metrikler ile allocation'ın portföye güvenli bir şekilde alınması kodlandı.
-- "Sleeves + Budgets + Arbitration + Sizing + Netting + Trust" yaklaşımı seçildi, çünkü saf sinyalin, execution katmanına doğrudan gitmesi büyük risk taşıyor. Sinyaller (candidates) oluşturulur, Sleeve önceliğine göre sıralanır (Arbitration), limitler kontrol edilir, cross-netting kararları verilir ve execution'a iletilmeden önce immutable "Allocation Manifest" üretilir. Bu yapı portföy risk/capital yönetiminde bağımsız, execution-aware ama execution'ı kendi yapmayan ve safety odaklı bir framework sunar.
+- Unified performance plane framework kuruldu.
+- Canonical benchmark registry ve performance window sistemi kodlandı.
+- Realized return, benchmark-relative return ve attribution zinciri inşa edildi.
+- Selection, timing, allocation, execution, risk-block, fee-funding-carry drag ayrıştırması mantığı eklendi.
+- Opportunity-surface ve capture-ratio analitiği kodlandı, counterfactual caveatler netleştirildi.
+- Sleeve, strategy, symbol, model, regime, session cohort bazlı katkı görünürlüğü eklendi.
+- Replay / paper / runtime / live performance equivalence mantığı kuruldu.
+- Trusted performance verdict engine yazıldı.
+- `app/main.py` içerisine CLI inspect argümanları eklendi.
+- Pre-commit kontrolleri ve formatting yapıldı.
+- 17 modülde toplam 19 test yazılarak tüm bu bileşenlerin mantığı test edildi ve doğrulandı.
 
 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/allocation/__init__.py`
-- `app/allocation/arbitration.py`
-- `app/allocation/base.py`
-- `app/allocation/budgets.py`
-- `app/allocation/capacity.py`
-- `app/allocation/constraints.py`
-- `app/allocation/crowding.py`
-- `app/allocation/diffs.py`
-- `app/allocation/diversification.py`
-- `app/allocation/enums.py`
-- `app/allocation/equivalence.py`
-- `app/allocation/exceptions.py`
-- `app/allocation/exposures.py`
-- `app/allocation/intents.py`
-- `app/allocation/manifests.py`
-- `app/allocation/models.py`
-- `app/allocation/netting.py`
-- `app/allocation/reporting.py`
-- `app/allocation/repository.py`
-- `app/allocation/scenarios.py`
-- `app/allocation/sizing.py`
-- `app/allocation/sleeves.py`
-- `app/allocation/storage.py`
-- `app/allocation/trust.py`
-- `app/allocation/turnover.py`
-- `app/main.py`
-- `app/strategies/engine.py` (ve entegrasyonu yapılan 30+ adet sub-domain stubs)
-- `tests/test_allocation_arbitration.py`
-- `tests/test_allocation_budgets.py`
-- `tests/test_allocation_capacity.py`
-- `tests/test_allocation_constraints.py`
-- `tests/test_allocation_diffs.py`
-- `tests/test_allocation_equivalence.py`
-- `tests/test_allocation_reporting.py`
-- `tests/test_allocation_signals.py`
-- `tests/test_allocation_sleeves.py`
-- `tests/test_allocation_trust.py`
-- `tests/test_allocation_turnover.py`
-- `docs/316_allocation_plane_ve_portfolio_construction_mimarisi.md`
-- `docs/317_sleeve_budgets_diversification_netting_ve_capital_routing_politikasi.md`
-- `docs/318_turnover_capacity_crowding_ve_allocation_integrity_politikasi.md`
-- `docs/319_allocation_equivalence_runtime_readiness_ve_activation_guard_politikasi.md`
-- `docs/320_phase_62_definition_of_done.md`
+- OLUŞTURULAN: `app/performance_plane/enums.py`, `exceptions.py`, `models.py`, `base.py`, `README.md`, `benchmarks.py`, `windows.py`, `returns.py`, `baselines.py`, `attribution.py`, `components.py`, `drags.py`, `opportunity.py`, `capture.py`, `cohorts.py`, `contributions.py`, `risk_adjusted.py`, `quality.py`, `equivalence.py`, `trust.py`, `manifests.py`, `reporting.py`, `storage.py`, `repository.py`
+- OLUŞTURULAN TESTLER: `tests/test_performance_plane_benchmarks.py`, `tests/test_performance_plane_windows.py`, `tests/test_performance_plane_returns.py`, `tests/test_performance_plane_baselines.py`, `tests/test_performance_plane_attribution.py`, `tests/test_performance_plane_components.py`, `tests/test_performance_plane_drags.py`, `tests/test_performance_plane_opportunity.py`, `tests/test_performance_plane_capture.py`, `tests/test_performance_plane_cohorts.py`, `tests/test_performance_plane_contributions.py`, `tests/test_performance_plane_risk_adjusted.py`, `tests/test_performance_plane_quality.py`, `tests/test_performance_plane_equivalence.py`, `tests/test_performance_plane_trust.py`, `tests/test_performance_plane_manifests.py`, `tests/test_performance_plane_storage.py`
+- OLUŞTURULAN DOKÜMANLAR: `docs/341_...`, `docs/342_...`, `docs/343_...`, `docs/344_...`, `docs/345_...`
+- GÜNCELLENEN: `app/position_plane/pnl.py`, `app/position_plane/realized.py`, `app/position_plane/unrealized.py`, `app/execution_plane/quality.py`, `app/execution_plane/slippage.py`, `app/execution_plane/markouts.py`, `app/allocation/intents.py`, `app/allocation/trust.py`, `app/risk_plane/responses.py`, `app/risk_plane/trust.py`, `app/ledger_plane/equity.py`, `app/ledger_plane/cashflows.py`, `app/model_plane/trust.py`, `app/feature_plane/trust.py`, `app/strategies/engine.py`, `app/decision_quality/reporting.py`, `app/experiments/definitions.py`, `app/experiments/comparisons.py`, `app/replay/decision_path.py`, `app/readiness_board/evidence.py`, `app/readiness_board/domains.py`, `app/activation/history.py`, `app/reliability/domains.py`, `app/reliability/slos.py`, `app/incidents/intake.py`, `app/postmortems/contributors.py`, `app/evidence_graph/artefacts.py`, `app/evidence_graph/packs.py`, `app/reviews/requests.py`, `app/identity/capabilities.py`, `app/observability/alerts.py`, `app/observability/runbooks.py`, `app/telegram/notifier.py`, `app/telegram/templates.py`, `app/main.py`
 
 3. REPO AĞACI
-- Yeni oluşan /app/allocation diziniyle birlikte portfolio construction governance bir katman olarak codebase'e bağlandı.
-- app/
-  - allocation/
-    - models.py, enums.py, vb.
-  - strategies/
-  - model_plane/
-  - ... vb. (bütün cross-domain stub'lar)
-- tests/
-  - test_allocation_*.py (unit tests)
-- docs/
-  - 316-320 md dokümantasyon dosyaları
+`app/performance_plane/` klasörü sisteme dahil edilmiştir ve diğer planeler arası entegrasyonlar sağlanmıştır. Mevcut proje ağacında 25 dosya bu amaca adanmıştır. Ayrıca `tests/` klasörüne 17 adet test dosyası, `docs/` klasörüne 5 adet policy belgesi eklendi. CLI için `app/main.py` güncellenmiştir.
 
 4. ÖRNEK KOMUTLAR
-- Sleeve Registry ve Bütçe Gösterimi:
-  $ poetry run python app/main.py --show-sleeve-registry
-  $ poetry run python app/main.py --show-sleeve-budgets
-- Adaylar (Candidates) ve Tahsis (Intent/Manifest):
-  $ poetry run python app/main.py --show-allocation-candidates
-  $ poetry run python app/main.py --show-allocation-manifest --manifest-id m1
-- Portföy Exposure ve Arbitration/Netting Kararları:
-  $ poetry run python app/main.py --show-portfolio-exposures
-  $ poetry run python app/main.py --show-allocation-arbitration
-  $ poetry run python app/main.py --show-netting-decisions
-- Diff, Equivalence ve Trust Analizi:
-  $ poetry run python app/main.py --show-allocation-diff
-  $ poetry run python app/main.py --show-allocation-equivalence
-  $ poetry run python app/main.py --show-allocation-trust
+- `poetry run python -m app.main --show-benchmark-registry`
+- `poetry run python -m app.main --show-performance-state`
+- `poetry run python -m app.main --show-performance-windows`
+- `poetry run python -m app.main --show-return-surfaces`
+- `poetry run python -m app.main --show-benchmark-relative`
+- `poetry run python -m app.main --show-attribution-tree`
+- `poetry run python -m app.main --show-performance-drags`
+- `poetry run python -m app.main --show-opportunity-surfaces`
+- `poetry run python -m app.main --show-capture-ratios`
+- `poetry run python -m app.main --show-performance-cohorts`
+- `poetry run python -m app.main --show-performance-equivalence`
+- `poetry run python -m app.main --show-performance-trust`
+- `poetry run python -m app.main --show-performance-review-packs`
 
 5. TEST ÖZETİ
-Allocation plane ile ilgili temel testler (11 test modülü) uygulandı:
-- `test_allocation_sleeves.py` ve `test_allocation_budgets.py`: Bütçe kesme, limit yönetimi, sleeve registry okuma/yazma testi.
-- `test_allocation_constraints.py` ve `test_allocation_arbitration.py`: Sinyal önceliklendirme ve allocation limit violation testleri.
-- `test_allocation_capacity.py` ve `test_allocation_turnover.py`: Kapasite dolumu ve turnover churn red işlemleri testi.
-- `test_allocation_diffs.py`, `test_allocation_equivalence.py`, `test_allocation_trust.py`: Uyumsuzluk bulma, runtime vs offline match testleri ve trust verdict sentezi testi.
-- `test_allocation_reporting.py` ve `test_allocation_signals.py`: Signal production to candidate aktarımı testi ve raporlama output oluşturma.
-Tüm modüler testler başarıyla geçmiştir.
+17 adet test dosyası yazılarak şu fonksiyonlar doğrulandı:
+- `test_performance_plane_benchmarks.py`: Benchmark registry integrity
+- `test_performance_plane_windows.py`: Window completeness ve timezone check
+- `test_performance_plane_returns.py`: Return surface correctness
+- `test_performance_plane_baselines.py`: Baseline suitability ve mismatch uyarıları
+- `test_performance_plane_attribution.py`: Attribution tree integrity (selection, timing vs residual hesaplaması)
+- `test_performance_plane_components.py`: Component lineage
+- `test_performance_plane_drags.py`: Slippage/funding/fee/carry drag aggregation
+- `test_performance_plane_opportunity.py`: Opportunity confidence classes ve risk-blocked caveats
+- `test_performance_plane_capture.py`: Capture ratio correctness
+- `test_performance_plane_cohorts.py`: Symbol/sleeve/strategy vs cohort analysis
+- `test_performance_plane_contributions.py`: Contribution rollups
+- `test_performance_plane_risk_adjusted.py`: Drawdown-aware surfaces
+- `test_performance_plane_quality.py`: Unexplained residual / missing component uyarıları
+- `test_performance_plane_equivalence.py`: Replay / paper / runtime / live divergence
+- `test_performance_plane_trust.py`: Trust verdict synthesis (blockers, caveats, completeness)
+- `test_performance_plane_manifests.py`: Manifest building and signatures
+- `test_performance_plane_storage.py`: Benchmark, manifest ve tree verilerinin repo katmanından okunması ve yazılması
 
 6. BİLİNÇLİ ERTELENENLER
-- Direct Execution Motoru: Trade'i asıl gönderecek, order id'leri takip edecek fill simülasyonu yapan yapı.
-- Advanced Netting Optimizer: Basit heuristik uygulandı, optimizasyon solver framework'u dışarıda tutuldu.
-- Live Venue Sync: Borsaya atılacak tick-based live sync işlemi allocation scope'unda olmadığı için sonraki faza bırakıldı.
+- ML tabanlı counterfactual hesaplamaları
+- Çok detaylı historical orderbook simülasyonları
+Bu faz "gerçekleşen getirinin nedenleri ve benchmark denetimi" üstüne odaklandığı için, vanity dashboardlar veya aşırı faraziyeler içeren hesaplamalar dışarıda bırakılmıştır.
 
-7. PHASE 63 ÖNERİSİ
-- PHASE 63 — ORDER CREATION, MULTI-LEG ROUTING VE VENUE EXECUTION ENGINE KATMANI
-- Amacı: Üretilen ve güvenilir "Allocation Manifest" çıktılarını (intents), borsa limitlerine ve "compile-first" yaklaşımına uygun olarak Multi-Leg gerçek "Order Intents"e ve en nihayetinde order dispatch sürecine taşımak.
+7. PHASE 68 ÖNERİSİ
+**Phase 68: Tactical Replay-Runtime Parity Loop ve Automated Drift Remediation Katmanı.**
+Replay ve Live arasındaki divergence verilerine dayanarak Replay model varsayımlarını (slippage rate, funding expected) otomatik tune edip drifti onarma sistemi hedeflenmektedir.

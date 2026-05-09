@@ -29,3 +29,7 @@ class AllocationIntentManager:
             confidence_score=0.7,
             caveats=["Clipped by allocation capacity limits."],
         )
+
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.

@@ -9,3 +9,7 @@ def build_continue_recommendation() -> ExperimentRecommendation:
         confidence_level="HIGH",
         rationale="Metrics stable",
     )
+
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.

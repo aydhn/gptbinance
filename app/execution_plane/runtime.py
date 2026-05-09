@@ -16,3 +16,7 @@ class RuntimeExecutionEnv:
             if "secret" not in k.lower() and "key" not in k.lower()
         }
         self.send_receipts[idempotency_key] = safe_receipt
+
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.

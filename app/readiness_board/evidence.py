@@ -1,3 +1,4 @@
-class ReadinessEvidence:
-    def __init__(self):
-        pass # bundle gets sim trust, wf summaries, assumption manifests
+class ReadinessEvidenceBundle:
+    def __init__(self, research_trust=None, contradiction_summaries=None):
+        self.research_trust = research_trust
+        self.contradiction_summaries = contradiction_summaries

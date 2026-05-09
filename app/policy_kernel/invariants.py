@@ -1,3 +1,5 @@
 class PolicyInvariants:
-    def __init__(self):
-        pass # new invariants: no promotion missing OOS evidence, etc.
+    NO_PROMOTION_UNDER_MISSING_READINESS = True
+    NO_TRUST_UNDER_CRITICAL_CONTRADICTION = True
+    NO_DUPLICATE_UNDER_CRITICAL_OVERLAP = True
+    NO_HIGH_CONFIDENCE_WITHOUT_EVIDENCE = True

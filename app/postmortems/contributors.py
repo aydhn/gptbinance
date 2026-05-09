@@ -1,2 +1,5 @@
-class PostmortemContributors:
-    CONTRIBUTORS = ["hidden_fill_assumption", "stale_fee_funding_model", "walk_forward_discipline_failure"]
+class PostmortemContributor:
+    FAILED_ASSUMPTION = "failed_assumption"
+    MISSING_CONTRADICTION = "missing_contradiction"
+    DUPLICATED_RESEARCH = "duplicated_research"
+    SELECTIVE_EVIDENCE = "selective_evidence"

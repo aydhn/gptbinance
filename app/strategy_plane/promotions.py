@@ -1,3 +1,5 @@
-class PromotionEngine:
-    def evaluate(self, sim_walk_forward_ref, oos_hygiene_ref, sim_trust_ref):
-        pass # Must include walk-forward/OOS/trust refs from simulation plane
+class StrategyPromotion:
+    def __init__(self, research_readiness=None, contradiction_burden=None, invalidation_history=None):
+        self.research_readiness = research_readiness
+        self.contradiction_burden = contradiction_burden
+        self.invalidation_history = invalidation_history

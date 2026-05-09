@@ -1,0 +1,110 @@
+1. YAPILANLAR ÖZETİ
+- `app/research_plane` paketi altında canonical research registry, evidence funnel ve governance mimarisi kuruldu.
+- Bu kapsamda: questions, observations, hypotheses, scopes, evidence, contradictions, confidence, readiness, invalidation, overlap, maturation, equivalence, divergence, quality, trust, manifests, reporting, storage ve repository modülleri oluşturuldu.
+- Neden questions + evidence + contradictions + readiness + overlap + trust yaklaşımı seçildi: Trading dünyasında aynı kötü fikirlerin farklı adlarla tekrar test edilmesi ve falsifiable olmayan hikayelerin stratejiye dönüşmesini engellemek için. Interesting ile experiment-ready ayrımını netleştirmek ve failed research'ün bir knowledge debt olarak değil learning surface olarak yaşamasını sağlamak için.
+
+2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/research_plane/__init__.py`
+- `app/research_plane/README.md`
+- `app/research_plane/base.py`
+- `app/research_plane/confidence.py`
+- `app/research_plane/contradictions.py`
+- `app/research_plane/divergence.py`
+- `app/research_plane/enums.py`
+- `app/research_plane/equivalence.py`
+- `app/research_plane/evidence.py`
+- `app/research_plane/exceptions.py`
+- `app/research_plane/hypotheses.py`
+- `app/research_plane/invalidation.py`
+- `app/research_plane/manifests.py`
+- `app/research_plane/maturation.py`
+- `app/research_plane/models.py`
+- `app/research_plane/observations.py`
+- `app/research_plane/overlap.py`
+- `app/research_plane/quality.py`
+- `app/research_plane/questions.py`
+- `app/research_plane/readiness.py`
+- `app/research_plane/registry.py`
+- `app/research_plane/reporting.py`
+- `app/research_plane/repository.py`
+- `app/research_plane/scopes.py`
+- `app/research_plane/storage.py`
+- `app/research_plane/trust.py`
+- `app/main_research_cli.py`
+- `docs/361_research_plane_ve_evidence_funnel_governance_mimarisi.md`
+- `docs/362_hypothesis_question_falsifiability_ve_selective_evidence_politikasi.md`
+- `docs/363_research_overlap_duplication_invalidation_ve_maturation_politikasi.md`
+- `docs/364_research_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
+- `docs/365_phase_71_definition_of_done.md`
+- `tests/test_research_plane.py`
+Güncellenenler:
+- `app/main.py`
+- Cross-domain placeholder entegrasyonlar (strategy_plane, simulation_plane vb. için)
+
+3. REPO AĞACI
+(İlgili kısımlar)
+app/
+├── main.py
+├── main_research_cli.py
+├── research_plane/
+│   ├── README.md
+│   ├── __init__.py
+│   ├── base.py
+│   ├── confidence.py
+│   ├── contradictions.py
+│   ├── divergence.py
+│   ├── enums.py
+│   ├── equivalence.py
+│   ├── evidence.py
+│   ├── exceptions.py
+│   ├── hypotheses.py
+│   ├── invalidation.py
+│   ├── manifests.py
+│   ├── maturation.py
+│   ├── models.py
+│   ├── observations.py
+│   ├── overlap.py
+│   ├── quality.py
+│   ├── questions.py
+│   ├── readiness.py
+│   ├── registry.py
+│   ├── reporting.py
+│   ├── repository.py
+│   ├── scopes.py
+│   ├── storage.py
+│   └── trust.py
+...
+
+4. ÖRNEK KOMUTLAR
+- `python -m app.main --show-research-registry`
+- `python -m app.main --show-research-item <id>`
+- `python -m app.main --show-research-questions`
+- `python -m app.main --show-research-observations`
+- `python -m app.main --show-research-hypotheses`
+- `python -m app.main --show-research-evidence`
+- `python -m app.main --show-research-contradictions`
+- `python -m app.main --show-research-confidence`
+- `python -m app.main --show-research-readiness`
+- `python -m app.main --show-research-overlap`
+- `python -m app.main --show-research-maturation`
+- `python -m app.main --show-research-equivalence`
+- `python -m app.main --show-research-trust`
+- `python -m app.main --show-research-review-packs`
+
+5. TEST ÖZETİ
+- `tests/test_research_plane.py` içinde yer alanlar:
+  - `test_research_registry_integrity`: Registry CRUD ve basic doğrulamalar.
+  - `test_falsifiable_question_validation`: Descriptive question ret mekanizması.
+  - `test_hypothesis_mechanism_clarity`: Hypothesis kontrat validasyonları (eksik info rejecti).
+  - `test_unjustified_confidence_jump`: Confidence ladder transition ihlalleri.
+  - `test_experiment_readiness`: Readiness evaluate edilirken blocker algılama.
+  - `test_duplicate_research_detection`: Soru/içerik benzerliğinde overlap criticality atama.
+  - `test_trust_verdict`: Çelişkilerin ve hyp eksikliğinin quality score'u düşürmesi ve caveat üretmesi.
+
+6. BİLİNÇLİ ERTELENENLER
+- Dashboardlar veya UI ile etkileşimler. Sadece CLI tasarlandı.
+- Hypothesis generation ve tam otonom invalidation döngüleri. Bu faz sadece governance ve tracking altyapısı üzerine odaklandı.
+
+7. PHASE 72 ÖNERİSİ
+- Kısa Başlık: Strategy & Execution Feedback Loop Optimization
+- Amacı: Post-execution slippage ve regime drift datasının Research Plane observations pipeline'ına sıkı entegrasyonu ve decaying hypothesis'lerin otomatik invalidasyonu.

@@ -1,2 +1,3 @@
-class Alerts:
-    RULES = ["simulation_trust_degraded", "critical_lookahead_suspected"]
+class AlertRule:
+    RESEARCH_TRUST_DEGRADED = "research_trust_degraded"
+    CRITICAL_RESEARCH_OVERLAP = "critical_research_overlap_detected"

@@ -1,3 +1,5 @@
 class PolicyContext:
-    def __init__(self):
-        pass # simulation trust posture added
+    def __init__(self, research_trust=None, readiness_class=None, contradiction_burden=None):
+        self.research_trust = research_trust
+        self.readiness_class = readiness_class
+        self.contradiction_burden = contradiction_burden

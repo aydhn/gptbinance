@@ -1,3 +1,3 @@
-class ActivationGuards:
-    def __init__(self):
-        pass # require simulation-grade evidence and comparability
+class ActivationGuard:
+    def check_research_evidence(self):
+        pass

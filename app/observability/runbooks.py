@@ -1,2 +1,2 @@
-class Runbooks:
-    REFS = ["simulation_integrity_review", "walk_forward_investigation"]
+class RunbookRef:
+    RESEARCH_INTEGRITY_REVIEW = "research_integrity_review"

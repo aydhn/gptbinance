@@ -1,3 +1,3 @@
-class TelegramNotifier:
-    def notify(self, event_type: str, data: dict):
-        pass # Handle simulation_manifest_ready, simulation_trust_degraded, etc with severity filtering
+class TelegramNotifierEvent:
+    RESEARCH_MANIFEST_READY = "research_manifest_ready"
+    RESEARCH_TRUST_DEGRADED = "research_trust_degraded"

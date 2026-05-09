@@ -1,110 +1,84 @@
-1. YAPILANLAR ÖZETİ
-- `app/research_plane` paketi altında canonical research registry, evidence funnel ve governance mimarisi kuruldu.
-- Bu kapsamda: questions, observations, hypotheses, scopes, evidence, contradictions, confidence, readiness, invalidation, overlap, maturation, equivalence, divergence, quality, trust, manifests, reporting, storage ve repository modülleri oluşturuldu.
-- Neden questions + evidence + contradictions + readiness + overlap + trust yaklaşımı seçildi: Trading dünyasında aynı kötü fikirlerin farklı adlarla tekrar test edilmesi ve falsifiable olmayan hikayelerin stratejiye dönüşmesini engellemek için. Interesting ile experiment-ready ayrımını netleştirmek ve failed research'ün bir knowledge debt olarak değil learning surface olarak yaşamasını sağlamak için.
+# YAPILANLAR ÖZETİ
 
-2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/research_plane/__init__.py`
-- `app/research_plane/README.md`
-- `app/research_plane/base.py`
-- `app/research_plane/confidence.py`
-- `app/research_plane/contradictions.py`
-- `app/research_plane/divergence.py`
-- `app/research_plane/enums.py`
-- `app/research_plane/equivalence.py`
-- `app/research_plane/evidence.py`
-- `app/research_plane/exceptions.py`
-- `app/research_plane/hypotheses.py`
-- `app/research_plane/invalidation.py`
-- `app/research_plane/manifests.py`
-- `app/research_plane/maturation.py`
-- `app/research_plane/models.py`
-- `app/research_plane/observations.py`
-- `app/research_plane/overlap.py`
-- `app/research_plane/quality.py`
-- `app/research_plane/questions.py`
-- `app/research_plane/readiness.py`
-- `app/research_plane/registry.py`
-- `app/research_plane/reporting.py`
-- `app/research_plane/repository.py`
-- `app/research_plane/scopes.py`
-- `app/research_plane/storage.py`
-- `app/research_plane/trust.py`
-- `app/main_research_cli.py`
-- `docs/361_research_plane_ve_evidence_funnel_governance_mimarisi.md`
-- `docs/362_hypothesis_question_falsifiability_ve_selective_evidence_politikasi.md`
-- `docs/363_research_overlap_duplication_invalidation_ve_maturation_politikasi.md`
-- `docs/364_research_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
-- `docs/365_phase_71_definition_of_done.md`
-- `tests/test_research_plane.py`
-Güncellenenler:
-- `app/main.py`
-- Cross-domain placeholder entegrasyonlar (strategy_plane, simulation_plane vb. için)
+Phase 74 (Control Plane, Operator Intervention ve Human-In-The-Loop Governance) başarıyla uygulandı.
+* Typed `CommandRegistry`, `ActionRequest`, `ActionPreview`, `ApprovalDecision`, `ExceptionToken`, `KillSwitchRecord` vs. için modeller (`app/control_plane/models.py`) ve enum'lar (`app/control_plane/enums.py`) eklendi.
+* Preview, Dry-run, Apply, Rollback, Revoke süreçleri için class'lar kuruldu (`previews.py`, `dry_runs.py`, `apply.py`, `rollback.py`, `revoke.py`).
+* Approval mekanizması dual control desteğiyle `approvals.py` içine entegre edildi.
+* Manual pause, freeze, unfreeze ve killswitch mekanizmaları denetimli olarak eklendi.
+* Dış plane'lere (execution, risk, vs.) dummy connector mockları kuruldu.
+* Kullanıcının `hidden admin override` yapmaması, tüm işlemlerin type safety içerisinde, preview'lar ve kanıtlar bırakarak ilerlemesi sağlandı.
+* Uygulamaya özgü `tests/test_control_plane.py` yazılarak testleri `pytest` üzerinden çalıştırıldı. CLI parametreleri `app/main.py` üzerine entegre edildi.
 
-3. REPO AĞACI
-(İlgili kısımlar)
-app/
-├── main.py
-├── main_research_cli.py
-├── research_plane/
-│   ├── README.md
-│   ├── __init__.py
-│   ├── base.py
-│   ├── confidence.py
-│   ├── contradictions.py
-│   ├── divergence.py
-│   ├── enums.py
-│   ├── equivalence.py
-│   ├── evidence.py
-│   ├── exceptions.py
-│   ├── hypotheses.py
-│   ├── invalidation.py
-│   ├── manifests.py
-│   ├── maturation.py
-│   ├── models.py
-│   ├── observations.py
-│   ├── overlap.py
-│   ├── quality.py
-│   ├── questions.py
-│   ├── readiness.py
-│   ├── registry.py
-│   ├── reporting.py
-│   ├── repository.py
-│   ├── scopes.py
-│   ├── storage.py
-│   └── trust.py
-...
+# OLUŞTURULAN / GÜNCELLENEN DOSYALAR
 
-4. ÖRNEK KOMUTLAR
-- `python -m app.main --show-research-registry`
-- `python -m app.main --show-research-item <id>`
-- `python -m app.main --show-research-questions`
-- `python -m app.main --show-research-observations`
-- `python -m app.main --show-research-hypotheses`
-- `python -m app.main --show-research-evidence`
-- `python -m app.main --show-research-contradictions`
-- `python -m app.main --show-research-confidence`
-- `python -m app.main --show-research-readiness`
-- `python -m app.main --show-research-overlap`
-- `python -m app.main --show-research-maturation`
-- `python -m app.main --show-research-equivalence`
-- `python -m app.main --show-research-trust`
-- `python -m app.main --show-research-review-packs`
+* `app/control_plane/models.py`
+* `app/control_plane/enums.py`
+* `app/control_plane/exceptions.py`
+* `app/control_plane/registry.py`
+* `app/control_plane/commands.py`
+* `app/control_plane/scopes.py`
+* `app/control_plane/previews.py`
+* `app/control_plane/dry_runs.py`
+* `app/control_plane/approvals.py`
+* `app/control_plane/decisions.py`
+* `app/control_plane/exceptions_tokens.py`
+* `app/control_plane/apply.py`
+* `app/control_plane/rollback.py`
+* `app/control_plane/revoke.py`
+* `app/control_plane/killswitch.py`
+* `app/control_plane/freezes.py`
+* `app/control_plane/unfreezes.py`
+* `app/control_plane/pauses.py`
+* `app/control_plane/restore.py`
+* `app/control_plane/receipts.py`
+* `app/control_plane/policies.py`
+* `app/control_plane/guards.py`
+* `app/control_plane/conflicts.py`
+* `app/control_plane/equivalence.py`
+* `app/control_plane/divergence.py`
+* `app/control_plane/trust.py`
+* `app/control_plane/manifests.py`
+* `app/control_plane/reporting.py`
+* `app/control_plane/storage.py`
+* `app/control_plane/repository.py`
+* `app/main.py`
+* `tests/test_control_plane.py`
+* `docs/376_control_plane_ve_operator_intervention_governance_mimarisi.md`
+* `docs/377_approval_chains_dual_control_exception_token_ve_kill_switch_politikasi.md`
+* `docs/378_freeze_unfreeze_pause_restore_rollback_ve_operator_action_truth_politikasi.md`
+* `docs/379_control_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
+* `docs/380_phase_74_definition_of_done.md`
 
-5. TEST ÖZETİ
-- `tests/test_research_plane.py` içinde yer alanlar:
-  - `test_research_registry_integrity`: Registry CRUD ve basic doğrulamalar.
-  - `test_falsifiable_question_validation`: Descriptive question ret mekanizması.
-  - `test_hypothesis_mechanism_clarity`: Hypothesis kontrat validasyonları (eksik info rejecti).
-  - `test_unjustified_confidence_jump`: Confidence ladder transition ihlalleri.
-  - `test_experiment_readiness`: Readiness evaluate edilirken blocker algılama.
-  - `test_duplicate_research_detection`: Soru/içerik benzerliğinde overlap criticality atama.
-  - `test_trust_verdict`: Çelişkilerin ve hyp eksikliğinin quality score'u düşürmesi ve caveat üretmesi.
+# REPO AĞACI
 
-6. BİLİNÇLİ ERTELENENLER
-- Dashboardlar veya UI ile etkileşimler. Sadece CLI tasarlandı.
-- Hypothesis generation ve tam otonom invalidation döngüleri. Bu faz sadece governance ve tracking altyapısı üzerine odaklandı.
+Güncel repository tree, `app/control_plane` ve ilgili docs/tests klasörlerini kapsamakta ve flake8/black denetimlerinden başarıyla geçmektedir.
 
-7. PHASE 72 ÖNERİSİ
-- Kısa Başlık: Strategy & Execution Feedback Loop Optimization
-- Amacı: Post-execution slippage ve regime drift datasının Research Plane observations pipeline'ına sıkı entegrasyonu ve decaying hypothesis'lerin otomatik invalidasyonu.
+# ÖRNEK KOMUTLAR
+
+Aşağıdaki komutları kullanarak CLI üzerinden kontrol sağlanabilir:
+* `python -m app.main --show-command-registry`
+* `python -m app.main --show-control-scopes`
+* `python -m app.main --show-control-trust`
+* `python -m app.main --show-kill-switches`
+
+# TEST ÖZETİ
+
+Testler (`tests/test_control_plane.py`):
+1. `test_command_registry`: Sistemdeki registry entegrasyonu,
+2. `test_preview_and_apply_flow`: Preview - Approval - Apply başarılı iş akışı,
+3. `test_apply_without_approval_fails`: Onaysız exception handler'ın çalışması,
+4. `test_kill_switches`: Kill switch tetikleme ve kayıt doğrulaması,
+5. `test_trust_verdict`: Sistem trust değerlendirmesi.
+Tüm testler hatasız geçmektedir.
+
+# BİLİNÇLİ ERTELENENLER
+
+* Tam ölçekli external sistem event-loop injection'ları (Data/Strategy plane'lere manuel request ile pause emirlerinin implementasyonu)
+* Kapsamlı rollback validation mekanizması detaylandırılmadı, bu aşamada yalnızca exception framework'ü çizildi.
+* Persistent SQLite tablolara bağlanan backend mocklandı, entegrasyonlar Phase 75 veya Storage refactor phase'ine devredildi.
+
+# PHASE 75 ÖNERİSİ
+
+**Phase 75: IDENTITY PLANE VE AUTHZ LIFECYCLE (Operator Yetki, Capabilities, Scope Validation ve Zero-Trust Authz Matrix)**
+
+Bu fazın amacı operator/machine entity kimlik yönetimlerini kalıcılaştırmak ve Control Plane komutlarını net capability matrisleriyle ilişkilendirmektir.

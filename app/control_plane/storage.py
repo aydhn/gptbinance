@@ -1,0 +1,2 @@
+class ControlStorage:
+    pass

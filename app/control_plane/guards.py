@@ -1,0 +1,2 @@
+class ControlGuards:
+    pass

@@ -1,0 +1,13 @@
+class WorkflowPlaneError(Exception): pass
+class InvalidWorkflowDefinitionError(WorkflowPlaneError): pass
+class InvalidJobContractError(WorkflowPlaneError): pass
+class InvalidTriggerDefinitionError(WorkflowPlaneError): pass
+class InvalidRunWindowError(WorkflowPlaneError): pass
+class GateViolationError(WorkflowPlaneError): pass
+class DependencyViolationError(WorkflowPlaneError): pass
+class DuplicateRunError(WorkflowPlaneError): pass
+class InvalidResumeError(WorkflowPlaneError): pass
+class InvalidRerunError(WorkflowPlaneError): pass
+class InvalidRetryError(WorkflowPlaneError): pass
+class BackfillContaminationError(WorkflowPlaneError): pass
+class WorkflowStorageError(WorkflowPlaneError): pass

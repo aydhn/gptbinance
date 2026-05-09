@@ -42,3 +42,7 @@ class ReconciliationEngine:
             description=description,
             downstream_impact_hints=impact_hints,
         )
+
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.

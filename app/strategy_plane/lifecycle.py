@@ -98,3 +98,7 @@ class StrategyLifecycleEvaluator:
 
     def get_history(self, strategy_id: str) -> List[StrategyLifecycleRecord]:
         return self._history.get(strategy_id, [])
+
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.

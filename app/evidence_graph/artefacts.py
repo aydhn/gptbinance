@@ -13,3 +13,8 @@ class ArtefactRelation:
     SUPERSEDED_BY = "superseded_by"
     ROLLED_BACK_BY = "rolled_back_by"
     DIVERGED_RELEASE_FROM = "diverged_release_from"
+
+
+class EvidenceGraphArtefactRegistry:
+    def register_postmortem_artefact(self, postmortem_id: str):
+        pass

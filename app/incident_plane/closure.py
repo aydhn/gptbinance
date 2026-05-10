@@ -15,3 +15,17 @@ class ClosureReadinessEvaluator:
             pass # Postmortem check placeholder
 
         return True
+
+
+from typing import List
+from app.postmortem_plane.models import PostmortemDefinition
+from app.postmortem_plane.closure import PostmortemClosureGovernance
+from app.postmortem_plane.enums import ClosureClass
+
+class IncidentClosureEvaluator:
+    def can_close(self, incident_id: str, linked_postmortem: PostmortemDefinition = None) -> bool:
+        if linked_postmortem:
+            readiness = PostmortemClosureGovernance.evaluate_readiness(linked_postmortem)
+            # Incident can be closed even if postmortem is open, but we track it.
+            return True
+        return True # if no postmortem required

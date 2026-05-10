@@ -13,3 +13,10 @@ class PolicyInvariants:
 # WORKFLOW PLANE INTEGRATION:
 # Added hooks for dependency/gate evaluations, duplicate run protections,
 # and explicit reruns per Phase 73 requirements.
+
+
+class PolicyInvariantEvaluator:
+    def evaluate(self, context: dict) -> bool:
+        if context.get("active_postmortem_debt", 0) > 0 and context.get("is_critical_release", False):
+            return False
+        return True

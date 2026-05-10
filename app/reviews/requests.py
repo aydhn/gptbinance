@@ -9,3 +9,8 @@ class ReviewClass:
 class ReviewRequest:
     def attach_release_evidence_suitability_metadata(self):
         pass
+
+
+class ReviewRequestDispatcher:
+    def request_rca_review(self, postmortem_id: str):
+        pass

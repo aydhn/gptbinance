@@ -1,4 +1,12 @@
 class ActivationGuard:
+
+    def evaluate_postmortem(self, active_postmortems: list) -> bool:
+        for p in active_postmortems:
+             if any(d.interest_class.value == "critical" for d in getattr(p, "debt_records", [])):
+                 return False
+        return True
+
+
     def check_research_evidence(self):
         pass
 

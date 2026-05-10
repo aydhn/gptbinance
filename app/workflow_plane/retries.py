@@ -20,3 +20,8 @@ class RetryManager:
         )
         self.records.append(record)
         return record
+
+
+class RetryStormTracker:
+    def export_as_contributor(self, workflow_id: str) -> dict:
+        return {"type": "automation_gap", "severity": "high"}

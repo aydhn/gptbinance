@@ -11,3 +11,8 @@ class TelegramNotifier:
             # Enforce severity/rate-limit logic
             # Audit ref inclusion for critical missing events
             pass
+
+
+class PostmortemTelegramNotifier:
+    def notify(self, event_type: str, postmortem_id: str):
+        pass

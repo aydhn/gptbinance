@@ -25,3 +25,8 @@ class EvidenceEvaluator:
             "contradictory": contradictory_count,
             "quality_note": quality_note,
         }
+
+
+class ResearchIntake:
+    def intake_learning_note(self, learning_note: dict):
+        pass

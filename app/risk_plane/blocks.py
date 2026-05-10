@@ -27,3 +27,8 @@ class BlockManager:
 
 
 global_block_manager = BlockManager()
+
+
+class RiskBlockEvaluator:
+    def sticky_blocks_active(self, risk_event: str, preventive_actions_verified: bool) -> bool:
+        return not preventive_actions_verified

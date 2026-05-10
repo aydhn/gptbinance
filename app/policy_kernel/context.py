@@ -11,3 +11,8 @@ class PolicyContext:
         self.rollout_stage = rollout_stage
         self.hotfix_burden = hotfix_burden
         self.rollback_readiness = rollback_readiness
+
+
+class PolicyContextBuilder:
+    def build_context(self, postmortem_debt: list) -> dict:
+        return {"active_postmortem_debt": len(postmortem_debt)}

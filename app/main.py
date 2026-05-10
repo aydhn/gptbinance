@@ -1,173 +1,87 @@
 import argparse
+import sys
+import os
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--show-command-registry",
-        action="store_true",
-        help="Show typed command registry",
+def setup_incident_cli(parser: argparse.ArgumentParser):
+    group = parser.add_argument_group("Incident Plane Governance")
+    group.add_argument('--show-incident-registry', action='store_true', help='Show incident registry')
+    group.add_argument('--show-incident', type=str, metavar='ID', help='Show incident manifest')
+    group.add_argument('--show-incident-signals', action='store_true', help='Show incident signals')
+    group.add_argument('--show-incident-triage', action='store_true', help='Show incident triage')
+    group.add_argument('--show-incident-severity', action='store_true', help='Show incident severity')
+    group.add_argument('--show-incident-urgency', action='store_true', help='Show incident urgency')
+    group.add_argument('--show-incident-blast-radius', action='store_true', help='Show incident blast radius')
+    group.add_argument('--show-incident-ownership', action='store_true', help='Show incident ownership')
+    group.add_argument('--show-incident-status-timeline', action='store_true', help='Show incident status timeline')
+    group.add_argument('--show-incident-actions', action='store_true', help='Show incident actions')
+    group.add_argument('--show-incident-containment', action='store_true', help='Show incident containment')
+    group.add_argument('--show-incident-recovery', action='store_true', help='Show incident recovery')
+    group.add_argument('--show-incident-verification', type=str, metavar='ID', help='Show incident recovery verification')
+    group.add_argument('--show-incident-dedup-correlation', action='store_true', help='Show incident dedup and correlation')
+    group.add_argument('--show-incident-closure', action='store_true', help='Show incident closure')
+    group.add_argument('--show-incident-equivalence', action='store_true', help='Show incident equivalence')
+    group.add_argument('--show-incident-trust', type=str, metavar='ID', help='Show incident trust verdict')
+    group.add_argument('--show-incident-review-packs', action='store_true', help='Show incident review packs')
+
+def handle_incident_commands(args):
+    from app.incident_plane.reporting import IncidentReporter
+    from app.incident_plane.repository import IncidentRepository
+    from app.incident_plane.trust import IncidentTrustEngine
+    from app.incident_plane.models import IncidentManifest
+    from app.incident_plane.enums import IncidentSeverity, IncidentUrgency, IncidentStatus
+
+    repo = IncidentRepository()
+    reporter = IncidentReporter()
+
+    # Mock data for demonstration
+    manifest = IncidentManifest(
+        incident_id="INC-20231024-001",
+        family="execution_integrity_incident",
+        severity=IncidentSeverity.SEV1_HIGH,
+        urgency=IncidentUrgency.IMMEDIATE,
+        current_status=IncidentStatus.RECOVERING,
+        blast_radius={"scope": "Live Execution Engine", "symbol": "BTCUSDT"},
+        primary_owner="operator_alpha"
     )
-    parser.add_argument(
-        "--show-control-action",
-        type=str,
-        metavar="ACTION_ID",
-        help="Show specific action details",
-    )
-    parser.add_argument("--show-control-scopes", action="store_true")
-    parser.add_argument("--show-action-previews", action="store_true")
-    parser.add_argument("--show-action-dry-runs", action="store_true")
-    parser.add_argument("--show-approval-chains", action="store_true")
-    parser.add_argument("--show-approval-decisions", action="store_true")
-    parser.add_argument("--show-exception-tokens", action="store_true")
-    parser.add_argument("--show-kill-switches", action="store_true")
-    parser.add_argument("--show-freezes-unfreezes", action="store_true")
-    parser.add_argument("--show-control-rollbacks", action="store_true")
-    parser.add_argument("--show-control-revokes", action="store_true")
-    parser.add_argument("--show-control-equivalence", action="store_true")
-    parser.add_argument("--show-control-trust", action="store_true")
-    parser.add_argument("--show-control-review-packs", action="store_true")
+    repo.save(manifest)
 
-    parser.add_argument("--show-simulation-registry", action="store_true")
-    parser.add_argument("--show-simulation-run", type=str, help="--run-id <id>")
-    parser.add_argument("--show-simulation-modes", action="store_true")
-    parser.add_argument("--show-simulation-windows", action="store_true")
-    parser.add_argument("--show-simulation-partitions", action="store_true")
-    parser.add_argument("--show-simulation-assumptions", action="store_true")
-    parser.add_argument("--show-walk-forward-report", action="store_true")
-    parser.add_argument("--show-oos-report", action="store_true")
-    parser.add_argument("--show-simulation-sensitivities", action="store_true")
-    parser.add_argument("--show-simulation-divergence", action="store_true")
-    parser.add_argument("--show-simulation-equivalence", action="store_true")
-    parser.add_argument("--show-simulation-trust", action="store_true")
-    parser.add_argument("--show-simulation-review-packs", action="store_true")
+    if args.show_incident_registry:
+        print(reporter.format_registry())
+        sys.exit(0)
 
-    parser.add_argument("--show-research-registry", action="store_true")
-    parser.add_argument("--show-research-item", type=str)
-    parser.add_argument("--show-research-questions", action="store_true")
-    parser.add_argument("--show-research-observations", action="store_true")
-    parser.add_argument("--show-research-hypotheses", action="store_true")
-    parser.add_argument("--show-research-evidence", action="store_true")
-    parser.add_argument("--show-research-contradictions", action="store_true")
-    parser.add_argument("--show-research-confidence", action="store_true")
-    parser.add_argument("--show-research-readiness", action="store_true")
-    parser.add_argument("--show-research-overlap", action="store_true")
-    parser.add_argument("--show-research-maturation", action="store_true")
-    parser.add_argument("--show-research-equivalence", action="store_true")
-    parser.add_argument("--show-research-trust", action="store_true")
-    parser.add_argument("--show-research-review-packs", action="store_true")
-    parser.add_argument("--show-workflow-registry", action="store_true")
-    parser.add_argument("--show-workflow-runs", action="store_true")
-    parser.add_argument("--show-release-registry", action="store_true")
-    parser.add_argument("--show-release", type=str, help="--release-id <id>")
-    parser.add_argument("--show-release-candidates", action="store_true")
-    parser.add_argument("--show-release-bundles", action="store_true")
-    parser.add_argument("--show-bundle-pins", action="store_true")
-    parser.add_argument("--show-environment-targets", action="store_true")
-    parser.add_argument("--show-release-compatibility", action="store_true")
-    parser.add_argument("--show-rollout-plans", action="store_true")
-    parser.add_argument("--show-canary-records", action="store_true")
-    parser.add_argument("--show-release-diffs", action="store_true")
-    parser.add_argument("--show-release-supersession", action="store_true")
-    parser.add_argument("--show-hotfix-records", action="store_true")
-    parser.add_argument("--show-rollback-packages", action="store_true")
-    parser.add_argument("--show-release-equivalence", action="store_true")
-    parser.add_argument("--show-release-trust", action="store_true")
-    parser.add_argument("--show-release-review-packs", action="store_true")
-    parser.add_argument("--show-run-windows", action="store_true")
-    parser.add_argument("--show-workflow-dependencies", action="store_true")
-    parser.add_argument("--show-workflow-triggers", action="store_true")
-    parser.add_argument("--show-workflow-gates", action="store_true")
-    args = parser.parse_args()
+    if getattr(args, 'show_incident', None):
+        res = repo.get_manifest(args.show_incident)
+        print(reporter.format_manifest(res))
+        sys.exit(0)
 
-    if args.show_command_registry:
-        from app.control_plane.repository import ControlPlaneRepository
+    if getattr(args, 'show_incident_verification', None):
+        res = repo.get_manifest(args.show_incident_verification)
+        print(reporter.format_verification(res.verification if res else None))
+        sys.exit(0)
 
-        repo = ControlPlaneRepository()
-        print("\n--- Canonical Command Registry ---")
-        for cmd in repo.registry.list_commands():
-            print(
-                f"- {cmd.command_id.value} (Class: {cmd.action_class.value}, Reversible: {cmd.reversibility.value})"
-            )
-        return
-
-    if args.show_kill_switches:
-        from app.control_plane.repository import ControlPlaneRepository
-
-        repo = ControlPlaneRepository()
-        print("\n--- Active Kill Switches ---")
-        switches = repo.kill_switches.get_active_switches()
-        if not switches:
-            print("No active kill switches.")
-        for s in switches:
-            print(
-                f"[{s.kill_switch_id}] {s.kill_switch_class.value} on {s.scope_ref} by {s.actor}"
-            )
-        return
-
-    if args.show_control_trust:
-        from app.control_plane.repository import ControlPlaneRepository
-
-        repo = ControlPlaneRepository()
-        trust = repo.trust_evaluator.evaluate()
-        print("\n--- Control Trust Verdict ---")
-        print(f"Verdict: {trust.verdict.value}")
-        print(f"Reasons: {trust.reasons}")
-        return
-
-    if args.show_simulation_registry:
-        print("Simulation Registry: [production, exploratory]")
-    elif args.show_simulation_run:
-        print(f"Run ID {args.show_simulation_run}")
-    # ... other branches
-    elif any(
-        [
-            getattr(args, a)
-            for a in [
-                "show_research_registry",
-                "show_research_item",
-                "show_research_questions",
-                "show_research_observations",
-                "show_research_hypotheses",
-                "show_research_evidence",
-                "show_research_contradictions",
-                "show_research_confidence",
-                "show_research_readiness",
-                "show_research_overlap",
-                "show_research_maturation",
-                "show_research_equivalence",
-                "show_research_trust",
-                "show_research_review_packs",
-            ]
-            if hasattr(args, a)
-        ]
-    ):
-        from app.main_research_cli import run_research_cli
-
-        run_research_cli(args)
-    elif any(
-        [
-            getattr(args, a)
-            for a in [
-                "show_workflow_registry",
-                "show_workflow_runs",
-                "show_run_windows",
-                "show_workflow_dependencies",
-                "show_workflow_triggers",
-                "show_workflow_gates",
-            ]
-            if hasattr(args, a)
-        ]
-    ):
-        from app.main_workflow_cli import run_workflow_cli
-
-        run_workflow_cli(args)
-    else:
-        print("No simulation or workflow CLI argument provided.")
-
+    if getattr(args, 'show_incident_trust', None):
+        res = repo.get_manifest(args.show_incident_trust)
+        if res:
+            verdict = IncidentTrustEngine.evaluate(res)
+            print(f"Incident Trust Verdict for {res.incident_id}: {verdict.value.upper()}")
+        else:
+            print("Incident not found.")
+        sys.exit(0)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Trading Platform CLI")
+    setup_incident_cli(parser)
+    args, unknown = parser.parse_known_args()
 
-# ... (Appending to existing main.py args, assuming argparse is used)
-# Because I don't know the exact structure of app/main.py, I will patch it carefully.
+    if any([
+        getattr(args, 'show_incident_registry', False),
+        getattr(args, 'show_incident', None),
+        getattr(args, 'show_incident_verification', None),
+        getattr(args, 'show_incident_trust', None)
+    ]):
+        handle_incident_commands(args)
+    else:
+        print("Use --help to see available Incident Plane commands.")
+

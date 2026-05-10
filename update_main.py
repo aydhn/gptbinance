@@ -1,43 +1,35 @@
 import sys
 
-content = ""
-with open("app/main.py", "r") as f:
-    content = f.read()
+def modify_main():
+    main_file = "app/main.py"
+    with open(main_file, "r") as f:
+        content = f.read()
 
-import_statement = (
-    "from app.reliability.cli import add_reliability_args, handle_reliability_cli\n"
-)
-if "add_reliability_args" not in content:
-    content = content.replace(
-        "from app.main_activation_cli import",
-        import_statement + "from app.main_activation_cli import",
-    )
-
-add_args_statement = "    add_reliability_args(parser)\n"
-if "add_reliability_args(parser)" not in content:
-    content = content.replace(
-        "    add_activation_args(parser)",
-        add_args_statement + "    add_activation_args(parser)",
-    )
-
-handler_statement = """
-    reliability_commands = [
-        "show_reliability_summary", "show_slo_registry", "show_error_budgets",
-        "show_burn_rate", "show_readiness_decay", "show_health_scorecards",
-        "show_freeze_recommendations", "show_operational_holds", "show_reliability_trends",
-        "show_operational_cadence", "show_reliability_evidence", "show_domain_health"
+    lines = [
+        "    group.add_argument('--show-incident-registry', action='store_true', help='Show incident registry')",
+        "    group.add_argument('--show-incident-signals', action='store_true', help='Show incident signals')",
+        "    group.add_argument('--show-incident-triage', action='store_true', help='Show incident triage')",
+        "    group.add_argument('--show-incident-severity', action='store_true', help='Show incident severity')",
+        "    group.add_argument('--show-incident-urgency', action='store_true', help='Show incident urgency')",
+        "    group.add_argument('--show-incident-blast-radius', action='store_true', help='Show incident blast radius')",
+        "    group.add_argument('--show-incident-ownership', action='store_true', help='Show incident ownership')",
+        "    group.add_argument('--show-incident-status-timeline', action='store_true', help='Show incident status timeline')",
+        "    group.add_argument('--show-incident-actions', action='store_true', help='Show incident actions')",
+        "    group.add_argument('--show-incident-containment', action='store_true', help='Show incident containment')",
+        "    group.add_argument('--show-incident-recovery', action='store_true', help='Show incident recovery')",
+        "    group.add_argument('--show-incident-dedup-correlation', action='store_true', help='Show incident dedup and correlation')",
+        "    group.add_argument('--show-incident-closure', action='store_true', help='Show incident closure')",
+        "    group.add_argument('--show-incident-equivalence', action='store_true', help='Show incident equivalence')",
+        "    group.add_argument('--show-incident-review-packs', action='store_true', help='Show incident review packs')",
     ]
-    if any(getattr(args, cmd, False) for cmd in reliability_commands):
-        handle_reliability_cli(args)
-        sys.exit(0)
-"""
 
-if "reliability_commands =" not in content:
-    content = content.replace(
-        "if any(getattr(args, cmd, False) for cmd in activation_commands):",
-        handler_statement
-        + "\n    if any(getattr(args, cmd, False) for cmd in activation_commands):",
+    new_content = content.replace(
+        '    group.add_argument("--show-incident-registry", action="store_true", help="Show registered incident families")',
+        '\\n'.join(lines)
     )
 
-with open("app/main.py", "w") as f:
-    f.write(content)
+    with open(main_file, "w") as f:
+        f.write(new_content)
+
+if __name__ == "__main__":
+    modify_main()

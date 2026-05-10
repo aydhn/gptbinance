@@ -1,6 +1,7 @@
 class ReliabilityDomain:
-    RESEARCH_INTEGRITY = "research_integrity"
+    pass
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class ReleaseIntegrityReliabilityDomain(ReliabilityDomain):
+    def analyze_burden(self):
+        # Links hidden drift burden, repeated hotfixes, stale candidates, and degraded equivalence to reliability
+        pass

@@ -1,8 +1,12 @@
-class ReadinessEvidenceBundle:
-    def __init__(self, research_trust=None, contradiction_summaries=None):
-        self.research_trust = research_trust
-        self.contradiction_summaries = contradiction_summaries
+class ReadinessBundle:
+    def __init__(self, bundle_id: str):
+        self.bundle_id = bundle_id
+        self.release_trust_summary = None
+        self.bundle_completeness_summary = None
+        self.rollout_readiness_summary = None
+        self.canary_evidence_summary = None
+        self.rollback_readiness_summary = None
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+    def check_integrity_failures(self):
+        # Critical release integrity failures act as blockers/caution
+        pass

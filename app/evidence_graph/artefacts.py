@@ -1,8 +1,15 @@
-class EvidenceArtefactType:
-    RESEARCH_ITEM = "research_item"
-    RESEARCH_QUESTION = "research_question"
-    EVIDENCE_BUNDLE = "evidence_bundle"
+class ArtefactFamily:
+    RELEASE_DEFINITION = "release_definition"
+    RELEASE_CANDIDATE = "release_candidate"
+    RELEASE_BUNDLE = "release_bundle"
+    BUNDLE_PIN = "bundle_pin"
+    RELEASE_REPORT = "release_report" # Compatibility, Readiness, Rollout, Diff, Supersession, Hotfix, Rollback, Equivalence, Trust
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class ArtefactRelation:
+    RELEASED_UNDER = "released_under"
+    BUNDLED_AS = "bundled_as"
+    PINNED_BY = "pinned_by"
+    ROLLED_OUT_AS = "rolled_out_as"
+    SUPERSEDED_BY = "superseded_by"
+    ROLLED_BACK_BY = "rolled_back_by"
+    DIVERGED_RELEASE_FROM = "diverged_release_from"

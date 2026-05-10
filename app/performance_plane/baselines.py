@@ -1,6 +1,5 @@
 from decimal import Decimal
 import uuid
-from typing import List
 
 from app.performance_plane.models import (
     BenchmarkDefinition,
@@ -8,7 +7,6 @@ from app.performance_plane.models import (
     BenchmarkRelativeReport,
     BenchmarkRef,
 )
-from app.performance_plane.enums import BenchmarkClass
 
 
 class BaselineEvaluator:

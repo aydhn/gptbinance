@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-from typing import List, Optional
 from app.performance_plane.models import PerformanceWindow
 from app.performance_plane.enums import WindowClass
 

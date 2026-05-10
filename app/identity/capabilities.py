@@ -1,7 +1,6 @@
 class Capability:
-    INSPECT_RESEARCH_MANIFEST = "inspect_research_manifest"
-    REVIEW_CONTRADICTION_BALANCE = "review_contradiction_balance"
-
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+    INSPECT_RELEASE_MANIFEST = "inspect_release_manifest"
+    REVIEW_ROLLOUT_PLAN = "review_rollout_plan"
+    REVIEW_CANARY_EVIDENCE = "review_canary_evidence"
+    REVIEW_HOTFIX = "review_hotfix"
+    REVIEW_ROLLBACK_READINESS = "review_rollback_readiness"

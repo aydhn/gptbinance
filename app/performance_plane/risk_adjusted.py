@@ -1,5 +1,4 @@
 from decimal import Decimal
-from typing import List
 
 from app.performance_plane.models import ReturnSurface
 

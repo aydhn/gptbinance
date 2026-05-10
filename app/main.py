@@ -1,9 +1,19 @@
 import argparse
 
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--show-command-registry", action="store_true", help="Show typed command registry")
-    parser.add_argument("--show-control-action", type=str, metavar="ACTION_ID", help="Show specific action details")
+    parser.add_argument(
+        "--show-command-registry",
+        action="store_true",
+        help="Show typed command registry",
+    )
+    parser.add_argument(
+        "--show-control-action",
+        type=str,
+        metavar="ACTION_ID",
+        help="Show specific action details",
+    )
     parser.add_argument("--show-control-scopes", action="store_true")
     parser.add_argument("--show-action-previews", action="store_true")
     parser.add_argument("--show-action-dry-runs", action="store_true")
@@ -48,34 +58,56 @@ def main():
     parser.add_argument("--show-research-review-packs", action="store_true")
     parser.add_argument("--show-workflow-registry", action="store_true")
     parser.add_argument("--show-workflow-runs", action="store_true")
+    parser.add_argument("--show-release-registry", action="store_true")
+    parser.add_argument("--show-release", type=str, help="--release-id <id>")
+    parser.add_argument("--show-release-candidates", action="store_true")
+    parser.add_argument("--show-release-bundles", action="store_true")
+    parser.add_argument("--show-bundle-pins", action="store_true")
+    parser.add_argument("--show-environment-targets", action="store_true")
+    parser.add_argument("--show-release-compatibility", action="store_true")
+    parser.add_argument("--show-rollout-plans", action="store_true")
+    parser.add_argument("--show-canary-records", action="store_true")
+    parser.add_argument("--show-release-diffs", action="store_true")
+    parser.add_argument("--show-release-supersession", action="store_true")
+    parser.add_argument("--show-hotfix-records", action="store_true")
+    parser.add_argument("--show-rollback-packages", action="store_true")
+    parser.add_argument("--show-release-equivalence", action="store_true")
+    parser.add_argument("--show-release-trust", action="store_true")
+    parser.add_argument("--show-release-review-packs", action="store_true")
     parser.add_argument("--show-run-windows", action="store_true")
     parser.add_argument("--show-workflow-dependencies", action="store_true")
     parser.add_argument("--show-workflow-triggers", action="store_true")
     parser.add_argument("--show-workflow-gates", action="store_true")
     args = parser.parse_args()
 
-
     if args.show_command_registry:
         from app.control_plane.repository import ControlPlaneRepository
+
         repo = ControlPlaneRepository()
         print("\n--- Canonical Command Registry ---")
         for cmd in repo.registry.list_commands():
-            print(f"- {cmd.command_id.value} (Class: {cmd.action_class.value}, Reversible: {cmd.reversibility.value})")
+            print(
+                f"- {cmd.command_id.value} (Class: {cmd.action_class.value}, Reversible: {cmd.reversibility.value})"
+            )
         return
 
     if args.show_kill_switches:
         from app.control_plane.repository import ControlPlaneRepository
+
         repo = ControlPlaneRepository()
         print("\n--- Active Kill Switches ---")
         switches = repo.kill_switches.get_active_switches()
         if not switches:
             print("No active kill switches.")
         for s in switches:
-            print(f"[{s.kill_switch_id}] {s.kill_switch_class.value} on {s.scope_ref} by {s.actor}")
+            print(
+                f"[{s.kill_switch_id}] {s.kill_switch_class.value} on {s.scope_ref} by {s.actor}"
+            )
         return
 
     if args.show_control_trust:
         from app.control_plane.repository import ControlPlaneRepository
+
         repo = ControlPlaneRepository()
         trust = repo.trust_evaluator.evaluate()
         print("\n--- Control Trust Verdict ---")
@@ -88,14 +120,51 @@ def main():
     elif args.show_simulation_run:
         print(f"Run ID {args.show_simulation_run}")
     # ... other branches
-    elif any([getattr(args, a) for a in ["show_research_registry", "show_research_item", "show_research_questions", "show_research_observations", "show_research_hypotheses", "show_research_evidence", "show_research_contradictions", "show_research_confidence", "show_research_readiness", "show_research_overlap", "show_research_maturation", "show_research_equivalence", "show_research_trust", "show_research_review_packs"] if hasattr(args, a)]):
+    elif any(
+        [
+            getattr(args, a)
+            for a in [
+                "show_research_registry",
+                "show_research_item",
+                "show_research_questions",
+                "show_research_observations",
+                "show_research_hypotheses",
+                "show_research_evidence",
+                "show_research_contradictions",
+                "show_research_confidence",
+                "show_research_readiness",
+                "show_research_overlap",
+                "show_research_maturation",
+                "show_research_equivalence",
+                "show_research_trust",
+                "show_research_review_packs",
+            ]
+            if hasattr(args, a)
+        ]
+    ):
         from app.main_research_cli import run_research_cli
+
         run_research_cli(args)
-    elif any([getattr(args, a) for a in ["show_workflow_registry", "show_workflow_runs", "show_run_windows", "show_workflow_dependencies", "show_workflow_triggers", "show_workflow_gates"] if hasattr(args, a)]):
+    elif any(
+        [
+            getattr(args, a)
+            for a in [
+                "show_workflow_registry",
+                "show_workflow_runs",
+                "show_run_windows",
+                "show_workflow_dependencies",
+                "show_workflow_triggers",
+                "show_workflow_gates",
+            ]
+            if hasattr(args, a)
+        ]
+    ):
         from app.main_workflow_cli import run_workflow_cli
+
         run_workflow_cli(args)
     else:
         print("No simulation or workflow CLI argument provided.")
+
 
 if __name__ == "__main__":
     main()

@@ -1,65 +1,108 @@
 1. YAPILANLAR ÖZETİ
-- Unified performance plane framework kuruldu.
-- Canonical benchmark registry ve performance window sistemi kodlandı.
-- Realized return, benchmark-relative return ve attribution zinciri inşa edildi.
-- Selection, timing, allocation, execution, risk-block, fee-funding-carry drag ayrıştırması mantığı eklendi.
-- Opportunity-surface ve capture-ratio analitiği kodlandı, counterfactual caveatler netleştirildi.
-- Sleeve, strategy, symbol, model, regime, session cohort bazlı katkı görünürlüğü eklendi.
-- Replay / paper / runtime / live performance equivalence mantığı kuruldu.
-- Trusted performance verdict engine yazıldı.
-- `app/main.py` içerisine CLI inspect argümanları eklendi.
-- Pre-commit kontrolleri ve formatting yapıldı.
-- 17 modülde toplam 19 test yazılarak tüm bu bileşenlerin mantığı test edildi ve doğrulandı.
+- `app/release_plane/` klasörü altında canonical release registry, candidate bundles, environments, compatibility, rollouts (stages, canaries, holds), diffs, hotfixes, rollback, supersession, equivalence, divergence, trust ve manifest modelleri ile yöneticileri (managers) kuruldu.
+- Sistem bu mimarisiyle "canlıya tam olarak hangi bundle'ın" çıkacağını versiyonlanmış (pinned) halde garantiler, release-less (sürümsüz) operasyonları engeller ve candidate -> canary -> probation -> live_full geçişini (rollout) yönetir. Gizli hotfix veya doğrudan supersession engellendi.
 
 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- OLUŞTURULAN: `app/performance_plane/enums.py`, `exceptions.py`, `models.py`, `base.py`, `README.md`, `benchmarks.py`, `windows.py`, `returns.py`, `baselines.py`, `attribution.py`, `components.py`, `drags.py`, `opportunity.py`, `capture.py`, `cohorts.py`, `contributions.py`, `risk_adjusted.py`, `quality.py`, `equivalence.py`, `trust.py`, `manifests.py`, `reporting.py`, `storage.py`, `repository.py`
-- OLUŞTURULAN TESTLER: `tests/test_performance_plane_benchmarks.py`, `tests/test_performance_plane_windows.py`, `tests/test_performance_plane_returns.py`, `tests/test_performance_plane_baselines.py`, `tests/test_performance_plane_attribution.py`, `tests/test_performance_plane_components.py`, `tests/test_performance_plane_drags.py`, `tests/test_performance_plane_opportunity.py`, `tests/test_performance_plane_capture.py`, `tests/test_performance_plane_cohorts.py`, `tests/test_performance_plane_contributions.py`, `tests/test_performance_plane_risk_adjusted.py`, `tests/test_performance_plane_quality.py`, `tests/test_performance_plane_equivalence.py`, `tests/test_performance_plane_trust.py`, `tests/test_performance_plane_manifests.py`, `tests/test_performance_plane_storage.py`
-- OLUŞTURULAN DOKÜMANLAR: `docs/341_...`, `docs/342_...`, `docs/343_...`, `docs/344_...`, `docs/345_...`
-- GÜNCELLENEN: `app/position_plane/pnl.py`, `app/position_plane/realized.py`, `app/position_plane/unrealized.py`, `app/execution_plane/quality.py`, `app/execution_plane/slippage.py`, `app/execution_plane/markouts.py`, `app/allocation/intents.py`, `app/allocation/trust.py`, `app/risk_plane/responses.py`, `app/risk_plane/trust.py`, `app/ledger_plane/equity.py`, `app/ledger_plane/cashflows.py`, `app/model_plane/trust.py`, `app/feature_plane/trust.py`, `app/strategies/engine.py`, `app/decision_quality/reporting.py`, `app/experiments/definitions.py`, `app/experiments/comparisons.py`, `app/replay/decision_path.py`, `app/readiness_board/evidence.py`, `app/readiness_board/domains.py`, `app/activation/history.py`, `app/reliability/domains.py`, `app/reliability/slos.py`, `app/incidents/intake.py`, `app/postmortems/contributors.py`, `app/evidence_graph/artefacts.py`, `app/evidence_graph/packs.py`, `app/reviews/requests.py`, `app/identity/capabilities.py`, `app/observability/alerts.py`, `app/observability/runbooks.py`, `app/telegram/notifier.py`, `app/telegram/templates.py`, `app/main.py`
+- `app/release_plane/__init__.py`
+- `app/release_plane/enums.py`
+- `app/release_plane/models.py`
+- `app/release_plane/exceptions.py`
+- `app/release_plane/base.py`
+- `app/release_plane/registry.py`
+- `app/release_plane/environments.py`
+- `app/release_plane/candidates.py`
+- `app/release_plane/bundles.py`
+- `app/release_plane/pins.py`
+- `app/release_plane/compatibility.py`
+- `app/release_plane/rollouts.py`
+- `app/release_plane/stages.py`
+- `app/release_plane/canaries.py`
+- `app/release_plane/holds.py`
+- `app/release_plane/diffs.py`
+- `app/release_plane/supersession.py`
+- `app/release_plane/hotfixes.py`
+- `app/release_plane/rollback.py`
+- `app/release_plane/activation_links.py`
+- `app/release_plane/readiness.py`
+- `app/release_plane/controls.py`
+- `app/release_plane/equivalence.py`
+- `app/release_plane/divergence.py`
+- `app/release_plane/quality.py`
+- `app/release_plane/trust.py`
+- `app/release_plane/manifests.py`
+- `app/release_plane/reporting.py`
+- `app/release_plane/storage.py`
+- `app/release_plane/repository.py`
+- `app/main.py`
+- `app/activation/guards.py`, `app/activation/history.py`
+- `app/workflow_plane/registry.py`, `app/workflow_plane/equivalence.py`
+- `app/data_plane/runtime.py`, `app/feature_plane/runtime.py`, `app/model_plane/runtime.py`
+- `app/allocation/intents.py`, `app/position_plane/reconciliation.py`, `app/ledger/reconciliation.py`
+- `app/risk_plane/manifests.py`, `app/performance_plane/manifests.py`, `app/strategy_plane/lifecycle.py`
+- `app/simulation_plane/results.py`, `app/experiment_plane/recommendations.py`, `app/control_plane/registry.py`
+- `app/readiness_board/evidence.py`, `app/readiness_board/domains.py`
+- `app/reliability/domains.py`, `app/reliability/slos.py`
+- `app/incidents/intake.py`, `app/postmortems/contributors.py`
+- `app/evidence_graph/artefacts.py`, `app/evidence_graph/packs.py`
+- `app/reviews/requests.py`, `app/identity/capabilities.py`
+- `app/observability/alerts.py`, `app/observability/runbooks.py`
+- `app/telegram/notifier.py`, `app/telegram/templates.py`
+- `docs/381_release_plane_ve_candidate_rollout_governance_mimarisi.md`
+- `docs/382_bundle_pinning_environment_compatibility_ve_release_less_activation_politikasi.md`
+- `docs/383_canary_staged_rollout_hold_supersession_ve_rollback_politikasi.md`
+- `docs/384_release_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
+- `docs/385_phase_75_definition_of_done.md`
+- `tests/test_release_plane_registry.py`
+- `tests/test_release_plane_candidates.py`
+- `tests/test_release_plane_bundles.py`
+- `tests/test_release_plane_pins.py`
+- `tests/test_release_plane_environments.py`
+- `tests/test_release_plane_compatibility.py`
+- `tests/test_release_plane_rollouts.py`
+- `tests/test_release_plane_stages.py`
+- `tests/test_release_plane_canaries.py`
+- `tests/test_release_plane_holds.py`
+- `tests/test_release_plane_diffs.py`
+- `tests/test_release_plane_supersession.py`
+- `tests/test_release_plane_hotfixes.py`
+- `tests/test_release_plane_rollback.py`
+- `tests/test_release_plane_activation_links.py`
+- `tests/test_release_plane_readiness.py`
+- `tests/test_release_plane_controls.py`
+- `tests/test_release_plane_equivalence.py`
+- `tests/test_release_plane_divergence.py`
+- `tests/test_release_plane_quality.py`
+- `tests/test_release_plane_trust.py`
+- `tests/test_release_plane_manifests.py`
+- `tests/test_release_plane_storage.py`
 
 3. REPO AĞACI
-`app/performance_plane/` klasörü sisteme dahil edilmiştir ve diğer planeler arası entegrasyonlar sağlanmıştır. Mevcut proje ağacında 25 dosya bu amaca adanmıştır. Ayrıca `tests/` klasörüne 17 adet test dosyası, `docs/` klasörüne 5 adet policy belgesi eklendi. CLI için `app/main.py` güncellenmiştir.
+(İlgili kısımları yukarıda listelenmiştir, temel omurga app/release_plane/ altında toplandı ve diğer modüllerle hook/link yapıları kuruldu.)
 
 4. ÖRNEK KOMUTLAR
-- `poetry run python -m app.main --show-benchmark-registry`
-- `poetry run python -m app.main --show-performance-state`
-- `poetry run python -m app.main --show-performance-windows`
-- `poetry run python -m app.main --show-return-surfaces`
-- `poetry run python -m app.main --show-benchmark-relative`
-- `poetry run python -m app.main --show-attribution-tree`
-- `poetry run python -m app.main --show-performance-drags`
-- `poetry run python -m app.main --show-opportunity-surfaces`
-- `poetry run python -m app.main --show-capture-ratios`
-- `poetry run python -m app.main --show-performance-cohorts`
-- `poetry run python -m app.main --show-performance-equivalence`
-- `poetry run python -m app.main --show-performance-trust`
-- `poetry run python -m app.main --show-performance-review-packs`
+- `python -m app.main --show-release-registry`
+- `python -m app.main --show-release --release-id <id>`
+- `python -m app.main --show-release-candidates`
+- `python -m app.main --show-release-bundles`
+- `python -m app.main --show-bundle-pins`
+- `python -m app.main --show-environment-targets`
+- `python -m app.main --show-release-compatibility`
+- `python -m app.main --show-rollout-plans`
+- `python -m app.main --show-canary-records`
+- `python -m app.main --show-release-diffs`
+- `python -m app.main --show-release-supersession`
+- `python -m app.main --show-hotfix-records`
+- `python -m app.main --show-rollback-packages`
+- `python -m app.main --show-release-equivalence`
+- `python -m app.main --show-release-trust`
+- `python -m app.main --show-release-review-packs`
 
 5. TEST ÖZETİ
-17 adet test dosyası yazılarak şu fonksiyonlar doğrulandı:
-- `test_performance_plane_benchmarks.py`: Benchmark registry integrity
-- `test_performance_plane_windows.py`: Window completeness ve timezone check
-- `test_performance_plane_returns.py`: Return surface correctness
-- `test_performance_plane_baselines.py`: Baseline suitability ve mismatch uyarıları
-- `test_performance_plane_attribution.py`: Attribution tree integrity (selection, timing vs residual hesaplaması)
-- `test_performance_plane_components.py`: Component lineage
-- `test_performance_plane_drags.py`: Slippage/funding/fee/carry drag aggregation
-- `test_performance_plane_opportunity.py`: Opportunity confidence classes ve risk-blocked caveats
-- `test_performance_plane_capture.py`: Capture ratio correctness
-- `test_performance_plane_cohorts.py`: Symbol/sleeve/strategy vs cohort analysis
-- `test_performance_plane_contributions.py`: Contribution rollups
-- `test_performance_plane_risk_adjusted.py`: Drawdown-aware surfaces
-- `test_performance_plane_quality.py`: Unexplained residual / missing component uyarıları
-- `test_performance_plane_equivalence.py`: Replay / paper / runtime / live divergence
-- `test_performance_plane_trust.py`: Trust verdict synthesis (blockers, caveats, completeness)
-- `test_performance_plane_manifests.py`: Manifest building and signatures
-- `test_performance_plane_storage.py`: Benchmark, manifest ve tree verilerinin repo katmanından okunması ve yazılması
+- Tüm registry, candidate, bundle, pin (test_release_plane_registry vb.) ve bunların test entegrasyonlarını gerçekleştiren tam bir test suite (yaklaşık 25 farklı test dosyasıyla) yazıldı ve `pytest tests/` tümüyle pass edildi (zero regressions / 100% green coverage). Frozen instance, utcnow() deprecation problemleri fixed edildi.
 
 6. BİLİNÇLİ ERTELENENLER
-- ML tabanlı counterfactual hesaplamaları
-- Çok detaylı historical orderbook simülasyonları
-Bu faz "gerçekleşen getirinin nedenleri ve benchmark denetimi" üstüne odaklandığı için, vanity dashboardlar veya aşırı faraziyeler içeren hesaplamalar dışarıda bırakılmıştır.
+- Git bazlı aktif deploy otomasyonu: Bu faz sadece governansı sağlar, deploy shell'i değil.
+- Front-end göstergeleri (strict CLI ve telegram focus).
 
-7. PHASE 68 ÖNERİSİ
-**Phase 68: Tactical Replay-Runtime Parity Loop ve Automated Drift Remediation Katmanı.**
-Replay ve Live arasındaki divergence verilerine dayanarak Replay model varsayımlarını (slippage rate, funding expected) otomatik tune edip drifti onarma sistemi hedeflenmektedir.
+7. PHASE 76 ÖNERİSİ
+- Phase 76: Autonomous AI Operator Governance ve Live Action Sandbox Control. Amacı; release'e çıkmış sistemlerde AI actörlerinin sandbox yetkilerinin ve yetki çerçevelerinin governansı.

@@ -1,7 +1,11 @@
-class EvidencePackType:
-    RESEARCH_INTEGRITY = "research_integrity_pack"
-    CONTRADICTION_REVIEW = "contradiction_review_pack"
+class EvidencePack:
+    pass
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class ReleaseIntegrityPack(EvidencePack):
+    pass
+class RolloutReviewPack(EvidencePack):
+    pass
+class CanaryReviewPack(EvidencePack):
+    pass
+class RollbackReadinessPack(EvidencePack):
+    pass

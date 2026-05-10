@@ -1,6 +1,12 @@
-class ResearchIntegritySLO:
-    pass
+class ReleaseIntegritySLO:
+    def __init__(self, slo_family: str, window: str, budget: float):
+        self.slo_family = slo_family
+        self.window = window
+        self.budget = budget
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+# Families:
+# - active release manifest completeness
+# - hidden hotfix absence
+# - rollback readiness cleanliness
+# - rollout equivalence cleanliness
+# - trusted release degraded ratio

@@ -1,7 +1,11 @@
-class ReviewRequestClass:
-    RESEARCH_INTEGRITY = "research_integrity_review"
-    CONTRADICTION_REVIEW = "contradiction_review"
+class ReviewClass:
+    RELEASE_INTEGRITY_REVIEW = "release_integrity_review"
+    ROLLOUT_REVIEW = "rollout_review"
+    CANARY_REVIEW = "canary_review"
+    ROLLBACK_READINESS_REVIEW = "rollback_readiness_review"
+    HOTFIX_REVIEW = "hotfix_review"
+    RELEASE_EQUIVALENCE_REVIEW = "release_equivalence_review"
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class ReviewRequest:
+    def attach_release_evidence_suitability_metadata(self):
+        pass

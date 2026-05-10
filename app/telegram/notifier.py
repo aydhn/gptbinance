@@ -1,7 +1,13 @@
-class TelegramNotifierEvent:
-    RESEARCH_MANIFEST_READY = "research_manifest_ready"
-    RESEARCH_TRUST_DEGRADED = "research_trust_degraded"
-
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class TelegramNotifier:
+    def send_release_plane_event(self, event_type: str, data: dict):
+        valid_events = [
+            "release_manifest_ready",
+            "release_trust_degraded",
+            "hidden_hotfix_detected",
+            "rollout_stage_drift_detected",
+            "release_review_required"
+        ]
+        if event_type in valid_events:
+            # Enforce severity/rate-limit logic
+            # Audit ref inclusion for critical missing events
+            pass

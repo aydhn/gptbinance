@@ -1,8 +1,13 @@
-class IncidentIntake:
-    RESEARCH_OVERLAP = "critical_research_overlap_detected"
-    CONTRADICTION_BURST = "unresolved_contradiction_burst"
-    SELECTIVE_EVIDENCE = "selective_evidence_pattern_detected"
+class IncidentSignal:
+    def __init__(self, signal_type: str, severity_hint: str, blast_radius: str):
+        self.signal_type = signal_type
+        self.severity_hint = severity_hint
+        self.blast_radius = blast_radius
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+# Release-plane incident signals:
+# - hidden_hotfix_detected
+# - release_bundle_incomplete_critical
+# - rollout_stage_drift_detected
+# - rollback_package_missing
+# - release_equivalence_broken
+# - runtime_release_manifest_missing

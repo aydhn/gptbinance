@@ -1,5 +1,4 @@
 import uuid
-from typing import List
 from app.performance_plane.models import (
     PerformanceEquivalenceReport,
     PerformanceManifest,

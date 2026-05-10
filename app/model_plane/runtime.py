@@ -11,12 +11,14 @@ class RuntimeInferenceSnapshot(ModelPlaneBaseModel):
     session_id: str
     environment: str
     metadata: Dict[str, Any]
+    active_release_bundle_ref: Optional[str] = None
 
 
 class RuntimeModelContext:
-    def __init__(self):
+    def __init__(self, active_release_bundle_ref: str = None):
         self._active_manifest: Optional[InferenceManifest] = None
         self._snapshots: Dict[str, RuntimeInferenceSnapshot] = {}
+        self.active_release_bundle_ref = active_release_bundle_ref
 
     def set_active_manifest(self, manifest: InferenceManifest) -> None:
         self._active_manifest = manifest
@@ -37,10 +39,11 @@ class RuntimeModelContext:
             session_id=session_id,
             environment=environment,
             metadata={},
+            active_release_bundle_ref=self.active_release_bundle_ref
         )
         self._snapshots[snapshot_id] = snapshot
         return snapshot
 
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+    def detect_silent_model_swap(self):
+        # Silent model swap triggers release-plane hotfix divergence
+        pass

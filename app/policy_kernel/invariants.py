@@ -4,6 +4,12 @@ class PolicyInvariants:
     NO_DUPLICATE_UNDER_CRITICAL_OVERLAP = True
     NO_HIGH_CONFIDENCE_WITHOUT_EVIDENCE = True
 
+    # Release Plane Invariants
+    NO_ACTIVATION_UNDER_MISSING_REQUIRED_RELEASE_MANIFEST = True
+    NO_LIVE_FULL_ROLLOUT_UNDER_UNRESOLVED_COMPATIBILITY_CRITICALITY = True
+    NO_TRUSTED_PROD_PATH_UNDER_HIDDEN_HOTFIX_DRIFT = True
+    NO_ROLLBACK_CLAIM_WITHOUT_VALID_ROLLBACK_PACKAGE = True
+
 # WORKFLOW PLANE INTEGRATION:
 # Added hooks for dependency/gate evaluations, duplicate run protections,
 # and explicit reruns per Phase 73 requirements.

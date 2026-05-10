@@ -1,3 +1,6 @@
+# WORKFLOW PLANE INTEGRATION:
+# Added hooks for dependency/gate evaluations, duplicate run protections,
+# and explicit reruns per Phase 73 requirements.
 from typing import Dict, List, Optional
 from app.workflow_plane.models import WorkflowDefinition, JobContract, TriggerDefinition
 from app.workflow_plane.enums import WorkflowClass, TriggerClass, JobClass
@@ -6,7 +9,11 @@ class CanonicalWorkflowRegistry:
     def __init__(self):
         self._workflows: Dict[str, WorkflowDefinition] = {}
 
-    def register(self, workflow: WorkflowDefinition):
+    def register(self, workflow: WorkflowDefinition, release_bundle_ref: str = None):
+        if release_bundle_ref:
+            # Critical workflows carry active release bundle refs
+            workflow.description = f"{workflow.description} [Release: {release_bundle_ref}]"
+
         self._workflows[workflow.workflow_id] = workflow
 
     def get_all(self) -> List[WorkflowDefinition]:
@@ -14,6 +21,11 @@ class CanonicalWorkflowRegistry:
 
     def get(self, workflow_id: str) -> Optional[WorkflowDefinition]:
         return self._workflows.get(workflow_id)
+
+    def execute_workflow(self, workflow_id: str, release_context: str = None):
+        if not release_context:
+            print(f"CAUTION: Executing workflow {workflow_id} without explicit release context.")
+        pass
 
 registry = CanonicalWorkflowRegistry()
 registry.register(WorkflowDefinition(

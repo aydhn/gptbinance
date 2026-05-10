@@ -1,6 +1,7 @@
-class TelegramTemplate:
-    RESEARCH_MANIFEST_READY = "research_manifest_ready_template"
-
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class TelegramTemplates:
+    RELEASE_MANIFEST_READY = "Release Manifest {manifest_id} is ready."
+    RELEASE_TRUST_DEGRADED = "Alert: Release Trust Degraded for {candidate_id}."
+    HIDDEN_HOTFIX_DETECTED = "CRITICAL: Hidden hotfix detected. Drift signature: {drift_signature}"
+    ROLLOUT_STAGE_DRIFT_DETECTED = "Alert: Rollout stage drift detected."
+    RELEASE_REVIEW_REQUIRED = "Action Required: Release review needed for {candidate_id}."
+    RELEASE_SUMMARY_DIGEST = "Release Summary Digest:\n{digest_content}"

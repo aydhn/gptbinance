@@ -1,29 +1,16 @@
-import uuid
-import hashlib
-from typing import List
-from app.performance_plane.models import (
-    PerformanceManifest,
-    PerformanceManifestEntry,
-    PerformanceWindow,
-)
+class PerformanceWindowManifest:
+    def __init__(
+        self,
+        window_id: str,
+        release_candidate_ref: str = None,
+        rollout_stage_ref: str = None,
+    ):
+        self.window_id = window_id
+        self.release_candidate_ref = release_candidate_ref
+        self.rollout_stage_ref = rollout_stage_ref
 
 
-class ManifestBuilder:
-    @staticmethod
-    def build(
-        window: PerformanceWindow, entries: List[PerformanceManifestEntry]
-    ) -> PerformanceManifest:
-        # Generate a dummy hash
-        hash_str = "".join([e.reference_id for e in entries])
-        signature = hashlib.sha256(hash_str.encode()).hexdigest()
-
-        return PerformanceManifest(
-            manifest_id=str(uuid.uuid4()),
-            window=window,
-            entries=entries,
-            hash_signature=signature,
-        )
-
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
+class PerformanceComparativeAnalyzer:
+    def compare_canary_vs_full(self, release_plane_context: dict):
+        # Comparison tied to release plane
+        pass

@@ -29,3 +29,9 @@ class StandardCompatibilityEvaluator(CompatibilityEvaluatorBase):
             blockers=blockers,
             proof_notes="Compatibility evaluated successfully."
         )
+
+
+class ReleaseCompatibilityEvaluator:
+    def check_debt_surfaces(self, candidate_bundle: dict, active_postmortems: list) -> list[str]:
+        warnings = []
+        return warnings

@@ -39,3 +39,14 @@ class HoldManager:
         hold.proof_notes = proof_notes
         # Hold removal logic would complete here
         del self._holds[hold_id]
+
+
+from app.postmortem_plane.models import PostmortemDefinition
+
+class ReleaseHoldEvaluator:
+    def evaluate_holds(self, active_postmortems: list[PostmortemDefinition]) -> list[str]:
+        holds = []
+        for p in active_postmortems:
+            if any(d.interest_class.value == "critical" for d in p.debt_records):
+                holds.append(f"Hold: Unresolved critical debt in {p.postmortem_id}")
+        return holds

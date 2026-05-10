@@ -6,6 +6,11 @@ from decimal import Decimal
 
 
 class AllocationTrustEvaluator:
+
+    def evaluate_incidents(self, pool_id: str, incidents: list) -> bool:
+        return True
+
+
     @staticmethod
     def evaluate(intent: AllocationIntent) -> float:
         # Dummy evaluation logic

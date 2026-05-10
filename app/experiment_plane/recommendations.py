@@ -6,3 +6,8 @@ class ExperimentRecommendationExporter:
     def separate_winner_claim_from_release(self):
         # Experiment winner claim != releasable candidate distinction
         pass
+
+
+class ExperimentRecommendationEvaluator:
+    def link_failure_learnings(self, experiment_id: str, lessons: list):
+        pass

@@ -21,3 +21,8 @@ class ActivationHistory:
         Exports stage-to-stage release diffs lineage.
         """
         return [{"lineage": "mocked_diff"}]
+
+
+class ActivationHistoryTracker:
+    def log_activation(self, environment: str, postmortem_context: dict):
+        pass

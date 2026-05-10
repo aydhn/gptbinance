@@ -10,3 +10,8 @@ class ReadinessBundle:
     def check_integrity_failures(self):
         # Critical release integrity failures act as blockers/caution
         pass
+
+
+class ReadinessEvidenceBuilder:
+    def add_postmortem_debt(self, bundle: dict, debt_records: list):
+        bundle['postmortem_debt'] = debt_records

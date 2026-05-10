@@ -10,3 +10,8 @@ class ReleaseIntegritySLO:
 # - rollback readiness cleanliness
 # - rollout equivalence cleanliness
 # - trusted release degraded ratio
+
+
+class SLORepairTracker:
+    def link_postmortem_debt(self, slo_id: str, debt_records: list):
+        pass

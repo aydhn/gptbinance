@@ -1,22 +1,4 @@
-class PolicyInvariants:
-    NO_PROMOTION_UNDER_MISSING_READINESS = True
-    NO_TRUST_UNDER_CRITICAL_CONTRADICTION = True
-    NO_DUPLICATE_UNDER_CRITICAL_OVERLAP = True
-    NO_HIGH_CONFIDENCE_WITHOUT_EVIDENCE = True
+from app.policy_plane.invariants import create_environment_separation_invariant
 
-    # Release Plane Invariants
-    NO_ACTIVATION_UNDER_MISSING_REQUIRED_RELEASE_MANIFEST = True
-    NO_LIVE_FULL_ROLLOUT_UNDER_UNRESOLVED_COMPATIBILITY_CRITICALITY = True
-    NO_TRUSTED_PROD_PATH_UNDER_HIDDEN_HOTFIX_DRIFT = True
-    NO_ROLLBACK_CLAIM_WITHOUT_VALID_ROLLBACK_PACKAGE = True
-
-# WORKFLOW PLANE INTEGRATION:
-# Added hooks for dependency/gate evaluations, duplicate run protections,
-# and explicit reruns per Phase 73 requirements.
-
-
-class PolicyInvariantEvaluator:
-    def evaluate(self, context: dict) -> bool:
-        if context.get("active_postmortem_debt", 0) > 0 and context.get("is_critical_release", False):
-            return False
-        return True
+def get_central_invariants():
+    return [create_environment_separation_invariant("Env must be isolated", "Checked at startup")]

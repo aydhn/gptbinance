@@ -1,108 +1,97 @@
 1. YAPILANLAR ÖZETİ
-- `app/release_plane/` klasörü altında canonical release registry, candidate bundles, environments, compatibility, rollouts (stages, canaries, holds), diffs, hotfixes, rollback, supersession, equivalence, divergence, trust ve manifest modelleri ile yöneticileri (managers) kuruldu.
-- Sistem bu mimarisiyle "canlıya tam olarak hangi bundle'ın" çıkacağını versiyonlanmış (pinned) halde garantiler, release-less (sürümsüz) operasyonları engeller ve candidate -> canary -> probation -> live_full geçişini (rollout) yönetir. Gizli hotfix veya doğrudan supersession engellendi.
+- Unified Incident Plane framework'ü `app/incident_plane` altında kuruldu.
+- Triage, Severity, Urgency, Blast-Radius, Ownership, Actions, Containment, Stabilization, Recovery, Verification, Closure, Dedup, Correlation, Timelines, Equivalence ve Trust için ayrı state ve validation mantıkları eklendi.
+- Gizli severity değişikliği ve doğrulanmamış closure (false closure) önleyen `ClosureReadinessEvaluator` ve `IncidentStatusMachine` kuruldu.
+- Triage + Severity + Actions + Recovery + Closure + Trust yaklaşımı seçildi, çünkü: "Alerting, reliability ve postmortem katmanları olsa bile, incident lifecycle typed ve disiplinli değilse operasyonel gerçek yine kayar... Bu yüzden signals -> triage -> incident -> containment -> stabilization -> recovery verification -> closure -> postmortem/remediation zinciri ayrı bir governance katmanı gerektirir." prensibi baz alındı.
 
 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/release_plane/__init__.py`
-- `app/release_plane/enums.py`
-- `app/release_plane/models.py`
-- `app/release_plane/exceptions.py`
-- `app/release_plane/base.py`
-- `app/release_plane/registry.py`
-- `app/release_plane/environments.py`
-- `app/release_plane/candidates.py`
-- `app/release_plane/bundles.py`
-- `app/release_plane/pins.py`
-- `app/release_plane/compatibility.py`
-- `app/release_plane/rollouts.py`
-- `app/release_plane/stages.py`
-- `app/release_plane/canaries.py`
-- `app/release_plane/holds.py`
-- `app/release_plane/diffs.py`
-- `app/release_plane/supersession.py`
-- `app/release_plane/hotfixes.py`
-- `app/release_plane/rollback.py`
-- `app/release_plane/activation_links.py`
-- `app/release_plane/readiness.py`
-- `app/release_plane/controls.py`
-- `app/release_plane/equivalence.py`
-- `app/release_plane/divergence.py`
-- `app/release_plane/quality.py`
-- `app/release_plane/trust.py`
-- `app/release_plane/manifests.py`
-- `app/release_plane/reporting.py`
-- `app/release_plane/storage.py`
-- `app/release_plane/repository.py`
-- `app/main.py`
-- `app/activation/guards.py`, `app/activation/history.py`
-- `app/workflow_plane/registry.py`, `app/workflow_plane/equivalence.py`
-- `app/data_plane/runtime.py`, `app/feature_plane/runtime.py`, `app/model_plane/runtime.py`
-- `app/allocation/intents.py`, `app/position_plane/reconciliation.py`, `app/ledger/reconciliation.py`
-- `app/risk_plane/manifests.py`, `app/performance_plane/manifests.py`, `app/strategy_plane/lifecycle.py`
-- `app/simulation_plane/results.py`, `app/experiment_plane/recommendations.py`, `app/control_plane/registry.py`
-- `app/readiness_board/evidence.py`, `app/readiness_board/domains.py`
-- `app/reliability/domains.py`, `app/reliability/slos.py`
-- `app/incidents/intake.py`, `app/postmortems/contributors.py`
-- `app/evidence_graph/artefacts.py`, `app/evidence_graph/packs.py`
-- `app/reviews/requests.py`, `app/identity/capabilities.py`
-- `app/observability/alerts.py`, `app/observability/runbooks.py`
-- `app/telegram/notifier.py`, `app/telegram/templates.py`
-- `docs/381_release_plane_ve_candidate_rollout_governance_mimarisi.md`
-- `docs/382_bundle_pinning_environment_compatibility_ve_release_less_activation_politikasi.md`
-- `docs/383_canary_staged_rollout_hold_supersession_ve_rollback_politikasi.md`
-- `docs/384_release_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
-- `docs/385_phase_75_definition_of_done.md`
-- `tests/test_release_plane_registry.py`
-- `tests/test_release_plane_candidates.py`
-- `tests/test_release_plane_bundles.py`
-- `tests/test_release_plane_pins.py`
-- `tests/test_release_plane_environments.py`
-- `tests/test_release_plane_compatibility.py`
-- `tests/test_release_plane_rollouts.py`
-- `tests/test_release_plane_stages.py`
-- `tests/test_release_plane_canaries.py`
-- `tests/test_release_plane_holds.py`
-- `tests/test_release_plane_diffs.py`
-- `tests/test_release_plane_supersession.py`
-- `tests/test_release_plane_hotfixes.py`
-- `tests/test_release_plane_rollback.py`
-- `tests/test_release_plane_activation_links.py`
-- `tests/test_release_plane_readiness.py`
-- `tests/test_release_plane_controls.py`
-- `tests/test_release_plane_equivalence.py`
-- `tests/test_release_plane_divergence.py`
-- `tests/test_release_plane_quality.py`
-- `tests/test_release_plane_trust.py`
-- `tests/test_release_plane_manifests.py`
-- `tests/test_release_plane_storage.py`
+- `app/incident_plane/__init__.py`
+- `app/incident_plane/actions.py`
+- `app/incident_plane/base.py`
+- `app/incident_plane/blast_radius.py`
+- `app/incident_plane/closure.py`
+- `app/incident_plane/containment.py`
+- `app/incident_plane/correlation.py`
+- `app/incident_plane/dedup.py`
+- `app/incident_plane/divergence.py`
+- `app/incident_plane/enums.py`
+- `app/incident_plane/equivalence.py`
+- `app/incident_plane/exceptions.py`
+- `app/incident_plane/manifests.py`
+- `app/incident_plane/models.py`
+- `app/incident_plane/ownership.py`
+- `app/incident_plane/postmortem_links.py`
+- `app/incident_plane/quality.py`
+- `app/incident_plane/recovery.py`
+- `app/incident_plane/registry.py`
+- `app/incident_plane/reliability_links.py`
+- `app/incident_plane/reopen.py`
+- `app/incident_plane/reporting.py`
+- `app/incident_plane/repository.py`
+- `app/incident_plane/severity.py`
+- `app/incident_plane/signals.py`
+- `app/incident_plane/stabilization.py`
+- `app/incident_plane/status.py`
+- `app/incident_plane/storage.py`
+- `app/incident_plane/timelines.py`
+- `app/incident_plane/triage.py`
+- `app/incident_plane/trust.py`
+- `app/incident_plane/urgency.py`
+- `app/incident_plane/verification.py`
+- `app/incidents/intake.py` (Güncellendi)
+- `app/main.py` (Güncellendi)
+- `docs/386_incident_plane_ve_response_recovery_governance_mimarisi.md`
+- `docs/387_triage_severity_blast_radius_ownership_ve_duplicate_correlation_politikasi.md`
+- `docs/388_containment_stabilization_recovery_verification_ve_false_closure_politikasi.md`
+- `docs/389_incident_integrity_readiness_activation_ve_postmortem_entegrasyonu_politikasi.md`
+- `docs/390_phase_76_definition_of_done.md`
+- `tests/test_incident_plane_actions.py`
+- `tests/test_incident_plane_blast_radius.py`
+- `tests/test_incident_plane_closure.py`
+- `tests/test_incident_plane_containment.py`
+- `tests/test_incident_plane_correlation.py`
+- `tests/test_incident_plane_dedup.py`
+- `tests/test_incident_plane_divergence.py`
+- `tests/test_incident_plane_equivalence.py`
+- `tests/test_incident_plane_governance.py`
+- `tests/test_incident_plane_manifests.py`
+- `tests/test_incident_plane_ownership.py`
+- `tests/test_incident_plane_postmortem_links.py`
+- `tests/test_incident_plane_quality.py`
+- `tests/test_incident_plane_recovery.py`
+- `tests/test_incident_plane_registry.py`
+- `tests/test_incident_plane_reliability_links.py`
+- `tests/test_incident_plane_reopen.py`
+- `tests/test_incident_plane_severity.py`
+- `tests/test_incident_plane_signals.py`
+- `tests/test_incident_plane_stabilization.py`
+- `tests/test_incident_plane_status.py`
+- `tests/test_incident_plane_storage.py`
+- `tests/test_incident_plane_timelines.py`
+- `tests/test_incident_plane_triage.py`
+- `tests/test_incident_plane_trust.py`
+- `tests/test_incident_plane_urgency.py`
+- `tests/test_incident_plane_verification.py`
 
 3. REPO AĞACI
-(İlgili kısımları yukarıda listelenmiştir, temel omurga app/release_plane/ altında toplandı ve diğer modüllerle hook/link yapıları kuruldu.)
+(İlgili modüller app/incident_plane/ dizini altında yerleşti. Mevcut app/incidents/ yapısı intake update'i ile bağlandı. Testler tests/ dizininde.)
 
 4. ÖRNEK KOMUTLAR
-- `python -m app.main --show-release-registry`
-- `python -m app.main --show-release --release-id <id>`
-- `python -m app.main --show-release-candidates`
-- `python -m app.main --show-release-bundles`
-- `python -m app.main --show-bundle-pins`
-- `python -m app.main --show-environment-targets`
-- `python -m app.main --show-release-compatibility`
-- `python -m app.main --show-rollout-plans`
-- `python -m app.main --show-canary-records`
-- `python -m app.main --show-release-diffs`
-- `python -m app.main --show-release-supersession`
-- `python -m app.main --show-hotfix-records`
-- `python -m app.main --show-rollback-packages`
-- `python -m app.main --show-release-equivalence`
-- `python -m app.main --show-release-trust`
-- `python -m app.main --show-release-review-packs`
+- python3 -m app.main --show-incident-registry
+- python3 -m app.main --show-incident INC-20231024-001
+- python3 -m app.main --show-incident-verification INC-20231024-001
+- python3 -m app.main --show-incident-trust INC-20231024-001
+(Ayrıca argparser'a bağlanan diğer komutlar da --help ile görüntülenebilir.)
 
 5. TEST ÖZETİ
-- Tüm registry, candidate, bundle, pin (test_release_plane_registry vb.) ve bunların test entegrasyonlarını gerçekleştiren tam bir test suite (yaklaşık 25 farklı test dosyasıyla) yazıldı ve `pytest tests/` tümüyle pass edildi (zero regressions / 100% green coverage). Frozen instance, utcnow() deprecation problemleri fixed edildi.
+- Tüm incident plane alt modülleri için teker teker basit assert verify'lar yazıldı (actions, blast_radius, closure, vb.)
+- Governance senaryolarını test eden test_incident_plane_governance.py (status state machine'i, closure verify check'leri) oluşturuldu.
+- Tüm tests/test_incident_plane_* dosyaları çalıştırıldı ve başarılı oldu.
 
 6. BİLİNÇLİ ERTELENENLER
-- Git bazlı aktif deploy otomasyonu: Bu faz sadece governansı sağlar, deploy shell'i değil.
-- Front-end göstergeleri (strict CLI ve telegram focus).
+- Automatic execution halts (Auto-Rollbacks/Auto-Kills) otomasyonunun bizzat yürütülmesi kısmı (plane hazır ama yürütücü dışarıda bırakıldı).
+- PagerDuty/Opsgenie gibi dış ticketing/alerting sistemlerine doğrudan entegrasyon (yalnızca CLI/Telegram altyapısı tercih ediliyor).
+- Geçmiş test collection error'ları nedeniyle sadece yeni oluşturulan testlerin eksiksiz passed olması hedeflenmiştir.
 
-7. PHASE 76 ÖNERİSİ
-- Phase 76: Autonomous AI Operator Governance ve Live Action Sandbox Control. Amacı; release'e çıkmış sistemlerde AI actörlerinin sandbox yetkilerinin ve yetki çerçevelerinin governansı.
+7. PHASE 77 ÖNERİSİ
+PHASE 77 — REMEDIATION ORCHESTRATION & DEBT GOVERNANCE: Incident mitigation'ları kalıcı fixes haline dönüştüren, remediation pipeline'ını işleten, drift/orphan gibi birikmiş reliability debt'lerini yöneten orchestration katmanının kurulması.

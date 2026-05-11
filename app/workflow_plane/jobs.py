@@ -9,3 +9,7 @@ class JobRegistry:
         return self._jobs.get(job_id)
 
 job_registry = JobRegistry()
+
+class WorkflowJobMigrationRef:
+    def source_target_expectations(self, prechecks=None):
+        pass

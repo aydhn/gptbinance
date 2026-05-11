@@ -12,3 +12,7 @@ class PreviewEngine:
             blast_radius_summary=f"Affects {request.scope_class.value} = {request.scope_ref}",
             reversibility_summary="Can be unfreezed or resumed.",
         )
+
+class ControlPreviewMigrationRef:
+    def blast_radius(self, rollback_surfaces=None):
+        pass

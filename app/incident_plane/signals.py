@@ -22,3 +22,7 @@ class IncidentSignalIntake:
             detected_at=datetime.now(timezone.utc),
             confidence_score=confidence
         )
+
+class IncidentSignalMigrationRef:
+    def migration_failure(self):
+        pass

@@ -25,3 +25,7 @@ class BackfillManager:
         )
         self.records[record.backfill_id] = record
         return record
+
+class WorkflowBackfillMigrationRef:
+    def canonical_backfill(self, backfill_governance=None):
+        pass

@@ -80,3 +80,7 @@ class PolicyEvaluationEngine:
             verdict=verdict,
             evaluated_policies=evaluated_policies,
         )
+
+class PolicyEvaluationMigrationRef:
+    def destructive_migration_verdict(self):
+        pass

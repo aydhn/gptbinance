@@ -14,3 +14,7 @@ class EvidenceBuilder:
             sufficiency_notes=notes,
             contradictory_evidence_refs=contradictions or []
         )
+
+class PostmortemEvidenceMigrationRef:
+    def causal_chain_evidence(self):
+        pass

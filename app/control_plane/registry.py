@@ -11,3 +11,7 @@ class ControlPlaneRegistry:
     def validate_mutation_path(self, path: str):
         if path == "hidden_release_mutation":
              raise Exception("Hidden release mutation path rejected.")
+
+class ControlRegistryMigrationRef:
+    def migration_approval_commands(self, registry=None):
+        pass

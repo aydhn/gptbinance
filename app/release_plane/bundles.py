@@ -42,3 +42,7 @@ class BundleBuilder:
             entries=self.entries,
             bundle_hash=bundle_hash
         )
+
+class ReleaseBundleMigrationRef:
+    def required_migration_refs(self, refs=None):
+        pass

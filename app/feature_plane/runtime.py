@@ -12,3 +12,7 @@ class RuntimeFeatureManager:
     def detect_hidden_feature_swap(self):
         # Hidden feature swap creates release divergence
         pass
+
+class RuntimeFeatureMigrationRef:
+    def manifest_shape(self, context=None):
+        pass

@@ -14,3 +14,7 @@ class RevisionManager:
 
     def list_revisions(self) -> List[DataRevisionRecord]:
         return self._revisions
+
+class DataRevisionMigrationRef:
+    def revise(self, backfill_record=None):
+        pass

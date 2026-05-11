@@ -17,3 +17,8 @@ class CanonicalSchemaRegistry:
 
     def list_all(self) -> list[DataSchema]:
         return list(self._schemas.values())
+
+# Feature Migration Plane Refs Integration (Mock - No Deletions)
+class SchemaEvolutionMigrationRef:
+    def evolve(self, migration_ref=None):
+        pass

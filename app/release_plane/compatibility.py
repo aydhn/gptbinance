@@ -11,3 +11,7 @@ def check_compatibility(candidate_id: str, target_env: str):
     resource = create_environment_resource(target_env)
     context = ContextBuilder().with_environment(target_env).build()
     return engine.evaluate(subject, action, resource, context)
+
+class ReleaseCompatibilityMigrationRef:
+    def cutover_status(self, shim_debt=None):
+        pass

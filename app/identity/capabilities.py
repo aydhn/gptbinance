@@ -5,3 +5,7 @@ CAPABILITIES = [
     "approve_policy_waiver",
     "review_policy_coverage"
 ]
+
+class IdentityCapabilityMigrationRef:
+    def inspect_migration_manifest(self):
+        pass

@@ -47,3 +47,7 @@ class RuntimeModelContext:
     def detect_silent_model_swap(self):
         # Silent model swap triggers release-plane hotfix divergence
         pass
+
+class ModelRuntimeMigrationRef:
+    def input_output_contract(self, transition_contract=None):
+        pass

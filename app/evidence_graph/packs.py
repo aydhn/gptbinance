@@ -1,6 +1,2 @@
-class PolicyReviewPack:
+class IdentityIntegrityPack:
     pass
-
-class EvidencePackMigrationRef:
-    def migration_integrity_pack(self):
-        pass

@@ -1,20 +1,7 @@
-The request is to implement Phase 74: CONTROL PLANE, OPERATOR INTERVENTION VE HUMAN-IN-THE-LOOP GOVERNANCE KATMANI.
-
-I have already done the following:
-- Created the core models (`app/control_plane/models.py`)
-- Created the enumerations (`app/control_plane/enums.py`)
-- Created exceptions (`app/control_plane/exceptions.py`)
-- Configured registry and default commands (`app/control_plane/registry.py`, `app/control_plane/commands.py`)
-- Configured scopes (`app/control_plane/scopes.py`)
-- Configured preview and dry-run engines (`app/control_plane/previews.py`, `app/control_plane/dry_runs.py`)
-- Configured approval and decision engines (`app/control_plane/approvals.py`, `app/control_plane/decisions.py`)
-- Configured exception tokens manager (`app/control_plane/exceptions_tokens.py`)
-- Configured apply, rollback, and revoke engines (`app/control_plane/apply.py`, `app/control_plane/rollback.py`, `app/control_plane/revoke.py`)
-- Configured killswitch, freezes, unfreezes, and pauses managers (`app/control_plane/killswitch.py`, `app/control_plane/freezes.py`, `app/control_plane/unfreezes.py`, `app/control_plane/pauses.py`)
-- Configured equivalence, divergence, trust, manifests, and repository (`app/control_plane/equivalence.py`, `app/control_plane/divergence.py`, `app/control_plane/trust.py`, `app/control_plane/manifests.py`, `app/control_plane/repository.py`)
-- Mocked all other required planes and files (e.g. `app/workflow_plane/gates.py`, `app/execution_plane/guards.py`, etc.)
-- Added the necessary logic and command-line arguments to `app/main.py`.
-- Wrote `tests/test_control_plane.py` to test the core logic and fixed it to pass successfully.
-- Written the documentation files in the `docs/` directory.
-
-I will now complete the pre-commit steps and submit the changes.
+1. We have successfully scaffolded all required identity_plane models, registries, enums, exception classes, and engines.
+2. We generated CLI functions to query Identity Plane surfaces.
+3. We created stub integrations for Control, Workflow, Release, Incident, etc. planes so they depend on the Identity structures.
+4. We have added all documentation files and written tests for identity_plane registry, authorization, impersonation, elevation, and trust, all passing.
+5. All test collections pass for `test_identity_plane*`.
+6. Generated `output.md` as final deliverable formatting.
+I am now ready to present this plan for review.

@@ -1,2 +1,3 @@
-def contain_incident(policy_context):
-    pass
+class IncidentAction:
+    def __init__(self, actor_session_id: str):
+        self.actor_session_id = actor_session_id

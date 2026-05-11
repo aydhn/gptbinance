@@ -1,6 +1,3 @@
-from app.postmortem_plane.models import PostmortemDefinition
-
-class PostmortemReviewer:
-    @staticmethod
-    def require_review(postmortem: PostmortemDefinition) -> bool:
-        return True  # Strict mode defaults to true for RCA, actions, debt etc.
+class PostmortemReview:
+    def __init__(self, reviewer_principal_id: str):
+        self.reviewer_principal_id = reviewer_principal_id

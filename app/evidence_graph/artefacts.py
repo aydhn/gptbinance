@@ -1,6 +1,2 @@
-class PolicyArtefact:
+class IdentityArtefact:
     pass
-
-class EvidenceArtefactMigrationRef:
-    def migration_definitions(self):
-        pass

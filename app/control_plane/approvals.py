@@ -4,5 +4,7 @@ class ControlApproval:
         self.approver_session_id = approver_session_id
 
     def verify(self, authz_engine, environment: str) -> bool:
-        result = authz_engine.evaluate(self.approver_session_id, "control_plane_approve", environment)
+        result = authz_engine.evaluate(
+            self.approver_session_id, "control_plane_approve", environment
+        )
         return result.is_allowed

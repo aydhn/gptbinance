@@ -1,36 +1,16 @@
 [tool.poetry]
-packages = [
-    { include = "app" }
-]
-name = "binance-trading-platform"
+name = "trading-platform"
 version = "0.1.0"
-description = "Zero-budget, Python-only, production-minded Binance trading platform foundation."
-authors = ["Operator"]
+description = ""
+authors = ["AI <ai@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pydantic = "2.5.3"
-pydantic-settings = "^2.0"
-requests = "^2.33.1"
-pandas = "<3"
-websockets = "^16.0"
-pytest-asyncio = "<0.24.0"
-pyarrow = "^24.0.0"
-numpy = "^1.26.0"
-psutil = "^7.2.2"
-types-psutil = "^7.2.2.20260408"
+python = ">=3.10"
+pydantic = "^2.0.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.0"
-black = "^23.0"
-flake8 = "^6.0"
-mypy = "^1.0"
+pytest = "^7.0.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.black]
-line-length = 88
-target-version = ['py310']
-include = '\.pyi?$'

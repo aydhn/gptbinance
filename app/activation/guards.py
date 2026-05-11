@@ -1,7 +1,3 @@
-def activation_guard(verdict):
-    if verdict.verdict_class.name != "ALLOW":
-        raise Exception("Activation blocked")
-
-class ActivationGuardMigrationRef:
-    def migration_blocker(self, incomplete_migrations=None):
-        pass
+class ActivationGuard:
+    def __init__(self, progression_actor_session_id: str):
+        self.progression_actor_session_id = progression_actor_session_id

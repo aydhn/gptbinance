@@ -1,6 +1,2 @@
-def alert_trust_degraded():
+class IdentityAlert:
     pass
-
-class ObservabilityAlertMigrationRef:
-    def migration_trust_degraded(self):
-        pass

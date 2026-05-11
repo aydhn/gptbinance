@@ -1,6 +1,2 @@
-class PolicyIntegrityReview:
+class IdentityIntegrityReview:
     pass
-
-class ReviewRequestMigrationRef:
-    def migration_integrity_review(self):
-        pass

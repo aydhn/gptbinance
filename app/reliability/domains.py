@@ -1,6 +1,2 @@
-class PolicyIntegrityReliability:
+class ReliabilityDomainIdentityIntegrity:
     pass
-
-class ReliabilityDomainMigrationRef:
-    def migration_integrity(self):
-        pass

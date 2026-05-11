@@ -1,6 +1,2 @@
-def record_activation(verdict):
+class ActivationHistory:
     pass
-
-class ActivationHistoryMigrationRef:
-    def stage_activation(self, migration_context=None):
-        pass

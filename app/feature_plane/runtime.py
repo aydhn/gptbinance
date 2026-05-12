@@ -13,6 +13,10 @@ class RuntimeFeatureManager:
         # Hidden feature swap creates release divergence
         pass
 
+    def evaluate_divergence(self, telemetry_missing: bool = False):
+        if telemetry_missing:
+            raise Exception("Feature divergent due to missing observability hooks.")
+
 class RuntimeFeatureMigrationRef:
     def manifest_shape(self, context=None):
         pass

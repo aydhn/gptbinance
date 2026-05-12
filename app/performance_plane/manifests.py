@@ -3,6 +3,7 @@ class PerformanceWindowManifest:
         self,
         window_id: str,
         release_candidate_ref: str = None,
+        observability_trust_ref: str = None,
         rollout_stage_ref: str = None,
     ):
         self.window_id = window_id

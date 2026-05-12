@@ -74,6 +74,28 @@ def main():
     parser.add_argument(
         "--show-identity-trust", type=str, help="Principal ID to check trust for"
     )
+
+    # Observability Plane CLI Extensions
+    parser.add_argument("--show-observability-registry", action="store_true")
+    parser.add_argument("--show-metric-registry", action="store_true")
+    parser.add_argument("--show-log-schemas", action="store_true")
+    parser.add_argument("--show-trace-schemas", action="store_true")
+    parser.add_argument("--show-observability-events", action="store_true")
+    parser.add_argument("--show-observability-dimensions", action="store_true")
+    parser.add_argument("--show-observability-tags", action="store_true")
+    parser.add_argument("--show-telemetry-clocks", action="store_true")
+    parser.add_argument("--show-telemetry-sampling", action="store_true")
+    parser.add_argument("--show-telemetry-retention", action="store_true")
+    parser.add_argument("--show-telemetry-ingestion", action="store_true")
+    parser.add_argument("--show-telemetry-normalization", action="store_true")
+    parser.add_argument("--show-telemetry-correlation", action="store_true")
+    parser.add_argument("--show-telemetry-gaps", action="store_true")
+    parser.add_argument("--show-telemetry-anomalies", action="store_true")
+    parser.add_argument("--show-telemetry-cardinality-cost", action="store_true")
+    parser.add_argument("--show-observability-slis", action="store_true")
+    parser.add_argument("--show-observability-equivalence", action="store_true")
+    parser.add_argument("--show-observability-trust", action="store_true")
+    parser.add_argument("--show-observability-review-packs", action="store_true")
     args = parser.parse_args()
 
     reg, authz = setup_mock_identity()

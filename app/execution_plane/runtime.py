@@ -19,6 +19,9 @@ class RuntimeExecutionEnv:
         }
         self.send_receipts[idempotency_key] = safe_receipt
 
+    def record_span(self, span_id: str, telemetry_ref: str):
+        self.send_receipts[span_id] = {"telemetry_ref": telemetry_ref}
+
     def execute_trade(self):
         if self.rollout_stage_ref == "canary_active":
             pass # Apply canary caps

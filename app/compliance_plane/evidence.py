@@ -10,6 +10,15 @@ class EvidenceRegistry:
     def register_evidence_requirement(self, req: EvidenceRequirement) -> None:
         self._requirements[req.evidence_req_id] = req
 
+    def register_telemetry_retention_evidence(self, telemetry_id: str, retention_proof: str) -> None:
+        self._requirements[f"retention_{telemetry_id}"] = EvidenceRequirement(
+            evidence_req_id=f"req_{telemetry_id}",
+            description="Audit telemetry retention compliance.",
+            evidence_class=EvidenceClass.SYSTEM_RECORD,
+            control_ref=ControlObjectiveRef(control_id="RETENTION_CTRL", description="Log retention compliance"),
+            mandatory_for_release=False
+        )
+
     def get_evidence_requirements_for_control(
         self, control_id: str
     ) -> List[EvidenceRequirement]:

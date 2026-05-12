@@ -3,7 +3,12 @@ CAPABILITIES = [
     "review_policy_conflicts",
     "request_policy_waiver",
     "approve_policy_waiver",
-    "review_policy_coverage"
+    "review_policy_coverage",
+    "inspect_observability_manifest",
+    "review_telemetry_schema",
+    "review_sampling_changes",
+    "review_retention_policy",
+    "review_diagnostic_signal_quality"
 ]
 
 class IdentityCapabilityMigrationRef:

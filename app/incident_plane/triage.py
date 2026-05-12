@@ -5,6 +5,7 @@ from typing import List
 class IncidentTriageEngine:
     @staticmethod
     def submit_triage(incident_id: str, facts: List[str], hypotheses: List[str], blockers: List[str], operator: str, proof: str) -> IncidentTriageRecord:
+        telemetry_correlation_refs = proof.split(";") if proof else []
         return IncidentTriageRecord(
             incident_id=incident_id,
             provisional_facts=facts,

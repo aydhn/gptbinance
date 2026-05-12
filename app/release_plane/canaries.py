@@ -25,5 +25,7 @@ class CanaryManager:
     def evaluate_promotion(self, record: CanaryRecord, evidence_passed: bool) -> CanaryRecord:
         if not evidence_passed:
             raise RolloutViolation("Cannot promote canary with weak evidence.")
+        if not getattr(record, "telemetry_support", True):
+            raise RolloutViolation("Cannot promote canary lacking telemetry support.")
         record.promotion_readiness = True
         return record

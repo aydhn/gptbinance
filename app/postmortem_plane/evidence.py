@@ -12,7 +12,8 @@ class EvidenceBuilder:
             evidence_type=e_type,
             freshness=freshness,
             sufficiency_notes=notes,
-            contradictory_evidence_refs=contradictions or []
+            contradictory_evidence_refs=contradictions or [],
+            telemetry_refs=[]
         )
 
 class PostmortemEvidenceMigrationRef:

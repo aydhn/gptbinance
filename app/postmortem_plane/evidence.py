@@ -19,3 +19,9 @@ class EvidenceBuilder:
 class PostmortemEvidenceMigrationRef:
     def causal_chain_evidence(self):
         pass
+
+    def bind_security_evidence(self, security_detections_refs: list, secret_lifecycle_refs: list, patch_rotation_history_refs: list, exposure_records_refs: list):
+        self.security_detections_refs = security_detections_refs
+        self.secret_lifecycle_refs = secret_lifecycle_refs
+        self.patch_rotation_history_refs = patch_rotation_history_refs
+        self.exposure_records_refs = exposure_records_refs

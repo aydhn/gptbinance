@@ -36,3 +36,21 @@ class CertificationReview:
 
 class AuditReadinessReview:
     pass
+
+class SecurityIntegrityReviewRequest:
+    pass
+
+class SecretRotationReviewRequest:
+    pass
+
+class VulnerabilityExploitabilityReviewRequest:
+    pass
+
+class TrustBoundaryReviewRequest:
+    pass
+
+class PatchVerificationReviewRequest:
+    pass
+
+class SecurityExceptionReviewRequest:
+    pass

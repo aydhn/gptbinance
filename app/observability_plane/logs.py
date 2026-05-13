@@ -16,3 +16,8 @@ class LogSchemaRegistry:
 
     def list_schemas(self) -> List[LogSchema]:
         return list(self._schemas.values())
+
+    def register_security_schema(self, schema: LogSchema, security_hints: bool = True) -> None:
+        if not security_hints:
+             raise Exception("Sensitive log fields must have redaction/security hints")
+        self.register_schema(schema)

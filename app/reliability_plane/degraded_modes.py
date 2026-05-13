@@ -35,3 +35,6 @@ class DegradedModeManager:
                 current_time - r.start_time
             ).total_seconds() > max_duration_hours * 3600:
                 r.is_overdue = True
+
+    def bind_canonical_security_refs(self, record: DegradedModeRecord, canonical_security_refs: list):
+         record.canonical_security_refs = canonical_security_refs

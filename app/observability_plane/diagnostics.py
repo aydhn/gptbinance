@@ -13,3 +13,6 @@ class DiagnosticSignalBuilder:
 
     def list_signals(self) -> List[DiagnosticSignal]:
         return list(self._signals.values())
+
+class SecurityDetectionDiagnosticSignal(DiagnosticSignal):
+    pass

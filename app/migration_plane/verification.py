@@ -10,3 +10,6 @@ class VerificationManager:
             is_successful=True,
             details={"verification": "passed", "telemetry_refs": telemetry_verification_refs},
         )
+
+    def verify_security_propagation(self, record: MigrationVerificationRecord, secret_key_token_cert_propagation_verification_refs: list):
+         record.details["secret_propagation_refs"] = secret_key_token_cert_propagation_verification_refs

@@ -1,0 +1,2 @@
+class ContinuityReporter:
+    pass

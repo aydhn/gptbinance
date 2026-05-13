@@ -1,3 +1,4 @@
+from app.main_continuity_cli import setup_continuity_parser, handle_continuity_command
 import argparse
 from datetime import datetime, timedelta, timezone
 
@@ -66,6 +67,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Trading Platform CLI (Identity Plane)"
     )
+    subparsers = parser.add_subparsers(dest="command")
+    setup_continuity_parser(subparsers)
     parser.add_argument("--show-principal-registry", action="store_true")
     parser.add_argument("--show-auth-sessions", action="store_true")
     parser.add_argument(
@@ -115,6 +118,10 @@ def main():
     parser.add_argument("--show-reliability-review-packs", action="store_true")
 
     args = parser.parse_args()
+
+    if args.command == "continuity":
+        handle_continuity_command(args)
+        return
 
     if args.show_reliability_registry:
         print("Canonical Reliability Registry: Active")

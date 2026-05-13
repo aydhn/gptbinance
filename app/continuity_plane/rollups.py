@@ -1,0 +1,2 @@
+class ContinuityRollupGenerator:
+    pass

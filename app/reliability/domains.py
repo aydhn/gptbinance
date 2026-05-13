@@ -4,3 +4,6 @@ class ReliabilityDomainIdentityIntegrity:
 
 class ReliabilityDomainObservabilityIntegrity:
     pass
+
+class ReliabilityDomainSecurityIntegrity:
+    pass

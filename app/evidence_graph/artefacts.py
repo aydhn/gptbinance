@@ -16,3 +16,18 @@ class TelemetryDiagnosticArtefact:
 
 class TelemetryTrustReportArtefact:
     pass
+
+class SecurityAssetArtefact:
+    pass
+
+class SecurityBoundaryArtefact:
+    pass
+
+class SecuritySecretArtefact:
+    pass
+
+class SecurityVulnerabilityArtefact:
+    pass
+
+class SecurityPatchArtefact:
+    pass

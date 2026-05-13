@@ -1,0 +1,2 @@
+class SecurityObservabilityLinkage:
+    pass

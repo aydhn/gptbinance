@@ -25,3 +25,6 @@ def create_requirement(
         lineage_refs=lineage_refs,
         is_mandatory=is_mandatory,
     )
+
+def update_security_mappings(req: ComplianceRequirement, security_plane_refs: list):
+     req.lineage_refs.extend(security_plane_refs)

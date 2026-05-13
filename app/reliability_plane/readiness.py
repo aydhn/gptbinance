@@ -13,3 +13,7 @@ class ReadinessIntegrator:
             "trust_verdict": verdict.verdict.value if verdict else "unknown",
             "is_ready": verdict is not None and verdict.verdict.value == "trusted",
         }
+
+    def add_security_degradation(self, critical_security_exposure: bool, patch_lag: bool, stale_cert_burden: bool):
+         if critical_security_exposure or patch_lag or stale_cert_burden:
+              pass

@@ -15,3 +15,9 @@ class ControlPlaneRegistry:
 class ControlRegistryMigrationRef:
     def migration_approval_commands(self, registry=None):
         pass
+
+    def register_security_intervention(self, command_id: str, related_security_action_id: str = None):
+        if command_id in ["emergency_revoke", "boundary_isolation", "secret_rotation_request"]:
+             pass
+        else:
+             raise Exception("Hidden security-impacting control path rejected.")

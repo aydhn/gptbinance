@@ -16,3 +16,7 @@ class PreviewEngine:
 class ControlPreviewMigrationRef:
     def blast_radius(self, rollback_surfaces=None):
         pass
+
+class ControlPreviewSecurityRef:
+    def add_security_metrics(self, preview: ActionPreview, security_blast_radius: str, credential_spread: str):
+         preview.blast_radius_summary += f" | Security Blast: {security_blast_radius} | Spread: {credential_spread}"

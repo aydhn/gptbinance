@@ -4,3 +4,6 @@ class ReadinessDomainIdentityIntegrity:
 
 class ReadinessDomainObservabilityIntegrity:
     pass
+
+class ReadinessDomainSecurityIntegrity:
+    pass

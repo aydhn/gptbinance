@@ -20,3 +20,8 @@ class PrecheckManager:
             details={"checks_run": len(checks)},
             blockers=blockers
         )
+
+    def add_credential_check(self, record: MigrationPrecheckRecord, credential_compatibility: bool):
+         if not credential_compatibility:
+              record.status = PrecheckClass.FAILED
+              record.blockers.append("Credential compatibility mismatch")

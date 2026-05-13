@@ -11,3 +11,18 @@ class FindingManager:
 
     def list_findings(self) -> List[AuditFinding]:
         return list(self._findings.values())
+
+class StaleSecretRotationFinding(AuditFinding):
+    pass
+
+class ExpiredCertFinding(AuditFinding):
+    pass
+
+class OrphanTokenFinding(AuditFinding):
+    pass
+
+class MissingPatchVerificationFinding(AuditFinding):
+    pass
+
+class BoundaryAmbiguityFinding(AuditFinding):
+    pass

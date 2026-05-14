@@ -1,9 +1,6 @@
-# Simulating modification based on the instructions
-class PolicyInvariantsManager:
-    def evaluate(self, invariants):
-        # new invariants:
-        # no trusted release under missing required supply-chain provenance
-        # no runtime trusted state under unsigned or unverifiable critical artifact in eligible classes
-        # no high-risk migration under stale or unknown artifact lineage
-        # no hidden generated artifact in critical runtime path
-        pass
+CAPACITY_INVARIANTS = [
+    "no_trusted_live_expansion_under_insufficient_reserved_headroom",
+    "no_critical_backfill_or_migration_under_unbounded_live_path_contention",
+    "no_activation_progression_under_unresolved_severe_saturation_in_required_paths",
+    "no_guaranteed_capacity_claim_without_explicit_reservation_lineage"
+]

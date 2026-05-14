@@ -1,6 +1,5 @@
-# Simulating modification based on the instructions
-class ReleaseReadinessEvaluator:
-    def evaluate(self, release):
-        # release readiness supply-chain trust, stale SBOM burden, unsigned artifact risk ve runtime lineage clarity ile beslensin
-        # tag-only bundle references caution/block üretsin
-        pass
+from app.capacity_plane.releases import check_rollout_capacity_sufficiency
+
+def check_release_readiness():
+    cap = check_rollout_capacity_sufficiency(["live_workload"])
+    return {"capacity_readiness": cap}

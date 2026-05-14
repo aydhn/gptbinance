@@ -1,10 +1,8 @@
-# Simulating modification based on the instructions
-class TemplateManager:
-    def evaluate(self, templates):
-        # supply chain manifest ready
-        # provenance verification failed
-        # runtime artifact mismatch detected
-        # stale SBOM detected
-        # supply chain review required
-        # supply chain summary digest
-        pass
+CAPACITY_TEMPLATES = [
+    "capacity_manifest_ready",
+    "quota_exhaustion_detected",
+    "saturation_critical_detected",
+    "emergency_shedding_active",
+    "capacity_review_required",
+    "capacity_summary_digest"
+]

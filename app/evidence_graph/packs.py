@@ -1,8 +1,6 @@
-# Simulating modification based on the instructions
-class PackManager:
-    def evaluate(self, packs):
-        # supply chain integrity pack
-        # provenance review pack
-        # SBOM/signature review pack
-        # runtime lineage drift review pack
-        pass
+CAPACITY_PACKS = [
+    "capacity_integrity_pack",
+    "saturation_backpressure_review_pack",
+    "reservation_fairness_review_pack",
+    "quota_exhaustion_review_pack"
+]

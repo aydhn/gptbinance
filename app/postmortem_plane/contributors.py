@@ -1,11 +1,8 @@
-# Simulating modification based on the instructions
-class PostmortemContributorManager:
-    def evaluate(self, contributors):
-        # hidden generated artifact
-        # transitive dependency blind spot
-        # unverifiable build recipe
-        # stale SBOM
-        # runtime artifact mismatch
-        # unknown third-party origin
-        # gibi contributor sınıfları ekle
-        pass
+CAPACITY_CONTRIBUTORS = [
+    "chronic_saturation",
+    "stale_reservation",
+    "hidden_shared_queue",
+    "quota_near_edge_operation",
+    "noisy_neighbor_interference",
+    "autoscaling_false_comfort"
+]

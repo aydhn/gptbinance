@@ -7,3 +7,7 @@ class StrategyLifecycleManager:
     def check_retirement_blocks(self, strategy_id: str):
         # Retired/frozen strategy is a release bundle entry blocker
         pass
+
+class StrategyTransition:
+    def validate_decision_manifest(self, manifest_id: str):
+        pass

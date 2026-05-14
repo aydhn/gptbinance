@@ -1,3 +1,4 @@
+from enum import Enum
 class ReadinessDomainIdentityIntegrity:
     pass
 
@@ -7,3 +8,6 @@ class ReadinessDomainObservabilityIntegrity:
 
 class ReadinessDomainSecurityIntegrity:
     pass
+
+class ReadinessDomain(str, Enum):
+    DECISION_INTEGRITY = 'decision_integrity'

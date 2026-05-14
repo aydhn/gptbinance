@@ -15,3 +15,7 @@ class IncidentTriageEngine:
             triaged_at=datetime.now(timezone.utc),
             triaged_by=operator
         )
+
+class IncidentTriageDecision:
+    def require_hypothesis_and_options(self):
+        pass

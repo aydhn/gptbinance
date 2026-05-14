@@ -1,96 +1,133 @@
-# 1. YAPILANLAR ÖZETİ
-- `Strategy Definition`, `Hypothesis`, `Thesis`, `Lifecycle Record`, `Fit`, `Overlap`, `Decay`, `Equivalence` ve `Trust` modelleri için sağlam bir tip güvenli omurga kuruldu (`app/strategy_plane/models.py`, `enums.py`).
-- Pydantic v2 standartlarıyla canonical register implementasyonu yazıldı ve test edildi (`app/strategy_plane/registry.py`).
-- Hypothesis ve thesis tracking storage ve repository üzerinden yapılandırıldı.
-- Stratejilerin transition işlemleri kurallara (`ALLOWED_TRANSITIONS`) bağlandı (`app/strategy_plane/lifecycle.py`).
-- Promotion'ların delil odaklı (`evidence_bundle`) ilerlemesi için governance mantığı yazıldı (`app/strategy_plane/promotions.py`).
-- Equivalence, Fit, ve Trust değerlendirme framework'ü yazıldı.
-- `app/main.py` CLI argümanlarıyla genişletildi. Yeni komutlarla stratety lifecycle verileri ve fit raporları CLI'a bağlandı.
-- Strategy governance omurgası sağlamlaştırıldı; sessizce strategy mutation yapılmasını ve duplicate sprawl yaşanmasını engellemeye yönelik sözleşmeler (Contract'lar) zorunlu kılındı.
+# Phase 86 - Decision Quality Plane Implementation
 
-# 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-**Updated:**
+## 1. YAPILANLAR ÖZETİ
+Bu fazda Decision Quality Plane / Epistemic Governance katmanı başarıyla kurulmuştur.
+Aşağıdaki yetenekler sisteme kazandırılmıştır:
+- **Canonical Decision Registry:** Kararlar artık serbest metin olarak değil, `DecisionDefinition` ve katı class'larla yönetilir.
+- **Recommendations vs Decisions Ayrımı:** Recommendation kayıtları ayrı tutularak, öneri ile kararın birbirine karışması engellendi.
+- **Option Set Disiplini:** Her karar için en az iki seçenek (biri DEFER_NO_OP olmak üzere) zorunlu kılındı.
+- **Evidence & Assumptions:** Kararların hangi verilere ve hangi varsayımlara dayandığı tipli olarak kayıt altına alındı.
+- **Confidence & Calibration:** Güven seviyesi açıkça belirtilmeli; kanıt olmadan `VERY_HIGH` güven `TrustVerdictEngine` tarafından reddedilir.
+- **Premortem & Checklists:** Başarısızlık senaryolarının (premortem) önceden düşünülmesi zorunlu tutuldu.
+- **Outcome & Counterfactual Reviews:** Karar sonuçlarının ve "başka seçenek seçilseydi ne olurdu" (counterfactual) analizlerinin izlenmesi sağlandı.
+- **Trust Verdict Engine:** Bir kararın kalitesi; option set, assumptions, rationale, confidence ve premortem doluluğuna göre değerlendirilerek TRUSTED veya BLOCKED statüsü verilir.
+- **Entegrasyonlar:** Research, Experiment, Simulation, Strategy, Risk, Release, Activation, Policy ve Incident gibi diğer planlarla entegrasyonlar oluşturuldu.
+
+Neden "Recommendations + Options + Evidence + Assumptions + Confidence + Calibration + Trust" yaklaşımı seçildi?
+Çünkü trading sistemlerinde outcome tek başına karar kalitesini göstermez ("iyi karar kötü şans" veya "kötü karar iyi şans" durumları). Hindsight bias'ı önlemek, varsayımları gizlememek ve tek seçenekli dayatmaları ("başka çare yoktu") engellemek için tüm epistemic süreç kayıt altına alınmalıdır.
+
+## 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/decision_quality_plane/enums.py`
+- `app/decision_quality_plane/exceptions.py`
+- `app/decision_quality_plane/models.py`
+- `app/decision_quality_plane/base.py`
+- `app/decision_quality_plane/registry.py`
+- `app/decision_quality_plane/options.py`
+- `app/decision_quality_plane/rationale.py`
+- `app/decision_quality_plane/quality.py`
+- `app/decision_quality_plane/trust.py`
+- `app/decision_quality_plane/manifests.py`
+- `app/decision_quality_plane/repository.py`
 - `app/main.py`
-- `README.md`
-
-**Created:**
-- `app/main_strategy_cli.py`
-- `app/strategy_plane/README.md`
-- `app/strategy_plane/__init__.py`
-- `app/strategy_plane/base.py`
-- `app/strategy_plane/decay.py`
-- `app/strategy_plane/degradation.py`
-- `app/strategy_plane/dependencies.py`
-- `app/strategy_plane/divergence.py`
-- `app/strategy_plane/enums.py`
-- `app/strategy_plane/equivalence.py`
-- `app/strategy_plane/exceptions.py`
-- `app/strategy_plane/fits.py`
-- `app/strategy_plane/freezes.py`
-- `app/strategy_plane/hypotheses.py`
+- `app/research_plane/evidence.py`
+- `app/experiment_plane/recommendations.py`
+- `app/simulation_plane/results.py`
 - `app/strategy_plane/lifecycle.py`
-- `app/strategy_plane/manifests.py`
-- `app/strategy_plane/models.py`
-- `app/strategy_plane/overlap.py`
-- `app/strategy_plane/promotions.py`
-- `app/strategy_plane/regimes.py`
-- `app/strategy_plane/registry.py`
-- `app/strategy_plane/reporting.py`
-- `app/strategy_plane/repository.py`
-- `app/strategy_plane/retirement.py`
-- `app/strategy_plane/signals.py`
-- `app/strategy_plane/storage.py`
-- `app/strategy_plane/theses.py`
-- `app/strategy_plane/trust.py`
-- `docs/351_strategy_plane_ve_thesis_lifecycle_governance_mimarisi.md`
-- `docs/352_strategy_fit_regime_overlap_ve_cannibalization_politikasi.md`
-- `docs/353_strategy_decay_degradation_ve_lifecycle_hygiene_politikasi.md`
-- `docs/354_strategy_integrity_readiness_activation_ve_incident_entegrasyonu_politikasi.md`
-- `docs/355_phase_69_definition_of_done.md`
-- `tests/test_strategy_plane_decay.py`
-- `tests/test_strategy_plane_degradation.py`
-- `tests/test_strategy_plane_dependencies.py`
-- `tests/test_strategy_plane_divergence.py`
-- `tests/test_strategy_plane_equivalence.py`
-- `tests/test_strategy_plane_fits.py`
-- `tests/test_strategy_plane_freezes.py`
-- `tests/test_strategy_plane_hypotheses.py`
-- `tests/test_strategy_plane_lifecycle.py`
-- `tests/test_strategy_plane_manifests.py`
-- `tests/test_strategy_plane_overlap.py`
-- `tests/test_strategy_plane_promotions.py`
-- `tests/test_strategy_plane_regimes.py`
-- `tests/test_strategy_plane_registry.py`
-- `tests/test_strategy_plane_retirement.py`
-- `tests/test_strategy_plane_signals.py`
-- `tests/test_strategy_plane_storage.py`
-- `tests/test_strategy_plane_theses.py`
-- `tests/test_strategy_plane_trust.py`
+- `app/risk_plane/manifests.py`
+- `app/allocation/intents.py`
+- `app/execution_plane/runtime.py`
+- `app/control_plane/receipts.py`
+- `app/release_plane/readiness.py`
+- `app/release_plane/rollouts.py`
+- `app/activation/guards.py`
+- `app/activation/history.py`
+- `app/policy_plane/evaluations.py`
+- `app/policy_kernel/context.py`
+- `app/policy_kernel/invariants.py`
+- `app/readiness_board/evidence.py`
+- `app/readiness_board/domains.py`
+- `app/reliability/domains.py`
+- `app/reliability/slos.py`
+- `app/incident_plane/triage.py`
+- `app/incident_plane/recovery.py`
+- `app/postmortem_plane/evidence.py`
+- `app/postmortem_plane/lessons.py`
+- `app/observability_plane/events.py`
+- `app/observability_plane/diagnostics.py`
+- `app/compliance_plane/requirements.py`
+- `app/compliance_plane/findings.py`
+- `app/security_plane/readiness.py`
+- `app/migration_plane/prechecks.py`
+- `app/continuity_plane/readiness.py`
+- `app/evidence_graph/artefacts.py`
+- `app/evidence_graph/packs.py`
+- `app/reviews/requests.py`
+- `app/identity/capabilities.py`
+- `app/observability/alerts.py`
+- `app/observability/runbooks.py`
+- `app/telegram/notifier.py`
+- `app/telegram/templates.py`
+- `docs/439_decision_quality_plane_ve_epistemic_governance_mimarisi.md`
+- `docs/440_option_set_assumption_uncertainty_confidence_ve_premortem_politikasi.md`
+- `docs/441_outcome_review_counterfactual_calibration_ve_recurrence_politikasi.md`
+- `docs/442_decision_integrity_readiness_activation_release_risk_entegrasyonu_politikasi.md`
+- `docs/443_phase_86_definition_of_done.md`
+- `tests/test_decision_quality_plane_core.py`
 
-# 3. REPO AĞACI
-Güncel repo ağacına `app/strategy_plane/` ve ilgili dokümanlar (`docs/`) başarılı bir şekilde entegre edildi. Test paketleri eksiksiz bağlandı.
-
-# 4. ÖRNEK KOMUTLAR
-```bash
-poetry run python -m app.main --show-strategy-registry
-poetry run python -m app.main --show-strategy-lifecycle
-poetry run python -m app.main --show-strategy-hypotheses
-poetry run python -m app.main --show-strategy-theses
-poetry run python -m app.main --show-strategy-trust
+## 3. REPO AĞACI
+```
+app/
+├── decision_quality_plane/
+│   ├── base.py
+│   ├── enums.py
+│   ├── exceptions.py
+│   ├── manifests.py
+│   ├── models.py
+│   ├── options.py
+│   ├── quality.py
+│   ├── rationale.py
+│   ├── registry.py
+│   ├── repository.py
+│   └── trust.py
+├── main.py
+... (Diğer entegrasyonlar güncellendi)
+docs/
+├── 439_decision_quality_plane_ve_epistemic_governance_mimarisi.md
+├── 440_option_set_assumption_uncertainty_confidence_ve_premortem_politikasi.md
+├── 441_outcome_review_counterfactual_calibration_ve_recurrence_politikasi.md
+├── 442_decision_integrity_readiness_activation_release_risk_entegrasyonu_politikasi.md
+└── 443_phase_86_definition_of_done.md
+tests/
+└── test_decision_quality_plane_core.py
 ```
 
-# 5. TEST ÖZETİ
-- **`tests/test_strategy_plane_registry.py`**: Duplicate kayıtlar, yetersiz (signal vs.) contract'larla strategy oluşturma senaryolarının fail olmasını doğruluyor.
-- **`tests/test_strategy_plane_lifecycle.py`**: State machine validation; örneğin ActiveFull'dan atlayıp geçerli olmayan bir duruma geçişi redediyor.
-- **`tests/test_strategy_plane_promotions.py`**: Replay'den Paper'a geçiş için eksik evidenceleri reject etmesini, sağlandığında ise True dönmesini doğruluyor.
-- **`tests/test_strategy_plane_trust.py`**: Frozen state durumlarında TrustVerdict'in Blocked döndürdüğünü, decay ve divergence durumlarında TrustVerdict'in Degraded veya Blocked döndürdüğünü assert ediyor.
-- **`tests/test_strategy_plane_storage.py`**: Temel write/read senaryoları.
-*(Testler `pytest` ile geçmiştir.)*
+## 4. ÖRNEK KOMUTLAR
+```bash
+python -m app.main --show-decision-registry
+python -m app.main --show-decision --decision-id D-123
+python -m app.main --show-decision-options
+python -m app.main --show-rationales
+python -m app.main --show-decision-evidence
+python -m app.main --show-assumptions
+python -m app.main --show-decision-trust
+python -m app.main --show-counterfactual-reviews
+python -m app.main --show-calibration-records
+```
 
-# 6. BİLİNÇLİ ERTELENENLER
-- Otomatik strateji generasyonu ve strateji mutasyonu entegrasyonu tamamen bilinçli olarak reddedilmiştir. Sadece explicit declaration mümkündür.
-- Tüm review request paketleri API üzerinden dış bir human-fabric katmanına bağlanmamıştır, local in-memory/CLI üzerinden raporlanmaktadır.
-- Gerçek backtest raporlarının parse edilmesi şimdilik sahte data objeleri (evidence references) üzerinden geçiştirilmiştir.
+## 5. TEST ÖZETİ
+`tests/test_decision_quality_plane_core.py` içinde testler yazıldı ve başarıyla geçti:
+- `test_decision_registry`: Registry'nin çalışması ve zorunlu alan doğrulamaları.
+- `test_option_completeness`: Opsiyon eksikliğinin ve `DEFER_NO_OP` kuralının kontrolü.
+- `test_trust_verdict_engine`: `TrustVerdictEngine`'in assumptions, options, rationale ve premortem eksikliklerinde karar kalitesini bloklaması.
+- `test_quality_checker`: Kararlardaki uyarı (warning) üreten durumların analizi.
+- `test_storage`: DecisionRepository'nin kaydetme ve okuma işlemleri.
+- `test_outcome_and_counterfactual`: Counterfactual review yapılmadan outcome değerlendirmesi yapıldığındaki uyarılar.
 
-# 7. PHASE 70 ÖNERİSİ
-PHASE 70 — PORTFOLIO MANIFOLD: CONTEXT-AWARE EXECUTION AND EXPOSURE AGGREGATION
+## 6. BİLİNÇLİ ERTELENENLER
+- Dashboard ve görsel kullanıcı arayüzleri bilinçli olarak yapılmadı (CLI yeterli).
+- ML-driven automated decision making bu aşamada kararı onaylayan yerine öneren (Recommendation) pozisyonunda tutuldu.
+- Çok büyük dil modellerinin (LLM) rationale üretmesi bilinçli olarak sınırlandırıldı (İnsan hesabı ve denetimi zorunludur).
+- Gerçek veritabanı persistency'si memory/file repository üzerinden mock'landı.
+
+## 7. PHASE 87 ÖNERİSİ
+**Phase 87 - Ecosystem Synchronization Plane:** Bağımsız olarak çalışan çok sayıda governance plane'in (Strategy, Execution, Risk, Release, Decision vs.) cross-plane tutarlılığının sağlanması, stale state'lerin global olarak tespit edilmesi ve system-wide synchronization barrier'ların kurulması.

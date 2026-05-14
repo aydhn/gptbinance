@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Dict, List, Optional
 from .models import EventDefinition
 from .exceptions import InvalidTelemetryDefinitionError
@@ -16,3 +17,8 @@ class EventRegistry:
 
     def list_events(self) -> List[EventDefinition]:
         return list(self._events.values())
+
+class ObservabilityEventType(str, Enum):
+    DECISION_CREATED = 'decision_created'
+    OPTION_COMPARED = 'option_compared'
+    OUTCOME_REVIEWED = 'outcome_reviewed'

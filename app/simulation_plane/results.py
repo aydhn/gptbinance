@@ -1,4 +1,6 @@
 class SimulationResult:
+    def export_to_decision_option(self):
+        pass
     def __init__(self, result_id: str, target_release_candidate_ref: str = None):
         self.result_id = result_id
         self.target_release_candidate_ref = target_release_candidate_ref

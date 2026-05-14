@@ -25,3 +25,7 @@ class PostmortemEvidenceMigrationRef:
         self.secret_lifecycle_refs = secret_lifecycle_refs
         self.patch_rotation_history_refs = patch_rotation_history_refs
         self.exposure_records_refs = exposure_records_refs
+
+class PostmortemEvidenceBundle:
+    def pull_decision_quality_evidence(self):
+        pass

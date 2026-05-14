@@ -25,3 +25,7 @@ class PrecheckManager:
          if not credential_compatibility:
               record.status = PrecheckClass.FAILED
               record.blockers.append("Credential compatibility mismatch")
+
+class MigrationPrecheck:
+    def enforce_irreversible_migration_options(self):
+        pass

@@ -1,4 +1,6 @@
 class ReleaseReadiness:
+    def check_decision_quality_posture(self):
+        pass
     def __init__(self):
         self.identity_integrity = True
         self.observability_coverage = True

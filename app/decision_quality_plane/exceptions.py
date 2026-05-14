@@ -1,0 +1,12 @@
+class DecisionQualityPlaneError(Exception): pass
+class InvalidDecisionDefinitionError(DecisionQualityPlaneError): pass
+class InvalidOptionSetError(DecisionQualityPlaneError): pass
+class InvalidEvidenceBundleError(DecisionQualityPlaneError): pass
+class InvalidAssumptionRecordError(DecisionQualityPlaneError): pass
+class InvalidConfidenceRecordError(DecisionQualityPlaneError): pass
+class InvalidOutcomeReviewError(DecisionQualityPlaneError): pass
+class CounterfactualViolationError(DecisionQualityPlaneError): pass
+class CalibrationViolationError(DecisionQualityPlaneError): pass
+class DecisionStorageError(DecisionQualityPlaneError): pass
+class HindsightRewriteAttemptError(DecisionQualityPlaneError): pass
+class DecisionEquivalenceError(DecisionQualityPlaneError): pass

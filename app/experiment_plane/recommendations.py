@@ -11,3 +11,7 @@ class ExperimentRecommendationExporter:
 class ExperimentRecommendationEvaluator:
     def link_failure_learnings(self, experiment_id: str, lessons: list):
         pass
+
+class ExperimentRecommendation:
+    def link_decision(self, decision_id: str):
+        pass

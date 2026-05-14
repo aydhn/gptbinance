@@ -1,4 +1,6 @@
 class ActivationHistory:
+    def store_decision_snapshot(self):
+        pass
     def __init__(self):
         self.stage_progressions = []
 

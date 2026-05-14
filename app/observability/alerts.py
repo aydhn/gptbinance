@@ -1,3 +1,4 @@
+from enum import Enum
 class IdentityAlert:
     pass
 
@@ -32,3 +33,7 @@ class CardinalityExplosionAlert:
 
 class DiagnosticCorrelationBrokenAlert:
     pass
+
+class AlertFamily(str, Enum):
+    HIDDEN_ASSUMPTION_DETECTED = 'hidden_assumption_detected'
+    OVERCONFIDENCE_PATTERN_DETECTED = 'overconfidence_pattern_detected'

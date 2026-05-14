@@ -25,3 +25,8 @@ class RevocationPropagationCleanlinessSLO:
 
 class TrustedSecurityDegradedRatioSLO:
     pass
+
+class SLODefinition:
+    @classmethod
+    def missing_option_absence(cls):
+        pass

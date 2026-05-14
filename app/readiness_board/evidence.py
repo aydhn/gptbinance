@@ -15,3 +15,7 @@ class SecurityIntegrityEvidence:
          self.patch_rotation_hygiene = patch_rotation_hygiene
          self.secret_cert_freshness = secret_cert_freshness
          self.security_exception_burden = security_exception_burden
+
+class ReadinessEvidenceBundle:
+    def include_decision_trust(self):
+        pass

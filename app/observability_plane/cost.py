@@ -12,3 +12,11 @@ class CostTracker:
 
     def list_cost_burdens(self) -> Dict[str, str]:
         return self._costs.copy()
+
+
+
+# Cost plane evaluation integration
+def get_evidence_retention_cost_caution(evidence_retention_rationale: bool):
+    if not evidence_retention_rationale:
+        return "caution"
+    return "ready"

@@ -11,3 +11,10 @@ class StrategyLifecycleManager:
 class StrategyTransition:
     def validate_decision_manifest(self, manifest_id: str):
         pass
+
+
+# Cost plane evaluation integration
+def check_strategy_economic_promotion(profitable: bool, operationally_uneconomic: bool):
+    if profitable and operationally_uneconomic:
+        return "caution"
+    return "ready"

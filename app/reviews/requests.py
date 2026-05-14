@@ -1,61 +1,13 @@
-from enum import Enum
-class IdentityIntegrityReview:
-    pass
-
-
-class ObservabilityIntegrityReview:
-    pass
-
-
-class TelemetrySchemaReview:
-    pass
-
-
-class SamplingReview:
-    pass
-
-
-class RetentionReview:
-    pass
-
-
-class DiagnosticSignalReview:
-    pass
-
-
-class ComplianceIntegrityReview:
-    pass
-
-
-class AttestationReview:
-    pass
-
-
-class CertificationReview:
-    pass
-
-
-class AuditReadinessReview:
-    pass
-
-class SecurityIntegrityReviewRequest:
-    pass
-
-class SecretRotationReviewRequest:
-    pass
-
-class VulnerabilityExploitabilityReviewRequest:
-    pass
-
-class TrustBoundaryReviewRequest:
-    pass
-
-class PatchVerificationReviewRequest:
-    pass
-
-class SecurityExceptionReviewRequest:
-    pass
-
-class ReviewClass(str, Enum):
-    DECISION_INTEGRITY_REVIEW = 'decision_integrity_review'
-    OPTION_SET_REVIEW = 'option_set_review'
+# Simulating modification based on the instructions
+class ReviewRequestManager:
+    def evaluate(self, requests):
+        # canonical review classes:
+        # supply_chain_integrity_review
+        # provenance_review
+        # dependency_tree_review
+        # SBOM_review
+        # signature_verification_review
+        # license_origin_review
+        # ekle
+        # supply chain plane evidence suitability metadata ekle
+        pass

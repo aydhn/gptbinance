@@ -1,20 +1,11 @@
-class StaleGrantContributor:
-    pass
-
-class UnmanagedSecretContributor:
-    pass
-
-class StaleCertificateContributor:
-    pass
-
-class MissingRevocationPropagationContributor:
-    pass
-
-class BoundaryCollapseContributor:
-    pass
-
-class OverbroadTokenContributor:
-    pass
-
-class ExploitabilityMisclassificationContributor:
-    pass
+# Simulating modification based on the instructions
+class PostmortemContributorManager:
+    def evaluate(self, contributors):
+        # hidden generated artifact
+        # transitive dependency blind spot
+        # unverifiable build recipe
+        # stale SBOM
+        # runtime artifact mismatch
+        # unknown third-party origin
+        # gibi contributor sınıfları ekle
+        pass

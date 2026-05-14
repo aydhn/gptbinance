@@ -69,6 +69,16 @@ def setup_mock_identity():
 
 
 def main():
+    import sys
+    from app.cli_supply_chain import handle_cli, execute_cli
+    import argparse
+    if any(arg.startswith("--show-supply-chain") or arg.startswith("--show-component") or arg.startswith("--show-dependen") or arg.startswith("--show-build") or arg.startswith("--show-generated") or arg.startswith("--show-package") or arg.startswith("--show-container") or arg.startswith("--show-sbom") or arg.startswith("--show-signature") or arg.startswith("--show-artifact") or arg.startswith("--show-license") or arg.startswith("--show-origin") or arg.startswith("--show-runtime") for arg in sys.argv):
+        parser = argparse.ArgumentParser()
+        handle_cli(parser)
+        args, _ = parser.parse_known_args()
+        execute_cli(args)
+        return
+
     parser = argparse.ArgumentParser(
         description="Trading Platform CLI (Identity Plane)"
     )

@@ -1,15 +1,7 @@
-CAPACITY_REVIEWS = [
-    "capacity_integrity_review",
-    "quota_review",
-    "reservation_review",
-    "saturation_review",
-    "fairness_review",
-    "shedding_review"
-]
-
-
-
-# Cost plane evaluation integration
-def append_cost_review_classes(classes):
-    classes.extend(["cost_integrity_review", "allocation_review", "budget_guardrail_review"])
-    return classes
+class ValueReviewClass:
+    VALUE_INTEGRITY_REVIEW = "value_integrity_review"
+    BASELINE_REVIEW = "baseline_review"
+    ATTRIBUTION_REVIEW = "attribution_review"
+    ROI_REVIEW = "ROI_review"
+    TRADEOFF_REVIEW = "tradeoff_review"
+    REALIZED_IMPACT_REVIEW = "realized_impact_review"

@@ -1,10 +1,31 @@
-def register_capacity_artefacts():
-    pass
+class ValueArtefactFamily:
+    VALUE_OBJECT = "value_object"
+    OBJECTIVE = "objective"
+    KPI = "kpi"
+    BENEFIT = "benefit"
+    EXPECTED_IMPACT = "expected_impact"
+    REALIZED_IMPACT = "realized_impact"
+    BASELINE = "baseline"
+    COUNTERFACTUAL = "counterfactual"
+    ATTRIBUTION = "attribution"
+    ROI = "roi"
+    RISK_ADJUSTED = "risk_adjusted"
+    OPPORTUNITY_COST = "opportunity_cost"
+    COST_OF_DELAY = "cost_of_delay"
+    AVOIDED_LOSS = "avoided_loss"
+    OPTIONALITY = "optionality"
+    TRADEOFF = "tradeoff"
+    EXTERNALITY = "externality"
+    VARIANCE = "variance"
+    PORTFOLIO = "portfolio"
+    EQUIVALENCE = "equivalence"
+    TRUST = "trust"
 
-
-
-# Cost plane evaluation integration
-def append_cost_artefacts(families, relations):
-    families.extend(["cost_objects", "spend", "fees"])
-    relations.extend(["costed_by", "budgeted_under", "allocated_to", "amortized_under"])
-    return families, relations
+class ValueRelation:
+    VALUED_BY = "valued_by"
+    BASELINED_AGAINST = "baselined_against"
+    REALIZED_AS = "realized_as"
+    ATTRIBUTED_TO = "attributed_to"
+    TRADED_OFF_WITH = "traded_off_with"
+    REVIEWED_AGAINST_COUNTERFACTUAL = "reviewed_against_counterfactual"
+    DIVERGED_VALUE_FROM = "diverged_value_from"

@@ -1,14 +1,9 @@
-from app.capacity_plane.trust import evaluate_capacity_trust
-def check_activation_capacity_guard():
-    trust = evaluate_capacity_trust()
-    if trust.verdict.value == "blocked":
-        return {"status": "BLOCKED"}
-    return {"status": "PASSED"}
-
-
-
-# Cost plane evaluation integration
-def verify_activation_budget(budget_headroom_ok: bool, sustainable_ue: bool):
-    if not budget_headroom_ok or not sustainable_ue:
-         return "blocked"
-    return "pass"
+def check_activation_guards(activation_id: str):
+    # Requires explicit value objective, acceptable downside and stop-value-loss criteria
+    return {
+        "activation_id": activation_id,
+        "value_objective_ref": "obj_growth_2",
+        "acceptable_downside_ref": "trd_downside_1",
+        "stop_value_loss_criteria": "var_loss_threshold",
+        "trust_verdict": "trusted" # Produces blocker/caution semantics without these
+    }

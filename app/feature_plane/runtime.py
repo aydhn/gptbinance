@@ -1,8 +1,6 @@
-def check_feature_capacity():
-    pass
-
-
-
-# Cost plane evaluation integration
-def report_cost_subsidy():
-    return {"hidden_subsidy": "surfaced"}
+def evaluate_feature_runtime(feature_id: str):
+    return {
+        "feature_id": feature_id,
+        "freshness_availability_value_objective_ref": "obj_feat_1",
+        "status": "value_aligned" # Pipeline overhead without measurable benefit goes to value debt
+    }

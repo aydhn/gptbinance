@@ -1,15 +1,7 @@
-from typing import List
-from app.postmortem_plane.models import LearningNote
-
-class LessonsLearned:
-    def separate_outcome_and_process_quality(self):
-        pass
-    @staticmethod
-    def capture(note_id: str, category: str, desc: str, transferability: str, lineages: List[str] = None) -> LearningNote:
-        return LearningNote(
-            note_id=note_id,
-            category=category,
-            description=desc,
-            scope_transferability=transferability,
-            lineage_refs=lineages or []
-        )
+def export_postmortem_lessons(lesson_id: str):
+    return {
+        "lesson_id": lesson_id,
+        "realized_vs_expected_value_misses_ref": "rve_miss_1",
+        "hidden_externalities_ref": "hid_ext_1",
+        "flawed_benefit_hypotheses_ref": "flaw_bh_1"
+    }

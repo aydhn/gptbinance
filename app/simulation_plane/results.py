@@ -1,15 +1,7 @@
-class SimulationResult:
-    def export_to_decision_option(self):
-        pass
-    def __init__(self, result_id: str, target_release_candidate_ref: str = None):
-        self.result_id = result_id
-        self.target_release_candidate_ref = target_release_candidate_ref
-
-class SimulationEvidenceBuilder:
-    def build_promotion_grade_evidence(self):
-        # Tied to target release candidate refs
-        pass
-
-    def tie_compatibility_to_assumptions(self):
-        # Release compatibility tied to simulation assumptions
-        pass
+def process_simulation_results(sim_id: str):
+    return {
+        "sim_id": sim_id,
+        "expected_value_scenarios_ref": "exp_scen_1",
+        "downside_envelopes_ref": "env_1",
+        "delayed_payoff_baselines_ref": "dpb_1"
+    }

@@ -1,6 +1,6 @@
-# Simulating modification based on the instructions
-class ActivationGuardManager:
-    def evaluate(self, guards):
-        # activation progression required component lineage, signature coverage ve runtime artifact match olmadan trusted sayılamasın
-        # critical supply-chain drift activation blocker/caution üretsin
-        pass
+from app.capacity_plane.trust import evaluate_capacity_trust
+def check_activation_capacity_guard():
+    trust = evaluate_capacity_trust()
+    if trust.verdict.value == "blocked":
+        return {"status": "BLOCKED"}
+    return {"status": "PASSED"}

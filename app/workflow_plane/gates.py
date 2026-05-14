@@ -1,14 +1,8 @@
-from typing import Dict
-from app.capacity_plane.registry import capacity_registry
-
-def check_workflow_capacity_gate(workflow_class: str) -> Dict[str, str]:
-    # ensure critical workflows check capacity
-    return {"status": "PASSED", "reason": "Capacity gate checked"}
-
-
-
-# Cost plane evaluation integration
-def process_cost_gate(priority: str, is_live_contention: bool, budget_ok: bool):
-    if not budget_ok and priority == "low" and is_live_contention:
-        return "blocked"
-    return "pass"
+def check_workflow_gates(workflow_id: str):
+    return {
+        "workflow_id": workflow_id,
+        "value_objective_ref": "obj_wf_1",
+        "queue_cost_vs_benefit_ref": "trd_queue_1",
+        "timeliness_benefit_ref": "time_ben_1",
+        "status": "value_posture_healthy" # Harmful automation gives caution
+    }

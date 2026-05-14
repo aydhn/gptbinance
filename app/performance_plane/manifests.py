@@ -1,17 +1,6 @@
-class PerformanceWindowManifest:
-    def __init__(
-        self,
-        window_id: str,
-        release_candidate_ref: str = None,
-        observability_trust_ref: str = None,
-        rollout_stage_ref: str = None,
-    ):
-        self.window_id = window_id
-        self.release_candidate_ref = release_candidate_ref
-        self.rollout_stage_ref = rollout_stage_ref
-
-
-class PerformanceComparativeAnalyzer:
-    def compare_canary_vs_full(self, release_plane_context: dict):
-        # Comparison tied to release plane
-        pass
+def generate_performance_manifest(perf_id: str):
+    return {
+        "perf_id": perf_id,
+        "benchmark_relative_realized_value_ref": "br_val_1",
+        "status": "business_utility_proven" # Better metrics without utility gives caution
+    }

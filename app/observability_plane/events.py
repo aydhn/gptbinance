@@ -1,5 +1,11 @@
-# Simulating modification based on the instructions
-class EventManager:
-    def log_event(self, event):
-        # component_built, sbom_generated, artifact_signed, runtime_artifact_observed, drift_detected, provenance_verified gibi canonical supply-chain events ekle
-        pass
+class ValuePlaneEvent:
+    VALUE_OBJECT_CREATED = "value_object_created"
+    BENEFIT_HYPOTHESIS_COMMITTED = "benefit_hypothesis_committed"
+    REALIZED_IMPACT_RECORDED = "realized_impact_recorded"
+    COUNTERFACTUAL_BASELINE_UPDATED = "counterfactual_baseline_updated"
+    ROI_REVIEWED = "ROI_reviewed"
+    VALUE_VARIANCE_FLAGGED = "value_variance_flagged"
+
+def emit_value_event(event_type: str, details: dict):
+    # Emit event logic
+    pass

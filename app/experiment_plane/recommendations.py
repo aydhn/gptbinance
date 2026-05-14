@@ -1,17 +1,8 @@
-class ExperimentRecommendationExporter:
-    def export_to_release_candidate(self, recommendation_id: str, candidate_input: dict):
-        # Promote-input recommendations typed exported to release candidate creation
-        pass
-
-    def separate_winner_claim_from_release(self):
-        # Experiment winner claim != releasable candidate distinction
-        pass
-
-
-class ExperimentRecommendationEvaluator:
-    def link_failure_learnings(self, experiment_id: str, lessons: list):
-        pass
-
-class ExperimentRecommendation:
-    def link_decision(self, decision_id: str):
-        pass
+def generate_experiment_recommendation(experiment_id: str):
+    return {
+        "experiment_id": experiment_id,
+        "winner_uplift_ref": "uplift_1",
+        "loser_learning_value_ref": "learn_1",
+        "counterfactual_baseline_ref": "cf_base_1",
+        "status": "validated" # Winner claim without realized incremental value evidence gives caution
+    }

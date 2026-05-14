@@ -1,15 +1,7 @@
-CAPACITY_ALERTS = [
-    "quota_exhaustion_detected",
-    "saturation_critical_detected",
-    "queue_starvation_detected",
-    "noisy_neighbor_detected",
-    "emergency_shedding_active",
-    "capacity_review_required"
-]
-
-
-
-# Cost plane evaluation integration
-def append_cost_alerts(families):
-    families.extend(["budget_guardrail_breached", "vendor_spend_spike_detected"])
-    return families
+class ValueAlertFamily:
+    CRITICAL_VALUE_CLAIM_WITHOUT_BASELINE = "critical_value_claim_without_baseline"
+    UNIT_ECONOMICS_TO_VALUE_REGRESSION_DETECTED = "unit_economics_to_value_regression_detected"
+    REALIZED_IMPACT_REVIEW_OVERDUE = "realized_impact_review_overdue"
+    HIDDEN_EXTERNALITY_PATTERN_DETECTED = "hidden_externality_pattern_detected"
+    STRATEGY_VALUE_DIVERGENCE_DETECTED = "strategy_value_divergence_detected"
+    VALUE_REVIEW_REQUIRED = "value_review_required"

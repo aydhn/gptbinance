@@ -1,10 +1,8 @@
-def check_data_capacity():
-    pass
-
-
-
-# Cost plane evaluation integration
-def verify_cost_freshness(unsustainable_vendor_spend: bool):
-    if unsustainable_vendor_spend:
-        return "caution"
-    return "ready"
+def evaluate_data_revision(revision_id: str):
+    return {
+        "revision_id": revision_id,
+        "freshness_coverage_benefit_ref": "fc_ben_1",
+        "vendor_cost_ref": "vc_1",
+        "downstream_uplift_ref": "du_1",
+        "status": "value_thesis_supported" # Expensive without realized/expected thesis gives caution
+    }

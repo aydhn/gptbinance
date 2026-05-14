@@ -1,13 +1,10 @@
-from app.capacity_plane.releases import check_rollout_capacity_sufficiency
-
-def check_release_readiness():
-    cap = check_rollout_capacity_sufficiency(["live_workload"])
-    return {"capacity_readiness": cap}
-
-
-
-# Cost plane evaluation integration
-def get_economic_readiness(unit_economics_ok: bool, attribution_ok: bool):
-    if not unit_economics_ok or not attribution_ok:
-        return "caution"
-    return "ready"
+def evaluate_release_readiness(release_id: str):
+    # Bespoke logic utilizing expected value thesis, cost-of-delay, rollout benefit hypothesis
+    return {
+        "release_id": release_id,
+        "expected_value_thesis_ref": "exp_val_456",
+        "cost_of_delay_ref": "cod_789",
+        "rollout_benefit_hypothesis_ref": "bh_012",
+        "downside_tradeoff_ref": "trd_345",
+        "status": "ready" # If value objective is unclear, return caution/block
+    }

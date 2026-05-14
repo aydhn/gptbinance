@@ -55,6 +55,32 @@ def main():
     parser.add_argument("--show-capacity-trust", action="store_true")
     parser.add_argument("--show-capacity-review-packs", action="store_true")
 
+
+    # Cost Plane CLI Commands
+    parser.add_argument("--show-cost-registry", action="store_true", help="Show cost registry")
+    parser.add_argument("--show-cost-object", action="store_true", help="Show cost object details")
+    parser.add_argument("--cost-id", type=str, help="Cost ID")
+    parser.add_argument("--show-spend-records", action="store_true", help="Show spend records")
+    parser.add_argument("--show-fee-records", action="store_true", help="Show fee records")
+    parser.add_argument("--show-budgets", action="store_true", help="Show budgets")
+    parser.add_argument("--show-budget-guardrails", action="store_true", help="Show budget guardrails")
+    parser.add_argument("--show-allocation-policies", action="store_true", help="Show allocation policies")
+    parser.add_argument("--show-cost-allocations", action="store_true", help="Show cost allocations")
+    parser.add_argument("--show-shared-cost-pools", action="store_true", help="Show shared cost pools")
+    parser.add_argument("--show-amortization", action="store_true", help="Show amortization records")
+    parser.add_argument("--show-reservation-costs", action="store_true", help="Show reservation costs")
+    parser.add_argument("--show-usage-costs", action="store_true", help="Show usage costs")
+    parser.add_argument("--show-vendor-invoices", action="store_true", help="Show vendor invoices")
+    parser.add_argument("--show-unit-economics", action="store_true", help="Show unit economics records")
+    parser.add_argument("--show-cost-attribution", action="store_true", help="Show cost attribution")
+    parser.add_argument("--show-cost-variance", action="store_true", help="Show cost variance")
+    parser.add_argument("--show-cost-forecast", action="store_true", help="Show cost forecast")
+    parser.add_argument("--show-optimization-opportunities", action="store_true", help="Show optimization opportunities")
+    parser.add_argument("--show-cost-debt", action="store_true", help="Show cost debt")
+    parser.add_argument("--show-cost-equivalence", action="store_true", help="Show cost equivalence reports")
+    parser.add_argument("--show-cost-trust", action="store_true", help="Show cost trust verdicts")
+    parser.add_argument("--show-cost-review-packs", action="store_true", help="Show cost review packs")
+
     args = parser.parse_args()
 
     if args.show_capacity_registry:
@@ -206,6 +232,75 @@ def main():
         sys.exit(0)
 
     print("Trading platform running...")
+
+
+    # Cost Plane Logic Handlers
+    if getattr(args, "show_cost_registry", False):
+        print("Cost Registry Summary: ...")
+        return
+    if getattr(args, "show_cost_object", False):
+        print(f"Cost Object Details for {getattr(args, 'cost_id', 'unknown')}: ...")
+        return
+    if getattr(args, "show_spend_records", False):
+        print("Spend Records: ...")
+        return
+    if getattr(args, "show_fee_records", False):
+        print("Fee Records: ...")
+        return
+    if getattr(args, "show_budgets", False):
+        print("Budgets Summary: ...")
+        return
+    if getattr(args, "show_budget_guardrails", False):
+        print("Guardrails Summary: ...")
+        return
+    if getattr(args, "show_allocation_policies", False):
+        print("Allocation Policies: ...")
+        return
+    if getattr(args, "show_cost_allocations", False):
+        print("Allocations: ...")
+        return
+    if getattr(args, "show_shared_cost_pools", False):
+        print("Shared Cost Pools: ...")
+        return
+    if getattr(args, "show_amortization", False):
+        print("Amortization Records: ...")
+        return
+    if getattr(args, "show_reservation_costs", False):
+        print("Reservation Costs: ...")
+        return
+    if getattr(args, "show_usage_costs", False):
+        print("Usage Costs: ...")
+        return
+    if getattr(args, "show_vendor_invoices", False):
+        print("Vendor Invoices: ...")
+        return
+    if getattr(args, "show_unit_economics", False):
+        print("Unit Economics: ...")
+        return
+    if getattr(args, "show_cost_attribution", False):
+        print("Attribution Records: ...")
+        return
+    if getattr(args, "show_cost_variance", False):
+        print("Variance Records: ...")
+        return
+    if getattr(args, "show_cost_forecast", False):
+        print("Forecasts: ...")
+        return
+    if getattr(args, "show_optimization_opportunities", False):
+        print("Optimization Opportunities: ...")
+        return
+    if getattr(args, "show_cost_debt", False):
+        print("Cost Debt: ...")
+        return
+    if getattr(args, "show_cost_equivalence", False):
+        print("Equivalence Reports: ...")
+        return
+    if getattr(args, "show_cost_trust", False):
+        print("Trust Verdicts: ...")
+        return
+    if getattr(args, "show_cost_review_packs", False):
+        print("Review Packs: ...")
+        return
 
 if __name__ == "__main__":
     main()

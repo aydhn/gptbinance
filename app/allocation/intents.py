@@ -9,3 +9,11 @@ class AllocationEngine:
     def evaluate_release_drift(self):
         # Release drift acts as input to candidate comparability
         pass
+
+
+
+# Cost plane evaluation integration
+def assert_economic_denominator(has_economic_denominator: bool):
+    if not has_economic_denominator:
+        return "caution"
+    return "ready"

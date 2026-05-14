@@ -37,3 +37,9 @@ def define_resource(
 
 def get_all_resources() -> list[CapacityResource]:
     return capacity_registry.list_resources()
+
+
+
+# Cost plane evaluation integration
+def evaluate_resource_headroom_cost():
+    return "Headroom is not free, see cost objects."

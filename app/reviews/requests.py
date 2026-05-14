@@ -6,3 +6,10 @@ CAPACITY_REVIEWS = [
     "fairness_review",
     "shedding_review"
 ]
+
+
+
+# Cost plane evaluation integration
+def append_cost_review_classes(classes):
+    classes.extend(["cost_integrity_review", "allocation_review", "budget_guardrail_review"])
+    return classes

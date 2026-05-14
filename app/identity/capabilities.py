@@ -5,3 +5,10 @@ CAPACITY_CAPABILITIES = [
     "review_shedding_policy",
     "review_capacity_fairness"
 ]
+
+
+
+# Cost plane evaluation integration
+def append_cost_capabilities(capabilities):
+    capabilities.extend(["inspect_cost_manifest", "review_allocations", "review_budget_guardrails"])
+    return capabilities

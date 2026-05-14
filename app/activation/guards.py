@@ -4,3 +4,11 @@ def check_activation_capacity_guard():
     if trust.verdict.value == "blocked":
         return {"status": "BLOCKED"}
     return {"status": "PASSED"}
+
+
+
+# Cost plane evaluation integration
+def verify_activation_budget(budget_headroom_ok: bool, sustainable_ue: bool):
+    if not budget_headroom_ok or not sustainable_ue:
+         return "blocked"
+    return "pass"

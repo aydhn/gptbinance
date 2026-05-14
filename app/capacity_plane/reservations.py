@@ -48,3 +48,9 @@ def get_reservation(reservation_id: str) -> Optional[ReservationRecord]:
 
 def list_reservations() -> List[ReservationRecord]:
     return list(_reservations.values())
+
+
+
+# Cost plane evaluation integration
+def get_stale_reservations_cost_burden():
+    return {"stale": True, "burden": "canonical ref to cost plane"}

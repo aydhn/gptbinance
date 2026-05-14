@@ -44,3 +44,7 @@ class VulnerabilityExposureReviewPack:
 
 class PatchRotationRevocationReviewPack:
     pass
+
+class EvidencePackBuilder:
+    def build_decision_integrity_pack(self):
+        pass

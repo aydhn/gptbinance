@@ -6,3 +6,7 @@ class SecurityReadinessAggregator:
             "patch_hygiene": "good",
             "exposure_burden": "low"
         }
+
+class SecurityReadiness:
+    def require_option_comparison_for_high_risk(self):
+        pass

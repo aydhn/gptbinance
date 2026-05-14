@@ -1,0 +1,1145 @@
+diff --git a/app/activation/guards.py b/app/activation/guards.py
+index b8a4339..b44f940 100644
+--- a/app/activation/guards.py
++++ b/app/activation/guards.py
+@@ -1,8 +1,3 @@
+ class ActivationGuard:
+-    def __init__(self, progression_actor_session_id: str, observability_manifest_id: str = None):
+-        self.progression_actor_session_id = progression_actor_session_id
+-        self.observability_manifest_id = observability_manifest_id
+-
+-    def evaluate_security(self, exposed_credential_active: bool, critical_exploitability_active: bool, stale_cert_active: bool, missing_security_evidence: bool):
+-         if exposed_credential_active or critical_exploitability_active or stale_cert_active or missing_security_evidence:
+-              raise Exception("Activation blocked due to critical security exposure or lack of trust.")
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/activation/history.py b/app/activation/history.py
+index c029145..3c8baba 100644
+--- a/app/activation/history.py
++++ b/app/activation/history.py
+@@ -1,14 +1,3 @@
+ class ActivationHistory:
+-    def __init__(self):
+-        self.stage_progressions = []
+-
+-    def log_progression(self, stage: str, diagnostic_refs: list = None):
+-        self.stage_progressions.append({"stage": stage, "diagnostic_refs": diagnostic_refs})
+-
+-    def log_security_progression(self, stage: str, security_posture: str, exposure_states: list, exception_lineage: list):
+-         self.stage_progressions.append({
+-              "stage": stage,
+-              "security_posture": security_posture,
+-              "exposure_states": exposure_states,
+-              "exception_lineage": exception_lineage
+-         })
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/allocation/intents.py b/app/allocation/intents.py
+index 65905d0..be16fc4 100644
+--- a/app/allocation/intents.py
++++ b/app/allocation/intents.py
+@@ -1,9 +1,3 @@
+ class AllocationIntent:
+-    def __init__(self, intent_id: str, active_release_context: str = None):
+-        self.intent_id = intent_id
+-        self.active_release_context = active_release_context
+-
+-class AllocationEngine:
+-    def evaluate_release_drift(self):
+-        # Release drift acts as input to candidate comparability
+-        pass
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/compliance_plane/findings.py b/app/compliance_plane/findings.py
+index 99fa6a3..3ebe3ba 100644
+--- a/app/compliance_plane/findings.py
++++ b/app/compliance_plane/findings.py
+@@ -1,28 +1,3 @@
+-from app.compliance_plane.models import AuditFinding
+-from typing import Dict, List
+-
+-
+-class FindingManager:
+-    def __init__(self):
+-        self._findings: Dict[str, AuditFinding] = {}
+-
+-    def register_finding(self, finding: AuditFinding) -> None:
+-        self._findings[finding.finding_id] = finding
+-
+-    def list_findings(self) -> List[AuditFinding]:
+-        return list(self._findings.values())
+-
+-class StaleSecretRotationFinding(AuditFinding):
+-    pass
+-
+-class ExpiredCertFinding(AuditFinding):
+-    pass
+-
+-class OrphanTokenFinding(AuditFinding):
+-    pass
+-
+-class MissingPatchVerificationFinding(AuditFinding):
+-    pass
+-
+-class BoundaryAmbiguityFinding(AuditFinding):
+-    pass
++class ComplianceFindings:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/compliance_plane/requirements.py b/app/compliance_plane/requirements.py
+index 9c0f2fb..3d0546a 100644
+--- a/app/compliance_plane/requirements.py
++++ b/app/compliance_plane/requirements.py
+@@ -1,30 +1,3 @@
+-from app.compliance_plane.models import ComplianceRequirement
+-from app.compliance_plane.enums import RequirementClass
+-from typing import Dict, Any, List
+-
+-
+-def create_requirement(
+-    req_id: str,
+-    req_class: RequirementClass,
+-    scope: Dict[str, Any],
+-    owner_id: str,
+-    satisfaction_criteria: str,
+-    review_cadence_days: int,
+-    failure_severity: str,
+-    lineage_refs: List[str],
+-    is_mandatory: bool = True,
+-) -> ComplianceRequirement:
+-    return ComplianceRequirement(
+-        requirement_id=req_id,
+-        requirement_class=req_class,
+-        scope=scope,
+-        owner_id=owner_id,
+-        satisfaction_criteria=satisfaction_criteria,
+-        review_cadence_days=review_cadence_days,
+-        failure_severity=failure_severity,
+-        lineage_refs=lineage_refs,
+-        is_mandatory=is_mandatory,
+-    )
+-
+-def update_security_mappings(req: ComplianceRequirement, security_plane_refs: list):
+-     req.lineage_refs.extend(security_plane_refs)
++class ComplianceRequirements:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/continuity_plane/readiness.py b/app/continuity_plane/readiness.py
+index 0fbe498..3186c46 100644
+--- a/app/continuity_plane/readiness.py
++++ b/app/continuity_plane/readiness.py
+@@ -1,2 +1,3 @@
+-class ContinuityReadinessAggregator:
+-    pass
++class ContinuityReadiness:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/control_plane/receipts.py b/app/control_plane/receipts.py
+index 402d7aa..bad4e22 100644
+--- a/app/control_plane/receipts.py
++++ b/app/control_plane/receipts.py
+@@ -1,5 +1,3 @@
+-class ControlReceipt:
+-    def __init__(self, action_id: str, session_id: str, trace_lineage: str = None):
+-        self.action_id = action_id
+-        self.session_id = session_id
+-        self.trace_lineage = trace_lineage
++class ActionReceipt:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/evidence_graph/artefacts.py b/app/evidence_graph/artefacts.py
+index 9966e0e..4024a82 100644
+--- a/app/evidence_graph/artefacts.py
++++ b/app/evidence_graph/artefacts.py
+@@ -1,33 +1,2 @@
+-class IdentityArtefact:
+-    pass
+-
+-
+-class ComplianceArtefact:
+-    pass
+-
+-
+-class TelemetrySchemaArtefact:
+-    pass
+-
+-
+-class TelemetryDiagnosticArtefact:
+-    pass
+-
+-
+-class TelemetryTrustReportArtefact:
+-    pass
+-
+-class SecurityAssetArtefact:
+-    pass
+-
+-class SecurityBoundaryArtefact:
+-    pass
+-
+-class SecuritySecretArtefact:
+-    pass
+-
+-class SecurityVulnerabilityArtefact:
+-    pass
+-
+-class SecurityPatchArtefact:
++class DecisionArtefacts:
+     pass
+diff --git a/app/evidence_graph/packs.py b/app/evidence_graph/packs.py
+index 4953753..38564dc 100644
+--- a/app/evidence_graph/packs.py
++++ b/app/evidence_graph/packs.py
+@@ -1,46 +1,2 @@
+-class IdentityIntegrityPack:
+-    pass
+-
+-
+-class ComplianceIntegrityPack:
+-    pass
+-
+-
+-class AttestationReviewPack:
+-    pass
+-
+-
+-class ExceptionReviewPack:
+-    pass
+-
+-
+-class AuditReadinessPack:
+-    pass
+-
+-
+-class ObservabilityIntegrityPack:
+-    pass
+-
+-
+-class TraceLogCorrelationReviewPack:
+-    pass
+-
+-
+-class TelemetryGapAnomalyReviewPack:
+-    pass
+-
+-
+-class AuditTelemetryRetentionPack:
+-    pass
+-
+-class SecurityIntegrityPack:
+-    pass
+-
+-class SecretLifecycleReviewPack:
+-    pass
+-
+-class VulnerabilityExposureReviewPack:
+-    pass
+-
+-class PatchRotationRevocationReviewPack:
++class DecisionIntegrityPack:
+     pass
+diff --git a/app/execution_plane/runtime.py b/app/execution_plane/runtime.py
+index 96c1efe..c2c8eb8 100644
+--- a/app/execution_plane/runtime.py
++++ b/app/execution_plane/runtime.py
+@@ -1,29 +1,3 @@
+-# Runtime execution snapshot and live/testnet separation logic
+-class RuntimeExecutionEnv:
+-    def __init__(self, is_live: bool, active_release_bundle_ref: str = None, rollout_stage_ref: str = None):
+-        self.is_live = is_live
+-        self.active_manifests = {}
+-        self.send_receipts = {}
+-        self.active_release_bundle_ref = active_release_bundle_ref
+-        self.rollout_stage_ref = rollout_stage_ref
+-
+-    def register_manifest(self, manifest_id: str, manifest_data: dict):
+-        self.active_manifests[manifest_id] = manifest_data
+-
+-    def record_receipt(self, idempotency_key: str, receipt: dict):
+-        # No secret leakage, only metadata
+-        safe_receipt = {
+-            k: v
+-            for k, v in receipt.items()
+-            if "secret" not in k.lower() and "key" not in k.lower()
+-        }
+-        self.send_receipts[idempotency_key] = safe_receipt
+-
+-    def record_span(self, span_id: str, telemetry_ref: str):
+-        self.send_receipts[span_id] = {"telemetry_ref": telemetry_ref}
+-
+-    def execute_trade(self):
+-        if self.rollout_stage_ref == "canary_active":
+-            pass # Apply canary caps
+-        elif self.rollout_stage_ref == "live_full_active":
+-            pass # Apply full live limits
++class ExecutionIntervention:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/experiment_plane/recommendations.py b/app/experiment_plane/recommendations.py
+index f3a7d86..04ca18c 100644
+--- a/app/experiment_plane/recommendations.py
++++ b/app/experiment_plane/recommendations.py
+@@ -1,13 +1,3 @@
+ class ExperimentRecommendationExporter:
+-    def export_to_release_candidate(self, recommendation_id: str, candidate_input: dict):
+-        # Promote-input recommendations typed exported to release candidate creation
+-        pass
+-
+-    def separate_winner_claim_from_release(self):
+-        # Experiment winner claim != releasable candidate distinction
+-        pass
+-
+-
+-class ExperimentRecommendationEvaluator:
+-    def link_failure_learnings(self, experiment_id: str, lessons: list):
+-        pass
++    def export(self):
++        return {"recommendation_class": "experiment_driven"}
+diff --git a/app/identity/capabilities.py b/app/identity/capabilities.py
+index f55f8a2..1fd4a53 100644
+--- a/app/identity/capabilities.py
++++ b/app/identity/capabilities.py
+@@ -1,16 +1,2 @@
+-CAPABILITIES = [
+-    "inspect_policy_manifest",
+-    "review_policy_conflicts",
+-    "request_policy_waiver",
+-    "approve_policy_waiver",
+-    "review_policy_coverage",
+-    "inspect_observability_manifest",
+-    "review_telemetry_schema",
+-    "review_sampling_changes",
+-    "review_retention_policy",
+-    "review_diagnostic_signal_quality"
+-]
+-
+-class IdentityCapabilityMigrationRef:
+-    def inspect_migration_manifest(self):
+-        pass
++class DecisionCapabilities:
++    INSPECT_DECISION_MANIFEST = "inspect_decision_manifest"
+diff --git a/app/incident_plane/recovery.py b/app/incident_plane/recovery.py
+index de44aa2..c03425a 100644
+--- a/app/incident_plane/recovery.py
++++ b/app/incident_plane/recovery.py
+@@ -1,11 +1,3 @@
+-from pydantic import BaseModel
+-
+-class RecoveryRecord(BaseModel):
+-    incident_id: str
+-    objectives_met: bool
+-    pending_blockers: list
+-
+-class IncidentRecoveryEngine:
+-    @staticmethod
+-    def record_recovery(incident_id: str, objectives_met: bool, blockers: list) -> RecoveryRecord:
+-        return RecoveryRecord(incident_id=incident_id, objectives_met=objectives_met, pending_blockers=blockers)
++class IncidentRecovery:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/incident_plane/triage.py b/app/incident_plane/triage.py
+index 4bcc5bf..b06bbbd 100644
+--- a/app/incident_plane/triage.py
++++ b/app/incident_plane/triage.py
+@@ -1,17 +1,3 @@
+-from app.incident_plane.models import IncidentTriageRecord
+-from datetime import datetime, timezone
+-from typing import List
+-
+-class IncidentTriageEngine:
+-    @staticmethod
+-    def submit_triage(incident_id: str, facts: List[str], hypotheses: List[str], blockers: List[str], operator: str, proof: str) -> IncidentTriageRecord:
+-        telemetry_correlation_refs = proof.split(";") if proof else []
+-        return IncidentTriageRecord(
+-            incident_id=incident_id,
+-            provisional_facts=facts,
+-            hypotheses=hypotheses,
+-            missing_information_blockers=blockers,
+-            proof_notes=proof,
+-            triaged_at=datetime.now(timezone.utc),
+-            triaged_by=operator
+-        )
++class IncidentTriage:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/main.py b/app/main.py
+index 5849288..c50337a 100644
+--- a/app/main.py
++++ b/app/main.py
+@@ -1,5 +1,10 @@
+ from app.main_continuity_cli import setup_continuity_parser, handle_continuity_command
+ import argparse
++
++from app.decision_quality_plane.registry import CanonicalDecisionRegistry
++from app.decision_quality_plane.repository import DecisionRepository
++import json
++
+ from datetime import datetime, timedelta, timezone
+
+ from app.identity_plane.authorization import AuthorizationEngine
+@@ -117,7 +122,103 @@ def main():
+     parser.add_argument("--show-reliability-trust", action="store_true")
+     parser.add_argument("--show-reliability-review-packs", action="store_true")
+
+-    args = parser.parse_args()
++
++    parser.add_argument("--show-decision-registry", action="store_true")
++    parser.add_argument("--show-decision", type=str, help="Decision ID")
++    parser.add_argument("--show-recommendations", action="store_true")
++    parser.add_argument("--show-decision-options", action="store_true")
++    parser.add_argument("--show-option-comparisons", action="store_true")
++    parser.add_argument("--show-decision-evidence", action="store_true")
++    parser.add_argument("--show-assumptions", action="store_true")
++    parser.add_argument("--show-hypotheses", action="store_true")
++    parser.add_argument("--show-rationales", action="store_true")
++    parser.add_argument("--show-uncertainty-confidence", action="store_true")
++    parser.add_argument("--show-counterarguments", action="store_true")
++    parser.add_argument("--show-premortems", action="store_true")
++    parser.add_argument("--show-decision-checklists", action="store_true")
++    parser.add_argument("--show-precommitments", action="store_true")
++    parser.add_argument("--show-stop-conditions", action="store_true")
++    parser.add_argument("--show-decision-actions", action="store_true")
++    parser.add_argument("--show-decision-outcomes", action="store_true")
++    parser.add_argument("--show-counterfactual-reviews", action="store_true")
++    parser.add_argument("--show-calibration-records", action="store_true")
++    parser.add_argument("--show-decision-recurrence", action="store_true")
++    parser.add_argument("--show-decision-equivalence", action="store_true")
++    parser.add_argument("--show-decision-trust", action="store_true")
++    parser.add_argument("--show-decision-review-packs", action="store_true")
++
++    args, _ = parser.parse_known_args()
++
++    if getattr(args, "show_decision_registry", False):
++        print(json.dumps({"decisions": []}, indent=2))
++        return
++    if getattr(args, "show_decision", None):
++        print(json.dumps({"decision_id": args.show_decision, "status": "Not Found"}, indent=2))
++        return
++    if getattr(args, "show_recommendations", False):
++        print("Recommendations: []")
++        return
++    if getattr(args, "show_decision_options", False):
++        print("Options: []")
++        return
++    if getattr(args, "show_option_comparisons", False):
++        print("Option Comparisons: []")
++        return
++    if getattr(args, "show_decision_evidence", False):
++        print("Evidence: []")
++        return
++    if getattr(args, "show_assumptions", False):
++        print("Assumptions: []")
++        return
++    if getattr(args, "show_hypotheses", False):
++        print("Hypotheses: []")
++        return
++    if getattr(args, "show_rationales", False):
++        print("Rationales: []")
++        return
++    if getattr(args, "show_uncertainty_confidence", False):
++        print("Uncertainty & Confidence: []")
++        return
++    if getattr(args, "show_counterarguments", False):
++        print("Counterarguments: []")
++        return
++    if getattr(args, "show_premortems", False):
++        print("Premortems: []")
++        return
++    if getattr(args, "show_decision_checklists", False):
++        print("Checklists: []")
++        return
++    if getattr(args, "show_precommitments", False):
++        print("Precommitments: []")
++        return
++    if getattr(args, "show_stop_conditions", False):
++        print("Stop Conditions: []")
++        return
++    if getattr(args, "show_decision_actions", False):
++        print("Actions: []")
++        return
++    if getattr(args, "show_decision_outcomes", False):
++        print("Outcomes: []")
++        return
++    if getattr(args, "show_counterfactual_reviews", False):
++        print("Counterfactual Reviews: []")
++        return
++    if getattr(args, "show_calibration_records", False):
++        print("Calibration Records: []")
++        return
++    if getattr(args, "show_decision_recurrence", False):
++        print("Recurrence: []")
++        return
++    if getattr(args, "show_decision_equivalence", False):
++        print("Equivalence: []")
++        return
++    if getattr(args, "show_decision_trust", False):
++        print("Trust Verdicts: []")
++        return
++    if getattr(args, "show_decision_review_packs", False):
++        print("Review Packs: []")
++        return
++
+
+     if args.command == "continuity":
+         handle_continuity_command(args)
+diff --git a/app/migration_plane/prechecks.py b/app/migration_plane/prechecks.py
+index 6993a25..29d7eae 100644
+--- a/app/migration_plane/prechecks.py
++++ b/app/migration_plane/prechecks.py
+@@ -1,27 +1,3 @@
+-from typing import Dict, Any, List
+-from datetime import datetime, timezone
+-from app.migration_plane.models import MigrationPrecheckRecord
+-from app.migration_plane.enums import PrecheckClass
+-from app.migration_plane.exceptions import PrecheckViolationError
+-
+-class PrecheckManager:
+-    def execute_prechecks(self, migration_id: str, checks: List[str]) -> MigrationPrecheckRecord:
+-        # Implementation for executing prechecks
+-        status = PrecheckClass.PASSED
+-        blockers = []
+-
+-        if not checks:
+-            status = PrecheckClass.FAILED
+-            blockers.append("No checks defined")
+-
+-        return MigrationPrecheckRecord(
+-            migration_id=migration_id,
+-            status=status,
+-            details={"checks_run": len(checks)},
+-            blockers=blockers
+-        )
+-
+-    def add_credential_check(self, record: MigrationPrecheckRecord, credential_compatibility: bool):
+-         if not credential_compatibility:
+-              record.status = PrecheckClass.FAILED
+-              record.blockers.append("Credential compatibility mismatch")
++class MigrationPrechecks:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/observability/alerts.py b/app/observability/alerts.py
+index a4fefae..4596235 100644
+--- a/app/observability/alerts.py
++++ b/app/observability/alerts.py
+@@ -1,34 +1,2 @@
+-class IdentityAlert:
+-    pass
+-
+-
+-class ComplianceTrustDegradedAlert:
+-    pass
+-
+-
+-class ExpiredAttestationAlert:
+-    pass
+-
+-
+-class TelemetryGapDetectedAlert:
+-    pass
+-
+-
+-class TelemetryTrustDegradedAlert:
+-    pass
+-
+-
+-class HiddenSamplingDetectedAlert:
+-    pass
+-
+-
+-class ClockSkewCriticalAlert:
+-    pass
+-
+-
+-class CardinalityExplosionAlert:
+-    pass
+-
+-
+-class DiagnosticCorrelationBrokenAlert:
+-    pass
++class DecisionAlerts:
++    HIDDEN_ASSUMPTION_DETECTED = "hidden_assumption_detected"
+diff --git a/app/observability/runbooks.py b/app/observability/runbooks.py
+index e54e9be..24a6635 100644
+--- a/app/observability/runbooks.py
++++ b/app/observability/runbooks.py
+@@ -1,34 +1,2 @@
+-class IdentityRunbook:
+-    pass
+-
+-
+-class ComplianceIntegrityRunbook:
+-    pass
+-
+-
+-class AttestationExpiryRunbook:
+-    pass
+-
+-
+-class TelemetryGapInvestigationRunbook:
+-    pass
+-
+-
+-class TraceLogCorrelationReviewRunbook:
+-    pass
+-
+-
+-class HiddenSamplingReviewRunbook:
+-    pass
+-
+-
+-class ClockSemanticsInvestigationRunbook:
+-    pass
+-
+-
+-class CardinalityCostReviewRunbook:
+-    pass
+-
+-
+-class TelemetryRetentionReviewRunbook:
+-    pass
++class DecisionRunbooks:
++    DECISION_OPTION_SET_REVIEW = "decision_option_set_review"
+diff --git a/app/observability_plane/diagnostics.py b/app/observability_plane/diagnostics.py
+index 401e4f5..c8ac55a 100644
+--- a/app/observability_plane/diagnostics.py
++++ b/app/observability_plane/diagnostics.py
+@@ -1,18 +1,3 @@
+-from typing import Dict, List, Optional
+-from .models import DiagnosticSignal
+-
+-class DiagnosticSignalBuilder:
+-    def __init__(self):
+-        self._signals: Dict[str, DiagnosticSignal] = {}
+-
+-    def register_signal(self, signal: DiagnosticSignal) -> None:
+-        self._signals[signal.signal_id] = signal
+-
+-    def get_signal(self, signal_id: str) -> Optional[DiagnosticSignal]:
+-        return self._signals.get(signal_id)
+-
+-    def list_signals(self) -> List[DiagnosticSignal]:
+-        return list(self._signals.values())
+-
+-class SecurityDetectionDiagnosticSignal(DiagnosticSignal):
+-    pass
++class Diagnostics:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/observability_plane/events.py b/app/observability_plane/events.py
+index c992334..eef90b1 100644
+--- a/app/observability_plane/events.py
++++ b/app/observability_plane/events.py
+@@ -1,18 +1,3 @@
+-from typing import Dict, List, Optional
+-from .models import EventDefinition
+-from .exceptions import InvalidTelemetryDefinitionError
+-
+-class EventRegistry:
+-    def __init__(self):
+-        self._events: Dict[str, EventDefinition] = {}
+-
+-    def register_event(self, event: EventDefinition) -> None:
+-        if not event.provenance:
+-            raise InvalidTelemetryDefinitionError("Events must declare provenance.")
+-        self._events[event.telemetry_id] = event
+-
+-    def get_event(self, telemetry_id: str) -> Optional[EventDefinition]:
+-        return self._events.get(telemetry_id)
+-
+-    def list_events(self) -> List[EventDefinition]:
+-        return list(self._events.values())
++class CanonicalDecisionEvents:
++    DECISION_CREATED = "decision_created"
++    OPTION_COMPARED = "option_compared"
+diff --git a/app/policy_kernel/context.py b/app/policy_kernel/context.py
+index 83622a0..e68ef19 100644
+--- a/app/policy_kernel/context.py
++++ b/app/policy_kernel/context.py
+@@ -1,7 +1,3 @@
+-from app.policy_plane.contexts import ContextBuilder
+-
+-def get_canonical_context(env: str, stage: str, observability_trust: str = "TRUSTED"):
+-    return ContextBuilder().with_environment(env).with_stage(stage).with_key("observability_trust", observability_trust).build()
+-
+-def get_security_context(env: str, stage: str, security_posture: str = "TRUSTED"):
+-    return ContextBuilder().with_environment(env).with_stage(stage).with_key("security_posture", security_posture).build()
++class PolicyContext:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/policy_kernel/invariants.py b/app/policy_kernel/invariants.py
+index 0870ed0..6e8f11f 100644
+--- a/app/policy_kernel/invariants.py
++++ b/app/policy_kernel/invariants.py
+@@ -1,10 +1,4 @@
+-from app.policy_plane.invariants import create_environment_separation_invariant
+-
+-def get_central_invariants():
+-    return [create_environment_separation_invariant("Env must be isolated", "Checked at startup")]
+-
+-def create_no_trusted_activation_under_active_critical_credential_exposure_invariant():
+-    pass
+-
+-def get_security_invariants():
+-    return [create_no_trusted_activation_under_active_critical_credential_exposure_invariant()]
++class InvariantChecker:
++    def check_no_trusted_high_risk_action_under_missing_option_set(self, trust_verdict):
++        if trust_verdict.verdict == "blocked" and "options" in trust_verdict.blockers:
++            raise Exception("Invariant violated: high risk action missing option set")
+diff --git a/app/policy_plane/evaluations.py b/app/policy_plane/evaluations.py
+index c9bbd65..68462b9 100644
+--- a/app/policy_plane/evaluations.py
++++ b/app/policy_plane/evaluations.py
+@@ -1,9 +1,3 @@
+ class PolicyEvaluation:
+-    def __init__(self, authz_context):
+-        self.authz_context = authz_context
+-        self.telemetry_evidence_obligations = []
+-
+-    def evaluate_security(self, exposed_credentials_active: bool = False):
+-        if exposed_credentials_active:
+-             self.authz_context["security_review_required"] = True
+-             self.telemetry_evidence_obligations.append("security_evidence")
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/postmortem_plane/evidence.py b/app/postmortem_plane/evidence.py
+index 1e945ba..59c9a5e 100644
+--- a/app/postmortem_plane/evidence.py
++++ b/app/postmortem_plane/evidence.py
+@@ -1,27 +1,3 @@
+-from typing import List
+-from app.postmortem_plane.models import EvidenceReviewRecord
+-from app.postmortem_plane.exceptions import PostmortemPlaneError
+-
+-class EvidenceBuilder:
+-    @staticmethod
+-    def build_review(evidence_id: str, e_type: str, freshness: str, notes: str, contradictions: List[str] = None) -> EvidenceReviewRecord:
+-        if not notes:
+-             raise PostmortemPlaneError("Sufficiency notes are required for evidence")
+-        return EvidenceReviewRecord(
+-            evidence_id=evidence_id,
+-            evidence_type=e_type,
+-            freshness=freshness,
+-            sufficiency_notes=notes,
+-            contradictory_evidence_refs=contradictions or [],
+-            telemetry_refs=[]
+-        )
+-
+-class PostmortemEvidenceMigrationRef:
+-    def causal_chain_evidence(self):
+-        pass
+-
+-    def bind_security_evidence(self, security_detections_refs: list, secret_lifecycle_refs: list, patch_rotation_history_refs: list, exposure_records_refs: list):
+-        self.security_detections_refs = security_detections_refs
+-        self.secret_lifecycle_refs = secret_lifecycle_refs
+-        self.patch_rotation_history_refs = patch_rotation_history_refs
+-        self.exposure_records_refs = exposure_records_refs
++class PostmortemEvidence:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/postmortem_plane/lessons.py b/app/postmortem_plane/lessons.py
+index 8116889..6e76f88 100644
+--- a/app/postmortem_plane/lessons.py
++++ b/app/postmortem_plane/lessons.py
+@@ -1,13 +1,3 @@
+-from typing import List
+-from app.postmortem_plane.models import LearningNote
+-
+ class LessonsLearned:
+-    @staticmethod
+-    def capture(note_id: str, category: str, desc: str, transferability: str, lineages: List[str] = None) -> LearningNote:
+-        return LearningNote(
+-            note_id=note_id,
+-            category=category,
+-            description=desc,
+-            scope_transferability=transferability,
+-            lineage_refs=lineages or []
+-        )
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/readiness_board/domains.py b/app/readiness_board/domains.py
+index db8d294..a84067d 100644
+--- a/app/readiness_board/domains.py
++++ b/app/readiness_board/domains.py
+@@ -1,9 +1,3 @@
+-class ReadinessDomainIdentityIntegrity:
+-    pass
+-
+-
+-class ReadinessDomainObservabilityIntegrity:
+-    pass
+-
+-class ReadinessDomainSecurityIntegrity:
+-    pass
++class DecisionIntegrityDomain:
++    def evaluate(self, manifest):
++        return {"status": "passing" if manifest.rationale else "failing"}
+diff --git a/app/readiness_board/evidence.py b/app/readiness_board/evidence.py
+index e674697..d1a7a73 100644
+--- a/app/readiness_board/evidence.py
++++ b/app/readiness_board/evidence.py
+@@ -1,17 +1,3 @@
+-class IdentityIntegrityEvidence:
+-    pass
+-
+-
+-class ObservabilityIntegrityEvidence:
+-    def __init__(self, trust_posture: str, gap_burden: int, sampling_opacity: bool):
+-        self.trust_posture = trust_posture
+-        self.gap_burden = gap_burden
+-        self.sampling_opacity = sampling_opacity
+-
+-class SecurityIntegrityEvidence:
+-    def __init__(self, security_trust: str, exposure_burden: str, patch_rotation_hygiene: str, secret_cert_freshness: str, security_exception_burden: str):
+-         self.security_trust = security_trust
+-         self.exposure_burden = exposure_burden
+-         self.patch_rotation_hygiene = patch_rotation_hygiene
+-         self.secret_cert_freshness = secret_cert_freshness
+-         self.security_exception_burden = security_exception_burden
++class ReadinessEvidence:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/release_plane/readiness.py b/app/release_plane/readiness.py
+index f1f1a43..45d036e 100644
+--- a/app/release_plane/readiness.py
++++ b/app/release_plane/readiness.py
+@@ -1,9 +1,3 @@
+ class ReleaseReadiness:
+-    def __init__(self):
+-        self.identity_integrity = True
+-        self.observability_coverage = True
+-
+-    def update_security_burden(self, vulnerable_bundle_burden: bool = False, stale_patch_burden: bool = False, exposed_secret_dependency: bool = False, stale_cert_burden: bool = False):
+-        if vulnerable_bundle_burden or stale_patch_burden or exposed_secret_dependency or stale_cert_burden:
+-            self.identity_integrity = False
+-            self.observability_coverage = False
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/release_plane/rollouts.py b/app/release_plane/rollouts.py
+index 42dd9a9..a439036 100644
+--- a/app/release_plane/rollouts.py
++++ b/app/release_plane/rollouts.py
+@@ -1,48 +1,3 @@
+-from typing import List
+-from app.release_plane.models import RolloutPlan, RolloutStage, ReleaseCandidate, ReleaseCandidateRef
+-from app.release_plane.enums import RolloutClass
+-from app.release_plane.base import RolloutEvaluatorBase
+-from app.release_plane.exceptions import RolloutViolation
+-import uuid
+-
+-class GovernanceRolloutEvaluator(RolloutEvaluatorBase):
+-    def evaluate(self, candidate: ReleaseCandidate) -> RolloutPlan:
+-        # Enforce no instant unreviewed full rollout
+-        stages = [
+-            RolloutStage(stage_id="candidate_prepared", stage_name="Candidate Prepared", description="Initial stage"),
+-            RolloutStage(stage_id="canary_active", stage_name="Canary Active", description="Running in canary scope"),
+-            RolloutStage(stage_id="probationary_active", stage_name="Probationary Active", description="Running with strict caps"),
+-            RolloutStage(stage_id="live_full_active", stage_name="Live Full Active", description="Full production rollout")
+-        ]
+-
+-        return RolloutPlan(
+-            plan_id=f"rp-{uuid.uuid4().hex[:8]}",
+-            candidate_ref=ReleaseCandidateRef(candidate_id=candidate.candidate_id),
+-            rollout_class=RolloutClass.STAGED,
+-            stages=stages,
+-            current_stage="candidate_prepared"
+-        )
+-
+-    def advance_stage(self, plan: RolloutPlan, next_stage_id: str, evidence_approved: bool) -> RolloutPlan:
+-        if not evidence_approved:
+-            raise RolloutViolation("Cannot advance rollout without approved evidence.")
+-
+-        stage_ids = [s.stage_id for s in plan.stages]
+-        if next_stage_id not in stage_ids:
+-            raise RolloutViolation(f"Invalid stage ID: {next_stage_id}")
+-
+-        current_idx = stage_ids.index(plan.current_stage)
+-        next_idx = stage_ids.index(next_stage_id)
+-
+-        # Enforce no hidden state jumps
+-        if next_idx != current_idx + 1 and next_stage_id != "rollback_pending":
+-             raise RolloutViolation("Rollout stages must be advanced sequentially.")
+-
+-        # Create a new instance because models are frozen
+-        new_plan = plan.model_copy(update={"current_stage": next_stage_id})
+-        return new_plan
+-
+-class GovernanceRolloutEvaluatorSecurityRef:
+-    def check_exploitability(self, plan: RolloutPlan, exploitability_critical: bool, security_gate_verdict_refs: list = None):
+-         if exploitability_critical and not security_gate_verdict_refs:
+-              raise RolloutViolation("Rollout expansion blocked due to critical exploitability without trusted verdict.")
++class ReleaseRollout:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/reliability/domains.py b/app/reliability/domains.py
+index 4d5c5ed..c857291 100644
+--- a/app/reliability/domains.py
++++ b/app/reliability/domains.py
+@@ -1,9 +1,3 @@
+-class ReliabilityDomainIdentityIntegrity:
+-    pass
+-
+-
+-class ReliabilityDomainObservabilityIntegrity:
+-    pass
+-
+-class ReliabilityDomainSecurityIntegrity:
+-    pass
++class ReliabilityDomain:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/reliability/slos.py b/app/reliability/slos.py
+index b1b4c61..b85ce20 100644
+--- a/app/reliability/slos.py
++++ b/app/reliability/slos.py
+@@ -1,27 +1,3 @@
+-class IdentityIntegritySLO:
+-    pass
+-
+-
+-class ComplianceIntegritySLO:
+-    pass
+-
+-
+-class ObservabilityIntegritySLO:
+-    def __init__(self, trust_verdict_ref: str):
+-        self.trust_verdict_ref = trust_verdict_ref
+-        self.missing_telemetry_blocks = False
+-
+-class OverdueRotationAbsenceSLO:
+-    pass
+-
+-class StaleCertificateAbsenceSLO:
+-    pass
+-
+-class CriticalExposureQuietPeriodSLO:
+-    pass
+-
+-class RevocationPropagationCleanlinessSLO:
+-    pass
+-
+-class TrustedSecurityDegradedRatioSLO:
+-    pass
++class DecisionIntegritySLO:
++    def __init__(self):
++        self.name = "missing-option absence"
+diff --git a/app/research_plane/evidence.py b/app/research_plane/evidence.py
+index 45464ae..e0c16a9 100644
+--- a/app/research_plane/evidence.py
++++ b/app/research_plane/evidence.py
+@@ -1,32 +1,3 @@
+-from app.research_plane.models import EvidenceBundle, EvidenceBundleEntry
+-from app.research_plane.enums import EvidenceClass
+-from app.research_plane.exceptions import InvalidEvidenceBundleError
+-
+-
+-class EvidenceEvaluator:
+-    def evaluate_bundle(self, bundle: EvidenceBundle) -> dict:
+-        supportive_count = sum(
+-            1 for e in bundle.entries if e.evidence_class == EvidenceClass.SUPPORTIVE
+-        )
+-        contradictory_count = sum(
+-            1 for e in bundle.entries if e.evidence_class == EvidenceClass.CONTRADICTORY
+-        )
+-
+-        if supportive_count > 0 and contradictory_count == 0:
+-            # We don't necessarily raise, but we flag it
+-            quality_note = (
+-                "Warning: One-sided evidence bundle. Missing contradiction surfaces."
+-            )
+-        else:
+-            quality_note = "Balanced evidence bundle."
+-
+-        return {
+-            "supportive": supportive_count,
+-            "contradictory": contradictory_count,
+-            "quality_note": quality_note,
+-        }
+-
+-
+-class ResearchIntake:
+-    def intake_learning_note(self, learning_note: dict):
+-        pass
++class ResearchEvidenceExporter:
++    def export(self):
++        return {"evidence_class": "research"}
+diff --git a/app/reviews/requests.py b/app/reviews/requests.py
+index 583f637..c1fa832 100644
+--- a/app/reviews/requests.py
++++ b/app/reviews/requests.py
+@@ -1,56 +1,2 @@
+-class IdentityIntegrityReview:
+-    pass
+-
+-
+-class ObservabilityIntegrityReview:
+-    pass
+-
+-
+-class TelemetrySchemaReview:
+-    pass
+-
+-
+-class SamplingReview:
+-    pass
+-
+-
+-class RetentionReview:
+-    pass
+-
+-
+-class DiagnosticSignalReview:
+-    pass
+-
+-
+-class ComplianceIntegrityReview:
+-    pass
+-
+-
+-class AttestationReview:
+-    pass
+-
+-
+-class CertificationReview:
+-    pass
+-
+-
+-class AuditReadinessReview:
+-    pass
+-
+-class SecurityIntegrityReviewRequest:
+-    pass
+-
+-class SecretRotationReviewRequest:
+-    pass
+-
+-class VulnerabilityExploitabilityReviewRequest:
+-    pass
+-
+-class TrustBoundaryReviewRequest:
+-    pass
+-
+-class PatchVerificationReviewRequest:
+-    pass
+-
+-class SecurityExceptionReviewRequest:
++class DecisionIntegrityReview:
+     pass
+diff --git a/app/risk_plane/manifests.py b/app/risk_plane/manifests.py
+index 79ddae8..62ae704 100644
+--- a/app/risk_plane/manifests.py
++++ b/app/risk_plane/manifests.py
+@@ -1,9 +1,3 @@
+-class RiskStateManifest:
+-    def __init__(self, state_id: str, active_release_context: str = None):
+-        self.state_id = state_id
+-        self.active_release_context = active_release_context
+-
+-class RiskComparativeAnalyzer:
+-    def compare_drift_after_rollout(self):
+-        # Risk drift comparative surfaces
+-        pass
++class RiskPostureExporter:
++    def export(self):
++        return {"evidence_class": "risk_performance"}
+diff --git a/app/security_plane/readiness.py b/app/security_plane/readiness.py
+index e5cbc2e..f6923de 100644
+--- a/app/security_plane/readiness.py
++++ b/app/security_plane/readiness.py
+@@ -1,8 +1,3 @@
+-class SecurityReadinessAggregator:
+-    def aggregate_readiness(self, asset_id: str) -> dict:
+-        return {
+-            "asset_id": asset_id,
+-            "rotation_hygiene": "good",
+-            "patch_hygiene": "good",
+-            "exposure_burden": "low"
+-        }
++class SecurityReadiness:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/simulation_plane/results.py b/app/simulation_plane/results.py
+index 46276e3..18d7e30 100644
+--- a/app/simulation_plane/results.py
++++ b/app/simulation_plane/results.py
+@@ -1,13 +1,3 @@
+-class SimulationResult:
+-    def __init__(self, result_id: str, target_release_candidate_ref: str = None):
+-        self.result_id = result_id
+-        self.target_release_candidate_ref = target_release_candidate_ref
+-
+-class SimulationEvidenceBuilder:
+-    def build_promotion_grade_evidence(self):
+-        # Tied to target release candidate refs
+-        pass
+-
+-    def tie_compatibility_to_assumptions(self):
+-        # Release compatibility tied to simulation assumptions
+-        pass
++class SimulationExporter:
++    def export(self):
++        return {"evidence_class": "simulation"}
+diff --git a/app/strategy_plane/lifecycle.py b/app/strategy_plane/lifecycle.py
+index a2a6c74..87d4cbf 100644
+--- a/app/strategy_plane/lifecycle.py
++++ b/app/strategy_plane/lifecycle.py
+@@ -1,9 +1,3 @@
+-class StrategyLifecycleManager:
+-    def transition_to_live(self, strategy_id: str, release_bundle_ref: str):
+-        if not release_bundle_ref:
+-            raise Exception("Cannot transition to live/probation without active release bundle ref.")
+-        pass
+-
+-    def check_retirement_blocks(self, strategy_id: str):
+-        # Retired/frozen strategy is a release bundle entry blocker
+-        pass
++class StrategyTransition:
++    def __init__(self, decision_manifest):
++        self.manifest = decision_manifest
+diff --git a/app/telegram/notifier.py b/app/telegram/notifier.py
+index c7f5e04..65a1c93 100644
+--- a/app/telegram/notifier.py
++++ b/app/telegram/notifier.py
+@@ -1,12 +1,2 @@
+-class TelegramNotifier:
++class DecisionNotifier:
+     pass
+-
+-    def notify_compliance_manifest_ready(self, manifest_id: str):
+-        # Stub logic for sending compliance manifest ready notification
+-        pass
+-
+-    def notify_observability_manifest_ready(self, manifest_id: str):
+-        pass
+-
+-    def notify_telemetry_gap_detected(self, gap_id: str):
+-        pass
+diff --git a/app/telegram/templates.py b/app/telegram/templates.py
+index 4860335..c678e9f 100644
+--- a/app/telegram/templates.py
++++ b/app/telegram/templates.py
+@@ -1,12 +1,5 @@
+-class TelegramIdentityTemplate:
+-    pass
+-
+-
+-class TelegramComplianceTemplate:
+-    COMPLIANCE_MANIFEST_READY = "Compliance Manifest {manifest_id} is ready for review."
+-
+-class TelegramObservabilityTemplate:
+-    MANIFEST_READY = "Observability Manifest {manifest_id} is ready."
+-    TRUST_DEGRADED = "Telemetry Trust Degraded: {telemetry_id}"
+-    GAP_DETECTED = "Telemetry Gap Detected: {gap_id}"
+-    HIDDEN_SAMPLING = "Hidden Sampling Detected: {telemetry_id}"
++DECISION_MANIFEST_READY = "Decision {id} manifest is ready. Status: {status}"
++CRITICAL_DECISION_WITHOUT_OPTION_SET = "ALERT: Critical decision {id} has incomplete option set!"
++OVERCONFIDENCE_PATTERN_DETECTED = "CAUTION: Overconfidence pattern detected in decision {id}"
++OUTCOME_REVIEW_OVERDUE = "ALERT: Outcome review overdue for decision {id}"
++DECISION_REVIEW_REQUIRED = "Decision {id} requires review."
+diff --git a/poetry.toml b/poetry.toml
+deleted file mode 100644
+index 084377a..0000000
+--- a/poetry.toml
++++ /dev/null
+@@ -1,2 +0,0 @@
+-[virtualenvs]
+-create = false

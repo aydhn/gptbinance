@@ -7,3 +7,7 @@ class RiskComparativeAnalyzer:
     def compare_drift_after_rollout(self):
         # Risk drift comparative surfaces
         pass
+
+class RiskPostureManifest:
+    def export_evidence_bundle(self):
+        pass

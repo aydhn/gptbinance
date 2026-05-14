@@ -8,3 +8,7 @@ def create_no_trusted_activation_under_active_critical_credential_exposure_invar
 
 def get_security_invariants():
     return [create_no_trusted_activation_under_active_critical_credential_exposure_invariant()]
+
+class InvariantChecker:
+    def check_decision_quality_invariants(self):
+        pass

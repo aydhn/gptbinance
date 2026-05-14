@@ -30,3 +30,7 @@ class EvidenceEvaluator:
 class ResearchIntake:
     def intake_learning_note(self, learning_note: dict):
         pass
+
+class ResearchObservation:
+    def to_decision_quality_evidence(self):
+        pass

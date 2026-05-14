@@ -16,3 +16,8 @@ class DiagnosticSignalBuilder:
 
 class SecurityDetectionDiagnosticSignal(DiagnosticSignal):
     pass
+
+class DiagnosticSignal:
+    @classmethod
+    def overconfidence_pattern(cls):
+        pass

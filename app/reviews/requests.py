@@ -1,3 +1,4 @@
+from enum import Enum
 class IdentityIntegrityReview:
     pass
 
@@ -54,3 +55,7 @@ class PatchVerificationReviewRequest:
 
 class SecurityExceptionReviewRequest:
     pass
+
+class ReviewClass(str, Enum):
+    DECISION_INTEGRITY_REVIEW = 'decision_integrity_review'
+    OPTION_SET_REVIEW = 'option_set_review'

@@ -46,3 +46,7 @@ class GovernanceRolloutEvaluatorSecurityRef:
     def check_exploitability(self, plan: RolloutPlan, exploitability_critical: bool, security_gate_verdict_refs: list = None):
          if exploitability_critical and not security_gate_verdict_refs:
               raise RolloutViolation("Rollout expansion blocked due to critical exploitability without trusted verdict.")
+
+class ReleaseRollout:
+    def require_precommitment_refs(self):
+        pass

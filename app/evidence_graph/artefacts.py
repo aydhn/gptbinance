@@ -1,3 +1,4 @@
+from enum import Enum
 class IdentityArtefact:
     pass
 
@@ -31,3 +32,7 @@ class SecurityVulnerabilityArtefact:
 
 class SecurityPatchArtefact:
     pass
+
+class ArtefactFamily(str, Enum):
+    DECISION_DEFINITION = 'decision_definition'
+    DECISION_MANIFEST = 'decision_manifest'

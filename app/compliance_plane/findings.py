@@ -26,3 +26,8 @@ class MissingPatchVerificationFinding(AuditFinding):
 
 class BoundaryAmbiguityFinding(AuditFinding):
     pass
+
+class ComplianceFinding:
+    @classmethod
+    def missing_rationale(cls):
+        pass

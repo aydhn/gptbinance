@@ -28,3 +28,7 @@ def create_requirement(
 
 def update_security_mappings(req: ComplianceRequirement, security_plane_refs: list):
      req.lineage_refs.extend(security_plane_refs)
+
+class ComplianceRequirement:
+    def enforce_rationale_preservation(self):
+        pass

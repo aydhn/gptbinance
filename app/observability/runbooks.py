@@ -1,3 +1,4 @@
+from enum import Enum
 class IdentityRunbook:
     pass
 
@@ -32,3 +33,6 @@ class CardinalityCostReviewRunbook:
 
 class TelemetryRetentionReviewRunbook:
     pass
+
+class RunbookRef(str, Enum):
+    DECISION_OPTION_SET_REVIEW = 'decision_option_set_review'

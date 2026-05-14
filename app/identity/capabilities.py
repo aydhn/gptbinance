@@ -1,3 +1,4 @@
+from enum import Enum
 CAPABILITIES = [
     "inspect_policy_manifest",
     "review_policy_conflicts",
@@ -14,3 +15,6 @@ CAPABILITIES = [
 class IdentityCapabilityMigrationRef:
     def inspect_migration_manifest(self):
         pass
+
+class Capability(str, Enum):
+    INSPECT_DECISION_MANIFEST = 'inspect_decision_manifest'

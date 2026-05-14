@@ -1,4 +1,6 @@
 class TelegramNotifier:
+    def notify_decision_manifest_ready(self):
+        pass
     pass
 
     def notify_compliance_manifest_ready(self, manifest_id: str):

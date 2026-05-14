@@ -27,3 +27,7 @@ class RuntimeExecutionEnv:
             pass # Apply canary caps
         elif self.rollout_stage_ref == "live_full_active":
             pass # Apply full live limits
+
+class ExecutionIntervention:
+    def log_decision_rationale(self, rationale_ref: str):
+        pass

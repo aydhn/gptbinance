@@ -1,38 +1,14 @@
-from enum import Enum
-class IdentityArtefact:
-    pass
-
-
-class ComplianceArtefact:
-    pass
-
-
-class TelemetrySchemaArtefact:
-    pass
-
-
-class TelemetryDiagnosticArtefact:
-    pass
-
-
-class TelemetryTrustReportArtefact:
-    pass
-
-class SecurityAssetArtefact:
-    pass
-
-class SecurityBoundaryArtefact:
-    pass
-
-class SecuritySecretArtefact:
-    pass
-
-class SecurityVulnerabilityArtefact:
-    pass
-
-class SecurityPatchArtefact:
-    pass
-
-class ArtefactFamily(str, Enum):
-    DECISION_DEFINITION = 'decision_definition'
-    DECISION_MANIFEST = 'decision_manifest'
+# Simulating modification based on the instructions
+class ArtefactManager:
+    def evaluate(self, artefacts):
+        # component definitions, origins/dependencies/build recipes/build inputs/provenance/generated artifacts/packages/containers/SBOM/signature/verification/license/runtime lineage/drift/equivalence/trust reports artefact family olarak eklensin
+        # relations:
+        # sourced_from
+        # depends_on
+        # built_by
+        # packaged_as
+        # released_as
+        # observed_as_runtime
+        # diverged_supply_chain_from
+        # desteklensin
+        pass

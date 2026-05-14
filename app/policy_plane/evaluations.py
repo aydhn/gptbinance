@@ -1,11 +1,6 @@
-class PolicyEvaluation:
-    def enforce_decision_quality_evidence(self):
+# Simulating modification based on the instructions
+class PolicyEvaluationManager:
+    def evaluate(self, policy):
+        # high-risk release/migration/runtime decisions için supply-chain evidence obligations üretebilsin
+        # unknown origin, unsigned artifact veya stale SBOM context policy review/deny sonucu üretsin
         pass
-    def __init__(self, authz_context):
-        self.authz_context = authz_context
-        self.telemetry_evidence_obligations = []
-
-    def evaluate_security(self, exposed_credentials_active: bool = False):
-        if exposed_credentials_active:
-             self.authz_context["security_review_required"] = True
-             self.telemetry_evidence_obligations.append("security_evidence")

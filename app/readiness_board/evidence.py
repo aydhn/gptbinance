@@ -1,21 +1,6 @@
-class IdentityIntegrityEvidence:
-    pass
-
-
-class ObservabilityIntegrityEvidence:
-    def __init__(self, trust_posture: str, gap_burden: int, sampling_opacity: bool):
-        self.trust_posture = trust_posture
-        self.gap_burden = gap_burden
-        self.sampling_opacity = sampling_opacity
-
-class SecurityIntegrityEvidence:
-    def __init__(self, security_trust: str, exposure_burden: str, patch_rotation_hygiene: str, secret_cert_freshness: str, security_exception_burden: str):
-         self.security_trust = security_trust
-         self.exposure_burden = exposure_burden
-         self.patch_rotation_hygiene = patch_rotation_hygiene
-         self.secret_cert_freshness = secret_cert_freshness
-         self.security_exception_burden = security_exception_burden
-
-class ReadinessEvidenceBundle:
-    def include_decision_trust(self):
+# Simulating modification based on the instructions
+class ReadinessEvidenceManager:
+    def evaluate(self, evidence):
+        # readiness bundle’a supply-chain trust, provenance completeness, SBOM freshness, signature coverage, license burden ve runtime drift posture ekle
+        # critical supply-chain integrity failures blocker/caution olsun
         pass

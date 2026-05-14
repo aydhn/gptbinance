@@ -1,12 +1,6 @@
-class SecurityReadinessAggregator:
-    def aggregate_readiness(self, asset_id: str) -> dict:
-        return {
-            "asset_id": asset_id,
-            "rotation_hygiene": "good",
-            "patch_hygiene": "good",
-            "exposure_burden": "low"
-        }
-
-class SecurityReadiness:
-    def require_option_comparison_for_high_risk(self):
+# Simulating modification based on the instructions
+class SecurityReadinessEvaluator:
+    def evaluate(self, component):
+        # unknown origin, unsigned artifact, stale base image ve license review debt security readiness’i etkilesin
+        # supply-chain trust weak ise security caution artsın
         pass

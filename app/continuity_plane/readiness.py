@@ -1,0 +1,2 @@
+class ContinuityReadinessAggregator:
+    pass

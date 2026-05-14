@@ -1,0 +1,2 @@
+class ContinuityRepository:
+    pass

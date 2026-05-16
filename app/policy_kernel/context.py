@@ -1,4 +1,3 @@
-class PolicyContextIntegration:
-    @staticmethod
-    def enrich_portfolio_context():
+class PolicyContext:
+    def add_program_posture(self):
         pass

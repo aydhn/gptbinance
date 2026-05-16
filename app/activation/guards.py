@@ -1,4 +1,3 @@
-class ActivationGuardsIntegration:
-    @staticmethod
-    def evaluate_activation():
-        pass
+class ActivationGuard:
+    def require_acceptance(self):
+        return True

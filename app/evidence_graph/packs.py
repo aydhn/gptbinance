@@ -1,4 +1,3 @@
-class EvidencePacksIntegration:
-    @staticmethod
-    def get_portfolio_pack():
+class EvidencePacks:
+    def program_integrity_pack(self):
         pass

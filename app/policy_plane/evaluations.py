@@ -1,4 +1,3 @@
-class PolicyEvaluationsIntegration:
-    @staticmethod
-    def evaluate_portfolio_policy():
+class PolicyEvaluation:
+    def evaluate_program_obligations(self):
         pass

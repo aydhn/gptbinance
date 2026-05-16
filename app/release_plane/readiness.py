@@ -1,4 +1,3 @@
-class ReleaseReadinessIntegration:
-    @staticmethod
-    def validate_release_portfolio():
+class ReleaseReadiness:
+    def check_program_milestone(self):
         return True

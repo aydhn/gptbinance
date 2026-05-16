@@ -1,4 +1,3 @@
-class ReliabilitySlosIntegration:
-    @staticmethod
-    def get_portfolio_slos():
-        return ["unfunded committed work absence"]
+class ReliabilitySLOs:
+    def program_integrity_slos(self):
+        pass

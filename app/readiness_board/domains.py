@@ -1,2 +1,3 @@
-class ReadinessDomainsIntegration:
-    PORTFOLIO_INTEGRITY = "portfolio_integrity"
+class ReadinessDomains:
+    def program_integrity_domain(self):
+        pass

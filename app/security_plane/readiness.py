@@ -1,4 +1,3 @@
-class SecurityReadinessIntegration:
-    @staticmethod
-    def check_security_displacement():
+class SecurityReadiness:
+    def check_remediation_programs(self):
         pass

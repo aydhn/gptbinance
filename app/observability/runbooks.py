@@ -1,4 +1,3 @@
-class RunbooksIntegration:
-    @staticmethod
-    def setup_portfolio_runbooks():
+class ObservabilityRunbooks:
+    def critical_path_review_runbook(self):
         pass

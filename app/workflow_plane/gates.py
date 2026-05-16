@@ -1,4 +1,3 @@
-class WorkflowGatesIntegration:
-    @staticmethod
-    def validate_workflow_portfolio():
+class WorkflowGate:
+    def evaluate(self):
         pass

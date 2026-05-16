@@ -1,4 +1,3 @@
-class ReleaseRolloutsIntegration:
-    @staticmethod
-    def get_rollout_portfolio_link():
+class RolloutManager:
+    def check_drift(self):
         pass

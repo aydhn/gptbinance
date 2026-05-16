@@ -1,4 +1,3 @@
-class ResearchEvidenceIntegration:
-    @staticmethod
-    def link_research_portfolio():
+class ResearchEvidence:
+    def check_delivery_consumer(self):
         pass

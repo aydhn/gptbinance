@@ -1,8 +1,6 @@
-def notify_value_event(event_type: str, details: dict):
-    # Support:
-    # value manifest ready
-    # critical value claim without baseline
-    # unit economics to value regression detected
-    # realized impact review overdue
-    # value review required
-    pass
+class TelegramNotifier:
+    def send_alert(self, message: str, severity: str = "INFO"):
+        pass
+
+    def emit_portfolio_event(self, event_type: str, details: dict):
+        pass

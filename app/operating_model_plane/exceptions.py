@@ -1,0 +1,6 @@
+class OperatingModelPlaneError(Exception): pass
+class InvalidRoleDefinitionError(OperatingModelPlaneError): pass
+class OwnerlessCriticalSurfaceError(OperatingModelPlaneError): pass
+class SegregationOfDutiesViolation(OperatingModelPlaneError): pass
+class BrokenEscalationChainError(OperatingModelPlaneError): pass
+class FakeCoverageError(OperatingModelPlaneError): pass

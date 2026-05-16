@@ -1,0 +1,1 @@
+# manifests implementation stub

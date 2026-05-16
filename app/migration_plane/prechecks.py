@@ -1,4 +1,3 @@
-class MigrationPrechecksIntegration:
-    @staticmethod
-    def check_migration_portfolio():
+class MigrationPrecheck:
+    def check_program_sequencing(self):
         pass

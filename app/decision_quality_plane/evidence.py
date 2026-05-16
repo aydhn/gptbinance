@@ -1,4 +1,3 @@
-class DecisionEvidenceIntegration:
-    @staticmethod
-    def require_portfolio_object_refs():
+class DecisionEvidence:
+    def check_replan_rationale(self):
         pass

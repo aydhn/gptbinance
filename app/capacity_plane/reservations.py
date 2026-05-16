@@ -1,4 +1,3 @@
-class CapacityReservationsIntegration:
-    @staticmethod
-    def link_reservations():
+class CapacityReservation:
+    def check_milestone_reservations(self):
         pass

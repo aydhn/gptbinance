@@ -1,4 +1,3 @@
-class ReliabilityReadinessIntegration:
-    @staticmethod
-    def check_resilience_portfolio():
+class ReliabilityReadiness:
+    def check_protective_milestones(self):
         pass

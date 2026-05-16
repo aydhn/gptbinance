@@ -1,4 +1,3 @@
-class ComplianceFindingsIntegration:
-    @staticmethod
-    def report_roadmap_theater():
+class ComplianceFindings:
+    def generate_fake_completion_finding(self):
         pass

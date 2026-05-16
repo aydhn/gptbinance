@@ -1,8 +1,0 @@
-feat: Implement Evidence Graph and Queryable Governance Memory
-
-- Add core `evidence_graph` framework (`artefacts.py`, `relations.py`, `lineage.py`, `dependencies.py`).
-- Add Case File and Evidence Pack builders (`cases.py`, `packs.py`).
-- Implement scopes, redaction, queries, graph gaps, and history snapshots.
-- Update `app/main.py` CLI to include `--show-evidence-graph-summary`, `--build-case-file`, and other evidence query actions.
-- Add comprehensive documentation to `docs/` detailing evidence graph policies and traceability.
-- Successfully write and pass unit tests in `tests/test_evidence_graph.py`.

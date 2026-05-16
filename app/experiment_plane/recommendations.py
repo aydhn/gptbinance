@@ -1,4 +1,3 @@
-class ExperimentRecommendationsIntegration:
-    @staticmethod
-    def link_experiment_portfolio():
+class ExperimentRecommendation:
+    def check_program_path(self):
         pass

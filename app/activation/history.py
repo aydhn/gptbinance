@@ -1,4 +1,3 @@
-class ActivationHistoryIntegration:
-    @staticmethod
-    def store_stage_progression():
+class ActivationHistory:
+    def get_divergence(self):
         pass

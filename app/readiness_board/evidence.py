@@ -1,4 +1,3 @@
-class ReadinessEvidenceIntegration:
-    @staticmethod
-    def get_portfolio_bundle():
+class ReadinessEvidence:
+    def add_program_trust(self):
         pass

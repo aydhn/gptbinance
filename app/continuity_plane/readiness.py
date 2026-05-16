@@ -1,4 +1,3 @@
-class ContinuityReadinessIntegration:
-    @staticmethod
-    def check_continuity_displacement():
+class ContinuityReadiness:
+    def check_dr_readiness(self):
         pass

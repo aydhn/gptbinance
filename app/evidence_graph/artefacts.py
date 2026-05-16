@@ -1,2 +1,3 @@
-class EvidenceArtefactsIntegration:
-    PORTFOLIO_ARTEFACTS = "portfolio_objects"
+class EvidenceArtefacts:
+    def register_program_artefacts(self):
+        pass

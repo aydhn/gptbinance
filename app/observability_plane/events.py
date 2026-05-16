@@ -1,4 +1,3 @@
-class ObservabilityEventsIntegration:
-    @staticmethod
-    def emit_portfolio_event():
+class ObservabilityEvents:
+    def emit_milestone_started(self):
         pass

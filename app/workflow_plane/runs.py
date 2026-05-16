@@ -1,4 +1,3 @@
-class WorkflowRunsIntegration:
-    @staticmethod
-    def store_workflow_lineage():
+class WorkflowRunManager:
+    def link_program(self):
         pass

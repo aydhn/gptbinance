@@ -1,3 +1,11 @@
-.pytest_cache/
 __pycache__/
 *.pyc
+app/
+tests/
+docs/
+test_output.txt
+tmp_test.txt
+test_out.txt
+test_results.py
+generate_program_plane.py
+run_tests.py

@@ -1,8 +1,10 @@
 import argparse
 import sys
+from app.cli_state_plane import setup_cli_args as setup_state_cli, handle_cli as handle_state_cli
 
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform CLI - Contract Plane Phase 98")
+    setup_state_cli(parser)
 
     # Contract Plane Commands
     parser.add_argument("--show-contract-registry", action="store_true", help="Show contract registry")
@@ -32,6 +34,9 @@ def main():
     parser.add_argument("--show-contract-review-packs", action="store_true")
 
     args, unknown = parser.parse_known_args()
+    if handle_state_cli(args):
+        return
+
 
     if args.show_contract_registry:
         print("[CONTRACT REGISTRY] Canonical Contract Registry Loaded. No undocumented contracts allowed.")

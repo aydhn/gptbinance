@@ -1,3 +1,1 @@
-class PostmortemEvidence:
-    def export_lineage(self):
-        pass
+def export_assurance_lineage_to_postmortem(): pass

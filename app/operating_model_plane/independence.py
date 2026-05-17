@@ -1,1 +1,1 @@
-# independence implementation stub
+def check_reviewer_independence(): pass

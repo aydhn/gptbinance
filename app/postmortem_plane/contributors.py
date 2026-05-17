@@ -1,3 +1,1 @@
-class PostmortemContributor:
-    def register_hidden_dependency(self):
-        pass
+def define_assurance_contributors(): pass

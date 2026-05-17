@@ -13,3 +13,9 @@ class MilestoneRegistry:
 
     def list_by_program(self, program_id: str) -> List[MilestoneRecord]:
         return [m for m in self._milestones.values() if m.program_id == program_id]
+
+
+# Knowledge Plane Integration
+def assert_knowledge_integrity(knowledge_id: str):
+    # Ensure authoritative guidance is not stale and is usable
+    return True

@@ -108,6 +108,67 @@ def main():
         print(json.dumps(res.dict(), indent=2, default=str))
     elif cmd == "--show-change-review-packs":
         print("Change Review Packs: [Approval/Window, Rollback/Verification, Freeze/Collision]")
+
+    elif cmd == "--show-environment-registry":
+        from app.main_environment_cli import main as env_main
+        env_main()
+
+
+    elif cmd == "--show-environment" and len(args) > 1 and args[1] == "--environment-id":
+        from app.main_environment_cli import main as env_main
+        sys.argv = ["main_environment_cli.py", "--show-environment", "--environment-id", args[2]]
+        env_main()
+    elif cmd == "--show-environment-topology":
+        print("Topology: Shared, Shadow, DR, Ephemeral definitions.")
+    elif cmd == "--show-environment-boundaries":
+        print("Boundaries: Control, Data, Tenant, Execution limits.")
+    elif cmd == "--show-environment-capabilities":
+        print("Capabilities: Full, Reduced, Simulation-only scopes.")
+    elif cmd == "--show-environment-limitations":
+        print("Limitations: Missing integrations, Synthetic substitutes.")
+    elif cmd == "--show-environment-parity":
+        print("Parity: Code, Config, Dependency, Data-shape equivalence notes.")
+    elif cmd == "--show-environment-divergence-intent":
+        print("Intended Divergence: Budget, Privacy justifications vs Accidental drift.")
+    elif cmd == "--show-environment-drift":
+        print("Drift: Severity and blast radius of unintended changes.")
+    elif cmd == "--show-environment-promotion":
+        print("Promotion Paths: Replay->Paper->Probation->Live rules.")
+    elif cmd == "--show-environment-gates":
+        print("Promotion Gates: Parity, Readiness, Evidence validations.")
+    elif cmd == "--show-environment-isolation":
+        print("Isolation: Compute, Network, State separations.")
+    elif cmd == "--show-environment-tenancy":
+        print("Tenancy: Shared vs Single tenant reuse risks.")
+    elif cmd == "--show-environment-secrets":
+        print("Secret Scope: Live vs Non-live boundary enforcement.")
+    elif cmd == "--show-environment-data-scope":
+        print("Data Scope: Live, Synthetic, Masked bleed warnings.")
+    elif cmd == "--show-environment-network-scope":
+        print("Network Scope: Internet-exposed vs internal air-gapped.")
+    elif cmd == "--show-environment-seeding":
+        print("Seeding: Provenance and staleness warnings.")
+    elif cmd == "--show-environment-resets":
+        print("Resets: Dirty-reset caveats and baseline cleanliness.")
+    elif cmd == "--show-environment-observations":
+        print("Observations: Parity and contamination sufficiency checks.")
+    elif cmd == "--show-environment-readiness":
+        print("Readiness: Live-like, Promotion, DR readiness postures.")
+    elif cmd == "--show-environment-contamination":
+        print("Contamination: Paper-live or Shared-state bleed findings.")
+    elif cmd == "--show-environment-rot":
+        print("Rot: Stale staging, unused DR decay.")
+    elif cmd == "--show-environment-forecast":
+        print("Forecasts: Drift and rot accumulation projections.")
+    elif cmd == "--show-environment-debt":
+        print("Debt: Fake staging and shared-state debt burden.")
+    elif cmd == "--show-environment-equivalence":
+        print("Equivalence: Cross-environment fidelity blockers.")
+    elif cmd == "--show-environment-trust":
+        print("Trust Verdict: Trusted, Caution, Degraded, Blocked states.")
+    elif cmd == "--show-environment-review-packs":
+        print("Review Packs: Completeness of isolation/promotion evidence.")
+
     else:
         print(f"Command {cmd} acknowledged (Implementation stub).")
 

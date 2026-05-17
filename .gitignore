@@ -11,3 +11,7 @@ generate_program_plane.py
 run_tests.py
 app/knowledge_plane/__pycache__/
 tests/__pycache__/
+*.pyc
+__pycache__/
+.pyc
+__pycache__/

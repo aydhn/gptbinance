@@ -1,3 +1,1 @@
-class CommitmentManager:
-    def evaluate(self):
-        return "blocked"
+def check_commitment_assurance(): pass

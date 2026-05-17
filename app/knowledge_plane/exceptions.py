@@ -1,0 +1,10 @@
+class KnowledgePlaneError(Exception): pass
+class InvalidKnowledgeObject(KnowledgePlaneError): pass
+class InvalidSourceBinding(KnowledgePlaneError): pass
+class InvalidApplicabilityRecord(KnowledgePlaneError): pass
+class InvalidFreshnessState(KnowledgePlaneError): pass
+class InvalidReviewRecord(KnowledgePlaneError): pass
+class SupersessionViolation(KnowledgePlaneError): pass
+class ConflictViolation(KnowledgePlaneError): pass
+class AttestationViolation(KnowledgePlaneError): pass
+class KnowledgeStorageError(KnowledgePlaneError): pass

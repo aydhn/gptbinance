@@ -1,8 +1,5 @@
 __pycache__/
 *.pyc
-app/
-tests/
-docs/
 test_output.txt
 tmp_test.txt
 test_out.txt

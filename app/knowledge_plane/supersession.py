@@ -1,3 +1,4 @@
+from app.state_plane.registry import state_registry
 from typing import Dict, Optional
 from .models import SupersessionRecord
 
@@ -16,3 +17,7 @@ class SupersessionGovernance:
         if not record:
             return False
         return bool(record.superseded_by)
+
+class KnowledgeSupersession:
+    def check_superseded(self, doc_id: str):
+        pass

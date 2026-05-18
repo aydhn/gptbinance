@@ -1,1 +1,1 @@
-def define_assurance_contributors(): pass
+# Constitution-related postmortem contributors

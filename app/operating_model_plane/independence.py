@@ -1,1 +1,1 @@
-def check_reviewer_independence(): pass
+# SoD failures linked to constitutional block

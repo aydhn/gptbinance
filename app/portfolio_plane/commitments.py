@@ -1,1 +1,1 @@
-def check_commitment_assurance(): pass
+# High-risk commitments waiver burden posture

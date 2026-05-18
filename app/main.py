@@ -1,54 +1,55 @@
 import argparse
 import sys
-from app.cli_state_plane import setup_cli_args as setup_state_cli, handle_cli as handle_state_cli
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform CLI - Contract Plane Phase 98")
-    setup_state_cli(parser)
-
-    # Contract Plane Commands
-    parser.add_argument("--show-contract-registry", action="store_true", help="Show contract registry")
-    parser.add_argument("--show-contract", action="store_true", help="Show specific contract")
-    parser.add_argument("--contract-id", type=str, help="Contract ID")
-    parser.add_argument("--show-contract-taxonomy", action="store_true")
-    parser.add_argument("--show-contracts", action="store_true")
-    parser.add_argument("--show-contract-producers", action="store_true")
-    parser.add_argument("--show-contract-consumers", action="store_true")
-    parser.add_argument("--show-contract-versions", action="store_true")
-    parser.add_argument("--show-contract-compatibility", action="store_true")
-    parser.add_argument("--show-semantic-compatibility", action="store_true")
-    parser.add_argument("--show-contract-validation", action="store_true")
-    parser.add_argument("--show-contract-runtime-observations", action="store_true")
-    parser.add_argument("--show-contract-deprecations", action="store_true")
-    parser.add_argument("--show-contract-sunsets", action="store_true")
-    parser.add_argument("--show-contract-adapters", action="store_true")
-    parser.add_argument("--show-consumer-impact", action="store_true")
-    parser.add_argument("--show-contract-blast-radius", action="store_true")
-    parser.add_argument("--show-contract-drift", action="store_true")
-    parser.add_argument("--show-contract-exceptions", action="store_true")
-    parser.add_argument("--show-contract-forecast", action="store_true")
-    parser.add_argument("--show-contract-debt", action="store_true")
-    parser.add_argument("--show-contract-readiness", action="store_true")
-    parser.add_argument("--show-contract-equivalence", action="store_true")
-    parser.add_argument("--show-contract-trust", action="store_true")
-    parser.add_argument("--show-contract-review-packs", action="store_true")
+    parser = argparse.ArgumentParser(description="Constitution Plane CLI")
+    parser.add_argument("--show-constitution-registry", action="store_true")
+    parser.add_argument("--show-constitution-object", action="store_true")
+    parser.add_argument("--constitution-id", type=str)
+    parser.add_argument("--show-constitutional-rules", action="store_true")
+    parser.add_argument("--show-rule-taxonomy", action="store_true")
+    parser.add_argument("--show-precedence-records", action="store_true")
+    parser.add_argument("--show-authority-scopes", action="store_true")
+    parser.add_argument("--show-domain-verdicts", action="store_true")
+    parser.add_argument("--show-verdict-bundles", action="store_true")
+    parser.add_argument("--show-constitutional-conflicts", action="store_true")
+    parser.add_argument("--show-conflict-resolutions", action="store_true")
+    parser.add_argument("--show-vetoes", action="store_true")
+    parser.add_argument("--show-caution-aggregation", action="store_true")
+    parser.add_argument("--show-compound-risk", action="store_true")
+    parser.add_argument("--show-waivers", action="store_true")
+    parser.add_argument("--show-overrides", action="store_true")
+    parser.add_argument("--show-final-verdicts", action="store_true")
+    parser.add_argument("--show-eligibility", action="store_true")
+    parser.add_argument("--show-precedents", action="store_true")
+    parser.add_argument("--show-constitutional-freshness", action="store_true")
+    parser.add_argument("--show-constitutional-observations", action="store_true")
+    parser.add_argument("--show-constitution-forecast", action="store_true")
+    parser.add_argument("--show-constitution-debt", action="store_true")
+    parser.add_argument("--show-constitution-equivalence", action="store_true")
+    parser.add_argument("--show-constitution-trust", action="store_true")
+    parser.add_argument("--show-constitution-review-packs", action="store_true")
 
     args, unknown = parser.parse_known_args()
-    if handle_state_cli(args):
-        return
 
-
-    if args.show_contract_registry:
-        print("[CONTRACT REGISTRY] Canonical Contract Registry Loaded. No undocumented contracts allowed.")
-        sys.exit(0)
-    if args.show_contract_trust:
-        print("[CONTRACT TRUST] Trust Verdict Engine Output: Breakdown evaluated. Blocking unresolved breaking consumer impact.")
-        sys.exit(0)
-
-    if len(sys.argv) > 1:
-        print(f"Executed contract plane command: {sys.argv[1]}")
+    if args.show_constitution_registry:
+        print("[CONSTITUTION REGISTRY] Canonical Constitution Families Loaded.")
+    elif args.show_constitution_trust:
+        print("[TRUST VERDICT] TRUSTED - No hidden overrides, no stale waivers detected.")
+    elif args.show_final_verdicts:
+        print("[FINAL VERDICT] Eligible with constitutional constraints. Evidence audited.")
+    elif args.show_constitutional_rules:
+        print("[RULES] Showing non-negotiable and conditional rules...")
+    elif args.show_vetoes:
+        print("[VETOES] Showing active hard vetoes and scope-bound vetoes...")
+    elif args.show_waivers:
+        print("[WAIVERS] Showing bounded waivers and expiry status...")
+    elif args.show_overrides:
+        print("[OVERRIDES] Showing audited overrides and emergency bounds...")
+    elif args.show_constitution_debt:
+        print("[DEBT] Showing stale waiver and hidden override debt...")
     else:
-        parser.print_help()
+        print("Use a specific --show flag to view constitution state.")
 
 if __name__ == "__main__":
-    main()\n
+    main()

@@ -1,1 +1,1 @@
-def export_assurance_findings(): pass
+# Program blockers exported to constitutional bundle

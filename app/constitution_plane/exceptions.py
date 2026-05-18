@@ -1,0 +1,10 @@
+class ConstitutionPlaneError(Exception): pass
+class InvalidConstitutionalRule(ConstitutionPlaneError): pass
+class InvalidPrecedenceRecord(ConstitutionPlaneError): pass
+class InvalidDomainVerdict(ConstitutionPlaneError): pass
+class InvalidConflictResolution(ConstitutionPlaneError): pass
+class InvalidWaiver(ConstitutionPlaneError): pass
+class InvalidOverride(ConstitutionPlaneError): pass
+class VetoViolation(ConstitutionPlaneError): pass
+class PrecedentViolation(ConstitutionPlaneError): pass
+class ConstitutionStorageError(ConstitutionPlaneError): pass

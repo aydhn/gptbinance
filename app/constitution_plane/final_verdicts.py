@@ -45,3 +45,7 @@ class FinalVerdictSynthesizer:
             applied_overrides=[],
             unresolved_conflicts=[]
         )
+
+# Scenario extensions
+
+# Scenario extensions

@@ -1,11 +1,3 @@
 __pycache__/
 *.pyc
-.pytest_cache/
-tests/test_placeholder_*.py
-
-test_generation_script.py
-generate_phase_100_files.py
-generate_phase_100_remaining_files.py
-generate_phase_100_integration_files.py
-generate_phase_100_docs.py
-setup_phase_100.py
+tests/__pycache__/

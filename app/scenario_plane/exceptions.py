@@ -1,0 +1,10 @@
+class ScenarioPlaneError(Exception): pass
+class InvalidScenarioObjectError(ScenarioPlaneError): pass
+class InvalidBaselineDefinitionError(ScenarioPlaneError): pass
+class InvalidAssumptionSetError(ScenarioPlaneError): pass
+class InvalidShockDefinitionError(ScenarioPlaneError): pass
+class InvalidInterventionError(ScenarioPlaneError): pass
+class InvalidBranchTopologyError(ScenarioPlaneError): pass
+class InvalidCounterfactualError(ScenarioPlaneError): pass
+class InvalidRobustnessAssessmentError(ScenarioPlaneError): pass
+class ScenarioStorageError(ScenarioPlaneError): pass

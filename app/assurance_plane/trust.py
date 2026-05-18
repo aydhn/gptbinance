@@ -1,0 +1,1 @@
+# Assurance trust linked to veto eligibility

@@ -1,4 +1,7 @@
-# Constitution specific alert families
-# Scenario extensions
+def trigger_learning_alert(alert_family: str, payload: dict):
+    pass
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def trigger_learning_alert(alert_family: str, payload: dict):
+    pass

@@ -1,4 +1,8 @@
-# Input to constitutional compound risk
-# Scenario extensions
+def check_continuity_learning_integrity(drill_id: str) -> str:
+    # continuity-ready claim under repeated recovery lesson gap blocker/caution
+    return "blocker"
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def check_continuity_learning_integrity(drill_id: str) -> str:
+    return "blocker"

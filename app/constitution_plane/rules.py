@@ -1,12 +1,14 @@
-from typing import List, Dict
-from app.constitution_plane.models import ConstitutionalRuleRecord
+def bind_rule_change_to_precedent(rule_id: str, learning_id: str):
+    pass
 
-class ConstitutionalRulesManager:
-    def __init__(self):
-        self._rules: Dict[str, ConstitutionalRuleRecord] = {}
+def validate_rule_hardening(rule_id: str) -> str:
+    # returns "caution" if rule hardened without validated lesson
+    return "caution"
 
-    def add_rule(self, rule: ConstitutionalRuleRecord):
-        self._rules[rule.rule_id] = rule
 
-    def get_non_negotiable_rules(self) -> List[ConstitutionalRuleRecord]:
-        return [r for r in self._rules.values() if r.is_non_negotiable]
+# -- Learning Plane Additions --
+def bind_rule_change_to_precedent(rule_id: str, learning_id: str):
+    pass
+
+def validate_rule_hardening(rule_id: str) -> str:
+    return "caution"

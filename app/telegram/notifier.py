@@ -1,4 +1,7 @@
-# Telegram events for constitution
-# Scenario extensions
+def notify_learning_event(event_type: str, severity: str, message: str):
+    pass
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def notify_learning_event(event_type: str, severity: str, message: str):
+    pass

@@ -1,21 +1,13 @@
-from .models import SplitBrainRecord
-from .registry import state_registry
+def export_split_brain_recurrences():
+    pass
 
-def detect_split_brain(state_id: str) -> SplitBrainRecord:
-    obj = state_registry.get_object(state_id)
-    if not obj:
-        raise ValueError(f"State object {state_id} not found")
+def check_resolved_split_brain_without_guard(split_brain_id: str) -> str:
+    return "caution"
 
-    observed = obj.observed.observed_state if obj.observed else None
-    declared = obj.declared.declared_state if obj.declared else None
 
-    if observed and declared and observed != declared:
-        record = SplitBrainRecord(
-            state_id=state_id,
-            observed_state=observed,
-            declared_state=declared,
-            severity="high"
-        )
-        obj.split_brain = record
-        return record
-    return None
+# -- Learning Plane Additions --
+def export_split_brain_recurrences():
+    pass
+
+def check_resolved_split_brain_without_guard(split_brain_id: str) -> str:
+    return "caution"

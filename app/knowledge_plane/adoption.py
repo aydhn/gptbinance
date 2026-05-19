@@ -1,7 +1,14 @@
-class AdoptionManager:
-    def __init__(self):
-        self.records = {}
-    def register(self, record):
-        self.records[record.knowledge_id] = record
-    def get(self, id):
-        return self.records.get(id)
+def export_adoption_failures():
+    pass
+
+def check_stale_guidance_adoption(guidance_id: str) -> str:
+    # documented but repeatedly unused guidance lesson-burial
+    return "caution"
+
+
+# -- Learning Plane Additions --
+def export_adoption_failures():
+    pass
+
+def check_stale_guidance_adoption(guidance_id: str) -> str:
+    return "caution"

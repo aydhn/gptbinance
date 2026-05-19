@@ -1,0 +1,3 @@
+# Rationale
+class RationaleTracker:
+    pass

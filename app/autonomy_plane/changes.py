@@ -1,0 +1,3 @@
+# Changes
+class ChangeIntegration:
+    pass

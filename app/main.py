@@ -105,3 +105,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# CLI Integration
+from app.autonomy_plane.cli import main as autonomy_cli_main
+import sys
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1].startswith("--show"):
+        autonomy_cli_main(sys.argv[1:])

@@ -1,0 +1,3 @@
+# State
+class StateIntegration:
+    pass

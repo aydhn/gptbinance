@@ -1,0 +1,3 @@
+# Scenario
+class ScenarioIntegration:
+    pass

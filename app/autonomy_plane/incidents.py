@@ -1,0 +1,3 @@
+# Incidents
+class IncidentTracker:
+    pass

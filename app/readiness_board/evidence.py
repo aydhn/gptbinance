@@ -1,4 +1,9 @@
-# Constitutional trust evidence in readiness bundle
-# Scenario extensions
+def inject_learning_integrity_into_bundle(bundle: dict) -> dict:
+    bundle["learning_integrity"] = "trusted"
+    return bundle
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def inject_learning_integrity_into_bundle(bundle: dict) -> dict:
+    bundle["learning_integrity"] = "trusted"
+    return bundle

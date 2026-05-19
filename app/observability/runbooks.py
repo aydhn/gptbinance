@@ -1,4 +1,7 @@
-# Runbook refs for constitution resolution
-# Scenario extensions
+def get_learning_runbook_ref(review_type: str) -> str:
+    return "runbook_ref"
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def get_learning_runbook_ref(review_type: str) -> str:
+    return "runbook_ref"

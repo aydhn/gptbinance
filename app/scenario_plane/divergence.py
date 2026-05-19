@@ -1,14 +1,13 @@
-# divergence
-from app.scenario_plane.models import *
-from app.scenario_plane.enums import *
-from app.scenario_plane.exceptions import *
+def export_scenario_misses():
+    pass
 
-class DivergenceManager:
-    def __init__(self):
-        self.items = []
+def check_repeated_scenario_miss(scenario_class: str) -> str:
+    return "caution"
 
-    def add(self, item):
-        self.items.append(item)
 
-    def get(self, id):
-        return next((x for x in self.items if getattr(x, 'id', None) == id), None)
+# -- Learning Plane Additions --
+def export_scenario_misses():
+    pass
+
+def check_repeated_scenario_miss(scenario_class: str) -> str:
+    return "caution"

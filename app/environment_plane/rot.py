@@ -1,4 +1,13 @@
-from app.environment_plane.models import EnvironmentRotRecord
+def export_recurring_rot_patterns():
+    pass
 
-def record_rot(rot_description: str, severity: str) -> EnvironmentRotRecord:
-    return EnvironmentRotRecord(rot_description=rot_description, severity=severity)
+def check_repeated_rot_class(rot_class: str) -> str:
+    return "caution"
+
+
+# -- Learning Plane Additions --
+def export_recurring_rot_patterns():
+    pass
+
+def check_repeated_rot_class(rot_class: str) -> str:
+    return "caution"

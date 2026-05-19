@@ -1,4 +1,7 @@
-# Constitution artefacts tracking
-# Scenario extensions
+def register_learning_artefact_family():
+    pass
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def register_learning_artefact_family():
+    pass

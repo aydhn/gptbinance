@@ -1,4 +1,7 @@
-# Telegram templates for constitution messages
-# Scenario extensions
+def get_learning_template(template_name: str) -> str:
+    return "template"
 
-# Scenario extensions
+
+# -- Learning Plane Additions --
+def get_learning_template(template_name: str) -> str:
+    return "template"

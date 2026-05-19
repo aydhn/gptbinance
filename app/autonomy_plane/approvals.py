@@ -1,0 +1,3 @@
+# Approvals
+class ApprovalsTracker:
+    pass

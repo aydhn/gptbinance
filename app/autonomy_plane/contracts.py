@@ -1,0 +1,3 @@
+# Contracts
+class ContractIntegration:
+    pass

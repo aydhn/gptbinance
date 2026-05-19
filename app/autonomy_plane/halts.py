@@ -1,0 +1,3 @@
+# Halts
+class HaltTracker:
+    pass

@@ -1,0 +1,3 @@
+# Revocations
+class RevocationTracker:
+    pass

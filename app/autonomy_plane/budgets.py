@@ -1,0 +1,3 @@
+# Budgets
+class BudgetTracker:
+    pass

@@ -1,0 +1,3 @@
+# Capabilities
+class CapabilitiesTracker:
+    pass

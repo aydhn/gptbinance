@@ -1,0 +1,3 @@
+# Constitution
+class ConstitutionIntegration:
+    pass

@@ -1,0 +1,3 @@
+# Escalations
+class EscalationTracker:
+    pass

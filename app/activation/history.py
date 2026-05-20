@@ -1,4 +1,3 @@
-def check_activation_provenance(stage: str, provenance_refs: list) -> str:
-    if not provenance_refs:
-        return 'ANOMALY: stage transition succeeded but lineage incomplete'
-    return 'TRUSTED'
+class ActivationHistory:
+    def record_temporal_divergence(self, t_ref):
+        pass

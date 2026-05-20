@@ -1,0 +1,10 @@
+class TemporalPlaneError(Exception): pass
+class InvalidTemporalObject(TemporalPlaneError): pass
+class InvalidClockRecord(TemporalPlaneError): pass
+class InvalidTimestampRecord(TemporalPlaneError): pass
+class InvalidWindowDefinition(TemporalPlaneError): pass
+class InvalidDeadline(TemporalPlaneError): pass
+class InvalidOrderingEvidence(TemporalPlaneError): pass
+class TemporalAdmissibilityViolation(TemporalPlaneError): pass
+class ClockIntegrityViolation(TemporalPlaneError): pass
+class TemporalStorageError(TemporalPlaneError): pass

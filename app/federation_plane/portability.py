@@ -1,4 +1,3 @@
-def check_portability_provenance(verdict_id: str, portable_provenance: bool) -> str:
-    if not portable_provenance:
-        return 'BLOCKER/CAUTION: portable verdict without portable provenance'
-    return 'TRUSTED'
+class FederationPortability:
+    def verify_clock_translation(self, t_ref):
+        pass

@@ -1,8 +1,3 @@
-def require_learning_posture_for_decision(decision_id: str) -> str:
-    # decision under known but ignored lesson explicit caution
-    return "caution"
-
-
-# -- Learning Plane Additions --
-def require_learning_posture_for_decision(decision_id: str) -> str:
-    return "caution"
+class DecisionEvidence:
+    def require_freshness_basis(self, t_ref):
+        pass

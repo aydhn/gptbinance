@@ -1,5 +1,3 @@
-from app.learning_plane.models import ValidationRecord
-from app.learning_plane.storage import storage
-
-def create_validation(val: ValidationRecord):
-    storage.save_validation(val)
+class LearningValidation:
+    def evaluate_lesson_freshness(self, t_ref):
+        pass

@@ -1,10 +1,4 @@
-# Core interface logic for verification.py
-# Enforces contract plane governance, ensuring no hidden consumer impact,
-# no syntax-only compatibility theater, and fully typed semantic evaluations.
-
-def verify_contract_compliance():
-    # Placeholder for strict contract compliance
-    return True\n
-# Scenario extensions
-
-# Scenario extensions
+def check_migration_provenance(migration_id: str, custody_gap: bool) -> str:
+    if custody_gap:
+        return 'TRUST_DEGRADED: migration verified under broken custody gap'
+    return 'TRUSTED'

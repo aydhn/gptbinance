@@ -1,0 +1,1 @@
+def get_contract_provenance(contract_id: str): return True

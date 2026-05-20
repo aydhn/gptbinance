@@ -1,0 +1,1 @@
+def get_autonomy_provenance(autonomy_id: str): return True

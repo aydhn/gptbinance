@@ -1,0 +1,1 @@
+def get_learning_provenance(learning_id: str): return True

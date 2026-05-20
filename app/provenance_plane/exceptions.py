@@ -1,0 +1,10 @@
+class ProvenancePlaneError(Exception): pass
+class InvalidProvenanceObject(ProvenancePlaneError): pass
+class InvalidSourceRecord(ProvenancePlaneError): pass
+class InvalidTransformation(ProvenancePlaneError): pass
+class InvalidAttribution(ProvenancePlaneError): pass
+class InvalidChainOfCustody(ProvenancePlaneError): pass
+class InvalidExplainabilityRecord(ProvenancePlaneError): pass
+class CustodyViolation(ProvenancePlaneError): pass
+class CausalOverclaimViolation(ProvenancePlaneError): pass
+class ProvenanceStorageError(ProvenancePlaneError): pass

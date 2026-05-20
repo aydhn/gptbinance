@@ -1,0 +1,1 @@
+def get_compliance_provenance(compliance_id: str): return True

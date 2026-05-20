@@ -1,0 +1,1 @@
+def get_model_runtime_provenance(model_id: str): return True

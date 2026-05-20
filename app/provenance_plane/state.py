@@ -1,0 +1,1 @@
+def get_state_provenance(state_id: str): return True

@@ -1,0 +1,1 @@
+def get_change_provenance(change_id: str): return True

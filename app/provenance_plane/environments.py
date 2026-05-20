@@ -1,0 +1,1 @@
+def get_environment_provenance(env_id: str): return True

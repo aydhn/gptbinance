@@ -14,11 +14,70 @@ def handle_federation_cli(args):
     print("Federation Plane CLI Base")
 
 
+
+def print_provenance_registry():
+    print("Provenance Registry:")
+
+def print_provenance_object(provenance_id: str):
+    if provenance_id:
+        print(f"Provenance Object {provenance_id}")
+    else:
+        print(f"Object {provenance_id} not found.")
+
+def handle_provenance_cli(args):
+    if getattr(args, "show_provenance_registry", False):
+        print_provenance_registry()
+        return
+    if getattr(args, "show_provenance_object", False):
+        if args.provenance_id:
+            print_provenance_object(args.provenance_id)
+        else:
+            print("Missing --provenance-id")
+        return
+    for action in vars(args):
+        if getattr(args, action) and action not in ["command", "provenance_id"]:
+            print(f"Handling --{action.replace('_', '-')}")
+            return
+    print("Provenance Plane CLI Base")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform CLI")
     subparsers = parser.add_subparsers(dest="command")
 
     # Add scenario arguments (original logic converted to argparse)
+
+    provenance_parser = subparsers.add_parser("provenance")
+    provenance_parser.add_argument("--show-provenance-registry", action="store_true")
+    provenance_parser.add_argument("--show-provenance-object", action="store_true")
+    provenance_parser.add_argument("--provenance-id", type=str, help="ID of the provenance object")
+    provenance_parser.add_argument("--show-sources", action="store_true")
+    provenance_parser.add_argument("--show-provenance-inputs", action="store_true")
+    provenance_parser.add_argument("--show-transformations", action="store_true")
+    provenance_parser.add_argument("--show-derived-artifacts", action="store_true")
+    provenance_parser.add_argument("--show-feature-lineage", action="store_true")
+    provenance_parser.add_argument("--show-model-influence", action="store_true")
+    provenance_parser.add_argument("--show-config-influence", action="store_true")
+    provenance_parser.add_argument("--show-decision-lineage", action="store_true")
+    provenance_parser.add_argument("--show-approval-lineage", action="store_true")
+    provenance_parser.add_argument("--show-action-lineage", action="store_true")
+    provenance_parser.add_argument("--show-side-effects", action="store_true")
+    provenance_parser.add_argument("--show-outcome-lineage", action="store_true")
+    provenance_parser.add_argument("--show-contributions", action="store_true")
+    provenance_parser.add_argument("--show-attribution", action="store_true")
+    provenance_parser.add_argument("--show-causal-confidence", action="store_true")
+    provenance_parser.add_argument("--show-chain-of-custody", action="store_true")
+    provenance_parser.add_argument("--show-custody-gaps", action="store_true")
+    provenance_parser.add_argument("--show-responsibility", action="store_true")
+    provenance_parser.add_argument("--show-explainability", action="store_true")
+    provenance_parser.add_argument("--show-provenance-comparisons", action="store_true")
+    provenance_parser.add_argument("--show-provenance-readiness", action="store_true")
+    provenance_parser.add_argument("--show-provenance-forecast", action="store_true")
+    provenance_parser.add_argument("--show-provenance-debt", action="store_true")
+    provenance_parser.add_argument("--show-provenance-equivalence", action="store_true")
+    provenance_parser.add_argument("--show-provenance-trust", action="store_true")
+    provenance_parser.add_argument("--show-provenance-review-packs", action="store_true")
+
     scenario_parser = subparsers.add_parser("scenario")
     scenario_parser.add_argument("--show-scenario-registry", action="store_true")
     scenario_parser.add_argument("--show-scenario", action="store_true")
@@ -90,6 +149,11 @@ def main():
     args = parser.parse_args()
 
     if args.command == "learning":
+        handle_learning_cli(args)
+
+    elif args.command == "provenance":
+        handle_provenance_cli(args)
+
         handle_learning_cli(args)
     elif args.command == "federation":
         handle_federation_cli(args)

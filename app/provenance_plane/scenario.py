@@ -1,0 +1,1 @@
+def get_scenario_provenance(scenario_id: str): return True

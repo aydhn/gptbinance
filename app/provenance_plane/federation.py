@@ -1,0 +1,1 @@
+def get_federation_provenance(federation_id: str): return True

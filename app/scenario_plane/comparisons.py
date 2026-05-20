@@ -1,14 +1,4 @@
-# comparisons
-from app.scenario_plane.models import *
-from app.scenario_plane.enums import *
-from app.scenario_plane.exceptions import *
-
-class ComparisonsManager:
-    def __init__(self):
-        self.items = []
-
-    def add(self, item):
-        self.items.append(item)
-
-    def get(self, id):
-        return next((x for x in self.items if getattr(x, 'id', None) == id), None)
+def check_scenario_provenance(compare_id: str, realized_trace: bool) -> str:
+    if not realized_trace:
+        return 'CAUTION: scenario compare without realized provenance trace'
+    return 'TRUSTED'

@@ -1,9 +1,7 @@
 __pycache__/
 *.pyc
+*/__pycache__/*
 .pytest_cache/
-.pytest_cache/
-__pycache__/
-*.pyc
-*/__pycache__
-*.pyc
-.pytest_cache
+tests/__pycache__/*
+app/provenance_plane/__pycache__/*
+__pycache__/*

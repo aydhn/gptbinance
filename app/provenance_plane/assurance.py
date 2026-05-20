@@ -1,0 +1,1 @@
+def get_assurance_provenance(assurance_id: str): return True

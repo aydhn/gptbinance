@@ -1,0 +1,1 @@
+def get_migration_provenance(migration_id: str): return True

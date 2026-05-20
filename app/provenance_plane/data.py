@@ -1,0 +1,1 @@
+def get_data_provenance(data_id: str): return True

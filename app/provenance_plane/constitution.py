@@ -1,0 +1,1 @@
+def get_constitution_provenance(constitution_id: str): return True

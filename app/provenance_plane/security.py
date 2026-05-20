@@ -1,0 +1,1 @@
+def get_security_provenance(security_id: str): return True

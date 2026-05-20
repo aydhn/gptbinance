@@ -1,4 +1,4 @@
-from app.environment_plane.models import EnvironmentObservationRecord
-
-def record_observation(observation_type: str, sufficiency_notes: str) -> EnvironmentObservationRecord:
-    return EnvironmentObservationRecord(observation_type=observation_type, sufficiency_notes=sufficiency_notes)
+def check_env_observation_provenance(observation_id: str, chain_of_custody: list) -> str:
+    if not chain_of_custody:
+        return 'CAUTION: environment anomaly without chain-of-custody'
+    return 'TRUSTED'

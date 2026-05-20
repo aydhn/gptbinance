@@ -1,5 +1,4 @@
-from app.learning_plane.models import ValidatedCauseRecord
-from app.learning_plane.storage import storage
-
-def create_cause(cause: ValidatedCauseRecord):
-    storage.save_cause(cause)
+def check_validated_cause_provenance(cause_id: str, defensible_chain: bool) -> str:
+    if not defensible_chain:
+        return 'CAUTION: validated cause without defensible provenance chain'
+    return 'TRUSTED'

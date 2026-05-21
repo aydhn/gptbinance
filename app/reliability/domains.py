@@ -1,2 +1,1 @@
-class TemporalReliabilityDomain:
-    pass
+# epistemic_integrity reliability domain

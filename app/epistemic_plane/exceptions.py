@@ -1,0 +1,10 @@
+class EpistemicPlaneError(Exception): pass
+class InvalidEpistemicObjectError(EpistemicPlaneError): pass
+class InvalidClaimError(EpistemicPlaneError): pass
+class InvalidEvidenceRecordError(EpistemicPlaneError): pass
+class InvalidSufficiencyAssessmentError(EpistemicPlaneError): pass
+class InvalidContradictionError(EpistemicPlaneError): pass
+class InvalidRefutationError(EpistemicPlaneError): pass
+class EpistemicOverclaimViolation(EpistemicPlaneError): pass
+class UnsupportedCertaintyViolation(EpistemicPlaneError): pass
+class EpistemicStorageError(EpistemicPlaneError): pass

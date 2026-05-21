@@ -1,2 +1,1 @@
-class PolicyContext:
-    temporal_posture: str
+# epistemic posture context

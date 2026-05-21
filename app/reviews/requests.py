@@ -1,2 +1,1 @@
-class TemporalReviewRequests:
-    pass
+# canonical epistemic review classes

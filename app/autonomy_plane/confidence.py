@@ -1,3 +1,1 @@
-# Confidence
-class ConfidenceTracker:
-    pass
+# integration with epistemic confidence vs permission

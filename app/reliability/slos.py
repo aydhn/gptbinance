@@ -1,2 +1,1 @@
-class TemporalSLOs:
-    pass
+# epistemic integrity SLO families

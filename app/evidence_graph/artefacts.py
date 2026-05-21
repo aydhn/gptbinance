@@ -1,2 +1,1 @@
-class TemporalArtefactFamily:
-    pass
+# epistemic artefact families

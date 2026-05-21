@@ -1,2 +1,1 @@
-class CanonicalTemporalEvents:
-    pass
+# canonical epistemic events

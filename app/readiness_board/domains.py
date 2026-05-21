@@ -1,2 +1,1 @@
-class TemporalIntegrityDomain:
-    pass
+# epistemic_integrity domain

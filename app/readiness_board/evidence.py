@@ -1,2 +1,1 @@
-class ReadinessEvidence:
-    temporal_trust: str
+# epistemic trust bundles

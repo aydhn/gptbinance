@@ -1,6 +1,8 @@
 import argparse
 
 def main():
+from .main_tradeoff_cli import add_tradeoff_args
+from app.tradeoff_plane.cli_tradeoff_plane import handle_tradeoff_commands
     parser = argparse.ArgumentParser(description="Epistemic Plane CLI")
     parser.add_argument("--show-epistemic-registry", action="store_true")
     parser.add_argument("--show-epistemic-object", type=str, help="--epistemic-id <id>")
@@ -28,8 +30,12 @@ def main():
     parser.add_argument("--show-epistemic-equivalence", action="store_true")
     parser.add_argument("--show-epistemic-trust", action="store_true")
     parser.add_argument("--show-epistemic-review-packs", action="store_true")
+    add_tradeoff_args(parser)
 
     args = parser.parse_args()
+
+    if handle_tradeoff_commands(args):
+        return
 
     if args.show_epistemic_registry:
         print("[EPISTEMIC REGISTRY] - Showing canonical registry, families and markers.")

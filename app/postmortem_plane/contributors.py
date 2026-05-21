@@ -1,2 +1,1 @@
-class TemporalContributors:
-    pass
+# epistemic contributors

@@ -1,2 +1,1 @@
-class TemporalDiagnostics:
-    pass
+# diagnostic signals for certainty theater

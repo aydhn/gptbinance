@@ -1,2 +1,1 @@
-class TemporalInvariants:
-    pass
+# epistemic invariants

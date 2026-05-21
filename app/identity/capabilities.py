@@ -1,2 +1,1 @@
-class TemporalCapabilities:
-    pass
+# epistemic review capabilities

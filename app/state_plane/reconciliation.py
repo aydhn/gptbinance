@@ -1,1 +1,1 @@
-# Constitutional freshness/authority linking
+# integration with epistemic status

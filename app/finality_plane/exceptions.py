@@ -1,0 +1,9 @@
+class FinalityPlaneError(Exception): pass
+class InvalidFinalityObjectError(FinalityPlaneError): pass
+class InvalidClosureBasisError(FinalityPlaneError): pass
+class InvalidTerminalityClaimError(FinalityPlaneError): pass
+class InvalidSettlementError(FinalityPlaneError): pass
+class InvalidReopenError(FinalityPlaneError): pass
+class InvalidSupersessionError(FinalityPlaneError): pass
+class PrematureFinalityViolationError(FinalityPlaneError): pass
+class FinalityStorageError(FinalityPlaneError): pass

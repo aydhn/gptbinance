@@ -1,4 +1,9 @@
-# epistemic runbooks
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class Runbooks:
+    @staticmethod
+    def get_runbooks() -> List[str]:
+        return [
+            "exploit_surface_investigation",
+            "metric_gaming_review"
+        ]

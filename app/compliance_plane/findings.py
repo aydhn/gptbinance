@@ -1,4 +1,11 @@
-# integration with epistemic sufficiency
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class ComplianceFindings:
+    @staticmethod
+    def generate_findings(context: Dict[str, Any]) -> list:
+        findings = []
+        if context.get("attestation_laundering"):
+            findings.append("attestation_laundering_detected")
+        if context.get("documentation_gaming"):
+            findings.append("documentation_gaming_detected")
+        return findings

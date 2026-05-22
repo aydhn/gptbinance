@@ -1,4 +1,5 @@
-# epistemic events support
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class TelegramNotifier:
+    def send_notification(self, event_type: str, details: Dict[str, Any]):
+        pass

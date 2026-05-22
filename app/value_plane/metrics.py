@@ -1,4 +1,8 @@
-# integration with epistemic estimate classes
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class ValueMetrics:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("reported_value_inflation"):
+            return {"status": "caution", "reason": "value_gain_under_gaming_suspicion"}
+        return {"status": "ok"}

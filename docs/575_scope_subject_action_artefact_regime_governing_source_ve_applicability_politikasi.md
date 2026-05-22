@@ -1,0 +1,2 @@
+# 575_scope_subject_action_artefact_regime_governing_source_ve_applicability_politikasi.md
+Phase 113 Documentation.

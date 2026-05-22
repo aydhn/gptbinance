@@ -1,0 +1,9 @@
+class JurisdictionPlaneError(Exception): pass
+class InvalidJurisdictionObjectError(JurisdictionPlaneError): pass
+class InvalidScopeDefinitionError(JurisdictionPlaneError): pass
+class InvalidGoverningSourceError(JurisdictionPlaneError): pass
+class InvalidApplicabilityError(JurisdictionPlaneError): pass
+class InvalidWaiverError(JurisdictionPlaneError): pass
+class InvalidPrecedenceError(JurisdictionPlaneError): pass
+class JurisdictionOverreachViolation(JurisdictionPlaneError): pass
+class JurisdictionStorageError(JurisdictionPlaneError): pass

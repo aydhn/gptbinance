@@ -1,2 +1,4 @@
-def evaluate_commitments():
-    return {"status": "evaluated", "policy_deny": "missing accountable owner or unresolved breach"}
+class EvaluationsIntegration:
+    def evaluate_policy(self):
+        # high-risk actions için remedy evidence obligations üretebilsin
+        pass

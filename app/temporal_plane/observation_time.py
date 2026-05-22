@@ -1,10 +1,4 @@
-# observation_time implementation for temporal plane
-from app.temporal_plane.models import *
-from app.temporal_plane.enums import *
-from app.temporal_plane.exceptions import *
-
-class ObservationTimeManager:
-    def __init__(self):
+class ObservationTimeIntegration:
+    def check_delayed_harm(self):
+        # delayed-harm windows remedy-plane residual harm posture ile canonical bağlansın
         pass
-    def evaluate(self, ref: TemporalObjectRef) -> dict:
-        return {"status": "ok"}

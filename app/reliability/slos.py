@@ -1,2 +1,4 @@
-def link_slos_to_commitments():
-    return {"status": "linked", "warning": "service objective labeled as guarantee without binding backing explicit caution"}
+class SlosIntegration:
+    def evaluate_slo(self):
+        # restored service claims remedy-plane restoration vs customer remedy distinction ile canonical bağlansın
+        pass

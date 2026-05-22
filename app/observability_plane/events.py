@@ -1,9 +1,4 @@
-COMMITMENT_EVENTS = [
-    "commitment_registered",
-    "binding_strength_changed",
-    "owner_assigned",
-    "breach_detected",
-    "relief_granted",
-    "commitment_discharged",
-    "commitment_retired"
-]
+class EventsIntegration:
+    def track_events(self):
+        # harm_registered, remedy_triggered, cure_applied, compensation_issued, residual_harm_detected, remedy_declared_sufficient, recourse_opened gibi canonical remedy events ekle
+        pass

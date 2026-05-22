@@ -1,2 +1,4 @@
-def get_commitment_context():
-    return {"posture": "active breaches, silent extensions, weak backing and discharge burden context added"}
+class ContextIntegration:
+    def update_context(self):
+        # remedy posture, active residual harms, delayed compensation, recourse exposure ve sufficiency burden context’e eklensin
+        pass

@@ -1,7 +1,4 @@
-COMMITMENT_CAPABILITIES = [
-    "inspect_commitment_manifest",
-    "review_binding_strength",
-    "review_owners_and_accountability",
-    "review_breaches_and_reliefs",
-    "review_guarantees_and_discharges"
-]
+class CapabilitiesIntegration:
+    def setup_capabilities(self):
+        # capabilities: inspect_remedy_manifest, review_harms_and_redress...
+        pass

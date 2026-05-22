@@ -1,2 +1,4 @@
-def link_findings_to_commitments():
-    return {"status": "linked", "warning": "compliant-looking status under active breached obligation explicit finding"}
+class FindingsIntegration:
+    def evaluate_finding(self):
+        # regulated harm, reporting miss ve attestation correction remedies remedy-plane records ile canonical bağlansın
+        pass

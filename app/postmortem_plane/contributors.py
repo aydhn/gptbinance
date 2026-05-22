@@ -1,8 +1,4 @@
-COMMITMENT_CONTRIBUTORS = [
-    "promise_inflation",
-    "ownerless_obligation",
-    "silent_extension",
-    "relief_abuse",
-    "weak_backing_external_promise",
-    "discharge_theater"
-]
+class ContributorsIntegration:
+    def get_contributors(self):
+        # remedy contributor sınıfları: under_remediation, rollback_theater, compensation_laundering...
+        pass

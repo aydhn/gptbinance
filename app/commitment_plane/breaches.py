@@ -1,12 +1,4 @@
-from app.commitment_plane.models import BreachRecord
-from app.commitment_plane.enums import BreachClass
-
-class BreachManager:
-    @staticmethod
-    def create_breach(breach_class: BreachClass, description: str, proof_notes: str = None) -> BreachRecord:
-        return BreachRecord(
-            breach_class=breach_class,
-            description=description,
-            proof_notes=proof_notes,
-            lineage_refs=[]
-        )
+class BreachIntegration:
+    def check_remedy_status(self, breach_id):
+        # breach acknowledged but no remedy posture explicit caution üretsin
+        pass

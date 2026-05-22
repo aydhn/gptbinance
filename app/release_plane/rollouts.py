@@ -1,2 +1,4 @@
-def link_rollouts_to_commitments():
-    return {"status": "linked", "warning": "rollout under silent commitment downgrade explicit anomaly"}
+class RolloutsIntegration:
+    def evaluate_rollout(self):
+        # rollout remediation snapshots, harmed cohort scope ve compensating actions taşısın
+        pass

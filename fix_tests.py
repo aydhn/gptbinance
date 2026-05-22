@@ -1,71 +1,56 @@
-import os
+import glob
 
-def write_file(path, content):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + "\n")
+# The feedback said the tests are empty. Let's add some assertions that test our basic models.
+test_file = "tests/test_precedent_plane_models.py"
 
-test_content = """
-import pytest
-from app.remedy_plane.models import *
-from app.remedy_plane.enums import *
-from app.remedy_plane.registry import remedy_registry
-from app.remedy_plane.trust import RemedyTrustVerdictEngine
+with open(test_file, "w") as f:
+    f.write("""import pytest
+from app.precedent_plane.models import PrecedentObject, AuthorityClass, ApplicabilityClass, PrecedentClass
+
+def test_precedent_object_creation():
+    obj = PrecedentObject(
+        precedent_id="P-001",
+        precedent_class=PrecedentClass.LOCAL,
+        owner="test-owner",
+        scope="global",
+        authority_posture=AuthorityClass.LOCAL_PERSUASIVE,
+        applicability_posture=ApplicabilityClass.DIRECTLY_APPLICABLE
+    )
+    assert obj.precedent_id == "P-001"
+    assert obj.owner == "test-owner"
+""")
+
+test_reg = "tests/test_precedent_plane_registry.py"
+with open(test_reg, "w") as f:
+    f.write("""import pytest
+from app.precedent_plane.registry import CanonicalPrecedentRegistry
+from app.precedent_plane.models import PrecedentObject, AuthorityClass, ApplicabilityClass, PrecedentClass
+from app.precedent_plane.exceptions import InvalidPrecedentObjectError
 
 def test_registry():
-    obj = RemedyObject(remedy_id="rem-001", remedy_class=RemedyClass.INCIDENT_REMEDY, owner="ops", scope="tenant-a")
-    remedy_registry.register(obj)
-    assert remedy_registry.get("rem-001") is not None
-
-def test_trust_verdict_rollback_theater():
-    remedy = RemedyObject(
-        remedy_id="rem-002",
-        remedy_class=RemedyClass.RELEASE_FAILURE_REMEDY,
-        owner="release", scope="prod",
-        harms=[HarmRecord(harm_id="h-1", harm_class=HarmClass.CUSTOMER_HARM, description="data unavailable", affected_party="cust-1", proof_notes="")],
-        containments=[ContainmentRecord(containment_id="c-1", containment_class=ContainmentClass.BLAST_RADIUS_CONTAINMENT, description="rolled back", target_harm_id="h-1", is_rollback=True, caveats="")]
+    registry = CanonicalPrecedentRegistry()
+    obj = PrecedentObject(
+        precedent_id="P-001",
+        precedent_class=PrecedentClass.LOCAL,
+        owner="test-owner",
+        scope="global",
+        authority_posture=AuthorityClass.LOCAL_PERSUASIVE,
+        applicability_posture=ApplicabilityClass.DIRECTLY_APPLICABLE
     )
-    # Rollback without cure/compensation -> Rollback Theater Blocked
-    report = RemedyTrustVerdictEngine.evaluate(remedy)
-    assert report.verdict == RemedyTrustVerdict.BLOCKED
-    assert any("Rollback Theater" in b for b in report.blockers)
+    registry.register(obj)
+    fetched = registry.get("P-001")
+    assert fetched.owner == "test-owner"
 
-def test_trust_verdict_control_hardening_without_redress():
-    remedy = RemedyObject(
-        remedy_id="rem-003",
-        remedy_class=RemedyClass.SECURITY_REMEDY,
-        owner="sec", scope="platform",
-        harms=[HarmRecord(harm_id="h-2", harm_class=HarmClass.SYSTEM_HARM, description="exploit", affected_party="all", proof_notes="")],
-        control_hardening_applied=True
+def test_registry_invalid():
+    registry = CanonicalPrecedentRegistry()
+    obj = PrecedentObject(
+        precedent_id="",
+        precedent_class=PrecedentClass.LOCAL,
+        owner="test-owner",
+        scope="global",
+        authority_posture=AuthorityClass.LOCAL_PERSUASIVE,
+        applicability_posture=ApplicabilityClass.DIRECTLY_APPLICABLE
     )
-    report = RemedyTrustVerdictEngine.evaluate(remedy)
-    assert report.verdict == RemedyTrustVerdict.BLOCKED
-    assert any("Control Hardening Without Redress" in b for b in report.blockers)
-
-def test_trust_verdict_hidden_residuals():
-    remedy = RemedyObject(
-        remedy_id="rem-004",
-        remedy_class=RemedyClass.CONTRACT_REMEDY,
-        owner="legal", scope="cust-2",
-        harms=[HarmRecord(harm_id="h-3", harm_class=HarmClass.FINANCIAL_HARM, description="overcharge", affected_party="cust-2", proof_notes="")],
-        cures=[CureRecord(cure_id="cu-1", cure_class=CureClass.PARTIAL_CURE, description="partial refund", target_harm_id="h-3", proof_notes="")],
-        residuals=[ResidualHarmRecord(residual_id="res-1", original_harm_id="h-3", residual_class="financial_residual", description="missing interest", is_accepted=False, recourse_available=False)]
-    )
-    report = RemedyTrustVerdictEngine.evaluate(remedy)
-    assert report.verdict == RemedyTrustVerdict.BLOCKED
-    assert any("Hidden Residual Harm" in b for b in report.blockers)
-
-def test_trust_verdict_trusted():
-    remedy = RemedyObject(
-        remedy_id="rem-005",
-        remedy_class=RemedyClass.CUSTOMER_HARM_REMEDY,
-        owner="support", scope="cust-3",
-        harms=[HarmRecord(harm_id="h-4", harm_class=HarmClass.CUSTOMER_HARM, description="outage", affected_party="cust-3", proof_notes="")],
-        cures=[CureRecord(cure_id="cu-2", cure_class=CureClass.FULL_CURE, description="restored and credited", target_harm_id="h-4", proof_notes="")]
-    )
-    report = RemedyTrustVerdictEngine.evaluate(remedy)
-    assert report.verdict == RemedyTrustVerdict.TRUSTED
-"""
-
-write_file("tests/test_remedy_plane.py", test_content)
-
+    with pytest.raises(InvalidPrecedentObjectError):
+        registry.register(obj)
+""")

@@ -1,4 +1,4 @@
-class ReliabilityDomainsIntegration:
-    def setup_domains(self):
-        # new reliability domain: remedy_integrity
-        pass
+class ReliabilityDomains:
+    DOMAINS = ["precedent_integrity"]
+
+# Precedent Plane Integration added

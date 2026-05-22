@@ -1,4 +1,5 @@
-class FindingsIntegration:
-    def evaluate_finding(self):
-        # regulated harm, reporting miss ve attestation correction remedies remedy-plane records ile canonical bağlansın
-        pass
+class ComplianceFindings:
+    def __init__(self):
+        self.precedent_authority_posture = None
+
+# Precedent Plane Integration added

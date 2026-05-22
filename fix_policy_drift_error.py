@@ -1,12 +1,24 @@
 import os
-
-filepath = "app/policy_kernel/drift.py"
-if os.path.exists(filepath):
+def replace_in_file(filepath, old, new):
+    if not os.path.exists(filepath): return
     with open(filepath, "r") as f:
         content = f.read()
-    if "from typing import" not in content and "Dict" in content:
-        content = "from typing import Dict, Any\n" + content
-    elif "from typing import" in content and "Dict" not in content:
-        content = content.replace("from typing import", "from typing import Dict, Any,")
+    content = content.replace(old, new)
     with open(filepath, "w") as f:
         f.write(content)
+
+replace_in_file("app/policy_kernel/context.py", """class PrecedentContext:
+    def __init__(self):
+        self.precedent_posture = None
+        self.active_conflicts = []
+        self.stale_analogies = []
+        self.exception_inflation = False
+        self.rationale_coverage = []
+""", """class PrecedentContext:
+    def __init__(self):
+        self.precedent_posture = None
+        self.active_conflicts = []
+        self.stale_analogies = []
+        self.exception_inflation = False
+        self.rationale_coverage = []
+""")

@@ -1,7 +1,5 @@
 __pycache__/
+.pytest_cache/
+__pycache__
 *.pyc
-.pytest_cache/
-.pytest_cache/
-__pycache__/
-app/remedy_plane/*
-tests/test_remedy_plane*.py
+.pytest_cache

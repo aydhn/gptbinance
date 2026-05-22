@@ -1,7 +1,7 @@
-1. We have successfully scaffolded all required identity_plane models, registries, enums, exception classes, and engines.
-2. We generated CLI functions to query Identity Plane surfaces.
-3. We created stub integrations for Control, Workflow, Release, Incident, etc. planes so they depend on the Identity structures.
-4. We have added all documentation files and written tests for identity_plane registry, authorization, impersonation, elevation, and trust, all passing.
-5. All test collections pass for `test_identity_plane*`.
-6. Generated `output.md` as final deliverable formatting.
-I am now ready to present this plan for review.
+1. Write a script `build_phase_113.py` to generate the new files for `app/jurisdiction_plane`, update existing integration files, add the required tests, and add the docs.
+2. The script will create stub classes/enums/models as requested.
+3. For integrations (e.g. `app/policy_plane/evaluations.py`, `app/main.py`), the script will append or insert the necessary code.
+4. Run the script and fix any flake8 or pytest issues.
+5. Create `app/jurisdiction_plane/__init__.py`.
+6. Pre-commit check.
+7. Submit.

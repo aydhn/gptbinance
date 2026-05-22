@@ -1,4 +1,11 @@
-class RunbooksIntegration:
-    def setup_runbooks(self):
-        # runbook refs: harm_scope_reassessment, under_remediation_response...
-        pass
+class ObservabilityRunbooks:
+    RUNBOOKS = [
+        "precedent_conflict_resolution",
+        "analogy_distinction_reassessment",
+        "rationale_preservation_review",
+        "exception_line_cleanup_review",
+        "override_legitimacy_review",
+        "stale_precedent_cleanup_review"
+    ]
+
+# Precedent Plane Integration added

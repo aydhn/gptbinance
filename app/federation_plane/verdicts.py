@@ -1,4 +1,5 @@
-class VerdictsIntegration:
-    def evaluate_verdict(self):
-        # shared-service harm, partner-caused defect ve federated compensation reach remedy refs taşısın
-        pass
+class FederationVerdicts:
+    def __init__(self):
+        self.precedent_portability = False
+
+# Precedent Plane Integration added

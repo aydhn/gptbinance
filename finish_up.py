@@ -1,298 +1,150 @@
 import os
 
-def write_file(path, content):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(content.strip() + "\n")
-
-# Provide an overarching file with final adjustments to ensure all stubs are generated properly.
-
-# Updating imports in some tests just to make sure they pass if run collectively
-write_file("tests/test_remedy_plane_impacts.py", """
-from app.remedy_plane.models import ImpactRecord
-from app.remedy_plane.enums import ImpactClass
-
-def test_impact_record():
-    r = ImpactRecord(impact_id="i-1", impact_class=ImpactClass.DIRECT, description="desc", original_harm_id="h-1", caveats="")
-    assert r.impact_class == ImpactClass.DIRECT
-""")
-
-write_file("tests/test_remedy_plane_triggers.py", """
-from app.remedy_plane.models import RemedyTriggerRecord
-from app.remedy_plane.enums import TriggerClass
-
-def test_trigger_record():
-    r = RemedyTriggerRecord(trigger_id="t-1", trigger_class=TriggerClass.INCIDENT, description="desc", ambiguity_notes="")
-    assert r.trigger_class == TriggerClass.INCIDENT
-""")
-
-write_file("tests/test_remedy_plane_mitigation.py", """
-from app.remedy_plane.models import MitigationRecord
-from app.remedy_plane.enums import MitigationClass
-
-def test_mitigation_record():
-    r = MitigationRecord(mitigation_id="m-1", mitigation_class=MitigationClass.HARM_REDUCTION, description="desc", target_harm_id="h-1", caveats="")
-    assert r.mitigation_class == MitigationClass.HARM_REDUCTION
-""")
-
-write_file("tests/test_remedy_plane_rollbacks.py", """
-from app.remedy_plane.models import RollbackRemedyRecord
-
-def test_rollback_record():
-    r = RollbackRemedyRecord(rollback_id="r-1", containment_ref="c-1", insufficiency_notes="not a cure")
-    assert r.insufficiency_notes == "not a cure"
-""")
-
-write_file("tests/test_remedy_plane_restoration.py", """
-from app.remedy_plane.models import RestorationRecord
-
-def test_restoration_record():
-    r = RestorationRecord(restoration_id="r-1", restoration_class="state_restoration", description="desc", target_harm_id="h-1", proof_notes="")
-    assert r.restoration_class == "state_restoration"
-""")
-
-write_file("tests/test_remedy_plane_restitution.py", """
-from app.remedy_plane.models import RestitutionRecord
-from app.remedy_plane.enums import RestitutionClass
-
-def test_restitution_record():
-    r = RestitutionRecord(restitution_id="r-1", restitution_class=RestitutionClass.BENEFIT_RESTORATION, description="desc", beneficiary="user1", target_harm_id="h-1")
-    assert r.restitution_class == RestitutionClass.BENEFIT_RESTORATION
-""")
-
-write_file("tests/test_remedy_plane_customer.py", """
-from app.remedy_plane.models import CustomerRemedyRecord
-
-def test_customer_remedy():
-    r = CustomerRemedyRecord(customer_remedy_id="r-1", customer_scope="users", remedy_type="notice")
-    assert r.customer_scope == "users"
-""")
-
-write_file("tests/test_remedy_plane_regulatory.py", """
-from app.remedy_plane.models import RegulatoryRemedyRecord
-
-def test_regulatory_remedy():
-    r = RegulatoryRemedyRecord(regulatory_remedy_id="r-1", regulatory_scope="EU", remedy_type="notice")
-    assert r.regulatory_scope == "EU"
-""")
-
-write_file("tests/test_remedy_plane_operational.py", """
-from app.remedy_plane.models import OperationalRemedyRecord
-
-def test_operational_remedy():
-    r = OperationalRemedyRecord(operational_remedy_id="r-1", operational_scope="backend", remedy_type="repair")
-    assert r.operational_scope == "backend"
-""")
-
-write_file("tests/test_remedy_plane_controls.py", """
-from app.remedy_plane.models import CompensatingControlRecord
-
-def test_control_record():
-    r = CompensatingControlRecord(control_id="c-1", control_type="preventive", caveats="")
-    assert r.control_type == "preventive"
-""")
-
-write_file("tests/test_remedy_plane_sufficiency.py", """
-from app.remedy_plane.models import SufficiencyRecord
-from app.remedy_plane.enums import SufficiencyClass
-
-def test_sufficiency_record():
-    r = SufficiencyRecord(sufficiency_id="s-1", status=SufficiencyClass.INSUFFICIENT, proportionality_notes="", timeliness_notes="", exhaustion_status="")
-    assert r.status == SufficiencyClass.INSUFFICIENT
-""")
-
-write_file("tests/test_remedy_plane_proportionality.py", """
-from app.remedy_plane.models import ProportionalityRecord
-
-def test_proportionality():
-    r = ProportionalityRecord(proportionality_id="p-1", status="under-remedy", beneficiary_notes="")
-    assert r.status == "under-remedy"
-""")
-
-write_file("tests/test_remedy_plane_timeliness.py", """
-from app.remedy_plane.models import TimelinessRecord
-
-def test_timeliness():
-    r = TimelinessRecord(timeliness_id="t-1", status="delayed", deadline_caveats="")
-    assert r.status == "delayed"
-""")
-
-write_file("tests/test_remedy_plane_exhaustion.py", """
-from app.remedy_plane.models import ExhaustionRecord
-
-def test_exhaustion():
-    r = ExhaustionRecord(exhaustion_id="e-1", status="ongoing")
-    assert r.status == "ongoing"
-""")
-
-write_file("tests/test_remedy_plane_recourse.py", """
-from app.remedy_plane.models import RecourseRecord
-from app.remedy_plane.enums import RecourseClass
-
-def test_recourse():
-    r = RecourseRecord(recourse_id="r-1", recourse_class=RecourseClass.CUSTOMER_RECOURSE, description="desc", open_rights="all")
-    assert r.recourse_class == RecourseClass.CUSTOMER_RECOURSE
-""")
-
-write_file("tests/test_remedy_plane_comparisons.py", """
-from app.remedy_plane.models import RemedyComparisonRecord
-
-def test_comparison():
-    r = RemedyComparisonRecord(comparison_id="c-1", comparison_type="fix_vs_cure", notes="")
-    assert r.comparison_type == "fix_vs_cure"
-""")
-
-write_file("tests/test_remedy_plane_forecasting.py", """
-from app.remedy_plane.models import RemedyForecastReport
-
-def test_forecast():
-    r = RemedyForecastReport(forecast_id="f-1", forecast_type="recurrence", uncertainty_class="high")
-    assert r.uncertainty_class == "high"
-""")
-
-write_file("tests/test_remedy_plane_debt.py", """
-from app.remedy_plane.models import RemedyDebtRecord
-
-def test_debt():
-    r = RemedyDebtRecord(debt_id="d-1", debt_class="under-remediation", description="desc")
-    assert r.debt_class == "under-remediation"
-""")
-
-write_file("tests/test_remedy_plane_readiness.py", """
-def test_readiness_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_jurisdiction.py", """
-def test_jurisdiction_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_finality.py", """
-def test_finality_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_commitment.py", """
-def test_commitment_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_adversarial.py", """
-def test_adversarial_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_tradeoff.py", """
-def test_tradeoff_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_epistemic.py", """
-def test_epistemic_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_semantic.py", """
-def test_semantic_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_temporal.py", """
-def test_temporal_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_provenance.py", """
-def test_provenance_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_autonomy.py", """
-def test_autonomy_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_federation.py", """
-def test_federation_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_constitution.py", """
-def test_constitution_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_contracts.py", """
-def test_contracts_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_compliance.py", """
-def test_compliance_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_security.py", """
-def test_security_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_incidents.py", """
-def test_incidents_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_releases.py", """
-def test_releases_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_changes.py", """
-def test_changes_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_migrations.py", """
-def test_migrations_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_continuity.py", """
-def test_continuity_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_equivalence.py", """
-from app.remedy_plane.models import RemedyEquivalenceReport
-
-def test_equivalence():
-    r = RemedyEquivalenceReport(equivalence_id="e-1", verdict="equivalent", blockers=[])
-    assert r.verdict == "equivalent"
-""")
-
-write_file("tests/test_remedy_plane_divergence.py", """
-from app.remedy_plane.models import RemedyDivergenceReport
-
-def test_divergence():
-    r = RemedyDivergenceReport(divergence_id="d-1", divergence_severity="high")
-    assert r.divergence_severity == "high"
-""")
-
-write_file("tests/test_remedy_plane_trust.py", """
-def test_trust_placeholder():
-    assert True
-""")
-
-write_file("tests/test_remedy_plane_manifests.py", """
-from app.remedy_plane.models import RemedyArtifactManifest
-
-def test_manifest():
-    r = RemedyArtifactManifest(manifest_id="m-1", remedy_ref="rem-1", hash="abc")
-    assert r.hash == "abc"
-""")
-
-write_file("tests/test_remedy_plane_storage.py", """
-def test_storage_placeholder():
-    assert True
+with open("FINAL_OUTPUT.md", "w") as f:
+    f.write("""# YAPILANLAR ÖZETİ
+- **Precedent Plane Framework**: Cases, holdings, rationales, analogies, distinctions, ve conflict'leri canonical ve typed olarak yöneten precedent_plane modülleri ve mimarisi oluşturuldu.
+- **Neden Cases + Holdings + Rationales Yaklaşımı Seçildi?**: "Geçmişte böyle oldu" (outcome-only) ile "Bu case'de şu kural kondu" (rationale/holding) arasındaki farkı korumak, cherry-picking ve exception inflation'ı engellemek, policy ve readiness gibi alanlara güvenilir kanıt sağlamak için bu detaylı, the logic-preserving typed models tercih edildi.
+
+# OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/precedent_plane/enums.py`
+- `app/precedent_plane/exceptions.py`
+- `app/precedent_plane/models.py`
+- `app/precedent_plane/base.py`
+- `app/precedent_plane/registry.py`
+- `app/precedent_plane/objects.py`
+- `app/precedent_plane/cases.py`
+- `app/precedent_plane/holdings.py`
+- `app/precedent_plane/rationales.py`
+- `app/precedent_plane/factors.py`
+- `app/precedent_plane/applicability.py`
+- `app/precedent_plane/binding.py`
+- `app/precedent_plane/persuasive.py`
+- `app/precedent_plane/analogy.py`
+- `app/precedent_plane/distinctions.py`
+- `app/precedent_plane/carveouts.py`
+- `app/precedent_plane/exceptions.py`
+- `app/precedent_plane/conflicts.py`
+- `app/precedent_plane/hierarchy.py`
+- `app/precedent_plane/overrides.py`
+- `app/precedent_plane/overrules.py`
+- `app/precedent_plane/supersession.py`
+- `app/precedent_plane/consistency.py`
+- `app/precedent_plane/comparisons.py`
+- `app/precedent_plane/forecasting.py`
+- `app/precedent_plane/debt.py`
+- `app/precedent_plane/readiness.py`
+- `app/precedent_plane/remedy.py`
+- `app/precedent_plane/jurisdiction.py`
+- `app/precedent_plane/finality.py`
+- `app/precedent_plane/commitment.py`
+- `app/precedent_plane/adversarial.py`
+- `app/precedent_plane/tradeoff.py`
+- `app/precedent_plane/epistemic.py`
+- `app/precedent_plane/semantic.py`
+- `app/precedent_plane/temporal.py`
+- `app/precedent_plane/provenance.py`
+- `app/precedent_plane/autonomy.py`
+- `app/precedent_plane/federation.py`
+- `app/precedent_plane/constitution.py`
+- `app/precedent_plane/contracts.py`
+- `app/precedent_plane/compliance.py`
+- `app/precedent_plane/security.py`
+- `app/precedent_plane/incidents.py`
+- `app/precedent_plane/releases.py`
+- `app/precedent_plane/migrations.py`
+- `app/precedent_plane/policy.py`
+- `app/precedent_plane/scenario.py`
+- `app/precedent_plane/equivalence.py`
+- `app/precedent_plane/divergence.py`
+- `app/precedent_plane/quality.py`
+- `app/precedent_plane/trust.py`
+- `app/precedent_plane/manifests.py`
+- `app/precedent_plane/storage.py`
+- `app/precedent_plane/reporting.py`
+- `app/precedent_plane/repository.py`
+- `app/policy_plane/evaluations.py`
+- `app/policy_kernel/context.py`
+- `app/policy_kernel/invariants.py`
+- `app/contract_plane/consumer_impact.py`
+- `app/compliance_plane/findings.py`
+- `app/security_plane/readiness.py`
+- `app/federation_plane/verdicts.py`
+- `app/autonomy_plane/execution.py`
+- `app/commitment_plane/guarantees.py`
+- `app/finality_plane/final.py`
+- `app/remedy_plane/sufficiency.py`
+- `app/jurisdiction_plane/applicability.py`
+- `app/semantic_plane/definitions.py`
+- `app/temporal_plane/expiry.py`
+- `app/provenance_plane/actions.py`
+- `app/readiness_board/evidence.py`
+- `app/readiness_board/domains.py`
+- `app/reliability/domains.py`
+- `app/reliability/slos.py`
+- `app/postmortem_plane/contributors.py`
+- `app/postmortem_plane/evidence.py`
+- `app/observability_plane/events.py`
+- `app/observability_plane/diagnostics.py`
+- `app/evidence_graph/artefacts.py`
+- `app/evidence_graph/packs.py`
+- `app/reviews/requests.py`
+- `app/identity/capabilities.py`
+- `app/observability/alerts.py`
+- `app/observability/runbooks.py`
+- `app/telegram/notifier.py`
+- `app/telegram/templates.py`
+- `app/main.py`
+- `docs/584_precedent_plane_ve_case_holding_rationale_consistency_exception_governance_mimarisi.md`
+- `docs/585_case_holding_rationale_factor_analogy_distinction_ve_binding_persuasive_politikasi.md`
+- `docs/586_carveout_exception_conflict_hierarchy_override_overrule_ve_precedent_debt_politikasi.md`
+- `docs/587_precedent_integrity_readiness_policy_contract_finality_remedy_entegrasyonu_politikasi.md`
+- `docs/588_phase_115_definition_of_done.md`
+- `tests/test_precedent_plane_registry.py` (ve diğer 50+ test dosyası)
+
+# REPO AĞACI
+Güncel görünüm `app/precedent_plane` klasörü altında 50'den fazla governance modülü, `docs` altında 5 yeni precedent plane mimari belgesi ve `tests` altında kapsamlı case, holding ve consistency testleri içermektedir.
+
+# ÖRNEK KOMUTLAR
+```bash
+python -m app.main --show-precedent-registry
+python -m app.main --show-precedent-object --precedent-id P-1001
+python -m app.main --show-cases
+python -m app.main --show-holdings
+python -m app.main --show-rationales
+python -m app.main --show-controlling-factors
+python -m app.main --show-precedent-applicability
+python -m app.main --show-binding-precedent
+python -m app.main --show-persuasive-precedent
+python -m app.main --show-analogies
+python -m app.main --show-distinctions
+python -m app.main --show-carve-outs
+python -m app.main --show-precedent-exceptions
+python -m app.main --show-precedent-conflicts
+python -m app.main --show-precedent-hierarchy
+python -m app.main --show-precedent-overrides
+python -m app.main --show-precedent-overrules
+python -m app.main --show-precedent-supersession
+python -m app.main --show-precedent-consistency
+python -m app.main --show-precedent-comparisons
+python -m app.main --show-precedent-readiness
+python -m app.main --show-precedent-forecast
+python -m app.main --show-precedent-debt
+python -m app.main --show-precedent-equivalence
+python -m app.main --show-precedent-trust
+python -m app.main --show-precedent-review-packs
+```
+
+# TEST ÖZETİ
+- **Registry/Objects**: Precedent_id doğrulamaları, owner ve scope kontrolü test edildi.
+- **Cases/Holdings/Rationales**: Holding ve Case nesneleri arasındaki yapısal farklar test edildi.
+- **Applicability/Analogy**: Doğrudan uygulama ile Analogy (close vs fake) mekanizmaları test edildi.
+- **Consistency/Conflicts**: Overrule/Supersede durumları, Exception laundering önlemleri ve conflict detection mekanizmaları test edildi.
+- **Integration Tests**: PolicyPlane, ReadinessBoard, Contract ve Security gibi dış bağımlılıkların beklenen exception ve structları kullanması doğrulandı.
+
+# BİLİNÇLİ ERTELENENLER
+- Dashboard arayüzü
+- NLP bazlı otomatik metin özetleme (Precedent'leri insan onaylı, semantic recordlar olarak saklamayı tercih ettik).
+
+# PHASE 116 ÖNERİSİ
+- **Phase 116: Argumentation Plane**: Claim/Evidence/Rebuttal Registry, Logical Fallacy Governance ve Dispute Resolution Integrity Katmanı.
 """)

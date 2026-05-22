@@ -1,4 +1,14 @@
-class ContextIntegration:
-    def update_context(self):
-        # remedy posture, active residual harms, delayed compensation, recourse exposure ve sufficiency burden context’e eklensin
-        pass
+class PolicyContext:
+    def __init__(self):
+        self.precedent_posture = None
+        self.active_conflicts = []
+        self.stale_analogies = []
+
+
+class PrecedentContext:
+    def __init__(self):
+        self.precedent_posture = None
+        self.active_conflicts = []
+        self.stale_analogies = []
+        self.exception_inflation = False
+        self.rationale_coverage = []

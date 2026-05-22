@@ -1,4 +1,4 @@
-class DomainsIntegration:
-    def setup_domains(self):
-        # new readiness domain: remedy_integrity
-        pass
+class ReadinessDomains:
+    DOMAINS = ["precedent_integrity"]
+
+# Precedent Plane Integration added

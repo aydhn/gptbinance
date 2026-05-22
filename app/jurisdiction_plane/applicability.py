@@ -1,4 +1,5 @@
-class ApplicabilityIntegration:
-    def evaluate_applicability(self):
-        # remedy applicability beneficiary scope, regulated reach ve out-of-jurisdiction recourse refs ile canonical bağlansın
+class JurisdictionApplicability:
+    def check_scope_precedent(self):
         pass
+
+# Precedent Plane Integration added

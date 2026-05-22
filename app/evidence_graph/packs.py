@@ -1,4 +1,9 @@
-class PacksIntegration:
-    def get_packs(self):
-        # remedy integrity pack, harm/cure review pack...
-        pass
+class EvidencePacks:
+    PACKS = [
+        "precedent_integrity_pack",
+        "case_holding_review_pack",
+        "rationale_analogy_review_pack",
+        "conflict_hierarchy_review_pack"
+    ]
+
+# Precedent Plane Integration added

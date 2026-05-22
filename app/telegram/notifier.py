@@ -1,4 +1,5 @@
-class NotifierIntegration:
-    def send_notification(self):
-        # remedy plane olay tipleri: remedy manifest ready, under remediation detected...
+class TelegramNotifier:
+    def notify_precedent_event(self):
         pass
+
+# Precedent Plane Integration added

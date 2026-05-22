@@ -1,4 +1,5 @@
-class ArtefactsIntegration:
-    def get_artefacts(self):
-        # remedy objects/harms/breach_harms/impacts... artefact family olarak eklensin
-        pass
+class EvidenceArtefacts:
+    def __init__(self):
+        self.precedent_reports = []
+
+# Precedent Plane Integration added

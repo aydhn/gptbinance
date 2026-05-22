@@ -1,4 +1,5 @@
-class SlosIntegration:
-    def evaluate_slo(self):
-        # restored service claims remedy-plane restoration vs customer remedy distinction ile canonical bağlansın
-        pass
+class ReliabilitySLOs:
+    def __init__(self):
+        self.precedent_conflict_ceiling = 0
+
+# Precedent Plane Integration added

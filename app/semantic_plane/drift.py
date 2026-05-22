@@ -1,13 +1,10 @@
-from typing import Dict, List
-from app.semantic_plane.models import SemanticDriftRecord
+from typing import Dict, Any
 
-class DriftManager:
-    def __init__(self, registry):
-        self.registry = registry
-        self.drifts: Dict[str, SemanticDriftRecord] = {}
-
-    def register_drift(self, drift: SemanticDriftRecord):
-        self.drifts[drift.drift_id] = drift
-
-    def get_critical_drifts(self) -> List[SemanticDriftRecord]:
-        return [d for d in self.drifts.values() if d.severity.lower() == "critical"]
+class SemanticDrift:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        result = {"status": "ok"}
+        if context.get("threshold_reinterpretation") or context.get("alias_laundering"):
+            result["status"] = "blocker"
+            result["reason"] = "semantic_drift_with_exploit_incentive"
+        return result

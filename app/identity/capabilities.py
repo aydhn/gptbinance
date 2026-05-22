@@ -1,4 +1,10 @@
-# epistemic review capabilities
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class Capabilities:
+    @staticmethod
+    def get_capabilities() -> List[str]:
+        return [
+            "inspect_adversarial_manifest",
+            "review_exploit_surfaces",
+            "review_gaming_and_evasion_patterns"
+        ]

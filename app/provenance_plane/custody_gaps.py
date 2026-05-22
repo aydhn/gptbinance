@@ -1,10 +1,10 @@
-from typing import List, Dict, Any
-from .registry import registry
-from .exceptions import CustodyViolation
+from typing import Dict, Any
 
-def check_custody_gaps(obj_id: str) -> str:
-    obj = registry.get(obj_id)
-    if not obj: return 'UNKNOWN'
-    if obj.get("custody_gap", False) is True:
-        raise CustodyViolation(f"Critical custody gap found in {obj_id}")
-    return 'LOW'
+class CustodyGaps:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        result = {"status": "ok"}
+        if context.get("manual_edit") or context.get("hidden_lineage"):
+            result["status"] = "caution"
+            result["reason"] = "custody_gap_under_exploit_incentive"
+        return result

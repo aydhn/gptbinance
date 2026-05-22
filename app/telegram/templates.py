@@ -1,4 +1,6 @@
-# epistemic templates
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class TelegramTemplates:
+    @staticmethod
+    def get_template(template_name: str) -> str:
+        return f"Template: {template_name}"

@@ -1,7 +1,8 @@
-class ReleaseRollout:
-    def check_temporal_ordering(self, t_ref):
-        return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
 
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+class Rollouts:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("anomaly_suppression"):
+            return {"status": "anomaly", "reason": "rollout_success_under_suspicious_anomaly_suppression"}
+        return {"status": "ok"}

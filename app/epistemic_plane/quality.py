@@ -1,6 +1,10 @@
-from app.epistemic_plane.models import *
-from app.epistemic_plane.exceptions import *
+from typing import Dict, Any
 
-class QualityManager:
-    def check_quality(self, epistemic_id: str):
-        pass
+class EpistemicQuality:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        result = {"status": "ok"}
+        if context.get("unsupported_certainty") or context.get("contradiction_burial"):
+            result["status"] = "caution"
+            result["reason"] = "epistemically_weak_but_strategically_convenient"
+        return result

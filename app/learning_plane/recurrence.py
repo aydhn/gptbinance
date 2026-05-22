@@ -1,5 +1,8 @@
-from app.learning_plane.models import RecurrenceRecord
-from app.learning_plane.storage import storage
+from typing import Dict, Any
 
-def create_recurrence(rec: RecurrenceRecord):
-    storage.save_recurrence(rec)
+class LearningRecurrence:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("exploit_normalization"):
+            return {"status": "caution", "reason": "repeated_exploit_like_pattern_without_adversarial_learning"}
+        return {"status": "ok"}

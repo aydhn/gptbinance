@@ -1,10 +1,10 @@
-# reordering implementation for temporal plane
-from app.temporal_plane.models import *
-from app.temporal_plane.enums import *
-from app.temporal_plane.exceptions import *
+from typing import Dict, Any
 
-class ReorderingManager:
-    def __init__(self):
-        pass
-    def evaluate(self, ref: TemporalObjectRef) -> dict:
-        return {"status": "ok"}
+class TemporalReordering:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        result = {"status": "ok"}
+        if context.get("harmful_reorder") or context.get("stale_as_fresh"):
+            result["status"] = "caution"
+            result["reason"] = "benign_looking_but_exploitable_reorder"
+        return result

@@ -1,4 +1,8 @@
-# epistemic trust bundles
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class ReadinessEvidence:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("critical_adversarial_integrity_failures"):
+            return {"status": "blocker", "reason": "critical_adversarial_integrity_failures"}
+        return {"status": "ready"}

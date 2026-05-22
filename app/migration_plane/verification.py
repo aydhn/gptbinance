@@ -1,7 +1,8 @@
-class MigrationVerification:
-    def check_acceptance_window(self, t_ref):
-        return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
 
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+class MigrationVerification:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("migration_acceptance_masking"):
+            return {"status": "caution", "reason": "migration_complete_claim_under_adversarial_narrative_gap"}
+        return {"status": "ok"}

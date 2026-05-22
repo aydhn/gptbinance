@@ -1,7 +1,8 @@
-class ReleaseReadiness:
-    def verify_temporal_posture(self, t_ref):
-        return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
 
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+class ReleaseReadiness:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("canary_theater") or context.get("rollout_masking"):
+            return {"status": "blocker", "reason": "release_ready_under_exploitable_canary_semantics"}
+        return {"status": "ok"}

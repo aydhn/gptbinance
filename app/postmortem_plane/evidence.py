@@ -1,4 +1,8 @@
-# epistemic evidence exports
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class PostmortemEvidence:
+    @staticmethod
+    def get_bundles(context: Dict[str, Any]) -> Dict[str, Any]:
+        return {
+            "adversarial_refs": context.get("adversarial_refs", [])
+        }

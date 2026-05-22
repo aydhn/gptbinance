@@ -1,5 +1,8 @@
-from app.constitution_plane.models import WaiverRecord
+from typing import Dict, Any
 
-class WaiverManager:
-    def check_waiver_freshness(self, waiver: WaiverRecord) -> bool:
-        return not waiver.is_stale
+class Waivers:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("waiver_farming"):
+            return {"status": "blocker", "reason": "waiver_granted_under_exploit_pattern"}
+        return {"status": "ok"}

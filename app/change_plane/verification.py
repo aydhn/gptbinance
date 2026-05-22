@@ -1,7 +1,8 @@
-class ChangeVerification:
-    def ensure_observation_duration(self, t_ref):
-        return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
 
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+class ChangeVerification:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("verification_theater"):
+            return {"status": "caution", "reason": "verified_claim_under_exploitable_shortcut"}
+        return {"status": "ok"}

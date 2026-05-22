@@ -1,4 +1,8 @@
-# integration with epistemic claim posture
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+from typing import Dict, Any
+
+class RiskLimits:
+    @staticmethod
+    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
+        if context.get("exposure_understatement"):
+            return {"status": "caution", "reason": "risk_number_improved_under_exploitable_metric_semantics"}
+        return {"status": "ok"}

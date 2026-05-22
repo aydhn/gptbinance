@@ -1,10 +1,8 @@
-from typing import Dict, Any
-
-class Alerts:
-    @staticmethod
-    def get_alert_families() -> List[str]:
-        return [
-            "material_exploit_surface_detected",
-            "metric_gaming_detected",
-            "review_evasion_detected"
-        ]
+COMMITMENT_ALERTS = [
+    "binding_breach_detected",
+    "ownerless_critical_commitment_detected",
+    "silent_deadline_extension_detected",
+    "weak_backing_external_promise_detected",
+    "commitment_discharge_invalid",
+    "commitment_review_required"
+]

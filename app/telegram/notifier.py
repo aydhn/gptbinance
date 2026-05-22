@@ -1,5 +1,7 @@
-from typing import Dict, Any
-
-class TelegramNotifier:
-    def send_notification(self, event_type: str, details: Dict[str, Any]):
-        pass
+COMMITMENT_TELEGRAM_EVENTS = [
+    "commitment manifest ready",
+    "binding breach detected",
+    "ownerless critical commitment detected",
+    "invalid discharge detected",
+    "commitment review required"
+]

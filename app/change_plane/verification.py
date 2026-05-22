@@ -1,8 +1,2 @@
-from typing import Dict, Any
-
-class ChangeVerification:
-    @staticmethod
-    def evaluate(context: Dict[str, Any]) -> Dict[str, Any]:
-        if context.get("verification_theater"):
-            return {"status": "caution", "reason": "verified_claim_under_exploitable_shortcut"}
-        return {"status": "ok"}
+def link_verification_to_commitments():
+    return {"status": "linked", "warning": "verified change under undischarged emergency commitment explicit caution"}

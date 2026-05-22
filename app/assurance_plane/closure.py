@@ -1,4 +1,2 @@
-# Integrated with state_plane
-class AssuranceClosureManager:
-    def verify_closure(self, finding_id: str):
-        pass
+def link_closure_to_commitments():
+    return {"status": "linked", "warning": "control closed but commitment not discharged explicit caution"}

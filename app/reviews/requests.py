@@ -1,10 +1,1 @@
-from typing import Dict, Any
-
-class ReviewRequests:
-    @staticmethod
-    def get_classes() -> List[str]:
-        return [
-            "adversarial_integrity_review",
-            "exploit_surface_review",
-            "gaming_review"
-        ]
+COMMITMENT_REVIEWS = ["commitment_integrity_review", "binding_strength_review", "owner_accountability_review", "breach_relief_review", "guarantee_scope_review", "discharge_review"]

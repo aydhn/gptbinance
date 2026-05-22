@@ -1,6 +1,8 @@
-from typing import Dict, Any
-
-class TelegramTemplates:
-    @staticmethod
-    def get_template(template_name: str) -> str:
-        return f"Template: {template_name}"
+COMMITMENT_TEMPLATES = {
+    "manifest_ready": "Commitment manifest ready.",
+    "binding_breach": "Binding breach detected.",
+    "ownerless": "Ownerless critical commitment detected.",
+    "invalid_discharge": "Invalid discharge detected.",
+    "review_required": "Commitment review required.",
+    "summary": "Commitment summary digest."
+}

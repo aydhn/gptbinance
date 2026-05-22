@@ -1,11 +1,2 @@
-# app/epistemic_plane/claims.py
-from app.epistemic_plane.models import *
-from app.epistemic_plane.exceptions import *
-
-class ClaimsManager:
-    def evaluate(self, *args, **kwargs):
-        return "integrated_with_tradeoff_plane_refs"
-
-# Added by Tradeoff Plane (Phase 109)
-def integrate_tradeoff_plane():
-    return "integrated_with_tradeoff_plane_refs"
+def link_claims_to_commitments():
+    return {"status": "linked", "warning": "commitment-sounding claim without binding semantics explicit caution"}

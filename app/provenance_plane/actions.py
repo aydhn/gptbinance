@@ -1,4 +1,2 @@
-from .registry import registry
-def check_action_lineage(action_id: str):
-    obj = registry.get(action_id)
-    return bool(obj and obj.get("action_type"))
+def link_actions_to_commitments():
+    return {"status": "linked", "warning": "commitment event without accountable actor explicit anomaly"}

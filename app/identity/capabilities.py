@@ -1,10 +1,7 @@
-from typing import Dict, Any
-
-class Capabilities:
-    @staticmethod
-    def get_capabilities() -> List[str]:
-        return [
-            "inspect_adversarial_manifest",
-            "review_exploit_surfaces",
-            "review_gaming_and_evasion_patterns"
-        ]
+COMMITMENT_CAPABILITIES = [
+    "inspect_commitment_manifest",
+    "review_binding_strength",
+    "review_owners_and_accountability",
+    "review_breaches_and_reliefs",
+    "review_guarantees_and_discharges"
+]

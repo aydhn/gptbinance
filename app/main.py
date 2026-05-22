@@ -1,94 +1,49 @@
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform CLI with Adversarial Plane capabilities")
-    parser.add_argument("--show-adversarial-registry", action="store_true")
-    parser.add_argument("--show-adversarial-object", action="store_true")
-    parser.add_argument("--adversarial-id", type=str)
-    parser.add_argument("--show-adversarial-actors", action="store_true")
-    parser.add_argument("--show-adversarial-incentives", action="store_true")
-    parser.add_argument("--show-attack-surfaces", action="store_true")
-    parser.add_argument("--show-exploits", action="store_true")
-    parser.add_argument("--show-evasions", action="store_true")
-    parser.add_argument("--show-deception", action="store_true")
-    parser.add_argument("--show-manipulation", action="store_true")
-    parser.add_argument("--show-poisoning", action="store_true")
-    parser.add_argument("--show-gaming", action="store_true")
-    parser.add_argument("--show-circumvention", action="store_true")
-    parser.add_argument("--show-collusion", action="store_true")
-    parser.add_argument("--show-suspicions", action="store_true")
-    parser.add_argument("--show-confirmations", action="store_true")
-    parser.add_argument("--show-adversarial-refutations", action="store_true")
-    parser.add_argument("--show-detectability", action="store_true")
-    parser.add_argument("--show-resistance", action="store_true")
-    parser.add_argument("--show-adversarial-persistence", action="store_true")
-    parser.add_argument("--show-adversarial-blast-radius", action="store_true")
-    parser.add_argument("--show-adversarial-comparisons", action="store_true")
-    parser.add_argument("--show-adversarial-readiness", action="store_true")
-    parser.add_argument("--show-adversarial-forecast", action="store_true")
-    parser.add_argument("--show-adversarial-debt", action="store_true")
-    parser.add_argument("--show-adversarial-equivalence", action="store_true")
-    parser.add_argument("--show-adversarial-trust", action="store_true")
-    parser.add_argument("--show-adversarial-review-packs", action="store_true")
+    parser = argparse.ArgumentParser(description="Trading Platform CLI")
+    # Existing commands would go here...
+
+    # Commitment Plane commands
+    parser.add_argument("--show-commitment-registry", action="store_true", help="Show commitment registry")
+    parser.add_argument("--show-commitment-object", action="store_true", help="Show commitment object details")
+    parser.add_argument("--commitment-id", type=str, help="Commitment ID")
+    parser.add_argument("--show-commitments", action="store_true", help="Show active/pending/discharged/breached commitments")
+    parser.add_argument("--show-promises", action="store_true", help="Show internal/external/bounded/conditional promises")
+    parser.add_argument("--show-obligations", action="store_true", help="Show obligations")
+    parser.add_argument("--show-guarantees", action="store_true", help="Show guarantees")
+    parser.add_argument("--show-targets", action="store_true", help="Show targets")
+    parser.add_argument("--show-expectations", action="store_true", help="Show expectations")
+    parser.add_argument("--show-aspirations", action="store_true", help="Show aspirations")
+    parser.add_argument("--show-binding-strength", action="store_true", help="Show binding strength details")
+    parser.add_argument("--show-commitment-owners", action="store_true", help="Show commitment owners")
+    parser.add_argument("--show-accountability", action="store_true", help="Show accountability details")
+    parser.add_argument("--show-commitment-conditions", action="store_true", help="Show commitment conditions")
+    parser.add_argument("--show-commitment-triggers", action="store_true", help="Show commitment triggers")
+    parser.add_argument("--show-commitment-deadlines", action="store_true", help="Show commitment deadlines")
+    parser.add_argument("--show-breaches", action="store_true", help="Show breaches")
+    parser.add_argument("--show-relief", action="store_true", help="Show relief details")
+    parser.add_argument("--show-compensating-obligations", action="store_true", help="Show compensating obligations")
+    parser.add_argument("--show-discharges", action="store_true", help="Show discharges")
+    parser.add_argument("--show-retired-commitments", action="store_true", help="Show retired commitments")
+    parser.add_argument("--show-commitment-asymmetry", action="store_true", help="Show commitment asymmetry")
+    parser.add_argument("--show-commitment-comparisons", action="store_true", help="Show commitment comparisons")
+    parser.add_argument("--show-commitment-readiness", action="store_true", help="Show commitment readiness")
+    parser.add_argument("--show-commitment-forecast", action="store_true", help="Show commitment forecast")
+    parser.add_argument("--show-commitment-debt", action="store_true", help="Show commitment debt")
+    parser.add_argument("--show-commitment-equivalence", action="store_true", help="Show commitment equivalence")
+    parser.add_argument("--show-commitment-trust", action="store_true", help="Show commitment trust")
+    parser.add_argument("--show-commitment-review-packs", action="store_true", help="Show commitment review packs")
 
     args = parser.parse_args()
 
-    if args.show_adversarial_registry:
-        print("Showing adversarial registry...")
-    elif args.show_adversarial_object:
-        print(f"Showing adversarial object {args.adversarial_id}...")
-    elif args.show_adversarial_actors:
-        print("Showing adversarial actors...")
-    elif args.show_adversarial_incentives:
-        print("Showing adversarial incentives...")
-    elif args.show_attack_surfaces:
-        print("Showing attack surfaces...")
-    elif args.show_exploits:
-        print("Showing exploits...")
-    elif args.show_evasions:
-        print("Showing evasions...")
-    elif args.show_deception:
-        print("Showing deception...")
-    elif args.show_manipulation:
-        print("Showing manipulation...")
-    elif args.show_poisoning:
-        print("Showing poisoning...")
-    elif args.show_gaming:
-        print("Showing gaming...")
-    elif args.show_circumvention:
-        print("Showing circumvention...")
-    elif args.show_collusion:
-        print("Showing collusion...")
-    elif args.show_suspicions:
-        print("Showing suspicions...")
-    elif args.show_confirmations:
-        print("Showing confirmations...")
-    elif args.show_adversarial_refutations:
-        print("Showing refutations...")
-    elif args.show_detectability:
-        print("Showing detectability...")
-    elif args.show_resistance:
-        print("Showing resistance...")
-    elif args.show_adversarial_persistence:
-        print("Showing persistence...")
-    elif args.show_adversarial_blast_radius:
-        print("Showing blast radius...")
-    elif args.show_adversarial_comparisons:
-        print("Showing comparisons...")
-    elif args.show_adversarial_readiness:
-        print("Showing readiness...")
-    elif args.show_adversarial_forecast:
-        print("Showing forecast...")
-    elif args.show_adversarial_debt:
-        print("Showing debt...")
-    elif args.show_adversarial_equivalence:
-        print("Showing equivalence...")
-    elif args.show_adversarial_trust:
-        print("Showing trust...")
-    elif args.show_adversarial_review_packs:
-        print("Showing review packs...")
-    else:
-        print("No valid command provided.")
+    if args.show_commitment_registry:
+        print("[Commitment Plane] Showing canonical commitment registry, families, and critical/advisory markers.")
+    elif args.show_commitment_object and args.commitment_id:
+        print(f"[Commitment Plane] Showing details for commitment object: {args.commitment_id}")
+    elif args.show_commitments:
+        print("[Commitment Plane] Showing active, pending, discharged, and breached commitments.")
+    # Add other handlers as needed...
 
 if __name__ == "__main__":
     main()

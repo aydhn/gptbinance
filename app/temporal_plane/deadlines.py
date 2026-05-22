@@ -1,10 +1,2 @@
-# deadlines implementation for temporal plane
-from app.temporal_plane.models import *
-from app.temporal_plane.enums import *
-from app.temporal_plane.exceptions import *
-
-class DeadlinesManager:
-    def __init__(self):
-        pass
-    def evaluate(self, ref: TemporalObjectRef) -> dict:
-        return {"status": "ok"}
+def link_deadlines_to_commitments():
+    return {"status": "linked", "warning": "deadline exists but no breach semantics explicit caution"}

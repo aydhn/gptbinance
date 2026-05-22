@@ -1,6 +1,2 @@
-from typing import Dict, Any, List
-
-class ArtefactFamilies:
-    @staticmethod
-    def get_families() -> List[str]:
-        return ["adversarial_objects", "adversarial_actors", "adversarial_trust_reports"]
+COMMITMENT_ARTEFACT_FAMILIES = ["commitment_objects", "promises", "obligations", "guarantees"]
+COMMITMENT_RELATIONS = ["committed_by", "obligated_under", "guaranteed_to", "breached_by", "relieved_under", "discharged_by", "diverged_commitment_from"]

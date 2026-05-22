@@ -4,7 +4,8 @@
 
 def verify_contract_compliance():
     # Placeholder for strict contract compliance
-    return True\n
+    return True
+
 # Scenario extensions
 
 # Scenario extensions

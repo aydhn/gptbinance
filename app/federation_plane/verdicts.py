@@ -1,2 +1,4 @@
-def link_verdicts_to_commitments():
-    return {"status": "linked", "warning": "local promise backed by weak federated commitment explicit blocker"}
+class VerdictsIntegration:
+    def evaluate_verdict(self):
+        # shared-service harm, partner-caused defect ve federated compensation reach remedy refs taşısın
+        pass

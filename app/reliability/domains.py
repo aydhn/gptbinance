@@ -1,1 +1,4 @@
-COMMITMENT_DOMAIN = "commitment_integrity"
+class ReliabilityDomainsIntegration:
+    def setup_domains(self):
+        # new reliability domain: remedy_integrity
+        pass

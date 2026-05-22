@@ -1,2 +1,4 @@
-def link_readiness_to_commitments():
-    return {"status": "linked", "warning": "release ready label under ownerless commitment blocker"}
+class ReleaseReadinessIntegration:
+    def evaluate_readiness(self):
+        # rollback, customer impact remedy, migration assist ve residual harm refs olmadan trusted sayılmasın
+        pass

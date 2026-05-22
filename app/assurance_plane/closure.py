@@ -1,2 +1,4 @@
-def link_closure_to_commitments():
-    return {"status": "linked", "warning": "control closed but commitment not discharged explicit caution"}
+class ClosureIntegration:
+    def evaluate_closure(self):
+        # closure claims past-harm remedy, control hardening vs redress distinction ve residual harm refs gerektirsin
+        pass

@@ -1,2 +1,4 @@
-def link_verification_to_commitments():
-    return {"status": "linked", "warning": "verified change under undischarged emergency commitment explicit caution"}
+class VerificationIntegration:
+    def evaluate_verification(self):
+        # emergency-change aftermath remedy, control repair ve customer/operator redress refs gerektirsin
+        pass

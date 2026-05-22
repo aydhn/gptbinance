@@ -1,2 +1,4 @@
-def link_justifications_to_commitments():
-    return {"status": "linked", "warning": "justified tradeoff but unbacked commitment explicit caution"}
+class JustificationIntegration:
+    def justify_tradeoff(self):
+        # harm-cost tradeoffs remedy-plane proportionality ve affected-party remedy refs gerektirsin
+        pass

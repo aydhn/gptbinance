@@ -1,2 +1,4 @@
-COMMITMENT_ARTEFACT_FAMILIES = ["commitment_objects", "promises", "obligations", "guarantees"]
-COMMITMENT_RELATIONS = ["committed_by", "obligated_under", "guaranteed_to", "breached_by", "relieved_under", "discharged_by", "diverged_commitment_from"]
+class ArtefactsIntegration:
+    def get_artefacts(self):
+        # remedy objects/harms/breach_harms/impacts... artefact family olarak eklensin
+        pass

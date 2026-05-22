@@ -1,7 +1,4 @@
-COMMITMENT_TELEGRAM_EVENTS = [
-    "commitment manifest ready",
-    "binding breach detected",
-    "ownerless critical commitment detected",
-    "invalid discharge detected",
-    "commitment review required"
-]
+class NotifierIntegration:
+    def send_notification(self):
+        # remedy plane olay tipleri: remedy manifest ready, under remediation detected...
+        pass

@@ -1,5 +1,9 @@
-# liability_integrity domain added
+def evaluate_interpretation_integrity_readiness(interpretation_registry) -> dict:
+    objs = interpretation_registry.get_all()
+    unresolved_ambiguities = sum(1 for o in objs for a in o.ambiguities.values() if not a.is_resolved)
 
-
-def evaluate_rights_integrity_domain(rights_registry):
-    return "ready"
+    return {
+        "domain": "interpretation_integrity",
+        "status": "CAUTION" if unresolved_ambiguities > 0 else "GREEN",
+        "unresolved_ambiguities": unresolved_ambiguities
+    }

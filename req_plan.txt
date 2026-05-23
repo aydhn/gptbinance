@@ -1,7 +1,7 @@
-1. Write a script `build_phase_113.py` to generate the new files for `app/jurisdiction_plane`, update existing integration files, add the required tests, and add the docs.
-2. The script will create stub classes/enums/models as requested.
-3. For integrations (e.g. `app/policy_plane/evaluations.py`, `app/main.py`), the script will append or insert the necessary code.
-4. Run the script and fix any flake8 or pytest issues.
-5. Create `app/jurisdiction_plane/__init__.py`.
-6. Pre-commit check.
-7. Submit.
+1. Implement the Representation Plane components based on `app/representation_plane/models.py`, `enums.py`, `trust.py`, etc., adding necessary objects like Clarifications, Corrections, and Retractions.
+2. Connect them all to `registry.py` and other files like `audiences.py`, `materiality.py`, etc.
+3. Enhance `app/main.py` to add CLI commands (e.g. `--show-statements`, `--show-disclosures`).
+4. Update integration files (`rights.py`, `liability.py`, etc.) inside `app/rights_plane`, `app/liability_plane`, etc. to utilize the new representation concepts.
+5. Create all necessary tests inside `tests/` focusing on testing registry, trust engine, equivalence, debt, integrations, and adversarial issues.
+6. Run the tests.
+7. Finish and summarize.

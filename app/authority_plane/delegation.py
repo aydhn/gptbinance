@@ -29,3 +29,10 @@ class DelegationManager:
 
     def get_silent(self) -> List[DelegationRecord]:
         return [r for r in self.records.values() if r.class_type == DelegationClass.SILENT]
+
+
+def check_waiver_authority_rights(action: str, standing_ref: str, rights_registry) -> str:
+    """Verifies if a representative has valid standing to waive rights."""
+    if not standing_ref or not rights_registry.is_standing_valid(standing_ref):
+        return "explicit caution: waived right by non-authorized representative"
+    return "trusted"

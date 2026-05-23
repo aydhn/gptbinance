@@ -1,0 +1,2 @@
+# Integrations
+Blocker/caution semantics.

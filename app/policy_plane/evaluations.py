@@ -9,3 +9,9 @@ class PrecedentIntegrations:
         return {"obligations": [], "deny": False}
     def produce_obligations(self):
         pass
+
+
+def evaluate_high_risk_rights_action(action, rights_registry):
+    if rights_registry.has_open_beneficiary_claims(action.get("id", "")):
+        return {"status": "deny", "reason": "invalid standing or surviving challenge right"}
+    return {"status": "allow"}

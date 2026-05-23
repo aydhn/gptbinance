@@ -12,3 +12,9 @@ class PromiseManager:
             caveats=caveats,
             lineage_refs=[]
         )
+
+
+def verify_promise_beneficiary(promise_id: str, beneficiary_id: str, rights_registry) -> str:
+    if not rights_registry.is_beneficiary_recognized(beneficiary_id):
+        return "explicit caution: promise fulfilled claim under unrecognized beneficiary right"
+    return "trusted"

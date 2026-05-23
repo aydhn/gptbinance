@@ -1,0 +1,11 @@
+class InterpretationPlaneError(Exception): pass
+class InvalidInterpretationObject(InterpretationPlaneError): pass
+class InvalidReading(InterpretationPlaneError): pass
+class InvalidAmbiguityClassification(InterpretationPlaneError): pass
+class InvalidClarification(InterpretationPlaneError): pass
+class InvalidCanonicalization(InterpretationPlaneError): pass
+class InvalidDriftHandling(InterpretationPlaneError): pass
+class AmbiguityLaunderingViolation(InterpretationPlaneError): pass
+class InterpretationStorageError(InterpretationPlaneError): pass
+class SilentReinterpretationViolation(InterpretationPlaneError): pass
+class BeneficiaryErasingConstructionViolation(InterpretationPlaneError): pass

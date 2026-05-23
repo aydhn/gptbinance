@@ -7,3 +7,7 @@ class EvidencePacks:
     ]
 
 # Precedent Plane Integration added
+
+class EvidencePack:
+    def __init__(self):
+        self.authority_packs = ['authority integrity pack', 'mandate/right review pack', 'delegation/override review pack', 'ratification/quorum review pack']

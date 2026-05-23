@@ -3,3 +3,7 @@ class ObservabilityDiagnostics:
         pass
 
 # Precedent Plane Integration added
+
+class ObservabilityDiagnostic:
+    def __init__(self):
+        self.authority_diagnostic_signals = ['shadow authority', 'title inflation', 'ratification laundering', 'quorum theater', 'advisory-to-binding drift']

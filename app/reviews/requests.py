@@ -9,3 +9,8 @@ class ReviewRequests:
     ]
 
 # Precedent Plane Integration added
+
+class ReviewRequest:
+    def __init__(self):
+        self.canonical_review_classes = ['authority_integrity_review', 'mandate_decision_right_review', 'delegation_override_review', 'ratification_legitimacy_review', 'quorum_sod_review', 'authority_portability_review']
+        self.authority_plane_evidence_suitability_metadata = None

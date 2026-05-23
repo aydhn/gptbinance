@@ -9,3 +9,7 @@ class TelegramTemplates:
     ]
 
 # Precedent Plane Integration added
+
+class TelegramTemplate:
+    def __init__(self):
+        self.authority_templates = ['authority manifest ready', 'wrong scope approval detected', 'shadow authority detected', 'invalid override detected', 'authority review required', 'authority summary digest']

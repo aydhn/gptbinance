@@ -1,0 +1,7 @@
+class RepresentationPlaneError(Exception): pass
+class InvalidRepresentationObjectError(RepresentationPlaneError): pass
+class InvalidDisclosureError(RepresentationPlaneError): pass
+class InvalidAttestationError(RepresentationPlaneError): pass
+class MaterialOmissionViolation(RepresentationPlaneError): pass
+class RepresentationStorageError(RepresentationPlaneError): pass
+class DisclaimerLaunderingDetected(RepresentationPlaneError): pass

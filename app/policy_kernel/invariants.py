@@ -1,9 +1,7 @@
-# liability invariants
-
-
-RIGHTS_INVARIANTS = [
-    "No trusted high-risk action, closure or settlement may be emitted while material beneficiary rights remain unresolved in eligible scopes",
-    "No consent, waiver or representation event may expand scope or extinguish rights beyond its explicit holder, beneficiary, purpose and duration boundaries",
-    "No notice, refund, rollback or support action may be treated as full right exhaustion without explicit challenge, survival and remedy-right analysis",
-    "No constitutional, contractual or compliance-safe claim may stand while inalienable, non-waivable or surviving beneficiary rights remain materially impaired"
+# Policy Invariants for Representation Plane
+REPRESENTATION_INVARIANTS = [
+    "No trusted high-risk action may be emitted while material representation defects remain.",
+    "No disclaimer or caveat may hide a material omission or stale factual basis.",
+    "No correction is complete until downstream authoritative copies are updated.",
+    "No compliance-safe claim may stand if the attestation lacks rightful issuer or freshness."
 ]

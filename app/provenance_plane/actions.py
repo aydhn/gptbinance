@@ -14,3 +14,9 @@ class ProvenanceAction:
         self.override_refs = []
         self.ratification_refs = []
         self.authority_expiration_refs = []
+
+
+def verify_rights_action_provenance(action_id: str, rights_registry) -> str:
+    if not rights_registry.has_accountable_grantor(action_id):
+        return "explicit anomaly: rights action without accountable grantor/representative"
+    return "trusted"

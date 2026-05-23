@@ -10,3 +10,9 @@ class AutonomousExecution:
         self.approval_refs = []
         self.halt_authority_refs = []
         self.takeover_authority_refs = []
+
+
+def check_autonomous_challenge_rights(action_id: str, rights_registry) -> str:
+    if not rights_registry.challenge_rights_resolved(action_id):
+        return "explicit caution: autonomous action completed but rights to challenge unresolved"
+    return "trusted"

@@ -33,6 +33,42 @@ def main():
     parser.add_argument("--show-liability-trust", action="store_true", help="Show trust verdicts")
     parser.add_argument("--show-liability-review-packs", action="store_true", help="Show review packs")
 
+
+    # Rights Plane Args
+    parser.add_argument('--show-rights-registry', action='store_true')
+    parser.add_argument('--show-rights-object', action='store_true')
+    parser.add_argument('--rights-id', type=str)
+    parser.add_argument('--show-rights', action='store_true')
+    parser.add_argument('--show-entitlements', action='store_true')
+    parser.add_argument('--show-claims', action='store_true')
+    parser.add_argument('--show-standing', action='store_true')
+    parser.add_argument('--show-beneficiaries', action='store_true')
+    parser.add_argument('--show-rights-holders', action='store_true')
+    parser.add_argument('--show-representatives', action='store_true')
+    parser.add_argument('--show-delegated-claims', action='store_true')
+    parser.add_argument('--show-consents', action='store_true')
+    parser.add_argument('--show-consent-scope', action='store_true')
+    parser.add_argument('--show-withdrawals', action='store_true')
+    parser.add_argument('--show-revocations', action='store_true')
+    parser.add_argument('--show-waivers', action='store_true')
+    parser.add_argument('--show-inalienable-rights', action='store_true')
+    parser.add_argument('--show-access-rights', action='store_true')
+    parser.add_argument('--show-use-rights', action='store_true')
+    parser.add_argument('--show-notice-rights', action='store_true')
+    parser.add_argument('--show-remedy-rights', action='store_true')
+    parser.add_argument('--show-challenge-rights', action='store_true')
+    parser.add_argument('--show-portability-rights', action='store_true')
+    parser.add_argument('--show-rights-exhaustion', action='store_true')
+    parser.add_argument('--show-rights-survival', action='store_true')
+    parser.add_argument('--show-rights-conflicts', action='store_true')
+    parser.add_argument('--show-rights-comparisons', action='store_true')
+    parser.add_argument('--show-rights-readiness', action='store_true')
+    parser.add_argument('--show-rights-forecast', action='store_true')
+    parser.add_argument('--show-rights-debt', action='store_true')
+    parser.add_argument('--show-rights-equivalence', action='store_true')
+    parser.add_argument('--show-rights-trust', action='store_true')
+    parser.add_argument('--show-rights-review-packs', action='store_true')
+
     args = parser.parse_args()
 
     if args.show_liability_registry:
@@ -96,6 +132,76 @@ def main():
         print("[Liability Plane] Displaying trust verdicts...")
     elif args.show_liability_review_packs:
         print("[Liability Plane] Displaying review packs...")
+
+    # Rights Plane Logic
+    elif args.show_rights_registry:
+        print("[Rights Plane] Displaying rights registry...")
+    elif args.show_rights_object:
+        if args.rights_id:
+            print(f"[Rights Plane] Displaying rights object: {args.rights_id}")
+        else:
+            print("Error: --rights-id required")
+    elif args.show_rights:
+        print("[Rights Plane] Displaying rights...")
+    elif args.show_entitlements:
+        print("[Rights Plane] Displaying entitlements...")
+    elif args.show_claims:
+        print("[Rights Plane] Displaying claims...")
+    elif args.show_standing:
+        print("[Rights Plane] Displaying standing...")
+    elif args.show_beneficiaries:
+        print("[Rights Plane] Displaying beneficiaries...")
+    elif args.show_rights_holders:
+        print("[Rights Plane] Displaying rights holders...")
+    elif args.show_representatives:
+        print("[Rights Plane] Displaying representatives...")
+    elif args.show_delegated_claims:
+        print("[Rights Plane] Displaying delegated claims...")
+    elif args.show_consents:
+        print("[Rights Plane] Displaying consents...")
+    elif args.show_consent_scope:
+        print("[Rights Plane] Displaying consent scopes...")
+    elif args.show_withdrawals:
+        print("[Rights Plane] Displaying withdrawals...")
+    elif args.show_revocations:
+        print("[Rights Plane] Displaying revocations...")
+    elif args.show_waivers:
+        print("[Rights Plane] Displaying waivers...")
+    elif args.show_inalienable_rights:
+        print("[Rights Plane] Displaying inalienable rights...")
+    elif args.show_access_rights:
+        print("[Rights Plane] Displaying access rights...")
+    elif args.show_use_rights:
+        print("[Rights Plane] Displaying use rights...")
+    elif args.show_notice_rights:
+        print("[Rights Plane] Displaying notice rights...")
+    elif args.show_remedy_rights:
+        print("[Rights Plane] Displaying remedy rights...")
+    elif args.show_challenge_rights:
+        print("[Rights Plane] Displaying challenge rights...")
+    elif args.show_portability_rights:
+        print("[Rights Plane] Displaying portability rights...")
+    elif args.show_rights_exhaustion:
+        print("[Rights Plane] Displaying rights exhaustion...")
+    elif args.show_rights_survival:
+        print("[Rights Plane] Displaying rights survival...")
+    elif args.show_rights_conflicts:
+        print("[Rights Plane] Displaying rights conflicts...")
+    elif args.show_rights_comparisons:
+        print("[Rights Plane] Displaying rights comparisons...")
+    elif args.show_rights_readiness:
+        print("[Rights Plane] Displaying rights readiness...")
+    elif args.show_rights_forecast:
+        print("[Rights Plane] Displaying rights forecasts...")
+    elif args.show_rights_debt:
+        print("[Rights Plane] Displaying rights debt...")
+    elif args.show_rights_equivalence:
+        print("[Rights Plane] Displaying rights equivalence...")
+    elif args.show_rights_trust:
+        print("[Rights Plane] Displaying rights trust...")
+    elif args.show_rights_review_packs:
+        print("[Rights Plane] Displaying rights review packs...")
+
     else:
         parser.print_help()
 

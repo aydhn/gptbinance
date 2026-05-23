@@ -1,0 +1,10 @@
+class RightsPlaneError(Exception): pass
+class InvalidRightsObjectError(RightsPlaneError): pass
+class InvalidEntitlementError(RightsPlaneError): pass
+class InvalidClaimError(RightsPlaneError): pass
+class InvalidStandingError(RightsPlaneError): pass
+class InvalidConsentError(RightsPlaneError): pass
+class InvalidWaiverError(RightsPlaneError): pass
+class RightsStrippingViolation(RightsPlaneError): pass
+class RightsStorageError(RightsPlaneError): pass
+class InalienableRightOverrideError(RightsPlaneError): pass

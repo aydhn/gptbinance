@@ -24,3 +24,11 @@ class ResidualExposureManager:
         record.residual_exposure.append(exp_record)
         self.repository.storage.save(record)
         return exp_record
+
+
+def check_harmed_party_rights(harmed_party_id: str, rights_registry) -> str:
+    """Checks if a harmed party has open claims in the rights plane."""
+    active_claims = rights_registry.get_active_claims_for_beneficiary(harmed_party_id)
+    if active_claims:
+        return "explicit caution: liability capped but beneficiary rights still open"
+    return "trusted"

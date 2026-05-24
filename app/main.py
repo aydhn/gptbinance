@@ -61,3 +61,44 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import argparse
+
+def add_obligation_args(parser: argparse.ArgumentParser):
+    parser.add_argument("--show-obligation-registry", action="store_true")
+    parser.add_argument("--show-obligation-object", action="store_true")
+    parser.add_argument("--obligation-id", type=str)
+    parser.add_argument("--show-obligations", action="store_true")
+    parser.add_argument("--show-duties", action="store_true")
+    parser.add_argument("--show-requirements", action="store_true")
+    parser.add_argument("--show-prohibitions", action="store_true")
+    parser.add_argument("--show-forbearance", action="store_true")
+    parser.add_argument("--show-obligation-triggers", action="store_true")
+    parser.add_argument("--show-trigger-conditions", action="store_true")
+    parser.add_argument("--show-trigger-activations", action="store_true")
+    parser.add_argument("--show-deadlines", action="store_true")
+    parser.add_argument("--show-due-windows", action="store_true")
+    parser.add_argument("--show-recurrence", action="store_true")
+    parser.add_argument("--show-escalation-duties", action="store_true")
+    parser.add_argument("--show-nonwaivable-duties", action="store_true")
+    parser.add_argument("--show-suspensions", action="store_true")
+    parser.add_argument("--show-obligation-waivers", action="store_true")
+    parser.add_argument("--show-excuses", action="store_true")
+    parser.add_argument("--show-impossibility", action="store_true")
+    parser.add_argument("--show-substitute-performance", action="store_true")
+    parser.add_argument("--show-duty-breaches", action="store_true")
+    parser.add_argument("--show-overdue-duties", action="store_true")
+    parser.add_argument("--show-discharges", action="store_true")
+    parser.add_argument("--show-residual-duties", action="store_true")
+    parser.add_argument("--show-beneficiary-safe-completions", action="store_true")
+    parser.add_argument("--show-obligation-comparisons", action="store_true")
+    parser.add_argument("--show-obligation-readiness", action="store_true")
+    parser.add_argument("--show-obligation-forecast", action="store_true")
+    parser.add_argument("--show-obligation-debt", action="store_true")
+    parser.add_argument("--show-obligation-equivalence", action="store_true")
+    parser.add_argument("--show-obligation-trust", action="store_true")
+    parser.add_argument("--show-obligation-review-packs", action="store_true")
+
+def handle_obligation_args(args):
+    if args.show_obligation_registry:
+        print("Showing Obligation Registry...")

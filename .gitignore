@@ -3,3 +3,10 @@ __pycache__/
 *.pyc
 .pytest_cache
 __pycache__
+app/obligation_plane/__pycache__/
+tests/__pycache__/
+__pycache__/
+pytest_cache/
+
+__pycache__/
+pytest_cache/

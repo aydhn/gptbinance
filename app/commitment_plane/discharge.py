@@ -10,3 +10,10 @@ class DischargeManager:
             proof_notes=proof_notes,
             lineage_refs=[]
         )
+
+# OBLIGATION PLANE INTEGRATION
+def check_commitment_discharge(commitment_discharged: bool, mandatory_duty_unresolved: bool) -> str:
+    # commitment discharged while mandatory duty unresolved explicit caution
+    if commitment_discharged and mandatory_duty_unresolved:
+        return "CAUTION: Commitment discharged while mandatory underlying duty remains unresolved."
+    return "Commitment discharge validated."

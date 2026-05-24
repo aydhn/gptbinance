@@ -19,3 +19,10 @@ class EscalationManager:
 
     def get_unresolved(self) -> List[EscalationRecord]:
         return [r for r in self.records.values() if r.class_type == EscalationClass.UNRESOLVED]
+
+# OBLIGATION PLANE INTEGRATION
+def evaluate_escalation(escalation_available: bool, escalation_duty_executed: bool) -> str:
+    # escalation available but escalation duty missed explicit caution
+    if escalation_available and not escalation_duty_executed:
+        return "CAUTION: Escalation path available but mandatory escalation duty missed."
+    return "Escalation handled correctly."

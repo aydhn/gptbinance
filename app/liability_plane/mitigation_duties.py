@@ -24,3 +24,10 @@ class MitigationDutyManager:
         record.mitigation_duties.append(duty_record)
         self.repository.storage.save(record)
         return duty_record
+
+# OBLIGATION PLANE INTEGRATION
+def check_mitigation_claim(claim_made: bool, canonical_obligation_exists: bool) -> str:
+    # mitigation duty claimed but no canonical obligation explicit caution
+    if claim_made and not canonical_obligation_exists:
+        return "CAUTION: Mitigation duty claimed without canonical obligation basis."
+    return "Mitigation claim validated."

@@ -10,3 +10,9 @@ pytest_cache/
 
 __pycache__/
 pytest_cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+tests/__pycache__/
+app/__pycache__/
+app/*/__pycache__/

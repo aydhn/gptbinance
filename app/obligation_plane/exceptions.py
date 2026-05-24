@@ -1,0 +1,9 @@
+class ObligationPlaneError(Exception): pass
+class InvalidObligationObjectError(ObligationPlaneError): pass
+class InvalidTriggerError(ObligationPlaneError): pass
+class InvalidDeadlineError(ObligationPlaneError): pass
+class InvalidWaiverError(ObligationPlaneError): pass
+class InvalidDischargeError(ObligationPlaneError): pass
+class InvalidSubstitutePerformanceError(ObligationPlaneError): pass
+class DutyBurialViolationError(ObligationPlaneError): pass
+class ObligationStorageError(ObligationPlaneError): pass

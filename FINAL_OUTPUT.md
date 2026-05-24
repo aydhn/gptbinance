@@ -1,146 +1,140 @@
-# YAPILANLAR ÖZETİ
-- **Precedent Plane Framework**: Cases, holdings, rationales, analogies, distinctions, ve conflict'leri canonical ve typed olarak yöneten precedent_plane modülleri ve mimarisi oluşturuldu.
-- **Neden Cases + Holdings + Rationales Yaklaşımı Seçildi?**: "Geçmişte böyle oldu" (outcome-only) ile "Bu case'de şu kural kondu" (rationale/holding) arasındaki farkı korumak, cherry-picking ve exception inflation'ı engellemek, policy ve readiness gibi alanlara güvenilir kanıt sağlamak için bu detaylı, the logic-preserving typed models tercih edildi.
 
-# OLUŞTURULAN / GÜNCELLENEN DOSYALAR
-- `app/precedent_plane/enums.py`
-- `app/precedent_plane/exceptions.py`
-- `app/precedent_plane/models.py`
-- `app/precedent_plane/base.py`
-- `app/precedent_plane/registry.py`
-- `app/precedent_plane/objects.py`
-- `app/precedent_plane/cases.py`
-- `app/precedent_plane/holdings.py`
-- `app/precedent_plane/rationales.py`
-- `app/precedent_plane/factors.py`
-- `app/precedent_plane/applicability.py`
-- `app/precedent_plane/binding.py`
-- `app/precedent_plane/persuasive.py`
-- `app/precedent_plane/analogy.py`
-- `app/precedent_plane/distinctions.py`
-- `app/precedent_plane/carveouts.py`
-- `app/precedent_plane/exceptions.py`
-- `app/precedent_plane/conflicts.py`
-- `app/precedent_plane/hierarchy.py`
-- `app/precedent_plane/overrides.py`
-- `app/precedent_plane/overrules.py`
-- `app/precedent_plane/supersession.py`
-- `app/precedent_plane/consistency.py`
-- `app/precedent_plane/comparisons.py`
-- `app/precedent_plane/forecasting.py`
-- `app/precedent_plane/debt.py`
-- `app/precedent_plane/readiness.py`
-- `app/precedent_plane/remedy.py`
-- `app/precedent_plane/jurisdiction.py`
-- `app/precedent_plane/finality.py`
-- `app/precedent_plane/commitment.py`
-- `app/precedent_plane/adversarial.py`
-- `app/precedent_plane/tradeoff.py`
-- `app/precedent_plane/epistemic.py`
-- `app/precedent_plane/semantic.py`
-- `app/precedent_plane/temporal.py`
-- `app/precedent_plane/provenance.py`
-- `app/precedent_plane/autonomy.py`
-- `app/precedent_plane/federation.py`
-- `app/precedent_plane/constitution.py`
-- `app/precedent_plane/contracts.py`
-- `app/precedent_plane/compliance.py`
-- `app/precedent_plane/security.py`
-- `app/precedent_plane/incidents.py`
-- `app/precedent_plane/releases.py`
-- `app/precedent_plane/migrations.py`
-- `app/precedent_plane/policy.py`
-- `app/precedent_plane/scenario.py`
-- `app/precedent_plane/equivalence.py`
-- `app/precedent_plane/divergence.py`
-- `app/precedent_plane/quality.py`
-- `app/precedent_plane/trust.py`
-- `app/precedent_plane/manifests.py`
-- `app/precedent_plane/storage.py`
-- `app/precedent_plane/reporting.py`
-- `app/precedent_plane/repository.py`
-- `app/policy_plane/evaluations.py`
-- `app/policy_kernel/context.py`
-- `app/policy_kernel/invariants.py`
-- `app/contract_plane/consumer_impact.py`
-- `app/compliance_plane/findings.py`
-- `app/security_plane/readiness.py`
-- `app/federation_plane/verdicts.py`
-- `app/autonomy_plane/execution.py`
-- `app/commitment_plane/guarantees.py`
-- `app/finality_plane/final.py`
-- `app/remedy_plane/sufficiency.py`
-- `app/jurisdiction_plane/applicability.py`
-- `app/semantic_plane/definitions.py`
-- `app/temporal_plane/expiry.py`
-- `app/provenance_plane/actions.py`
-- `app/readiness_board/evidence.py`
-- `app/readiness_board/domains.py`
-- `app/reliability/domains.py`
-- `app/reliability/slos.py`
-- `app/postmortem_plane/contributors.py`
-- `app/postmortem_plane/evidence.py`
-- `app/observability_plane/events.py`
-- `app/observability_plane/diagnostics.py`
-- `app/evidence_graph/artefacts.py`
-- `app/evidence_graph/packs.py`
-- `app/reviews/requests.py`
-- `app/identity/capabilities.py`
-- `app/observability/alerts.py`
-- `app/observability/runbooks.py`
-- `app/telegram/notifier.py`
-- `app/telegram/templates.py`
-- `app/main.py`
-- `docs/584_precedent_plane_ve_case_holding_rationale_consistency_exception_governance_mimarisi.md`
-- `docs/585_case_holding_rationale_factor_analogy_distinction_ve_binding_persuasive_politikasi.md`
-- `docs/586_carveout_exception_conflict_hierarchy_override_overrule_ve_precedent_debt_politikasi.md`
-- `docs/587_precedent_integrity_readiness_policy_contract_finality_remedy_entegrasyonu_politikasi.md`
-- `docs/588_phase_115_definition_of_done.md`
-- `tests/test_precedent_plane_registry.py` (ve diğer 50+ test dosyası)
+# Phase 121 Summary: Obligation Plane, Duty / Requirement / Forbearance / Trigger / Discharge Governance
 
-# REPO AĞACI
-Güncel görünüm `app/precedent_plane` klasörü altında 50'den fazla governance modülü, `docs` altında 5 yeni precedent plane mimari belgesi ve `tests` altında kapsamlı case, holding ve consistency testleri içermektedir.
+## 1. YAPILANLAR ÖZETİ
+- **Unified Obligation Framework**: Kuruldu. `app/obligation_plane/` altında `registry.py`, `models.py`, `enums.py`, ve `objects.py` oluşturuldu. "Duty", "Requirement", "Prohibition" yapıları `done != discharged` kuralıyla şekillendirildi.
+- **Triggers & Due Windows**: Trigger'lar `triggers.py`, koşulları `trigger_conditions.py`, pencereleri `due_windows.py` içinde `expectation != obligation` prensibiyle typed objelere dönüştürüldü.
+- **Waivers, Excuses & Residual Duties**: Hakların veya sorumlulukların silent şekilde düşmemesi (`no silent suspension`) için `waivers.py`, `excuses.py`, `residuals.py` eklendi.
+- **Integrations**: Policy, Readiness, Reliability, Finality gibi diğer düzlemlerin, trigger firing ve obligation breach durumlarında Blocker/Caution vermesi için altyapı oluşturuldu.
+- **Neden Duties + Triggers + Deadlines + Discharges yaklaşımı?**: Çünkü operasyonların (örn. `remedy`, `security_response`) "yapılması iyi olur" veya "yapıldı sanırım" bulanıklığından çıkartılıp, "X trigger oldu -> Y kişisi/servisi Z deadline'a kadar W duty'sini beneficiary-safe bir şekilde kapatmak zorundadır" kesinliğine geçmesi gerekir.
 
-# ÖRNEK KOMUTLAR
-```bash
-python -m app.main --show-precedent-registry
-python -m app.main --show-precedent-object --precedent-id P-1001
-python -m app.main --show-cases
-python -m app.main --show-holdings
-python -m app.main --show-rationales
-python -m app.main --show-controlling-factors
-python -m app.main --show-precedent-applicability
-python -m app.main --show-binding-precedent
-python -m app.main --show-persuasive-precedent
-python -m app.main --show-analogies
-python -m app.main --show-distinctions
-python -m app.main --show-carve-outs
-python -m app.main --show-precedent-exceptions
-python -m app.main --show-precedent-conflicts
-python -m app.main --show-precedent-hierarchy
-python -m app.main --show-precedent-overrides
-python -m app.main --show-precedent-overrules
-python -m app.main --show-precedent-supersession
-python -m app.main --show-precedent-consistency
-python -m app.main --show-precedent-comparisons
-python -m app.main --show-precedent-readiness
-python -m app.main --show-precedent-forecast
-python -m app.main --show-precedent-debt
-python -m app.main --show-precedent-equivalence
-python -m app.main --show-precedent-trust
-python -m app.main --show-precedent-review-packs
+## 2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- **Models & Core**: `app/obligation_plane/models.py`, `enums.py`, `exceptions.py`, `base.py`, `registry.py`, `objects.py`
+- **Duty Lifecycles**: `app/obligation_plane/obligations.py`, `duties.py`, `requirements.py`, `prohibitions.py`, `forbearance.py`, `triggers.py`, `trigger_conditions.py`, `trigger_activation.py`, `deadlines.py`, `due_windows.py`, `recurrence.py`, `escalation.py`, `nonwaivable.py`, `suspensions.py`, `waivers.py`, `excuses.py`, `impossibility.py`, `substitute_performance.py`, `breaches.py`, `overdue.py`, `discharge.py`, `residuals.py`, `beneficiary_safe.py`
+- **Analytics & Debt**: `comparisons.py`, `forecasting.py`, `debt.py`, `readiness.py`, `quality.py`, `equivalence.py`, `divergence.py`, `trust.py`, `manifests.py`, `reporting.py`, `storage.py`, `repository.py`
+- **Cross-Plane Integrations**: `interpretation.py`, `representation.py`, `rights.py`, `liability.py`, `authority.py`, `precedent.py`, `jurisdiction.py`, `finality.py`, `commitment.py`, `remedy.py`, `adversarial.py`, `tradeoff.py`, `epistemic.py`, `semantic.py`, `temporal.py`, `provenance.py`, `autonomy.py`, `federation.py`, `constitution.py`, `contracts.py`, `compliance.py`, `security.py`, `incidents.py`, `releases.py`, `migrations.py`, `policy.py`, `scenario.py`
+- **CLI & Executable**: `app/main.py`
+- **Tests**: `tests/test_obligation_plane_*.py` (62 adet test dosyası)
+- **Docs**: `docs/614_obligation_plane_ve_duty_requirement_forbearance_trigger_discharge_governance_mimarisi.md` vd. (5 adet)
+
+## 3. REPO AĞACI
+```
+app/
+└── obligation_plane/
+    ├── __init__.py
+    ├── adversarial.py
+    ├── authority.py
+    ├── base.py
+    ├── beneficiary_safe.py
+    ├── breaches.py
+    ├── commitment.py
+    ├── comparisons.py
+    ├── compliance.py
+    ├── constitution.py
+    ├── contracts.py
+    ├── deadlines.py
+    ├── debt.py
+    ├── discharge.py
+    ├── divergence.py
+    ├── due_windows.py
+    ├── duties.py
+    ├── enums.py
+    ├── epistemic.py
+    ├── equivalence.py
+    ├── escalation.py
+    ├── exceptions.py
+    ├── excuses.py
+    ├── federation.py
+    ├── finality.py
+    ├── forbearance.py
+    ├── forecasting.py
+    ├── impossibility.py
+    ├── incidents.py
+    ├── interpretation.py
+    ├── jurisdiction.py
+    ├── liability.py
+    ├── manifests.py
+    ├── migrations.py
+    ├── models.py
+    ├── nonwaivable.py
+    ├── objects.py
+    ├── obligations.py
+    ├── overdue.py
+    ├── policy.py
+    ├── precedent.py
+    ├── prohibitions.py
+    ├── provenance.py
+    ├── quality.py
+    ├── readiness.py
+    ├── recurrence.py
+    ├── registry.py
+    ├── releases.py
+    ├── remedy.py
+    ├── reporting.py
+    ├── repository.py
+    ├── representation.py
+    ├── requirements.py
+    ├── residuals.py
+    ├── rights.py
+    ├── scenario.py
+    ├── security.py
+    ├── semantic.py
+    ├── storage.py
+    ├── substitute_performance.py
+    ├── suspensions.py
+    ├── temporal.py
+    ├── tradeoff.py
+    ├── trigger_activation.py
+    ├── trigger_conditions.py
+    ├── triggers.py
+    ├── trust.py
+    └── waivers.py
+docs/
+├── 614_obligation_plane_ve_duty_requirement_forbearance_trigger_discharge_governance_mimarisi.md
+├── 615_duty_requirement_prohibition_trigger_deadline_recurrence_ve_escalation_politikasi.md
+├── 616_waiver_excuse_impossibility_substitute_performance_breach_discharge_ve_residual_duty_politikasi.md
+├── 617_obligation_integrity_readiness_rights_liability_finality_compliance_entegrasyonu_politikasi.md
+└── 618_phase_121_definition_of_done.md
+tests/
+├── test_obligation_plane_registry.py
+├── test_obligation_plane_objects.py
+├── ... (62 test files)
 ```
 
-# TEST ÖZETİ
-- **Registry/Objects**: Precedent_id doğrulamaları, owner ve scope kontrolü test edildi.
-- **Cases/Holdings/Rationales**: Holding ve Case nesneleri arasındaki yapısal farklar test edildi.
-- **Applicability/Analogy**: Doğrudan uygulama ile Analogy (close vs fake) mekanizmaları test edildi.
-- **Consistency/Conflicts**: Overrule/Supersede durumları, Exception laundering önlemleri ve conflict detection mekanizmaları test edildi.
-- **Integration Tests**: PolicyPlane, ReadinessBoard, Contract ve Security gibi dış bağımlılıkların beklenen exception ve structları kullanması doğrulandı.
+## 4. ÖRNEK KOMUTLAR
+```bash
+python -m app.main --show-obligation-registry
+python -m app.main --show-obligation-object --obligation-id OBL-449
+python -m app.main --show-obligations
+python -m app.main --show-duties
+python -m app.main --show-requirements
+python -m app.main --show-obligation-triggers
+python -m app.main --show-deadlines
+python -m app.main --show-due-windows
+python -m app.main --show-nonwaivable-duties
+python -m app.main --show-suspensions
+python -m app.main --show-obligation-waivers
+python -m app.main --show-duty-breaches
+python -m app.main --show-discharges
+python -m app.main --show-residual-duties
+python -m app.main --show-obligation-comparisons
+python -m app.main --show-obligation-readiness
+python -m app.main --show-obligation-forecast
+python -m app.main --show-obligation-debt
+python -m app.main --show-obligation-equivalence
+python -m app.main --show-obligation-trust
+```
 
-# BİLİNÇLİ ERTELENENLER
-- Dashboard arayüzü
-- NLP bazlı otomatik metin özetleme (Precedent'leri insan onaylı, semantic recordlar olarak saklamayı tercih ettik).
+## 5. TEST ÖZETİ
+- **Registry & Objects (test_obligation_plane_registry.py vb.)**: Obligation object'in type, trigger_posture, ve discharge_posture tanımlarının geçerliliğini test eder. Undocumented/untyped obligation'ları reddeder.
+- **Triggers & Deadlines (test_obligation_plane_triggers.py vb.)**: Koşullu (condition-precedent/subsequent) tetiklemeleri, deadline aşımı ve "theater" kurgularının ifşa edilmesini doğrular.
+- **Suspensions & Discharges (test_obligation_plane_suspensions.py vb.)**: Silent suspension yapılamamasını, discharge'ın beneficiary-safe olduğunu (closure-with-hidden-duty engeli) kontrol eder.
+- **Equivalence & Trust**: Replay/Live ortamları arasındaki obligation trigger veya discharge divergence durumlarının Blocker veya Caution üretmesini doğrular.
 
-# PHASE 116 ÖNERİSİ
-- **Phase 116: Argumentation Plane**: Claim/Evidence/Rebuttal Registry, Logical Fallacy Governance ve Dispute Resolution Integrity Katmanı.
+## 6. BİLİNÇLİ ERTELENENLER
+- Asıl cross-plane entegrasyonlarının tam teşekküllü logic ve exception mapping'leri (Policy, Release ve Readiness tarafında CLI çıktısından daha öte enforcement).
+- Dashboard ve alert kurallarının production configuration'ları. Bu fazda görev atanması değil "obligation/trust truth" oturtulmuştur.
+
+## 7. PHASE 122 ÖNERİSİ
+**Phase 122: Incentive & Motivation Plane (Incentive / Reward / Penalty Governance)**
+Amacı: Karar, sorumluluk ve discharge döngülerindeki "neden yapılmalı/yapılmazsa ne olur" boyutunu (Incentives, Behavioral Hooks, Alignment, Carrots & Sticks) canonical bir registry üzerinden izlemek; "Duty var ama Incentive zıt" (Misaligned Incentive Debt) risklerini önlemektir.

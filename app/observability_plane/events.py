@@ -21,3 +21,11 @@ canonical_rights_events = [
     "consent_recorded", "waiver_applied", "revocation_effective",
     "right_exhausted", "rights_conflict_detected"
 ]
+
+# OBLIGATION PLANE INTEGRATION
+def emit_obligation_event(event_type: str, obligation_id: str):
+    allowed_events = ["obligation_registered", "trigger_fired", "duty_activated",
+                      "deadline_missed", "duty_breached", "suspension_recorded",
+                      "substitute_performance_used", "discharge_recorded", "residual_duty_detected"]
+    if event_type in allowed_events:
+        print(f"Emitted: {event_type} for {obligation_id}")

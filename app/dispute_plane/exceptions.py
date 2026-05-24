@@ -1,0 +1,12 @@
+class DisputePlaneError(Exception): pass
+class InvalidDisputeObjectError(DisputePlaneError): pass
+class InvalidComplaintError(DisputePlaneError): pass
+class InvalidIssueFramingError(DisputePlaneError): pass
+class InvalidBurdenAllocationError(DisputePlaneError): pass
+class InvalidAdmissibilityError(DisputePlaneError): pass
+class InvalidRulingError(DisputePlaneError): pass
+class DisputeBurialViolation(DisputePlaneError): pass
+class DismissalTheaterViolation(DisputePlaneError): pass
+class AppealStarvationViolation(DisputePlaneError): pass
+class OffRecordAdjudicationViolation(DisputePlaneError): pass
+class DisputeStorageError(DisputePlaneError): pass

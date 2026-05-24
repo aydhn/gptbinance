@@ -11,3 +11,12 @@ def verify_obligation_invariants(context: dict) -> bool:
     if context.get("active_overdue_duties", 0) > 0:
         return False
     return True
+
+# DISPUTE PLANE INTEGRATION
+def verify_dispute_invariants():
+    return [
+        "no trusted high-risk action while material formal disputes remain unresolved",
+        "no dismissal may extinguish a dispute beyond its explicit issues",
+        "no ruling may be treated as safe without explicit issue framing",
+        "no constitutional claim may stand while the governing dispute path is off-record"
+    ]

@@ -16,3 +16,5 @@ def get_obligation_context() -> dict:
         "silent_suspension_risk": False,
         "discharge_burden": "LOW"
     }
+def assemble_policy_context():
+    pass

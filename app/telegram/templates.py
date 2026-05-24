@@ -9,3 +9,11 @@ rights_templates = {
     "review_required": "Review required for rights artifact {id}.",
     "summary_digest": "Rights Digest: {metrics}"
 }
+
+# dispute templates
+dispute_templates = {
+    "manifest_ready": "Dispute manifest ready: {id}",
+    "invalid_dismissal": "Invalid dismissal detected: {id}",
+    "appeal_starvation": "Appeal starvation detected: {id}",
+    "off_record_adjudication": "Off-record adjudication detected: {id}"
+}

@@ -8,3 +8,6 @@ class TradeoffQuality:
             result["status"] = "caution"
             result["reason"] = "adversarial_sensitivity"
         return result
+class QualityChecker:
+    pass
+quality_checker = QualityChecker()

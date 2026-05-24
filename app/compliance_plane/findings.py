@@ -24,3 +24,6 @@ def generate_obligation_findings(overdue_reporting: bool, silently_suspended: bo
     if silently_suspended:
         findings.append("FINDING: Silently suspended duty detected.")
     return findings
+class FindingManager:
+    pass
+finding_manager = FindingManager()

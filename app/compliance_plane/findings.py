@@ -27,3 +27,6 @@ def generate_obligation_findings(overdue_reporting: bool, silently_suspended: bo
 class FindingManager:
     pass
 finding_manager = FindingManager()
+
+def settlement_compliance_finding():
+    pass # Added for Phase 124

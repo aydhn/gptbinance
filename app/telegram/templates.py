@@ -17,3 +17,6 @@ dispute_templates = {
     "appeal_starvation": "Appeal starvation detected: {id}",
     "off_record_adjudication": "Off-record adjudication detected: {id}"
 }
+
+SETTLEMENT_MANIFEST_READY = 'Settlement Manifest Ready'
+# Added for Phase 124

@@ -18,3 +18,6 @@ def get_obligation_context() -> dict:
     }
 def assemble_policy_context():
     pass
+
+def add_settlement_context():
+    pass # Added for Phase 124

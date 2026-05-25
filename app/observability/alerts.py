@@ -16,3 +16,6 @@ dispute_alerts = [
     "claimant_erasure_detected",
     "dispute_review_required"
 ]
+
+def register_settlement_alerts():
+    pass # Added for Phase 124

@@ -1,0 +1,9 @@
+class SettlementPlaneError(Exception): pass
+class InvalidSettlementObjectError(SettlementPlaneError): pass
+class InvalidReleaseError(SettlementPlaneError): pass
+class InvalidCarveOutError(SettlementPlaneError): pass
+class InvalidConsiderationError(SettlementPlaneError): pass
+class InvalidPerformanceMilestoneError(SettlementPlaneError): pass
+class InvalidReopenPathError(SettlementPlaneError): pass
+class OverreleaseViolationError(SettlementPlaneError): pass
+class SettlementStorageError(SettlementPlaneError): pass

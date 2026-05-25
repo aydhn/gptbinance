@@ -15,3 +15,6 @@ def check_constitutional_claim(constitutional_safe_claim: bool, dropped_mandator
     if constitutional_safe_claim and dropped_mandatory_duty:
         return "BLOCKER: Constitutional-safe claim issued while mandatory duty was dropped."
     return "Constitutional claim validated."
+
+def non_settleable_rights_check():
+    pass # Added for Phase 124

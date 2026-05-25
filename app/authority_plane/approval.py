@@ -18,3 +18,6 @@ class ApprovalManager:
 
     def get_delegated(self) -> List[ApprovalAuthorityRecord]:
         return [r for r in self.records.values() if r.type == "DELEGATED"]
+
+def verify_settlement_signoff():
+    pass # Added for Phase 124

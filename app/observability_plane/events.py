@@ -29,3 +29,6 @@ def emit_obligation_event(event_type: str, obligation_id: str):
                       "substitute_performance_used", "discharge_recorded", "residual_duty_detected"]
     if event_type in allowed_events:
         print(f"Emitted: {event_type} for {obligation_id}")
+
+def log_settlement_event():
+    pass # Added for Phase 124

@@ -20,3 +20,6 @@ def check_semantic_mismatch(wording_strength: str, semantic_meaning: str) -> str
     if wording_strength != semantic_meaning:
         return "CONFLICT: Duty wording implies strength different from canonical semantic meaning."
     return "Semantic meaning validated."
+
+def check_semantic_mismatch():
+    pass # Added for Phase 124

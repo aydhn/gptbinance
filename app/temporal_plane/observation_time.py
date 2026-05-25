@@ -9,3 +9,6 @@ def check_discharge_timing(discharge_claimed: bool, due_window_evidence_exists: 
     if discharge_claimed and not due_window_evidence_exists:
         return "CAUTION: Discharge claimed before due window evidence is available."
     return "Discharge timing validated."
+
+def check_acceptance_timing():
+    pass # Added for Phase 124

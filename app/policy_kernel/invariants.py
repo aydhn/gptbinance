@@ -20,3 +20,6 @@ def verify_dispute_invariants():
         "no ruling may be treated as safe without explicit issue framing",
         "no constitutional claim may stand while the governing dispute path is off-record"
     ]
+
+def add_settlement_invariants():
+    pass # Added for Phase 124

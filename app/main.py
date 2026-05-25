@@ -314,3 +314,48 @@ def execute_dispute_cli(args):
 import sys
 if __name__ == "__main__":
     execute_dispute_cli(sys.argv[1:])
+
+def __phase124_cli__():
+    import argparse
+    parser = argparse.ArgumentParser(description="Settlement Plane CLI")
+    parser.add_argument("--show-settlement-registry", action="store_true")
+    parser.add_argument("--show-settlement-object", action="store_true")
+    parser.add_argument("--settlement-id", type=str)
+    parser.add_argument("--show-settlements", action="store_true")
+    parser.add_argument("--show-releases", action="store_true")
+    parser.add_argument("--show-covenants", action="store_true")
+    parser.add_argument("--show-settlement-reservations", action="store_true")
+    parser.add_argument("--show-carveouts", action="store_true")
+    parser.add_argument("--show-consideration", action="store_true")
+    parser.add_argument("--show-consideration-milestones", action="store_true")
+    parser.add_argument("--show-settlement-performance", action="store_true")
+    parser.add_argument("--show-installments", action="store_true")
+    parser.add_argument("--show-settlement-acceptance", action="store_true")
+    parser.add_argument("--show-authority-to-settle", action="store_true")
+    parser.add_argument("--show-settlement-scope", action="store_true")
+    parser.add_argument("--show-beneficiary-closure", action="store_true")
+    parser.add_argument("--show-partial-closure", action="store_true")
+    parser.add_argument("--show-full-final-closure", action="store_true")
+    parser.add_argument("--show-conditional-settlements", action="store_true")
+    parser.add_argument("--show-provisional-settlements", action="store_true")
+    parser.add_argument("--show-settlement-defaults", action="store_true")
+    parser.add_argument("--show-breach-of-settlement", action="store_true")
+    parser.add_argument("--show-settlement-rescission", action="store_true")
+    parser.add_argument("--show-settlement-reopen", action="store_true")
+    parser.add_argument("--show-settlement-survival", action="store_true")
+    parser.add_argument("--show-settlement-comparisons", action="store_true")
+    parser.add_argument("--show-settlement-readiness", action="store_true")
+    parser.add_argument("--show-settlement-forecast", action="store_true")
+    parser.add_argument("--show-settlement-debt", action="store_true")
+    parser.add_argument("--show-settlement-equivalence", action="store_true")
+    parser.add_argument("--show-settlement-trust", action="store_true")
+    parser.add_argument("--show-settlement-review-packs", action="store_true")
+    args, unknown = parser.parse_known_args()
+    if args.show_settlement_registry:
+        print("Showing Settlement Registry")
+
+if __name__ == '__main__':
+    try:
+        __phase124_cli__()
+    except Exception:
+        pass

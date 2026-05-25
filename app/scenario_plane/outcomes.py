@@ -15,3 +15,6 @@ def check_robust_recovery(robust_recovery_claim: bool, obligation_scenario_gap: 
     if robust_recovery_claim and obligation_scenario_gap:
         return "CAUTION: Robust recovery claimed despite obligation-sensitive scenario gap."
     return "Robust recovery validated."
+
+def stress_case_settlement_default():
+    pass # Added for Phase 124

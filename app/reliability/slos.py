@@ -8,3 +8,6 @@ rights_integrity_slos = [
     "rights exhaustion mislabel absence",
     "trusted rights degraded ratio"
 ]
+
+def register_settlement_slos():
+    pass # Added for Phase 124

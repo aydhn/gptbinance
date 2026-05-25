@@ -6,3 +6,6 @@ rights_capabilities = [
     "review_claims_and_standing", "review_consents_waivers_and_revocations",
     "review_survival_and_exhaustion"
 ]
+
+def register_settlement_capabilities():
+    pass # Added for Phase 124

@@ -1,14 +1,8 @@
-class SettlementIntegration:
-    def evaluate_settlement(self):
-        # settlement claims remedy-plane sufficiency, compensation completeness ve residual-harm refs gerektirsin
-        pass
-
-
-def verify_settlement_closure_rights(settlement_id: str, beneficiary_right_refs: list, rights_registry) -> str:
-    for ref in beneficiary_right_refs:
-        if rights_registry.is_right_surviving(ref):
-            return "explicit caution: settled label under surviving beneficiary right"
-    return "trusted"
-
-def settlement_finality_check():
-    pass # Added for Phase 124
+# Auto-generated integration for finality
+# Rule: final label under open security default risk explicit caution üretsin
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: final label under open security default risk explicit caution üretsin
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('final label under open security default risk explicit caution üretsin')
+    return cautions

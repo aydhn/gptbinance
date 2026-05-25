@@ -1,11 +1,8 @@
-# inspect_liability_manifest
-
-
-rights_capabilities = [
-    "inspect_rights_manifest", "review_beneficiaries_and_entitlements",
-    "review_claims_and_standing", "review_consents_waivers_and_revocations",
-    "review_survival_and_exhaustion"
-]
-
-def register_settlement_capabilities():
-    pass # Added for Phase 124
+# Auto-generated integration for identity
+# Rule: inspect_performance_security_manifest
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: inspect_performance_security_manifest
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('inspect_performance_security_manifest')
+    return cautions

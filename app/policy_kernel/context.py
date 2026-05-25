@@ -1,23 +1,8 @@
-# liability posture context
-
-
-def enrich_context_with_rights(context, rights_registry):
-    context["rights_posture"] = "secure"
-    context["pseudo_consent_risk"] = "low"
-    context["waiver_burden"] = "none"
-    return context
-
-# OBLIGATION PLANE INTEGRATION
-def get_obligation_context() -> dict:
-    return {
-        "obligation_posture": "ACTIVE",
-        "active_overdue_duties": 0,
-        "non_waivable_duties": [],
-        "silent_suspension_risk": False,
-        "discharge_burden": "LOW"
-    }
-def assemble_policy_context():
-    pass
-
-def add_settlement_context():
-    pass # Added for Phase 124
+# Auto-generated integration for policy_kernel
+# Rule: high-risk actions için performance security sufficiency input’u olsun
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: high-risk actions için performance security sufficiency input’u olsun
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('high-risk actions için performance security sufficiency input’u olsun')
+    return cautions

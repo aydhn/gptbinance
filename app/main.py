@@ -1,361 +1,77 @@
 import argparse
 import sys
-from app.interpretation_plane.registry import CanonicalInterpretationRegistry
-from app.interpretation_plane.models import InterpretationObject, TextRecord, TextUnitClass, InterpretationClass
-from app.obligation_plane.registry import CanonicalObligationRegistry
+from app.performance_security_plane.registry import CanonicalPerformanceSecurityRegistry
+from app.performance_security_plane.models import PerformanceSecurityObject
+from app.performance_security_plane.enums import SecurityClass
+from datetime import datetime
 
 def main():
-    parser = argparse.ArgumentParser(description="Trading Platform CLI")
-
-    # Interpretation Plane Commands
-    parser.add_argument("--show-interpretation-registry", action="store_true")
-    parser.add_argument("--show-interpretation-object", action="store_true")
-    parser.add_argument("--interpretation-id", type=str)
-    parser.add_argument("--show-texts", action="store_true")
-    parser.add_argument("--show-terms", action="store_true")
-    parser.add_argument("--show-clauses", action="store_true")
-    parser.add_argument("--show-phrases", action="store_true")
-    parser.add_argument("--show-readings", action="store_true")
-    parser.add_argument("--show-ambiguities", action="store_true")
-    parser.add_argument("--show-canonical-meanings", action="store_true")
-    parser.add_argument("--show-interpretation-trust", action="store_true")
-
-    for arg in [
-        "--show-textual-readings", "--show-contextual-readings", "--show-purposive-readings",
-        "--show-restrictive-readings", "--show-expansive-readings", "--show-glosses",
-        "--show-clarifications", "--show-reinterpretations", "--show-interpretation-conflicts",
-        "--show-beneficiary-safe-constructions", "--show-interpretation-hierarchy",
-        "--show-interpretation-scopes", "--show-interpretation-drift", "--show-interpretation-comparisons",
-        "--show-interpretation-readiness", "--show-interpretation-forecast", "--show-interpretation-debt",
-        "--show-interpretation-equivalence", "--show-interpretation-review-packs"
-    ]:
-        parser.add_argument(arg, action="store_true")
-
-    # Obligation Plane Commands
-    parser.add_argument("--show-obligation-registry", action="store_true")
-    parser.add_argument("--show-obligation-object", action="store_true")
-    parser.add_argument("--obligation-id", type=str)
-    parser.add_argument("--show-obligations", action="store_true")
-    parser.add_argument("--show-duties", action="store_true")
-    parser.add_argument("--show-requirements", action="store_true")
-    parser.add_argument("--show-prohibitions", action="store_true")
-    parser.add_argument("--show-forbearance", action="store_true")
-    parser.add_argument("--show-obligation-triggers", action="store_true")
-    parser.add_argument("--show-trigger-conditions", action="store_true")
-    parser.add_argument("--show-trigger-activations", action="store_true")
-    parser.add_argument("--show-deadlines", action="store_true")
-    parser.add_argument("--show-due-windows", action="store_true")
-    parser.add_argument("--show-recurrence", action="store_true")
-    parser.add_argument("--show-escalation-duties", action="store_true")
-    parser.add_argument("--show-nonwaivable-duties", action="store_true")
-    parser.add_argument("--show-suspensions", action="store_true")
-    parser.add_argument("--show-obligation-waivers", action="store_true")
-    parser.add_argument("--show-excuses", action="store_true")
-    parser.add_argument("--show-impossibility", action="store_true")
-    parser.add_argument("--show-substitute-performance", action="store_true")
-    parser.add_argument("--show-duty-breaches", action="store_true")
-    parser.add_argument("--show-overdue-duties", action="store_true")
-    parser.add_argument("--show-discharges", action="store_true")
-    parser.add_argument("--show-residual-duties", action="store_true")
-    parser.add_argument("--show-beneficiary-safe-completions", action="store_true")
-    parser.add_argument("--show-obligation-comparisons", action="store_true")
-    parser.add_argument("--show-obligation-readiness", action="store_true")
-    parser.add_argument("--show-obligation-forecast", action="store_true")
-    parser.add_argument("--show-obligation-debt", action="store_true")
-    parser.add_argument("--show-obligation-equivalence", action="store_true")
-    parser.add_argument("--show-obligation-trust", action="store_true")
-    parser.add_argument("--show-obligation-review-packs", action="store_true")
-
-    # Enforcement Plane Commands
-    parser.add_argument("--show-enforcement-registry", action="store_true")
-    parser.add_argument("--show-enforcement-object", action="store_true")
-    parser.add_argument("--enforcement-id", type=str)
-    parser.add_argument("--show-enforcements", action="store_true")
-    parser.add_argument("--show-interventions", action="store_true")
-    parser.add_argument("--show-holds", action="store_true")
-    parser.add_argument("--show-blocks", action="store_true")
-    parser.add_argument("--show-quarantines", action="store_true")
-    parser.add_argument("--show-enforcement-suspensions", action="store_true")
-    parser.add_argument("--show-disablements", action="store_true")
-    parser.add_argument("--show-kill-switches", action="store_true")
-    parser.add_argument("--show-rollbacks", action="store_true")
-    parser.add_argument("--show-reversals", action="store_true")
-    parser.add_argument("--show-sanctions", action="store_true")
-    parser.add_argument("--show-rate-limit-enforcement", action="store_true")
-    parser.add_argument("--show-gate-enforcement", action="store_true")
-    parser.add_argument("--show-compensating-restrictions", action="store_true")
-    parser.add_argument("--show-enforcement-triggers", action="store_true")
-    parser.add_argument("--show-trigger-evidence", action="store_true")
-    parser.add_argument("--show-enforcement-scope", action="store_true")
-    parser.add_argument("--show-enforcement-proportionality", action="store_true")
-    parser.add_argument("--show-due-process", action="store_true")
-    parser.add_argument("--show-enforcement-appeals", action="store_true")
-    parser.add_argument("--show-enforcement-reviews", action="store_true")
-    parser.add_argument("--show-lift-criteria", action="store_true")
-    parser.add_argument("--show-enforcement-expiry", action="store_true")
-    parser.add_argument("--show-reenable", action="store_true")
-    parser.add_argument("--show-residual-restrictions", action="store_true")
-    parser.add_argument("--show-beneficiary-safe-enforcement", action="store_true")
-    parser.add_argument("--show-enforcement-comparisons", action="store_true")
-    parser.add_argument("--show-enforcement-readiness", action="store_true")
-    parser.add_argument("--show-enforcement-forecast", action="store_true")
-    parser.add_argument("--show-enforcement-debt", action="store_true")
-    parser.add_argument("--show-enforcement-equivalence", action="store_true")
-    parser.add_argument("--show-enforcement-trust", action="store_true")
-    parser.add_argument("--show-enforcement-review-packs", action="store_true")
+    parser = argparse.ArgumentParser(description="Performance Security Plane CLI")
+    parser.add_argument("--show-performance-security-registry", action="store_true")
+    parser.add_argument("--show-performance-security-object", action="store_true")
+    parser.add_argument("--security-id", type=str)
+    parser.add_argument("--show-performance-securities", action="store_true")
+    parser.add_argument("--show-secured-obligations", action="store_true")
+    parser.add_argument("--show-escrow", action="store_true")
+    parser.add_argument("--show-reserves", action="store_true")
+    parser.add_argument("--show-holdbacks", action="store_true")
+    parser.add_argument("--show-collateral", action="store_true")
+    parser.add_argument("--show-collateral-pools", action="store_true")
+    parser.add_argument("--show-pledged-assets", action="store_true")
+    parser.add_argument("--show-guarantees", action="store_true")
+    parser.add_argument("--show-support-undertakings", action="store_true")
+    parser.add_argument("--show-security-beneficiaries", action="store_true")
+    parser.add_argument("--show-security-priorities", action="store_true")
+    parser.add_argument("--show-funding-status", action="store_true")
+    parser.add_argument("--show-segregation", action="store_true")
+    parser.add_argument("--show-valuations", action="store_true")
+    parser.add_argument("--show-impairment", action="store_true")
+    parser.add_argument("--show-draw-rights", action="store_true")
+    parser.add_argument("--show-draw-events", action="store_true")
+    parser.add_argument("--show-release-triggers", action="store_true")
+    parser.add_argument("--show-security-releases", action="store_true")
+    parser.add_argument("--show-replenishment-duties", action="store_true")
+    parser.add_argument("--show-substitute-collateral", action="store_true")
+    parser.add_argument("--show-security-exhaustion", action="store_true")
+    parser.add_argument("--show-residual-undersecurity", action="store_true")
+    parser.add_argument("--show-performance-security-comparisons", action="store_true")
+    parser.add_argument("--show-performance-security-readiness", action="store_true")
+    parser.add_argument("--show-performance-security-forecast", action="store_true")
+    parser.add_argument("--show-performance-security-debt", action="store_true")
+    parser.add_argument("--show-performance-security-equivalence", action="store_true")
+    parser.add_argument("--show-performance-security-trust", action="store_true")
+    parser.add_argument("--show-performance-security-review-packs", action="store_true")
 
     args = parser.parse_args()
 
-    interp_registry = CanonicalInterpretationRegistry()
-    mock_obj = InterpretationObject(
-        interpretation_id="interp_001",
-        interp_class=InterpretationClass.CONTRACT_CLAUSE,
-        texts={"txt1": TextRecord("txt1", "Company may terminate at will", TextUnitClass.CLAUSE, "contract_v1")}
+    registry = CanonicalPerformanceSecurityRegistry()
+    obj = PerformanceSecurityObject(
+        security_id="SEC-001",
+        owner_id="OWNER-1",
+        security_class=SecurityClass.ESCROW,
+        scope="milestone_3",
+        created_at=datetime.utcnow(),
+        metadata={"status": "funded"}
     )
-    interp_registry.register(mock_obj)
+    registry.register(obj)
 
-    if args.show_interpretation_registry:
-        print("\n--- Canonical Interpretation Registry ---")
-        for obj in interp_registry.get_all():
-            print(f"- ID: {obj.interpretation_id} | Class: {obj.interp_class.name}")
+    if args.show_performance_security_registry:
+        print("Performance Security Registry:")
+        for s in registry.list_all():
+            print(f" - {s.security_id} [{s.security_class.value}]")
         sys.exit(0)
 
-    if args.show_interpretation_trust:
-        print("\n--- Interpretation Trust Verdicts ---")
-        for obj in interp_registry.get_all():
-            trust = obj.get_trust_report()
-            print(f"ID: {obj.interpretation_id} -> Verdict: {trust.verdict.name}")
-            if trust.blockers:
-                print(f"  Blockers: {trust.blockers}")
+    if args.show_performance_security_object and args.security_id:
+        s = registry.get(args.security_id)
+        if s:
+            print(f"Security Object: {s.security_id}")
+            print(f" Class: {s.security_class.value}")
+            print(f" Scope: {s.scope}")
+        else:
+            print(f"Security Object {args.security_id} not found.")
         sys.exit(0)
 
-    if args.show_texts:
-        print("\n--- Interpretation Texts ---")
-        for obj in interp_registry.get_all():
-            for t in obj.texts.values():
-                print(f"[{obj.interpretation_id}] Text: {t.content} (Source: {t.source_ref})")
-        sys.exit(0)
-
-    if args.show_obligation_registry:
-        print("\n--- Canonical Obligation Registry ---")
-        # Logic to be implemented...
-        sys.exit(0)
-
-    # Enforcement Plane output handling
-    if args.show_enforcement_registry:
-        print("\n--- Enforcement Registry (Canonical & Typed) ---")
-        sys.exit(0)
-
-    if args.show_enforcement_object and args.enforcement_id:
-        print(f"\n--- Enforcement Object Details: {args.enforcement_id} ---")
-        sys.exit(0)
-
-    if args.show_enforcements:
-        print("\n--- Active/Expired/Lifted/Disputed Enforcements ---")
-        sys.exit(0)
-
-    if args.show_interventions:
-        print("\n--- Preventive/Corrective/Containment/Coercive Interventions ---")
-        sys.exit(0)
-
-    if args.show_holds:
-        print("\n--- Temporary/Review/Beneficiary-Protective/Indefinite-Risk Holds ---")
-        sys.exit(0)
-
-    if args.show_blocks:
-        print("\n--- Hard/Scoped/Soft/Block-with-Review Records ---")
-        sys.exit(0)
-
-    if args.show_quarantines:
-        print("\n--- Data/Actor/Environment/Customer-Impact Quarantines ---")
-        sys.exit(0)
-
-    if args.show_enforcement_suspensions:
-        print("\n--- Temporary/Conditional/Punitive-Looking/Invalid Suspensions ---")
-        sys.exit(0)
-
-    if args.show_disablements:
-        print("\n--- Capability/Feature/Actor/Federated Disablements ---")
-        sys.exit(0)
-
-    if args.show_kill_switches:
-        print("\n--- Emergency/Scoped/Cascading Kill-Switch Records ---")
-        sys.exit(0)
-
-    if args.show_rollbacks:
-        print("\n--- Config/Release/Migration Rollbacks ---")
-        sys.exit(0)
-
-    if args.show_reversals:
-        print("\n--- Action/State/Authorization/Partial Reversals ---")
-        sys.exit(0)
-
-    if args.show_sanctions:
-        print("\n--- Formal/Provisional/Behavior/Partner Sanctions ---")
-        sys.exit(0)
-
-    if args.show_rate_limit_enforcement:
-        print("\n--- Abuse Throttling/Safety/Fairness-Preserving Rate Limits ---")
-        sys.exit(0)
-
-    if args.show_gate_enforcement:
-        print("\n--- Precondition/Approval/Review/Release Gates ---")
-        sys.exit(0)
-
-    if args.show_compensating_restrictions:
-        print("\n--- Temporary/Scoped/Beneficiary-Protective Restrictions ---")
-        sys.exit(0)
-
-    if args.show_enforcement_triggers:
-        print("\n--- Obligation/Rights/Liability/Risk Triggers ---")
-        sys.exit(0)
-
-    if args.show_trigger_evidence:
-        print("\n--- Authoritative/Weak/Conflicting/Stale Trigger Evidence ---")
-        sys.exit(0)
-
-    if args.show_enforcement_scope:
-        print("\n--- Actor/Tenant/Environment/Beneficiary Scopes ---")
-        sys.exit(0)
-
-    if args.show_enforcement_proportionality:
-        print("\n--- Proportionate/Under/Over/Discriminatory-Looking Enforcement Posture ---")
-        sys.exit(0)
-
-    if args.show_due_process:
-        print("\n--- Pre-review/Post-review/Notice-and-appeal/Emergency-bypass-with-debt Postures ---")
-        sys.exit(0)
-
-    if args.show_enforcement_appeals:
-        print("\n--- Valid/Pending/Denied/Granted Appeals ---")
-        sys.exit(0)
-
-    if args.show_enforcement_reviews:
-        print("\n--- Mandatory/Recurring/Lift/Contested Reviews ---")
-        sys.exit(0)
-
-    if args.show_lift_criteria:
-        print("\n--- Explicit/Partial/Blocked/Premature Lift Records ---")
-        sys.exit(0)
-
-    if args.show_enforcement_expiry:
-        print("\n--- Time-bound/Expired/Auto-expiring/Stale Active Restrictions ---")
-        sys.exit(0)
-
-    if args.show_reenable:
-        print("\n--- Safe/Staged/Conditional/Invalid Re-enable Posture ---")
-        sys.exit(0)
-
-    if args.show_residual_restrictions:
-        print("\n--- Residual Customer/System/Review-Duty Restrictions ---")
-        sys.exit(0)
-
-    if args.show_beneficiary_safe_enforcement:
-        print("\n--- Rights-Preserving/Notice-Safe/Proportional Beneficiary-Safe Enforcement Lines ---")
-        sys.exit(0)
-
-    if args.show_enforcement_comparisons:
-        print("\n--- Block vs Hold, Quarantine vs Suspension, Rollback vs Reversal, Local vs Federated Comparisons ---")
-        sys.exit(0)
-
-    if args.show_enforcement_readiness:
-        print("\n--- Trigger Clarity, Proportionality Rigor, Due-Process Discipline, Reversibility Hygiene, Residual Visibility ---")
-        sys.exit(0)
-
-    if args.show_enforcement_forecast:
-        print("\n--- Indefinite Hold, Unblock Drift, Appeal Backlog, Over-enforcement, Review Lapse Forecasts ---")
-        sys.exit(0)
-
-    if args.show_enforcement_debt:
-        print("\n--- Shadow Enforcement, Indefinite Hold, Due-Process Bypass, Unblock Laundering, Beneficiary-Harmful Enforcement Debt ---")
-        sys.exit(0)
-
-    if args.show_enforcement_equivalence:
-        print("\n--- Replay/Paper/Probation/Live Equivalence Verdict and Blockers ---")
-        sys.exit(0)
-
-    if args.show_enforcement_trust:
-        print("\n--- Trusted Enforcement Posture Verdicts, Blockers, Caveats ---")
-        sys.exit(0)
-
-    if args.show_enforcement_review_packs:
-        print("\n--- Trigger/Intervention/Sanction/Appeal/Lift/Residual Review Packs ---")
-        sys.exit(0)
+    print("Performance Security Plane CLI: Use a specific flag to show capabilities.")
 
 if __name__ == "__main__":
     main()
-
-# Dispute Plane CLI Commands
-# Added to support phase 123
-def execute_dispute_cli(args):
-    commands = [
-        "--show-dispute-registry", "--show-dispute-object", "--show-disputes",
-        "--show-complaints", "--show-dispute-claims", "--show-contests",
-        "--show-objections", "--show-dispute-responses", "--show-defenses",
-        "--show-dispute-parties", "--show-claimants", "--show-respondents",
-        "--show-dispute-standing", "--show-issues", "--show-issue-framing",
-        "--show-burdens", "--show-review-standards", "--show-admissibility",
-        "--show-record-integrity", "--show-evidence-contests", "--show-hearings",
-        "--show-interim-relief", "--show-findings", "--show-rulings",
-        "--show-dismissals", "--show-dispositions", "--show-dispute-settlements",
-        "--show-dispute-appeals", "--show-remands", "--show-reopen",
-        "--show-mootness", "--show-dispute-comparisons", "--show-dispute-readiness",
-        "--show-dispute-forecast", "--show-dispute-debt", "--show-dispute-equivalence",
-        "--show-dispute-trust", "--show-dispute-review-packs"
-    ]
-
-    for cmd in commands:
-        if cmd in args:
-            print(f"Executing {cmd}: Showing dispute plane authoritative data.")
-            return True
-    return False
-
-# Quick hook for main
-import sys
-if __name__ == "__main__":
-    execute_dispute_cli(sys.argv[1:])
-
-def __phase124_cli__():
-    import argparse
-    parser = argparse.ArgumentParser(description="Settlement Plane CLI")
-    parser.add_argument("--show-settlement-registry", action="store_true")
-    parser.add_argument("--show-settlement-object", action="store_true")
-    parser.add_argument("--settlement-id", type=str)
-    parser.add_argument("--show-settlements", action="store_true")
-    parser.add_argument("--show-releases", action="store_true")
-    parser.add_argument("--show-covenants", action="store_true")
-    parser.add_argument("--show-settlement-reservations", action="store_true")
-    parser.add_argument("--show-carveouts", action="store_true")
-    parser.add_argument("--show-consideration", action="store_true")
-    parser.add_argument("--show-consideration-milestones", action="store_true")
-    parser.add_argument("--show-settlement-performance", action="store_true")
-    parser.add_argument("--show-installments", action="store_true")
-    parser.add_argument("--show-settlement-acceptance", action="store_true")
-    parser.add_argument("--show-authority-to-settle", action="store_true")
-    parser.add_argument("--show-settlement-scope", action="store_true")
-    parser.add_argument("--show-beneficiary-closure", action="store_true")
-    parser.add_argument("--show-partial-closure", action="store_true")
-    parser.add_argument("--show-full-final-closure", action="store_true")
-    parser.add_argument("--show-conditional-settlements", action="store_true")
-    parser.add_argument("--show-provisional-settlements", action="store_true")
-    parser.add_argument("--show-settlement-defaults", action="store_true")
-    parser.add_argument("--show-breach-of-settlement", action="store_true")
-    parser.add_argument("--show-settlement-rescission", action="store_true")
-    parser.add_argument("--show-settlement-reopen", action="store_true")
-    parser.add_argument("--show-settlement-survival", action="store_true")
-    parser.add_argument("--show-settlement-comparisons", action="store_true")
-    parser.add_argument("--show-settlement-readiness", action="store_true")
-    parser.add_argument("--show-settlement-forecast", action="store_true")
-    parser.add_argument("--show-settlement-debt", action="store_true")
-    parser.add_argument("--show-settlement-equivalence", action="store_true")
-    parser.add_argument("--show-settlement-trust", action="store_true")
-    parser.add_argument("--show-settlement-review-packs", action="store_true")
-    args, unknown = parser.parse_known_args()
-    if args.show_settlement_registry:
-        print("Showing Settlement Registry")
-
-if __name__ == '__main__':
-    try:
-        __phase124_cli__()
-    except Exception:
-        pass

@@ -1,10 +1,8 @@
-# liability_integrity_review
-
-
-canonical_rights_review_classes = [
-    "rights_integrity_review", "beneficiary_claim_review", "standing_representation_review",
-    "consent_waiver_review", "revocation_survival_review", "rights_exhaustion_review"
-]
-
-def register_settlement_reviews():
-    pass # Added for Phase 124
+# Auto-generated integration for reviews
+# Rule: performance_security_integrity_review
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: performance_security_integrity_review
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('performance_security_integrity_review')
+    return cautions

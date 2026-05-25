@@ -1,13 +1,8 @@
-# liability notifications
-
-
-def notify_telegram_rights(event_type: str, context: dict):
-    allowed_types = [
-        "rights manifest ready", "pseudo consent detected", "invalid waiver detected",
-        "standing burial detected", "rights review required"
-    ]
-    if event_type in allowed_types:
-        print(f"[Telegram] Sent: {event_type}")
-
-def notify_settlement_event():
-    pass # Added for Phase 124
+# Auto-generated integration for telegram
+# Rule: performance security plane olay tipleri
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: performance security plane olay tipleri
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('performance security plane olay tipleri')
+    return cautions

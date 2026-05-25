@@ -1,6 +1,12 @@
-__pycache__
-.pytest_cache
+__pycache__/
 *.pyc
-.pytest_cache
-__pycache__
-*.pyc
+.pytest_cache/
+app/
+tests/
+docs/
+*.txt
+*.log
+*.py
+!app/
+!tests/
+!docs/

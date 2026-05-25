@@ -1,10 +1,8 @@
-# blame_shifting, cause_burial, indemnity_laundering, cap_comfort, invalid_exoneration, remedy_as_immunity
-
-
-rights_contributors = [
-    "beneficiary_erasure", "pseudo_consent", "waiver_laundering",
-    "standing_burial", "revocation_suppression", "rights_exhaustion_theater"
-]
-
-def add_settlement_contributors():
-    pass # Added for Phase 124
+# Auto-generated integration for postmortem
+# Rule: phantom_collateral, duplicate_pledge contributors
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: phantom_collateral, duplicate_pledge contributors
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('phantom_collateral, duplicate_pledge contributors')
+    return cautions

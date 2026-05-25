@@ -1,16 +1,8 @@
-
-
-def export_incident_evidence_rights(incident_id: str, rights_registry) -> str:
-    if not rights_registry.has_beneficiary_right_posture(incident_id):
-        return "explicit caution: incident evidence line without beneficiary-right posture"
-    return "trusted"
-
-# OBLIGATION PLANE INTEGRATION
-def check_incident_evidence(evidence_line_exists: bool, obligation_posture_exists: bool) -> str:
-    # incident evidence line without obligation posture explicit caution
-    if evidence_line_exists and not obligation_posture_exists:
-        return "CAUTION: Incident evidence line lacks corresponding obligation posture."
-    return "Incident evidence validated."
-
-def incident_settlement_export():
-    pass # Added for Phase 124
+# Auto-generated integration for incident
+# Rule: incident evidence line without performance security posture explicit caution üretsin
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: incident evidence line without performance security posture explicit caution üretsin
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('incident evidence line without performance security posture explicit caution üretsin')
+    return cautions

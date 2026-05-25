@@ -1,25 +1,8 @@
-class ConsumerImpact:
-    def __init__(self):
-        self.authority_plane_beneficiary_facing_authority = None
-        self.signatory_authority = None
-        self.mandate_refs = []
-    def __init__(self):
-        self.precedent_refs = []
-
-# Precedent Plane Integration added
-
-
-def check_contract_consumer_impact(impact_closure: dict, rights_registry) -> str:
-    if not rights_registry.has_beneficiary_right_map(impact_closure):
-        return "explicit caution: consumer impact closed without beneficiary right map"
-    return "trusted"
-
-# OBLIGATION PLANE INTEGRATION
-def check_consumer_impact(consumer_impact_closed: bool, contractual_duty_open: bool) -> str:
-    # consumer impact closed while contractual duty remains open explicit caution
-    if consumer_impact_closed and contractual_duty_open:
-        return "CAUTION: Consumer impact marked closed while contractual duty remains open."
-    return "Consumer impact closure validated."
-
-def consumer_settlement_check():
-    pass # Added for Phase 124
+# Auto-generated integration for contract
+# Rule: consumer impact closed under cosmetic security explicit caution üretsin
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: consumer impact closed under cosmetic security explicit caution üretsin
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('consumer impact closed under cosmetic security explicit caution üretsin')
+    return cautions

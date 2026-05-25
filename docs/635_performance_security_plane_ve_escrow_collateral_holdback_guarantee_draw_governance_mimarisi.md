@@ -1,0 +1,2 @@
+# Performance Security Plane Architecture
+Describes security objects, funding/draw, release/replenishment, and residual risk/trust flows. Emphasizes why secured != funded != drawable, and strictly forbids phantom collateral.

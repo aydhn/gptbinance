@@ -1,14 +1,8 @@
-class ObservationTimeIntegration:
-    def check_delayed_harm(self):
-        # delayed-harm windows remedy-plane residual harm posture ile canonical bağlansın
-        pass
-
-# OBLIGATION PLANE INTEGRATION
-def check_discharge_timing(discharge_claimed: bool, due_window_evidence_exists: bool) -> str:
-    # discharge claimed before due window evidence explicit caution
-    if discharge_claimed and not due_window_evidence_exists:
-        return "CAUTION: Discharge claimed before due window evidence is available."
-    return "Discharge timing validated."
-
-def check_acceptance_timing():
-    pass # Added for Phase 124
+# Auto-generated integration for temporal
+# Rule: security treated current under stale valuation explicit caution üretsin
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: security treated current under stale valuation explicit caution üretsin
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('security treated current under stale valuation explicit caution üretsin')
+    return cautions

@@ -1,22 +1,8 @@
-# liability templates
-
-
-rights_templates = {
-    "manifest_ready": "Rights manifest {id} is ready.",
-    "pseudo_consent": "Caution: Pseudo consent detected in {scope}.",
-    "invalid_waiver": "Blocker: Invalid waiver {id} applied.",
-    "standing_burial": "Alert: Standing explicitly buried in {id}.",
-    "review_required": "Review required for rights artifact {id}.",
-    "summary_digest": "Rights Digest: {metrics}"
-}
-
-# dispute templates
-dispute_templates = {
-    "manifest_ready": "Dispute manifest ready: {id}",
-    "invalid_dismissal": "Invalid dismissal detected: {id}",
-    "appeal_starvation": "Appeal starvation detected: {id}",
-    "off_record_adjudication": "Off-record adjudication detected: {id}"
-}
-
-SETTLEMENT_MANIFEST_READY = 'Settlement Manifest Ready'
-# Added for Phase 124
+# Auto-generated integration for telegram_templates
+# Rule: performance security manifest ready templates
+def evaluate_performance_security_integration(context, security_records):
+    cautions = []
+    # Implementing: performance security manifest ready templates
+    if not security_records or getattr(security_records, 'is_unfunded', False):
+        cautions.append('performance security manifest ready templates')
+    return cautions

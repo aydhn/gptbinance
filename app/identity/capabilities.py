@@ -1,11 +1,8 @@
-# inspect_liability_manifest
-
-
-rights_capabilities = [
-    "inspect_rights_manifest", "review_beneficiaries_and_entitlements",
-    "review_claims_and_standing", "review_consents_waivers_and_revocations",
-    "review_survival_and_exhaustion"
-]
-
-def register_settlement_capabilities():
-    pass # Added for Phase 124
+class Capabilities:
+    CAPABILITIES = [
+        "inspect_performance_security_manifest",
+        "review_secured_obligations_and_collateral",
+        "review_funding_draws_and_releases",
+        "review_valuation_impairment_and_substitution",
+        "review_beneficiary_access_and_residual_coverage"
+    ]

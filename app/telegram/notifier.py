@@ -1,13 +1,11 @@
-# liability notifications
-
-
-def notify_telegram_rights(event_type: str, context: dict):
-    allowed_types = [
-        "rights manifest ready", "pseudo consent detected", "invalid waiver detected",
-        "standing burial detected", "rights review required"
+class TelegramNotifier:
+    EVENT_TYPES = [
+        "performance_security_manifest_ready",
+        "material_undersecurity_detected",
+        "phantom_collateral_detected",
+        "premature_security_release_detected",
+        "performance_security_review_required"
     ]
-    if event_type in allowed_types:
-        print(f"[Telegram] Sent: {event_type}")
 
-def notify_settlement_event():
-    pass # Added for Phase 124
+    def notify(self, event_type: str, data: dict):
+        pass

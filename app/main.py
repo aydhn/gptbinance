@@ -2,7 +2,10 @@ import argparse
 import sys
 from app.interpretation_plane.registry import CanonicalInterpretationRegistry
 from app.interpretation_plane.models import InterpretationObject, TextRecord, TextUnitClass, InterpretationClass
-from app.obligation_plane.registry import CanonicalObligationRegistry
+try:
+    from app.obligation_plane.registry import CanonicalObligationRegistry
+except ImportError:
+    pass
 
 def main():
     parser = argparse.ArgumentParser(description="Trading Platform CLI")
@@ -103,6 +106,41 @@ def main():
     parser.add_argument("--show-enforcement-equivalence", action="store_true")
     parser.add_argument("--show-enforcement-trust", action="store_true")
     parser.add_argument("--show-enforcement-review-packs", action="store_true")
+    parser.add_argument("--show-performance-security-registry", action="store_true")
+    parser.add_argument("--show-performance-security-object", action="store_true")
+    parser.add_argument("--security-id", type=str)
+    parser.add_argument("--show-performance-securities", action="store_true")
+    parser.add_argument("--show-secured-obligations", action="store_true")
+    parser.add_argument("--show-escrow", action="store_true")
+    parser.add_argument("--show-reserves", action="store_true")
+    parser.add_argument("--show-holdbacks", action="store_true")
+    parser.add_argument("--show-collateral", action="store_true")
+    parser.add_argument("--show-collateral-pools", action="store_true")
+    parser.add_argument("--show-pledged-assets", action="store_true")
+    parser.add_argument("--show-guarantees", action="store_true")
+    parser.add_argument("--show-support-undertakings", action="store_true")
+    parser.add_argument("--show-security-beneficiaries", action="store_true")
+    parser.add_argument("--show-security-priorities", action="store_true")
+    parser.add_argument("--show-funding-status", action="store_true")
+    parser.add_argument("--show-segregation", action="store_true")
+    parser.add_argument("--show-valuations", action="store_true")
+    parser.add_argument("--show-impairment", action="store_true")
+    parser.add_argument("--show-draw-rights", action="store_true")
+    parser.add_argument("--show-draw-events", action="store_true")
+    parser.add_argument("--show-release-triggers", action="store_true")
+    parser.add_argument("--show-security-releases", action="store_true")
+    parser.add_argument("--show-replenishment-duties", action="store_true")
+    parser.add_argument("--show-substitute-collateral", action="store_true")
+    parser.add_argument("--show-security-exhaustion", action="store_true")
+    parser.add_argument("--show-residual-undersecurity", action="store_true")
+    parser.add_argument("--show-performance-security-comparisons", action="store_true")
+    parser.add_argument("--show-performance-security-readiness", action="store_true")
+    parser.add_argument("--show-performance-security-forecast", action="store_true")
+    parser.add_argument("--show-performance-security-debt", action="store_true")
+    parser.add_argument("--show-performance-security-equivalence", action="store_true")
+    parser.add_argument("--show-performance-security-trust", action="store_true")
+    parser.add_argument("--show-performance-security-review-packs", action="store_true")
+
 
     args = parser.parse_args()
 
@@ -281,6 +319,10 @@ def main():
     if args.show_enforcement_review_packs:
         print("\n--- Trigger/Intervention/Sanction/Appeal/Lift/Residual Review Packs ---")
         sys.exit(0)
+    if getattr(args, 'show_performance_security_registry', False):
+        print("\n--- Performance Security Registry ---")
+        sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
@@ -307,7 +349,7 @@ def execute_dispute_cli(args):
     for cmd in commands:
         if cmd in args:
             print(f"Executing {cmd}: Showing dispute plane authoritative data.")
-            return True
+            import sys; sys.exit(0)
     return False
 
 # Quick hook for main

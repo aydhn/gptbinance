@@ -1,3 +1,7 @@
-__pycache__/
+__pycache__
 *.pyc
-.pytest_cache/
+*.pyo
+test_output.log
+test_results.txt
+.pytest_cache
+submission.txt

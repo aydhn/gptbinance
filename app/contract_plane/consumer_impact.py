@@ -1,3 +1,3 @@
-class ContractConsumerImpact:
-    def check_impact(self, insolvency_repo):
-        pass
+# Integration with Recapitalization Plane
+def verify_recapitalization_linkage(recap_id: str):
+    pass

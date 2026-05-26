@@ -1,7 +1,4 @@
-# finalization.py
-from app.recovery_plane.models import *
-from app.recovery_plane.exceptions import *
-
-class FinalizationManager:
-    def process(self, data: dict):
-        return {"status": "ok", "module": "finalization"}
+class RecoveryFinalization:
+    def check_finalization(self, recovery_id, insolvency_repo):
+        # recovery finalized while insolvency class losses unresolved explicit caution
+        pass

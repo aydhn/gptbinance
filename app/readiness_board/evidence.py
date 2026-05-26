@@ -1,1 +1,3 @@
-# recovery_integrity
+class ReadinessEvidence:
+    def check_evidence(self, insolvency_repo):
+        pass

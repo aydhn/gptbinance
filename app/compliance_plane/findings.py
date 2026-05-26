@@ -1,1 +1,3 @@
-# hidden shortfalls, provisional recoveries
+class ComplianceFindings:
+    def check_findings(self, insolvency_repo):
+        pass

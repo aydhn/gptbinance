@@ -1,1 +1,3 @@
-# incident compensation recoveries
+class SecurityReadiness:
+    def check_readiness(self, insolvency_repo):
+        pass

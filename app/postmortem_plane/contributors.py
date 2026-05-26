@@ -1,1 +1,3 @@
-# phantom_recovery, waterfall_inversion
+class PostmortemContributors:
+    def check_contributors(self, insolvency_repo):
+        pass

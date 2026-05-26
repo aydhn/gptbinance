@@ -1,9 +1,3 @@
 class RemedySufficiency:
-    def __init__(self):
-        self.compensation_approval_authority_refs = []
-    def __init__(self):
-        self.sufficiency_signoff_authority_refs = []
-    def check_compensation_precedent(self):
+    def check_sufficiency(self, remedy_id, insolvency_repo):
         pass
-
-# Precedent Plane Integration added

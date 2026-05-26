@@ -1,1 +1,3 @@
-# recovery manifest ready
+class TelegramNotifier:
+    def notify(self, message):
+        pass

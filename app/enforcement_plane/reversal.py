@@ -1,3 +1,1 @@
-# Stub for $file
-def init_$file():
-    pass
+# recovery-plane source and beneficiary

@@ -1,1 +1,3 @@
-# material_recovery_gap_detected
+class ObservabilityAlerts:
+    def emit_alerts(self, insolvency_repo):
+        pass

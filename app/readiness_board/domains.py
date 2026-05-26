@@ -1,1 +1,3 @@
-# recovery_integrity domain
+class ReadinessDomains:
+    def check_domains(self, insolvency_repo):
+        pass

@@ -1,1 +1,3 @@
-# recovered/collected/allocated semantics
+class SemanticDefinitions:
+    def check_semantics(self, insolvency_repo):
+        pass

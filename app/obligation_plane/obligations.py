@@ -1,5 +1,3 @@
-# app/obligation_plane/obligations.py
-
-class ObligationsManager:
-    def get(self):
-        return 'data'
+class Obligations:
+    def check_post_petition(self, obligation_id, insolvency_repo):
+        pass

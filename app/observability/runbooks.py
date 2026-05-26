@@ -1,1 +1,3 @@
-# source_realization_revalidation
+class ObservabilityRunbooks:
+    def get_runbooks(self, insolvency_repo):
+        pass

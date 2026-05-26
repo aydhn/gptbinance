@@ -1,7 +1,3 @@
-# appeals.py
-from .exceptions import DisputePlaneError
-
-class AppealsManager:
-    def evaluate(self, dispute):
-        # Enforce exact typed semantics for appeals.py
+class DisputeAppeals:
+    def check_appeals(self, insolvency_repo):
         pass

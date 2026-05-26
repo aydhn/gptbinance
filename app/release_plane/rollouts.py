@@ -1,1 +1,3 @@
-# rollout snapshots realized recoveries
+class ReleaseRollouts:
+    def check_rollouts(self, insolvency_repo):
+        pass

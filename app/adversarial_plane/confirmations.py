@@ -1,1 +1,3 @@
-# phantom recovery, cost burial
+class AdversarialConfirmations:
+    def check_patterns(self, insolvency_repo):
+        pass

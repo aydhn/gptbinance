@@ -1,3 +1,1 @@
-# Rights Plane Component: remedy
-def get_remedy_metadata():
-    return {"component": "remedy", "status": "active"}
+# remedy rights funded through recovery-plane

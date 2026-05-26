@@ -1,3 +1,3 @@
-class EvidenceArtefacts:
-    def add_artefacts(self, insolvency_repo):
-        pass
+# Integration with Recapitalization Plane
+def verify_recapitalization_linkage(recap_id: str):
+    pass

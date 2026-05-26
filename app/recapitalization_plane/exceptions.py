@@ -1,0 +1,5 @@
+class RecapitalizationPlaneError(Exception): pass
+class PhantomCapitalViolation(RecapitalizationPlaneError): pass
+class HiddenDilutionViolation(RecapitalizationPlaneError): pass
+class UnderfundedRecapitalizationError(RecapitalizationPlaneError): pass
+class UnauthorizedControlShiftError(RecapitalizationPlaneError): pass

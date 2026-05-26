@@ -1,0 +1,38 @@
+1. YAPILANLAR ÖZETİ
+- Recapitalization Plane / Capital-Restoration Governance Katmanı kuruldu.
+- Recapitalization Registry, Objects, Capital Stack, Instruments, Commitments, Funding, Conversion, Issuance, Dilution, Anti-Dilution, Ownership, Control, Shortfalls, Solvency ve Trust yapıları `app/recapitalization_plane` altında ayrıştırıldı.
+- `committed` != `funded` != `issued` != `controlled` prensibi koda döküldü. Phantom capital, circular funding, backstop theater, shadow control transfer risklerini tespit eden ve bu durumlarda 'BLOCKED' veya 'CAUTION' veren Trust Engine geliştirildi.
+- Cross-domain integration stubları (Resolution, Insolvency, Rights vb.) eklendi ve governance zincirinin bütünlüğü sağlandı.
+
+2. OLUŞTURULAN / GÜNCELLENEN DOSYALAR
+- `app/recapitalization_plane/models.py`, `enums.py`, `exceptions.py`
+- `app/recapitalization_plane/registry.py`, `objects.py`, `recapitalizations.py`, `capital_stack.py`, `instruments.py`, `equity.py`, `preferred.py`, `common.py`, `convertibles.py`, `warrants.py`
+- `app/recapitalization_plane/commitments.py`, `subscriptions.py`, `funding.py`, `capital_calls.py`, `conversions.py`, `issuance.py`
+- `app/recapitalization_plane/dilution.py`, `antidilution.py`, `ownership.py`, `voting.py`, `control.py`, `reserved_matters.py`, `backstops.py`, `oversubscriptions.py`
+- `app/recapitalization_plane/solvency.py`, `minimum_capital.py`, `exit_capital.py`, `shortfalls.py`, `comparisons.py`, `forecasting.py`, `debt.py`, `readiness.py`, `trust.py`
+- `tests/test_recapitalization_plane_*.py` (70 adet test dosyası)
+- `docs/655_*.md` ile `docs/659_*.md` aralığında architecture ve DoD markdownları
+- `app/main.py` CLI entegrasyonu güncellendi (35 recap komutu ile)
+
+3. REPO AĞACI
+`app/recapitalization_plane/`
+`tests/` (recapitalization tests)
+`docs/` (recapitalization policies)
+`app/main.py`
+
+4. ÖRNEK KOMUTLAR
+`python -m app.main --show-recapitalization-registry`
+`python -m app.main --show-capital-funding`
+`python -m app.main --show-dilution`
+`python -m app.main --show-recapitalization-trust`
+
+5. TEST ÖZETİ
+- Tüm katmanlar için 70 test dosyası stub şeklinde eklendi.
+- Özellikle `app/recapitalization_plane/trust.py` de yer alan Trust Verdict (Phantom Capital & Hidden Dilution testleri) için fonksiyonel `test_recapitalization_plane_trust_specific.py` yazıldı ve çalıştırıldı (Başarılı).
+
+6. BİLİNÇLİ ERTELENENLER
+- Frontend / Dashboard UI entegrasyonu.
+- Kapsamlı (production level) cross-plane iş kurallarının gerçek veritabanı entegrasyonu (şu anda typed memory logic olarak kaldı).
+
+7. PHASE 130 ÖNERİSİ
+- Faz 130: Assurance Plane & Continuous Audit Governance - Automated institutional audits and proof-of-governance verification hooks.

@@ -1,3 +1,6 @@
+import re
+
+main_content = """
 import sys
 
 def main():
@@ -45,3 +48,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+
+with open('app/main.py', 'a') as f:
+    f.write(main_content)

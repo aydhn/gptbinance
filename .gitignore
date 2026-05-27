@@ -5,3 +5,7 @@ test_output.log
 test_results.txt
 .pytest_cache
 submission.txt
+app/normalization_plane/
+tests/test_normalization_plane_*
+docs/*_normalization_*
+docs/66*

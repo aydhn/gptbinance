@@ -5,3 +5,4 @@ test_output.log
 test_results.txt
 .pytest_cache
 submission.txt
+__pycache__/

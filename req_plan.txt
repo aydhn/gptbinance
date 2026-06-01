@@ -1,7 +1,6 @@
-1. Implement the Representation Plane components based on `app/representation_plane/models.py`, `enums.py`, `trust.py`, etc., adding necessary objects like Clarifications, Corrections, and Retractions.
-2. Connect them all to `registry.py` and other files like `audiences.py`, `materiality.py`, etc.
-3. Enhance `app/main.py` to add CLI commands (e.g. `--show-statements`, `--show-disclosures`).
-4. Update integration files (`rights.py`, `liability.py`, etc.) inside `app/rights_plane`, `app/liability_plane`, etc. to utilize the new representation concepts.
-5. Create all necessary tests inside `tests/` focusing on testing registry, trust engine, equivalence, debt, integrations, and adversarial issues.
-6. Run the tests.
-7. Finish and summarize.
+1. Implement the Immunity Plane core components (models, enums, exceptions, base).
+2. Implement specific modules for immunity components (registry, objects, immunities, failure classes, signatures, coverage, runtime gates, blocks, propagation, beneficiaries, control, mutations, blindspots, overrides, override use, degradation, revalidation, retention, comparisons, forecasting, debt, readiness, equivalence, divergence, quality, trust, manifests, reporting, storage, repository).
+3. Integrate the Immunity Plane with existing cross-plane domains (adaptation, drift, normalization, recapitalization, resolution, insolvency, recovery, performance security, settlement, dispute, enforcement, obligations, rights, liability, authority, precedent, jurisdiction, finality, commitment, remedy, representation, interpretation, adversarial, tradeoff, epistemic, semantic, temporal, provenance, autonomy, federation, constitution, contracts, compliance, security, incidents, releases, migrations, policy, scenario, state, observability, readiness_board, reliability, postmortem, evidence_graph, reviews, identity, telegram).
+4. Update CLI commands in `app/main.py`.
+5. Create standard documents as specified (675 to 679).
+6. Create dummy tests for all required modules.

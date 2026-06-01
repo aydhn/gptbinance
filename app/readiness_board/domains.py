@@ -4,3 +4,5 @@ class AssuranceIntegrityDomain:
         if not assurance_record.cases:
             return "caution"
         return "pass"
+
+ACCOUNTABILITY_READINESS_DOMAINS = ['accountability_integrity']

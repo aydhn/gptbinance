@@ -4,6 +4,16 @@ from app.assurance_plane.repository import AssuranceRepository
 
 def main():
     parser = argparse.ArgumentParser(description="Assurance Plane CLI")
+    parser.add_argument("--show-accountability-registry", action="store_true")
+    parser.add_argument("--show-accountability-object", action="store_true")
+    parser.add_argument("--show-accountable-subjects", action="store_true")
+    parser.add_argument("--show-scapegoating-risk", action="store_true")
+    parser.add_argument("--show-accountability-trust", action="store_true")
+    parser.add_argument("--show-accountability-debt", action="store_true")
+    parser.add_argument("--show-accountability-comparisons", action="store_true")
+    parser.add_argument("--breach-id", type=str)
+    parser.add_argument("--accountability-id", type=str)
+
     parser.add_argument("--show-assurance-registry", action="store_true", help="Show canonical Assurance Registry")
     parser.add_argument("--show-assurance-object", action="store_true", help="Show assurance object")
     parser.add_argument("--assurance-id", type=str, help="Assurance ID")

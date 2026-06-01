@@ -4,3 +4,5 @@ def check_assurance_slos(assurance_record) -> dict:
         "contradiction_burial_absence": len(assurance_record.contradictions) == 0,
         "missed_surveillance_absence": bool(assurance_record.surveillance)
     }
+
+ACCOUNTABILITY_SLOS = ['unresolved ownerless-critical-risk ceiling', 'symbolic-sanction absence', 'unresolved restitution absence', 'opaque-appeal absence', 'trusted accountability degraded ratio']

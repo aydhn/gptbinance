@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: enforcement lifts conditioned on verified adaptation and side-effect bounds refs taşısın
-    # ADAPTATION PLANE INTEGRATION: lift granted on deployed but unverified adaptation explicit caution üretsin
+def check_enforcement_lift_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if assurance_record.expiry and assurance_record.expiry.is_expired:
+        cautions.append("lift granted on expired certificate explicit caution")
+    return cautions

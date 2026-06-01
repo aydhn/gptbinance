@@ -1,5 +1,9 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: runbook refs: root_cause_revalidation, countermeasure_scope_review, hardening_effectiveness_review, side_effect_reassessment, rollback_safety_review, adaptation_drift_cleanup_review
+def get_assurance_runbooks() -> list:
+    return [
+        "evidence_sufficiency_review",
+        "certification_scope_review",
+        "contradiction_resolution_review",
+        "surveillance_recovery_review",
+        "revocation_readiness_review",
+        "assurance_drift_cleanup_review"
+    ]

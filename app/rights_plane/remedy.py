@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: beneficiary remedy rights affected by adaptation side effects adaptation-plane refs taşısın
-    # ADAPTATION PLANE INTEGRATION: remedy right treated safe while adaptation harms beneficiary fairness explicit caution üretsin
+def check_remedy_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if assurance_record.caveats:
+        cautions.append("remedy safe asserted under caveat-heavy assurance explicit caution")
+    return cautions

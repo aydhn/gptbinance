@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: adaptation package, rebaseline and rollback approvals adaptation-plane authority refs ile canonical bağlansın
-    # ADAPTATION PLANE INTEGRATION: adaptation action by actor lacking recalibration or rollback authority explicit caution üretsin
+def check_authority_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if not assurance_record.certifications:
+        cautions.append("assurance action by actor lacking certification authority explicit caution")
+    return cautions

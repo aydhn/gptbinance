@@ -1,5 +1,11 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: adaptation-specific alert families: material_adaptation_gap_detected, cosmetic_fix_detected, hidden_side_effect_detected, failed_adaptation_detected, premature_rebaseline_detected, adaptation_review_required
+def check_assurance_alerts(assurance_record) -> list:
+    alerts = []
+    if not assurance_record.cases:
+        alerts.append("insufficient_assurance_detected")
+    if assurance_record.expiry and assurance_record.expiry.is_expired:
+        alerts.append("stale_certification_detected")
+    if assurance_record.contradictions:
+        alerts.append("contradiction_detected")
+    if not assurance_record.surveillance:
+        alerts.append("surveillance_lapse_detected")
+    return alerts

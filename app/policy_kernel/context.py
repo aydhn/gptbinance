@@ -1,6 +1,8 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: adaptation posture, active packages, verification gaps, side-effect burden ve rebaseline eligibility context'e eklensin
-    # ADAPTATION PLANE INTEGRATION: high-risk actions için adaptation sufficiency input'u olsun
+def get_assurance_context(assurance_record) -> dict:
+    return {
+        "assurance_posture": "active" if assurance_record.cases else "insufficient",
+        "active_caveats": len(assurance_record.caveats),
+        "surveillance_status": "active" if assurance_record.surveillance else "lapsed",
+        "expiry_exposure": assurance_record.expiry.is_expired if assurance_record.expiry else False,
+        "contradiction_burden": len(assurance_record.contradictions)
+    }

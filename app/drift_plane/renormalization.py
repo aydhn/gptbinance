@@ -14,3 +14,6 @@ class RenormalizationManager:
 
     def get_prerequisite(self, prereq_id: str) -> RenormalizationPrerequisiteRecord:
         return self.prerequisites.get(prereq_id)
+
+    # ADAPTATION PLANE INTEGRATION: renormalization prerequisites adaptation-plane fitness restoration, verification maturity ve rebaseline refs taşısın
+    # ADAPTATION PLANE INTEGRATION: renormalization claimed without canonical adaptation evidence explicit caution üretsin

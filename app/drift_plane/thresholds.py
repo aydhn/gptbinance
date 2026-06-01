@@ -17,3 +17,6 @@ class ThresholdManager:
 
     def get_breach(self, breach_id: str) -> ThresholdBreachRecord:
         return self.breaches.get(breach_id)
+
+    # ADAPTATION PLANE INTEGRATION: threshold changes adaptation-plane recalibration safety and side-effect refs ile canonical bağlansın
+    # ADAPTATION PLANE INTEGRATION: threshold relaxation treated corrective without adaptation verification explicit caution üretsin

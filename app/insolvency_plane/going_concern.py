@@ -20,3 +20,6 @@ class GoingConcernManager:
 
     def list_going_concerns(self) -> List[GoingConcernRecord]:
         return list(self.concerns.values())
+
+    # ADAPTATION PLANE INTEGRATION: going-concern repair adaptation-plane structural change and fitness refs ile canonical bağlansın
+    # ADAPTATION PLANE INTEGRATION: going concern preserved treated corrected without adaptation basis explicit caution üretsin

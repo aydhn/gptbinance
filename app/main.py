@@ -1,79 +1,91 @@
 import argparse
-import sys
-from app.normalization_plane.registry import NormalizationRegistry
-from app.normalization_plane.models import NormalizationRecord, ReentryGateRecord, ResidualScarRecord, LimitLiftRecord, GuardrailRecord
-from app.normalization_plane.enums import NormalizationClass, ReentryGateStatus, ResidualScarClass, LimitLiftClass, GuardrailClass
-from app.normalization_plane.trust import TrustVerdictEngine
 
 def main():
-    parser = argparse.ArgumentParser(description="Normalization Plane CLI")
-    parser.add_argument("--show-normalization-registry", action="store_true")
-    parser.add_argument("--show-normalization-object", action="store_true")
-    parser.add_argument("--normalization-id", type=str)
-    parser.add_argument("--show-normalizations", action="store_true")
-    parser.add_argument("--show-reentry-gates", action="store_true")
-    parser.add_argument("--show-reauthorizations", action="store_true")
-    parser.add_argument("--show-requalifications", action="store_true")
-    parser.add_argument("--show-capability-restoration", action="store_true")
-    parser.add_argument("--show-supervised-operations", action="store_true")
-    parser.add_argument("--show-guarded-reopens", action="store_true")
-    parser.add_argument("--show-limit-lifts", action="store_true")
-    parser.add_argument("--show-scale-permissions", action="store_true")
-    parser.add_argument("--show-guardrails", action="store_true")
-    parser.add_argument("--show-monitoring-burdens", action="store_true")
-    parser.add_argument("--show-rollback-triggers", action="store_true")
-    parser.add_argument("--show-de-normalizations", action="store_true")
-    parser.add_argument("--show-beneficiary-safety", action="store_true")
-    parser.add_argument("--show-domain-normalization", action="store_true")
-    parser.add_argument("--show-normalization-authority", action="store_true")
-    parser.add_argument("--show-residual-scars", action="store_true")
-    parser.add_argument("--show-full-normal-claims", action="store_true")
-    parser.add_argument("--show-reversible-normalization", action="store_true")
-    parser.add_argument("--show-normalization-comparisons", action="store_true")
-    parser.add_argument("--show-normalization-readiness", action="store_true")
-    parser.add_argument("--show-normalization-forecast", action="store_true")
-    parser.add_argument("--show-normalization-debt", action="store_true")
-    parser.add_argument("--show-normalization-equivalence", action="store_true")
-    parser.add_argument("--show-normalization-trust", action="store_true")
-    parser.add_argument("--show-normalization-review-packs", action="store_true")
+    parser = argparse.ArgumentParser(description="Drift Plane CLI")
+    parser.add_argument("--show-drift-registry", action="store_true")
+    parser.add_argument("--show-drift-object", action="store_true")
+    parser.add_argument("--drift-id", type=str)
+    parser.add_argument("--show-drifts", action="store_true")
+    parser.add_argument("--show-baselines", action="store_true")
+    parser.add_argument("--show-baseline-scope", action="store_true")
+    parser.add_argument("--show-drift-signals", action="store_true")
+    parser.add_argument("--show-metric-erosion", action="store_true")
+    parser.add_argument("--show-threshold-breaches", action="store_true")
+    parser.add_argument("--show-guardrail-deviation", action="store_true")
+    parser.add_argument("--show-control-drift", action="store_true")
+    parser.add_argument("--show-authority-drift", action="store_true")
+    parser.add_argument("--show-capability-regression", action="store_true")
+    parser.add_argument("--show-reliability-regression", action="store_true")
+    parser.add_argument("--show-compliance-drift", action="store_true")
+    parser.add_argument("--show-beneficiary-impact-drift", action="store_true")
+    parser.add_argument("--show-scar-reactivation", action="store_true")
+    parser.add_argument("--show-recurrence-triggers", action="store_true")
+    parser.add_argument("--show-restriction-reimposition", action="store_true")
+    parser.add_argument("--show-renormalization-prerequisites", action="store_true")
+    parser.add_argument("--show-drift-comparisons", action="store_true")
+    parser.add_argument("--show-drift-readiness", action="store_true")
+    parser.add_argument("--show-drift-forecast", action="store_true")
+    parser.add_argument("--show-drift-debt", action="store_true")
+    parser.add_argument("--show-drift-equivalence", action="store_true")
+    parser.add_argument("--show-drift-trust", action="store_true")
+    parser.add_argument("--show-drift-review-packs", action="store_true")
 
     args = parser.parse_args()
 
-    if args.show_normalization_registry:
-        registry = NormalizationRegistry()
-        print("Normalization Registry Families:")
-        for family, desc in registry.get_families().items():
-            print(f" - {family.name}: {desc}")
-
-    elif args.show_normalization_object and args.normalization_id:
-        print(f"Showing Normalization Object: {args.normalization_id}")
-
-    elif args.show_normalizations:
-        print("Showing Normalizations: proposed, supervised, partial, completed")
-
-    elif args.show_reentry_gates:
-        print("Showing Re-entry Gates: provisional, cleared, blocked")
-
-    elif args.show_normalization_trust:
-        record = NormalizationRecord(
-            normalization_id="NORM-001",
-            normalization_class=NormalizationClass.POST_RESOLUTION,
-            owner="SYSTEM",
-            domain="Trading",
-            reentry_gate=ReentryGateRecord(gate_id="G1", status=ReentryGateStatus.CLEARED, notes="Safe"),
-            residual_scars=[ResidualScarRecord(scar_id="S1", scar_class=ResidualScarClass.HIDDEN, description="Hidden scar", domain="Trading", is_hidden=True)]
-        )
-        engine = TrustVerdictEngine()
-        report = engine.evaluate(record)
-        print(f"Trust Verdict: {report.verdict.name}")
-        print(f"Blockers: {report.blockers}")
-        print(f"Cautions: {report.cautions}")
-
+    if args.show_drift_registry:
+        print("Showing Drift Registry...")
+    elif args.show_drift_object and args.drift_id:
+        print(f"Showing Drift Object: {args.drift_id}")
+    elif args.show_drifts:
+        print("Showing Drifts...")
+    elif args.show_baselines:
+        print("Showing Baselines...")
+    elif args.show_baseline_scope:
+        print("Showing Baseline Scope...")
+    elif args.show_drift_signals:
+        print("Showing Drift Signals...")
+    elif args.show_metric_erosion:
+        print("Showing Metric Erosion...")
+    elif args.show_threshold_breaches:
+        print("Showing Threshold Breaches...")
+    elif args.show_guardrail_deviation:
+        print("Showing Guardrail Deviation...")
+    elif args.show_control_drift:
+        print("Showing Control Drift...")
+    elif args.show_authority_drift:
+        print("Showing Authority Drift...")
+    elif args.show_capability_regression:
+        print("Showing Capability Regression...")
+    elif args.show_reliability_regression:
+        print("Showing Reliability Regression...")
+    elif args.show_compliance_drift:
+        print("Showing Compliance Drift...")
+    elif args.show_beneficiary_impact_drift:
+        print("Showing Beneficiary Impact Drift...")
+    elif args.show_scar_reactivation:
+        print("Showing Scar Reactivation...")
+    elif args.show_recurrence_triggers:
+        print("Showing Recurrence Triggers...")
+    elif args.show_restriction_reimposition:
+        print("Showing Restriction Reimposition...")
+    elif args.show_renormalization_prerequisites:
+        print("Showing Renormalization Prerequisites...")
+    elif args.show_drift_comparisons:
+        print("Showing Drift Comparisons...")
+    elif args.show_drift_readiness:
+        print("Showing Drift Readiness...")
+    elif args.show_drift_forecast:
+        print("Showing Drift Forecast...")
+    elif args.show_drift_debt:
+        print("Showing Drift Debt...")
+    elif args.show_drift_equivalence:
+        print("Showing Drift Equivalence...")
+    elif args.show_drift_trust:
+        print("Showing Drift Trust...")
+    elif args.show_drift_review_packs:
+        print("Showing Drift Review Packs...")
     else:
-        # Stub for other commands
-        for arg in vars(args):
-            if getattr(args, arg) == True and arg != 'show_normalization_registry' and arg != 'show_normalization_trust':
-                print(f"Executing: {arg}")
+        parser.print_help()
 
 if __name__ == "__main__":
     main()

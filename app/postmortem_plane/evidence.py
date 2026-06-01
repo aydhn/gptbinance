@@ -1,5 +1,6 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: adaptations, hypotheses, packages, hardenings, recalibrations, side effects ve fitness refs postmortem bundles'e canonical export etsin
+def export_postmortem_evidence(assurance_record) -> dict:
+    return {
+        "assurance_id": assurance_record.assurance_obj.assurance_id,
+        "cases": [c.case_id for c in assurance_record.cases],
+        "certifications": [c.certification_id for c in assurance_record.certifications]
+    }

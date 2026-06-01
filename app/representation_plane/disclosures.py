@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: fixed/improved/hardened/restored disclosures adaptation-plane canonical meanings ile bağlansın
-    # ADAPTATION PLANE INTEGRATION: improved represented while adaptation still unverified explicit caution üretsin
+def check_representation_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if not assurance_record.cases or not any(c.is_complete for c in assurance_record.cases):
+        cautions.append("assured represented while evidence insufficient explicit caution")
+    return cautions

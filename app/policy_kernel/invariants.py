@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: no trusted high-risk closure, settlement, discharge, final-safe or restored-fitness claim may be emitted while material adaptation treatment remains unresolved in eligible scopes
-    # ADAPTATION PLANE INTEGRATION: no hypothesis, countermeasure, recalibration, rebaseline, hardening, retraining or rollback event may alter an adaptation posture beyond its explicit domain, beneficiary, authority, scope and jurisdiction boundaries
+def check_assurance_invariants(assurance_record) -> list:
+    violations = []
+    if not assurance_record.cases and assurance_record.certifications:
+        violations.append("no posture may be treated as assured without explicit claim integrity and evidence sufficiency")
+    if assurance_record.expiry and assurance_record.expiry.is_expired and assurance_record.surveillance:
+        violations.append("no contractual or rights-safe claim may stand while the governing assurance remains stale")
+    return violations

@@ -1,5 +1,8 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
-
-    # ADAPTATION PLANE INTEGRATION: capabilities: inspect_adaptation_manifest, review_triggers_hypotheses_and_countermeasures, review_hardening_retraining_and_recalibration, review_verification_side_effects_and_rollbacks, review_fitness_restoration_and_renormalization
+def get_assurance_capabilities() -> list:
+    return [
+        "inspect_assurance_manifest",
+        "review_claims_evidence_and_sufficiency",
+        "review_certifications_attestations_and_surveillance",
+        "review_caveats_contradictions_and_revocations",
+        "review_assurance_scope_and_current_validity"
+    ]

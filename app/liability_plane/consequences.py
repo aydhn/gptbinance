@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: liability changes created or reduced by adaptation adaptation-plane side-effect and fitness refs ile canonical bağlansın
-    # ADAPTATION PLANE INTEGRATION: liability consequence hidden behind cosmetic adaptation explicit caution üretsin
+def check_liability_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if not assurance_record.cases or not any(c.is_complete for c in assurance_record.cases):
+        cautions.append("liability consequence hidden behind false assurance explicit caution")
+    return cautions

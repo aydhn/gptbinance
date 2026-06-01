@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: final-safe closure requires adaptation-plane verified effect, side-effect visibility and fitness refs
-    # ADAPTATION PLANE INTEGRATION: final label under active adaptation verification gap explicit caution üretsin
+def check_finality_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if assurance_record.expiry and assurance_record.expiry.is_expired:
+        cautions.append("final label under stale or degraded assurance explicit caution")
+    return cautions

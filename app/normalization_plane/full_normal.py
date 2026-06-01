@@ -1,7 +1,7 @@
-"""
-Module full_normal
-"""
+from typing import List
 
-class Full_normalHandler:
-    def process(self, data):
-        pass
+def check_normalization_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if not assurance_record.cases or not any(c.is_complete for c in assurance_record.cases):
+        cautions.append("full normal asserted without assurance case explicit caution")
+    return cautions

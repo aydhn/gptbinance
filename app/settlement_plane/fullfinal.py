@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: recurring settlement harm corrections adaptation-plane package and fitness refs taşısın
-    # ADAPTATION PLANE INTEGRATION: full-final claim under unresolved corrective package explicit caution üretsin
+def check_settlement_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if assurance_record.revocations:
+        cautions.append("full-final asserted while assurance revocable explicit caution")
+    return cautions

@@ -1,6 +1,7 @@
-# Integration with Recapitalization Plane
-def verify_recapitalization_linkage(recap_id: str):
-    pass
+from typing import List
 
-    # ADAPTATION PLANE INTEGRATION: finalized recovery used for corrective deployment adaptation-plane deployment and effect refs taşısın
-    # ADAPTATION PLANE INTEGRATION: recovery finalization used as adaptation success proof without effect measurement explicit caution üretsin
+def check_recovery_assurance(assurance_record) -> List[str]:
+    cautions = []
+    if not assurance_record.cases:
+        cautions.append("recovery finalized treated assured closure without assurance evidence explicit caution")
+    return cautions

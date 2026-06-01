@@ -1,14 +1,9 @@
-def export_repeated_failed_controls():
-    pass
+from app.assurance_plane.models import SurveillanceFindingRecord
 
-def check_assurance_learning_gap(finding_class: str) -> str:
-    # same finding class recurring without learning hardening
-    return "blocker"
-
-
-# -- Learning Plane Additions --
-def export_repeated_failed_controls():
-    pass
-
-def check_assurance_learning_gap(finding_class: str) -> str:
-    return "blocker"
+def create_finding(finding_id: str, assurance_id: str, finding_type: str, is_clean: bool) -> SurveillanceFindingRecord:
+    return SurveillanceFindingRecord(
+        finding_id=finding_id,
+        assurance_id=assurance_id,
+        finding_type=finding_type,
+        is_clean=is_clean
+    )

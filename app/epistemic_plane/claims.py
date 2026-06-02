@@ -10,3 +10,11 @@ def evaluate_accountability_claim_accountability(claim_id: str, has_subject_duty
     if not has_subject_duty_basis:
         return {'status': 'caution', 'message': 'Accountability-sounding claim without subject/duty/breach basis.'}
     return {'status': 'success'}
+
+
+# Incentive Plane Integration
+class EpistemicClaimsIncentiveIntegration:
+    incentive_plane_evidence_refs: list = []
+
+def incentive_sounding_claim_without_basis():
+    return {"caution": "incentive-sounding claim without subject/target/formula/gaming basis"}

@@ -7,3 +7,11 @@ def export_postmortem_evidence(assurance_record) -> dict:
 
 def get_postmortem_bundles_accountability():
     return {'refs': 'accountabilities, duties, breaches, sanctions'}
+
+
+# Incentive Plane Postmortem Evidence Export
+class IncentivePostmortemEvidence:
+    exports = [
+        "incentives", "targets", "reward_formulas",
+        "penalties", "clawbacks", "conflicts", "gaming_signals"
+    ]

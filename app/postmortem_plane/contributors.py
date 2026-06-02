@@ -6,3 +6,14 @@ class SurveillanceTheaterContributor: pass
 class ScopeLaunderingContributor: pass
 
 ACCOUNTABILITY_CONTRIBUTORS = ['scapegoating', 'ownerless_risk', 'symbolic_sanction', 'unresolved_restitution', 'appeal_opacity', 'delegation_laundering']
+
+
+# Incentive Plane Contributors
+INCENTIVE_CONTRIBUTORS = [
+    "reward_hacking",
+    "hidden_conflict",
+    "symbolic_penalty",
+    "escalation_suppression",
+    "beneficiary_blind_efficiency",
+    "local_optimization_externality"
+]

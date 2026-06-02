@@ -10,3 +10,12 @@ def grant_enforcement_lift_accountability(lift_id: str, accountable_approval_cha
     if not accountable_approval_chain:
         return {'status': 'caution', 'message': 'Lift granted without accountable approval chain.'}
     return {'status': 'success'}
+
+
+# Incentive Plane Integration
+class EnforcementLiftIncentiveIntegration:
+    approval_friction_refs: list = []
+    override_speed_reward_refs: list = []
+
+def lift_granted_while_override_for_speed_incentive_active():
+    return {"caution": "lift granted while override-for-speed incentive active"}

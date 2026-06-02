@@ -10,3 +10,12 @@ def assert_full_final_accountability(settlement_id: str, restitution_owner_uncle
     if restitution_owner_unclear:
         return {'status': 'caution', 'message': 'Full-final closure while restitution owner unclear.'}
     return {'status': 'success'}
+
+
+# Incentive Plane Integration
+class SettlementFullFinalIncentiveIntegration:
+    closure_bonus_incentive_refs: list = []
+    restitution_gap_incentive_refs: list = []
+
+def full_final_asserted_under_premature_closure_reward():
+    return {"caution": "full-final asserted under premature-closure reward posture"}

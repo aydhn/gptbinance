@@ -25,3 +25,14 @@ class SanctionsManager:
 
     def get(self, sanction_id: str) -> SanctionRecord:
         return self._store.get(sanction_id)
+
+
+# Incentive Plane Integration
+class SanctionsIncentiveIntegration:
+    incentive_plane_deterrence_strength: str = "undefined"
+    symbolic_sanction_risk: bool = False
+    clawback_refs: list = []
+
+def sanction_applied_treated_behavior_correcting():
+    # without incentive evidence explicit caution
+    return {"caution": "sanction applied treated behavior-correcting without incentive evidence"}

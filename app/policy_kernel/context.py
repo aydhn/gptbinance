@@ -12,3 +12,12 @@ class ContextEnricherAccountability:
     def enrich(context: dict):
         context.update({'accountability_posture': 'ready', 'active_breaches': [], 'sanction_exposure': 'none', 'appeal_status': 'none', 'restitution_burden': 'none'})
         return context
+
+
+# Incentive Plane Context Extension
+class IncentivePolicyContext:
+    incentive_posture: str = "unknown"
+    active_conflicts: list = []
+    gaming_exposure: list = []
+    clawback_status: str = "unknown"
+    beneficiary_cost_burden: list = []

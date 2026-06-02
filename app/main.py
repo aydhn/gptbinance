@@ -42,6 +42,38 @@ def main():
     parser.add_argument("--show-assurance-trust", action="store_true", help="Show trust verdicts")
     parser.add_argument("--show-assurance-review-packs", action="store_true", help="Show review packs")
 
+
+    parser.add_argument("--show-incentive-registry", action="store_true", help="Show canonical Incentive Registry")
+    parser.add_argument("--show-incentive-object", action="store_true")
+    parser.add_argument("--incentive-id", type=str)
+    parser.add_argument("--show-incentives", action="store_true")
+    parser.add_argument("--show-incentive-subjects", action="store_true")
+    parser.add_argument("--show-behavioral-targets", action="store_true")
+    parser.add_argument("--show-incentive-levers", action="store_true")
+    parser.add_argument("--show-rewards", action="store_true")
+    parser.add_argument("--show-reward-formulas", action="store_true")
+    parser.add_argument("--show-delayed-rewards", action="store_true")
+    parser.add_argument("--show-penalties", action="store_true")
+    parser.add_argument("--show-penalty-triggers", action="store_true")
+    parser.add_argument("--show-friction-controls", action="store_true")
+    parser.add_argument("--show-clawbacks", action="store_true")
+    parser.add_argument("--show-escalation-incentives", action="store_true")
+    parser.add_argument("--show-surveillance-incentives", action="store_true")
+    parser.add_argument("--show-shared-incentives", action="store_true")
+    parser.add_argument("--show-incentive-conflicts", action="store_true")
+    parser.add_argument("--show-moral-hazard", action="store_true")
+    parser.add_argument("--show-externalities", action="store_true")
+    parser.add_argument("--show-gaming-signals", action="store_true")
+    parser.add_argument("--show-incentive-reviews", action="store_true")
+    parser.add_argument("--show-incentive-recalibration", action="store_true")
+    parser.add_argument("--show-incentive-comparisons", action="store_true")
+    parser.add_argument("--show-incentive-readiness", action="store_true")
+    parser.add_argument("--show-incentive-forecast", action="store_true")
+    parser.add_argument("--show-incentive-debt", action="store_true")
+    parser.add_argument("--show-incentive-equivalence", action="store_true")
+    parser.add_argument("--show-incentive-trust", action="store_true")
+    parser.add_argument("--show-incentive-review-packs", action="store_true")
+
     args = parser.parse_args()
 
     if args.show_assurance_registry:
@@ -50,6 +82,13 @@ def main():
         print(f"[CLI] Showing details for Assurance ID: {args.assurance_id}")
     elif args.show_assurance_trust:
         print(f"[CLI] Evaluating Trust Verdict for Assurance IDs...")
+
+    elif args.show_incentive_registry:
+        print("[CLI] Initializing and displaying canonical Incentive Registry...")
+    elif args.show_incentive_object and args.incentive_id:
+        print(f"[CLI] Showing details for Incentive ID: {args.incentive_id}")
+    elif args.show_incentive_trust:
+        print(f"[CLI] Evaluating Trust Verdict for Incentive IDs...")
     else:
         print("[CLI] Assurance Plane Governance CLI available. Use --help for commands.")
 

@@ -9,3 +9,18 @@ def policy_review_accountability(action_risk: str, accountability_issues: list =
     if action_risk == 'high' and accountability_issues:
         return {'status': 'deny', 'message': 'Missing owner, symbolic sanction, or unresolved restitution detected.'}
     return {'status': 'approve'}
+
+
+# Incentive Plane Integration
+class PolicyIncentiveEvaluations:
+    @staticmethod
+    def generate_incentive_evidence_obligations(action_risk):
+        if action_risk == "high":
+            return ["incentive_evidence_required"]
+        return []
+
+    @staticmethod
+    def review_policy(context):
+        if "gameable_target" in context or "hidden_conflict" in context or "symbolic_penalty" in context or "missing_clawback" in context:
+            return "deny"
+        return "allow"

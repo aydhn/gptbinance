@@ -1,0 +1,1 @@
+class IncentiveReadinessAggregation:\n    pass\n\nclass TargetClarity:\n    pass\n\nclass FormulaIntegrity:\n    pass\n\nclass FrictionSufficiency:\n    pass\n\nclass GamingVisibility:\n    pass\n\nclass BeneficiaryCostVisibility:\n    pass\n\n

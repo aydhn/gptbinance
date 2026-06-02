@@ -13,3 +13,17 @@ def add_readiness_evidence_accountability(bundle: dict, integrity_failures: bool
     if integrity_failures:
         bundle['status'] = 'blocked/caution'
     return bundle
+
+
+# Incentive Plane Readiness Evidence
+INCENTIVE_READINESS_EVIDENCE = [
+    "incentive_trust",
+    "target_clarity",
+    "formula_integrity",
+    "gaming_visibility",
+    "conflict_visibility",
+    "beneficiary_cost_boundedness"
+]
+
+def check_incentive_integrity_failures():
+    return {"blocker": "critical incentive integrity failures"}

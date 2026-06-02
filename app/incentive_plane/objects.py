@@ -1,0 +1,1 @@
+class IncentiveObjectDefinitions:\n    pass\n\nclass AuthoritativeIncentiveObject:\n    pass\n\nclass LocalIncentiveObject:\n    pass\n\nclass FederatedIncentiveObject:\n    pass\n\nclass BeneficiaryImpactingIncentiveObject:\n    pass\n\n

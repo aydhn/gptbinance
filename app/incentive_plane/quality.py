@@ -1,0 +1,1 @@
+class IncentiveQualityChecks:\n    pass\n\nclass RewardHackingWarning:\n    pass\n\nclass SymbolicPenaltyWarning:\n    pass\n\nclass HiddenConflictWarning:\n    pass\n\nclass BeneficiaryCostWarning:\n    pass\n\nclass ExternalityWarning:\n    pass\n\nclass SuppressionIncentiveWarning:\n    pass\n\nclass QualityVerdict:\n    pass\n\n

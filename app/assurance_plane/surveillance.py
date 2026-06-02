@@ -9,3 +9,12 @@ def create_surveillance_cycle(cycle_id: str, assurance_id: str, surv_class: Surv
         findings=findings,
         next_check=next_check
     )
+
+
+# Incentive Plane Integration
+class SurveillanceDiligenceIncentiveIntegration:
+    surveillance_incentive_refs: list = []
+    under_reporting_hazard_refs: list = []
+
+def surveillance_active_treated_aligned():
+    return {"caution": "surveillance active treated aligned without incentive posture"}

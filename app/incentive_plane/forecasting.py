@@ -1,0 +1,1 @@
+class GamingGrowthForecast:\n    pass\n\nclass MoralHazardForecast:\n    pass\n\nclass UnderReportingForecast:\n    pass\n\nclass BeneficiaryCostForecast:\n    pass\n\nclass IncentiveDriftForecast:\n    pass\n\n

@@ -8,3 +8,13 @@ def get_assurance_capabilities() -> list:
     ]
 
 ACCOUNTABILITY_CAPABILITIES = ['inspect_accountability_manifest', 'review_subjects_duties_and_breaches', 'review_sanctions_remediation_and_restitution', 'review_appeals_reversals_and_reinstatement', 'review_shared_accountability_and_scapegoating_risks']
+
+
+# Incentive Plane Capabilities
+INCENTIVE_CAPABILITIES = [
+    "inspect_incentive_manifest",
+    "review_subjects_targets_and_levers",
+    "review_rewards_penalties_and_clawbacks",
+    "review_conflicts_gaming_and_externalities",
+    "review_alignment_and_beneficiary_costs"
+]

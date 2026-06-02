@@ -10,3 +10,11 @@ def duty_bearing_approval_accountability(approval_id: str, accountable_duty: str
     if not accountable_duty:
         return {'status': 'caution', 'message': 'Approval action detached from accountable duty.'}
     return {'status': 'success'}
+
+
+# Incentive Plane Integration
+class AuthorityApprovalIncentiveIntegration:
+    incentive_plane_authority_refs: list = []
+
+def incentive_action_by_actor_lacking_authority():
+    return {"caution": "incentive action by actor lacking formula or clawback authority"}

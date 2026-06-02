@@ -9,3 +9,17 @@ def export_assurance_diagnostics(assurance_record) -> dict:
 
 class AccountabilityDiagnostics:
     SIGNALS = ['scapegoating', 'symbolic_sanction', 'ownerless_risk', 'appeal_opacity', 'restitution_gap']
+
+
+# Incentive Plane Integration
+INCENTIVE_DIAGNOSTIC_SIGNALS = [
+    "reward_hacking",
+    "metric_chasing",
+    "escalation_suppression",
+    "local_optimization",
+    "symbolic_penalty"
+]
+
+def payout_count_validation():
+    # payout count alone incentive truth yerine gecmesin
+    return False

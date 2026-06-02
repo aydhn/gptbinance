@@ -10,3 +10,12 @@ def allocate_liability_accountability(liability_id: str, under_collective_blame:
     if under_collective_blame:
         return {'status': 'caution', 'message': 'Liability consequence hidden under collective blame.'}
     return {'status': 'success'}
+
+
+# Incentive Plane Integration
+class LiabilityConsequencesIncentiveIntegration:
+    externality_incentive_refs: list = []
+    risk_transfer_incentive_refs: list = []
+
+def liability_consequence_hidden_under_local_optimization():
+    return {"caution": "liability consequence hidden under local-optimization reward"}

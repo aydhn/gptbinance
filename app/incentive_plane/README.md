@@ -1,0 +1,1 @@
+# Incentive Plane\n\nNeden incentive plane gerektiği\nsubjects/targets -> rewards/penalties/frictions -> gaming/conflicts -> trust akışı\nwhy rewarded != aligned != safe\nwhy no reward hacking / no beneficiary-blind optimization\nbu fazın sınırları\n

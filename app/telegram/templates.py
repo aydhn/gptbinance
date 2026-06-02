@@ -7,3 +7,14 @@ TEMPLATES = {
 }
 
 ACCOUNTABILITY_TEMPLATES = {'accountability_summary_digest': '...'}
+
+
+# Incentive Plane Telegram Templates
+INCENTIVE_TEMPLATES = {
+    "incentive_manifest_ready": "Incentive manifest ready.",
+    "gaming_signal_detected": "Gaming signal detected.",
+    "hidden_conflict_detected": "Hidden conflict detected.",
+    "beneficiary_cost_spike_detected": "Beneficiary cost spike detected.",
+    "incentive_review_required": "Incentive review required.",
+    "incentive_summary_digest": "Incentive summary digest."
+}

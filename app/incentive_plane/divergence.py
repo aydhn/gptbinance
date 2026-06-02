@@ -1,0 +1,1 @@
+class IncentiveDivergence:\n    pass\n\nclass TargetDivergence:\n    pass\n\nclass RewardDivergence:\n    pass\n\nclass PenaltyDivergence:\n    pass\n\nclass GamingDivergence:\n    pass\n\nclass ExternalityDivergence:\n    pass\n\n

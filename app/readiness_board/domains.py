@@ -6,3 +6,15 @@ class AssuranceIntegrityDomain:
         return "pass"
 
 ACCOUNTABILITY_READINESS_DOMAINS = ['accountability_integrity']
+
+
+# Incentive Plane Readiness Domain
+class IncentiveIntegrityDomain:
+    name = "incentive_integrity"
+    factors = [
+        "target_clarity",
+        "formula_integrity",
+        "gaming_visibility",
+        "conflict_visibility",
+        "beneficiary_cost_boundedness"
+    ]

@@ -1,3 +1,4 @@
-# Escalations
-class EscalationTracker:
+# Autonomy Plane: Escalations
+
+def evaluate_escalations():
     pass

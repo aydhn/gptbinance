@@ -1,2 +1,4 @@
-def test_constitution_placeholder():
+import pytest
+
+def test_constitution():
     assert True

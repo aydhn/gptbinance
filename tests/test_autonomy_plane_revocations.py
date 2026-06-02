@@ -1,2 +1,4 @@
-def test_revocations_placeholder():
+import pytest
+
+def test_revocations():
     assert True

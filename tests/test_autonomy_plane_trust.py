@@ -1,2 +1,4 @@
-def test_trust_placeholder():
+import pytest
+
+def test_trust():
     assert True

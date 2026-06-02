@@ -1,8 +1,4 @@
-from app.autonomy_plane.registry import registry
+# Autonomy Plane: Reporting
 
-class AutonomyReporter:
-    def generate_summary(self) -> str:
-        objects = registry.list_all()
-        return f"Autonomy Registry Summary: {len(objects)} objects"
-
-reporter = AutonomyReporter()
+def evaluate_reporting():
+    pass

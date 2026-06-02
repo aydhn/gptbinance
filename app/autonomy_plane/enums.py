@@ -1,73 +1,72 @@
 from enum import Enum
 
 class AutonomyClass(str, Enum):
-    RECOMMENDATION = "recommendation"
-    APPROVAL_BOUND = "approval_bound"
-    SUPERVISED = "supervised"
+    ADVISORY = "advisory"
+    BOUNDED_SELF_HEALING = "bounded_self_healing"
+    DRIFT_RESPONSE = "drift_response"
+    ADAPTATION_SUPPORT = "adaptation_support"
+    ASSURANCE_MONITORING = "assurance_monitoring"
+    RELEASE_SAFETY = "release_safety"
+    MIGRATION_GUARDED = "migration_guarded"
+    BENEFICIARY_PROTECTION = "beneficiary_protection"
+    FEDERATED_DELEGATION = "federated_delegation"
+    POLICY_ENFORCED = "policy_enforced"
+    OVERRIDE_SENSITIVE = "override_sensitive"
+    CROSS_PLANE_BOUNDED_EXECUTION = "cross_plane_bounded_execution"
+
+class MandateClass(str, Enum):
+    NARROW = "narrow"
+    BROAD = "broad"
+    AMBIGUOUS = "ambiguous"
+    STALE = "stale"
+
+class GrantClass(str, Enum):
+    VALID = "valid"
+    CONDITIONAL = "conditional"
+    EXPIRING = "expiring"
+    UNSAFE = "unsafe"
+
+class ScopeClass(str, Enum):
     BOUNDED = "bounded"
-    EMERGENCY = "emergency"
-
-class AgentClass(str, Enum):
-    SYSTEM = "system"
-    OPERATOR_ASSIST = "operator_assist"
-    DOMAIN = "domain"
     FEDERATED = "federated"
+    DISPUTED = "disputed"
+    OVERCLAIMED = "overclaimed"
 
-class TaskClass(str, Enum):
-    READ_ONLY = "read_only"
-    WRITE = "write"
-    HIGH_RISK = "high_risk"
-    CROSS_DOMAIN = "cross_domain"
+class ReviewClass(str, Enum):
+    REQUIRED = "required"
+    WAIVED = "waived"
+    BYPASSED = "bypassed"
+    COSMETIC = "cosmetic"
 
-class IntentClass(str, Enum):
-    PROPOSE = "propose"
-    ACT = "act"
-    RECOVER = "recover"
-    HALT = "halt"
-
-class CapabilityClass(str, Enum):
-    INSPECT = "inspect"
-    PROPOSE = "propose"
-    EXECUTE = "execute"
-    RECOVER = "recover"
-    REVOKE = "revoke"
-
-class PermissionClass(str, Enum):
-    PER_TASK = "per_task"
-    PER_DOMAIN = "per_domain"
-    ENVIRONMENT_BOUND = "environment_bound"
-    TEMPORARY = "temporary"
-
-class DelegationClass(str, Enum):
-    BOUNDED = "bounded"
-    ONE_SHOT = "one_shot"
-    TIME_WINDOW = "time_window"
-    FEDERATED = "federated"
-
-class ApprovalClass(str, Enum):
-    PER_ACTION = "per_action"
-    PLAN = "plan"
-    BATCH = "batch"
+class OverrideClass(str, Enum):
+    VALID = "valid"
     EMERGENCY = "emergency"
+    FAILED = "failed"
+    INVISIBLE = "invisible"
 
-class GuardrailClass(str, Enum):
-    ACTION = "action"
-    SCOPE = "scope"
-    VALUE = "value"
-    COMPLIANCE = "compliance"
-    CONSTITUTIONAL = "constitutional"
+class ConfidenceClass(str, Enum):
+    VALID = "valid"
+    OVERCONFIDENT = "overconfident"
+    UNDERCONFIDENT = "underconfident"
+    MISMATCHED = "mismatched"
 
-class InterventionClass(str, Enum):
-    APPROVE = "approve"
-    PAUSE = "pause"
-    REDIRECT = "redirect"
-    NARROW_SCOPE = "narrow_scope"
+class EscalationClass(str, Enum):
+    TIMELY = "timely"
+    LATE = "late"
+    MISSING = "missing"
+    EXCESSIVE = "excessive"
 
-class HaltClass(str, Enum):
-    SOFT = "soft"
-    HARD = "hard"
-    EMERGENCY = "emergency"
-    DEADMAN = "deadman"
+class RevocationClass(str, Enum):
+    IMMEDIATE = "immediate"
+    CONDITIONAL = "conditional"
+    DELAYED = "delayed"
+    MISSING_TRIGGER = "missing_trigger"
+
+class EquivalenceVerdict(str, Enum):
+    EQUIVALENT = "equivalent"
+    PARTIAL = "partial"
+    DIVERGENT = "divergent"
+    UNKNOWN = "unknown"
 
 class TrustVerdict(str, Enum):
     TRUSTED = "trusted"
@@ -75,8 +74,3 @@ class TrustVerdict(str, Enum):
     DEGRADED = "degraded"
     BLOCKED = "blocked"
     REVIEW_REQUIRED = "review_required"
-
-class EquivalenceVerdict(str, Enum):
-    EQUIVALENT = "equivalent"
-    DIVERGENT = "divergent"
-    UNVERIFIABLE = "unverifiable"

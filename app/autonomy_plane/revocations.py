@@ -1,3 +1,4 @@
-# Revocations
-class RevocationTracker:
+# Autonomy Plane: Revocations
+
+def evaluate_revocations():
     pass

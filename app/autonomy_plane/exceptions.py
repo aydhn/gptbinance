@@ -1,32 +1,9 @@
-class AutonomyPlaneError(Exception):
-    pass
-
-class InvalidAutonomyObject(AutonomyPlaneError):
-    pass
-
-class InvalidAgentRecord(AutonomyPlaneError):
-    pass
-
-class InvalidTaskScope(AutonomyPlaneError):
-    pass
-
-class InvalidCapability(AutonomyPlaneError):
-    pass
-
-class InvalidPermissionGrant(AutonomyPlaneError):
-    pass
-
-class InvalidDelegation(AutonomyPlaneError):
-    pass
-
-class InvalidApproval(AutonomyPlaneError):
-    pass
-
-class GuardrailViolation(AutonomyPlaneError):
-    pass
-
-class HaltViolation(AutonomyPlaneError):
-    pass
-
-class AutonomyStorageError(AutonomyPlaneError):
-    pass
+class AutonomyPlaneError(Exception): pass
+class InvalidAutonomyObjectError(AutonomyPlaneError): pass
+class InvalidMandateError(AutonomyPlaneError): pass
+class InvalidDelegationGrantError(AutonomyPlaneError): pass
+class InvalidScopeError(AutonomyPlaneError): pass
+class InvalidConfidenceThresholdError(AutonomyPlaneError): pass
+class InvalidOverrideError(AutonomyPlaneError): pass
+class AutonomyTheaterViolationError(AutonomyPlaneError): pass
+class AutonomyStorageError(AutonomyPlaneError): pass

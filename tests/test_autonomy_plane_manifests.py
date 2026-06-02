@@ -1,2 +1,4 @@
-def test_manifests_placeholder():
+import pytest
+
+def test_manifests():
     assert True

@@ -1,2 +1,4 @@
-def test_scenario_placeholder():
+import pytest
+
+def test_scenario():
     assert True

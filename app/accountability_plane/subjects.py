@@ -20,3 +20,7 @@ class SubjectsManager:
 
     def get_all(self):
         return list(self._store.values())
+
+# Autonomy Integration Phase 138
+def integrate_autonomous_subjects():
+    pass

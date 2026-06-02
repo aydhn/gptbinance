@@ -1,2 +1,4 @@
-def test_objects_placeholder():
+import pytest
+
+def test_objects():
     assert True

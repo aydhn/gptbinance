@@ -1,1 +1,4 @@
-# integration with epistemic confidence vs permission
+# Autonomy Plane: Confidence
+
+def evaluate_confidence():
+    pass

@@ -1,3 +1,4 @@
-# Overrides
-class OverrideTracker:
+# Autonomy Plane: Overrides
+
+def evaluate_overrides():
     pass

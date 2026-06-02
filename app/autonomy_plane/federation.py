@@ -1,3 +1,4 @@
-# Federation
-class FederationIntegration:
+# Autonomy Plane: Federation
+
+def evaluate_federation():
     pass

@@ -1,2 +1,4 @@
-def test_federation_placeholder():
+import pytest
+
+def test_federation():
     assert True

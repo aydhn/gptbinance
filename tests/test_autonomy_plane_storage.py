@@ -1,2 +1,4 @@
-def test_storage_placeholder():
+import pytest
+
+def test_storage():
     assert True

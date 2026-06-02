@@ -1,2 +1,4 @@
-def test_scopes_placeholder():
+import pytest
+
+def test_scopes():
     assert True

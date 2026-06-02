@@ -1,10 +1,10 @@
 class AutonomyRegistryBase:
     pass
 
-class AuthorizationEvaluatorBase:
+class DelegationEvaluatorBase:
     pass
 
-class InterventionEvaluatorBase:
+class ReviewEvaluatorBase:
     pass
 
 class TrustEvaluatorBase:

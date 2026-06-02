@@ -1,3 +1,4 @@
-# Recovery
-class RecoveryTracker:
+# Autonomy Plane: Recovery
+
+def evaluate_recovery():
     pass

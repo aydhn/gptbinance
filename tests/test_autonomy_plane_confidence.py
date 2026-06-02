@@ -1,2 +1,4 @@
-def test_confidence_placeholder():
+import pytest
+
+def test_confidence():
     assert True

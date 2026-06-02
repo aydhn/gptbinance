@@ -1,3 +1,4 @@
-# Scenario
-class ScenarioIntegration:
+# Autonomy Plane: Scenario
+
+def evaluate_scenario():
     pass

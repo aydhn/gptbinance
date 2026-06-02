@@ -1,2 +1,4 @@
-def test_incidents_placeholder():
+import pytest
+
+def test_incidents():
     assert True

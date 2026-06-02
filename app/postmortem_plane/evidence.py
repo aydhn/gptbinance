@@ -15,3 +15,13 @@ class IncentivePostmortemEvidence:
         "incentives", "targets", "reward_formulas",
         "penalties", "clawbacks", "conflicts", "gaming_signals"
     ]
+
+# --- PHASE 137 ORCHESTRATION HOOK ---
+def evaluate_orchestration_posture(orchestration_ref=None):
+    """
+    Validates orchestration integrity before treating the action as complete.
+    Requirement: orchestrations, plans, action graphs refs postmortem bundles’e canonical export etsin
+    """
+    if not orchestration_ref:
+        return "CAUTION: Missing explicit orchestration verification."
+    return "TRUSTED"

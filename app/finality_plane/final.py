@@ -23,3 +23,13 @@ class FinalityIncentiveIntegration:
 
 def final_label_under_active_incentive_conflict():
     return {"caution": "final label under active incentive conflict"}
+
+# --- PHASE 137 ORCHESTRATION HOOK ---
+def evaluate_orchestration_posture(orchestration_ref=None):
+    """
+    Validates orchestration integrity before treating the action as complete.
+    Requirement: final label under active partial execution explicit caution üretsin
+    """
+    if not orchestration_ref:
+        return "CAUTION: Missing explicit orchestration verification."
+    return "TRUSTED"

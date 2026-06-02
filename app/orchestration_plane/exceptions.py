@@ -1,0 +1,9 @@
+class OrchestrationPlaneError(Exception): pass
+class InvalidOrchestrationObject(OrchestrationPlaneError): pass
+class InvalidInterventionIntent(OrchestrationPlaneError): pass
+class InvalidExecutablePlan(OrchestrationPlaneError): pass
+class InvalidDependencyGraph(OrchestrationPlaneError): pass
+class InvalidGate(OrchestrationPlaneError): pass
+class InvalidRollback(OrchestrationPlaneError): pass
+class OrchestrationTheaterViolation(OrchestrationPlaneError): pass
+class OrchestrationStorageError(OrchestrationPlaneError): pass

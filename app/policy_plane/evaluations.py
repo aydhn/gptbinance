@@ -4,3 +4,8 @@ def evaluate_assurance_policy(assurance_record) -> str:
     if assurance_record.expiry and assurance_record.expiry.is_expired:
         return "DENY: Stale certification"
     return "ALLOW"
+
+def policy_review_accountability(action_risk: str, accountability_issues: list = None):
+    if action_risk == 'high' and accountability_issues:
+        return {'status': 'deny', 'message': 'Missing owner, symbolic sanction, or unresolved restitution detected.'}
+    return {'status': 'approve'}

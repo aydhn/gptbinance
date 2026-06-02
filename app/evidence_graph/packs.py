@@ -5,3 +5,5 @@ def build_assurance_integrity_pack(assurance_record) -> dict:
         "claims_count": sum(len(c.claims) for c in assurance_record.cases),
         "evidence_packs": sum(len(c.packs) for c in assurance_record.cases)
     }
+
+ACCOUNTABILITY_PACKS = ['accountability integrity pack', 'subject/duty review pack', 'breach/sanction review pack', 'restitution/appeal review pack']

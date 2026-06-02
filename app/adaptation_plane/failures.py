@@ -14,3 +14,8 @@ class FailuresManager:
 
     def evaluate(self, *args, **kwargs):
         return "evaluated"
+
+def process_failed_adaptation_accountability(adaptation_id: str, accountability_mapped: bool = False):
+    if not accountability_mapped:
+        return {"status": "caution", "message": "Failed adaptation closed without accountability mapping."}
+    return {"status": "success"}

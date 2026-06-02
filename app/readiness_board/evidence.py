@@ -7,3 +7,9 @@ def get_readiness_bundle(assurance_record) -> dict:
         "surveillance_rigor": "strict" if assurance_record.surveillance else "lax",
         "caveat_visibility": "visible" if assurance_record.caveats else "none"
     }
+
+def add_readiness_evidence_accountability(bundle: dict, integrity_failures: bool = False):
+    bundle['accountability_trust'] = 'trusted'
+    if integrity_failures:
+        bundle['status'] = 'blocked/caution'
+    return bundle

@@ -6,3 +6,6 @@ def export_assurance_diagnostics(assurance_record) -> dict:
         "scope_laundering": not bool(assurance_record.certifications),
         "surveillance_theater": not bool(assurance_record.surveillance)
     }
+
+class AccountabilityDiagnostics:
+    SIGNALS = ['scapegoating', 'symbolic_sanction', 'ownerless_risk', 'appeal_opacity', 'restitution_gap']

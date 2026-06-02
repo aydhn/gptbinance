@@ -5,3 +5,5 @@ TEMPLATES = {
     "surveillance_lapse_detected": "WARNING: Surveillance lapse for {assurance_id}.",
     "assurance_review_required": "ACTION REQUIRED: Assurance review for {assurance_id}."
 }
+
+ACCOUNTABILITY_TEMPLATES = {'accountability_summary_digest': '...'}

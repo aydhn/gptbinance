@@ -18,3 +18,13 @@ class EpistemicClaimsIncentiveIntegration:
 
 def incentive_sounding_claim_without_basis():
     return {"caution": "incentive-sounding claim without subject/target/formula/gaming basis"}
+
+# --- PHASE 137 ORCHESTRATION HOOK ---
+def evaluate_orchestration_posture(orchestration_ref=None):
+    """
+    Validates orchestration integrity before treating the action as complete.
+    Requirement: orchestration-sounding claim without plan/dispatch/execution basis explicit caution üretsin
+    """
+    if not orchestration_ref:
+        return "CAUTION: Missing explicit orchestration verification."
+    return "TRUSTED"

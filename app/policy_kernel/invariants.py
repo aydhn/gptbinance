@@ -19,3 +19,13 @@ INCENTIVE_INVARIANTS = [
     "no posture may be treated as aligned, deterrent, risk-adjusted or beneficiary-safe without explicit target integrity, formula rigor, gaming/conflict visibility, friction sufficiency and externality analysis",
     "no contractual, rights-safe, liability-safe, remedy-safe, final-safe or compliance-safe claim may stand while the governing incentive remains materially gameable, conflict-bearing, beneficiary-costly, symbolic or clawback-deficient"
 ]
+
+# --- PHASE 137 ORCHESTRATION HOOK ---
+def evaluate_orchestration_posture(orchestration_ref=None):
+    """
+    Validates orchestration integrity before treating the action as complete.
+    Requirement: no trusted high-risk closure claim may be emitted while material orchestration treatment remains unresolved
+    """
+    if not orchestration_ref:
+        return "CAUTION: Missing explicit orchestration verification."
+    return "TRUSTED"

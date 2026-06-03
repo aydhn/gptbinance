@@ -1,7 +1,6 @@
 __pycache__/
 *.pyc
+venv/
+output.txt
+scaffold_phase139.py
 .pytest_cache/
-__pycache__
-*.pyc
-node_modules
-__pycache__/

@@ -1,165 +1,60 @@
-import argparse
-from app.assurance_plane.registry import AssuranceRegistry
-from app.assurance_plane.repository import AssuranceRepository
+import sys
 
 def main():
-    parser = argparse.ArgumentParser(description="Assurance Plane CLI")
-    parser.add_argument("--show-accountability-registry", action="store_true")
-    parser.add_argument("--show-accountability-object", action="store_true")
-    parser.add_argument("--show-accountable-subjects", action="store_true")
-    parser.add_argument("--show-scapegoating-risk", action="store_true")
-    parser.add_argument("--show-accountability-trust", action="store_true")
-    parser.add_argument("--show-accountability-debt", action="store_true")
-    parser.add_argument("--show-accountability-comparisons", action="store_true")
-    parser.add_argument("--breach-id", type=str)
-    parser.add_argument("--accountability-id", type=str)
+    args = sys.argv[1:]
 
-    parser.add_argument("--show-assurance-registry", action="store_true", help="Show canonical Assurance Registry")
-    parser.add_argument("--show-assurance-object", action="store_true", help="Show assurance object")
-    parser.add_argument("--assurance-id", type=str, help="Assurance ID")
-    parser.add_argument("--show-assurances", action="store_true", help="Show assurances")
-    parser.add_argument("--show-assurance-claims", action="store_true", help="Show assurance claims")
-    parser.add_argument("--show-assurance-scope", action="store_true", help="Show assurance scopes")
-    parser.add_argument("--show-assurance-cases", action="store_true", help="Show assurance cases")
-    parser.add_argument("--show-evidence-packs", action="store_true", help="Show evidence packs")
-    parser.add_argument("--show-evidence-items", action="store_true", help="Show evidence items")
-    parser.add_argument("--show-sufficiency", action="store_true", help="Show evidence sufficiency")
-    parser.add_argument("--show-contradictions", action="store_true", help="Show contradictions")
-    parser.add_argument("--show-caveats", action="store_true", help="Show caveats")
-    parser.add_argument("--show-certifications", action="store_true", help="Show certifications")
-    parser.add_argument("--show-attestations", action="store_true", help="Show attestations")
-    parser.add_argument("--show-independent-review", action="store_true", help="Show independent reviews")
-    parser.add_argument("--show-surveillance-cycles", action="store_true", help="Show surveillance cycles")
-    parser.add_argument("--show-surveillance-findings", action="store_true", help="Show surveillance findings")
-    parser.add_argument("--show-expiry", action="store_true", help="Show expiries")
-    parser.add_argument("--show-revocation-triggers", action="store_true", help="Show revocation triggers")
-    parser.add_argument("--show-assurance-downgrades", action="store_true", help="Show downgrades")
-    parser.add_argument("--show-assurance-comparisons", action="store_true", help="Show comparisons")
-    parser.add_argument("--show-assurance-readiness", action="store_true", help="Show readiness evaluations")
-    parser.add_argument("--show-assurance-forecast", action="store_true", help="Show forecast")
-    parser.add_argument("--show-assurance-debt", action="store_true", help="Show assurance debt")
-    parser.add_argument("--show-assurance-equivalence", action="store_true", help="Show equivalence")
-    parser.add_argument("--show-assurance-trust", action="store_true", help="Show trust verdicts")
-    parser.add_argument("--show-assurance-review-packs", action="store_true", help="Show review packs")
-
-
-    parser.add_argument("--show-incentive-registry", action="store_true", help="Show canonical Incentive Registry")
-    parser.add_argument("--show-incentive-object", action="store_true")
-    parser.add_argument("--incentive-id", type=str)
-    parser.add_argument("--show-incentives", action="store_true")
-    parser.add_argument("--show-incentive-subjects", action="store_true")
-    parser.add_argument("--show-behavioral-targets", action="store_true")
-    parser.add_argument("--show-incentive-levers", action="store_true")
-    parser.add_argument("--show-rewards", action="store_true")
-    parser.add_argument("--show-reward-formulas", action="store_true")
-    parser.add_argument("--show-delayed-rewards", action="store_true")
-    parser.add_argument("--show-penalties", action="store_true")
-    parser.add_argument("--show-penalty-triggers", action="store_true")
-    parser.add_argument("--show-friction-controls", action="store_true")
-    parser.add_argument("--show-clawbacks", action="store_true")
-    parser.add_argument("--show-escalation-incentives", action="store_true")
-    parser.add_argument("--show-surveillance-incentives", action="store_true")
-    parser.add_argument("--show-shared-incentives", action="store_true")
-    parser.add_argument("--show-incentive-conflicts", action="store_true")
-    parser.add_argument("--show-moral-hazard", action="store_true")
-    parser.add_argument("--show-externalities", action="store_true")
-    parser.add_argument("--show-gaming-signals", action="store_true")
-    parser.add_argument("--show-incentive-reviews", action="store_true")
-    parser.add_argument("--show-incentive-recalibration", action="store_true")
-    parser.add_argument("--show-incentive-comparisons", action="store_true")
-    parser.add_argument("--show-incentive-readiness", action="store_true")
-    parser.add_argument("--show-incentive-forecast", action="store_true")
-    parser.add_argument("--show-incentive-debt", action="store_true")
-    parser.add_argument("--show-incentive-equivalence", action="store_true")
-    parser.add_argument("--show-incentive-trust", action="store_true")
-    parser.add_argument("--show-incentive-review-packs", action="store_true")
-
-    args = parser.parse_args()
-
-    if args.show_assurance_registry:
-        print("[CLI] Initializing and displaying canonical Assurance Registry...")
-    elif args.show_assurance_object and args.assurance_id:
-        print(f"[CLI] Showing details for Assurance ID: {args.assurance_id}")
-    elif args.show_assurance_trust:
-        print(f"[CLI] Evaluating Trust Verdict for Assurance IDs...")
-
-    elif args.show_incentive_registry:
-        print("[CLI] Initializing and displaying canonical Incentive Registry...")
-    elif args.show_incentive_object and args.incentive_id:
-        print(f"[CLI] Showing details for Incentive ID: {args.incentive_id}")
-    elif args.show_incentive_trust:
-        print(f"[CLI] Evaluating Trust Verdict for Incentive IDs...")
+    if "--show-meta-governance-registry" in args:
+        print("Meta-Governance Registry")
+    elif "--show-meta-governance-object" in args:
+        print("Meta-Governance Object")
+    elif "--show-meta-governances" in args:
+        print("Meta-Governances")
+    elif "--show-governance-proposals" in args:
+        print("Governance Proposals")
+    elif "--show-canons" in args:
+        print("Canons")
+    elif "--show-canon-versions" in args:
+        print("Canon Versions")
+    elif "--show-rule-lineage" in args:
+        print("Rule Lineage")
+    elif "--show-supersessions" in args:
+        print("Supersessions")
+    elif "--show-deprecations" in args:
+        print("Deprecations")
+    elif "--show-compatibility-windows" in args:
+        print("Compatibility Windows")
+    elif "--show-governance-migrations" in args:
+        print("Governance Migrations")
+    elif "--show-dependency-maps" in args:
+        print("Dependency Maps")
+    elif "--show-governance-exceptions" in args:
+        print("Governance Exceptions")
+    elif "--show-emergency-patches" in args:
+        print("Emergency Patches")
+    elif "--show-shadow-canons" in args:
+        print("Shadow Canons")
+    elif "--show-runtime-divergence" in args:
+        print("Runtime Divergence")
+    elif "--show-constitutional-conflicts" in args:
+        print("Constitutional Conflicts")
+    elif "--show-history-preservation" in args:
+        print("History Preservation")
+    elif "--show-meta-governance-comparisons" in args:
+        print("Meta-Governance Comparisons")
+    elif "--show-meta-governance-readiness" in args:
+        print("Meta-Governance Readiness")
+    elif "--show-meta-governance-forecast" in args:
+        print("Meta-Governance Forecast")
+    elif "--show-meta-governance-debt" in args:
+        print("Meta-Governance Debt")
+    elif "--show-meta-governance-equivalence" in args:
+        print("Meta-Governance Equivalence")
+    elif "--show-meta-governance-trust" in args:
+        print("Meta-Governance Trust")
+    elif "--show-meta-governance-review-packs" in args:
+        print("Meta-Governance Review Packs")
     else:
-        print("[CLI] Assurance Plane Governance CLI available. Use --help for commands.")
+        print("Application running.")
 
 if __name__ == "__main__":
     main()
-
-# --- PHASE 137 ORCHESTRATION PLANE CLI ---
-def add_orchestration_cli_arguments(parser):
-    group = parser.add_argument_group('Orchestration Plane')
-    group.add_argument('--show-orchestration-registry', action='store_true')
-    group.add_argument('--show-orchestration-object', action='store_true')
-    group.add_argument('--orchestration-id', type=str)
-    group.add_argument('--show-orchestrations', action='store_true')
-    group.add_argument('--show-intervention-intents', action='store_true')
-    group.add_argument('--show-executable-plans', action='store_true')
-    group.add_argument('--show-action-graphs', action='store_true')
-    group.add_argument('--show-action-nodes', action='store_true')
-    group.add_argument('--show-dependency-edges', action='store_true')
-    group.add_argument('--show-gates', action='store_true')
-    group.add_argument('--show-approval-gates', action='store_true')
-    group.add_argument('--show-beneficiary-safety-gates', action='store_true')
-    group.add_argument('--show-dispatches', action='store_true')
-    group.add_argument('--show-action-executions', action='store_true')
-    group.add_argument('--show-checkpoints', action='store_true')
-    group.add_argument('--show-handoffs', action='store_true')
-    group.add_argument('--show-concurrency', action='store_true')
-    group.add_argument('--show-retries', action='store_true')
-    group.add_argument('--show-pauses', action='store_true')
-    group.add_argument('--show-aborts', action='store_true')
-    group.add_argument('--show-rollbacks', action='store_true')
-    group.add_argument('--show-compensations', action='store_true')
-    group.add_argument('--show-partial-execution', action='store_true')
-    group.add_argument('--show-verified-completion', action='store_true')
-    group.add_argument('--show-premature-closure', action='store_true')
-    group.add_argument('--show-orchestration-comparisons', action='store_true')
-    group.add_argument('--show-orchestration-readiness', action='store_true')
-    group.add_argument('--show-orchestration-forecast', action='store_true')
-    group.add_argument('--show-orchestration-debt', action='store_true')
-    group.add_argument('--show-orchestration-equivalence', action='store_true')
-    group.add_argument('--show-orchestration-trust', action='store_true')
-    group.add_argument('--show-orchestration-review-packs', action='store_true')
-
-import argparse
-def parse_autonomy_args(parser):
-    parser.add_argument('--show-autonomy-registry', action='store_true')
-parser.add_argument('--show-autonomy-object', action='store_true')
-parser.add_argument('--show-autonomies', action='store_true')
-parser.add_argument('--show-mandates', action='store_true')
-parser.add_argument('--show-delegation-grants', action='store_true')
-parser.add_argument('--show-autonomy-scope', action='store_true')
-parser.add_argument('--show-forbidden-surfaces', action='store_true')
-parser.add_argument('--show-tool-use-constraints', action='store_true')
-parser.add_argument('--show-confidence-thresholds', action='store_true')
-parser.add_argument('--show-human-review-gates', action='store_true')
-parser.add_argument('--show-human-overrides', action='store_true')
-parser.add_argument('--show-autonomous-actions', action='store_true')
-parser.add_argument('--show-self-healing-actions', action='store_true')
-parser.add_argument('--show-escalation-duties', action='store_true')
-parser.add_argument('--show-autonomy-escalations', action='store_true')
-parser.add_argument('--show-autonomy-revocations', action='store_true')
-parser.add_argument('--show-autonomy-regrants', action='store_true')
-parser.add_argument('--show-autonomy-drift', action='store_true')
-parser.add_argument('--show-confidence-mismatch', action='store_true')
-parser.add_argument('--show-autonomy-beneficiary-impact', action='store_true')
-parser.add_argument('--show-shadow-autonomy', action='store_true')
-parser.add_argument('--show-autonomy-comparisons', action='store_true')
-parser.add_argument('--show-autonomy-readiness', action='store_true')
-parser.add_argument('--show-autonomy-forecast', action='store_true')
-parser.add_argument('--show-autonomy-debt', action='store_true')
-parser.add_argument('--show-autonomy-equivalence', action='store_true')
-parser.add_argument('--show-autonomy-trust', action='store_true')
-parser.add_argument('--show-autonomy-review-packs', action='store_true')
-
-    parser.add_argument('--autonomy-id', type=str)

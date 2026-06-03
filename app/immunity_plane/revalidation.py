@@ -14,3 +14,6 @@ class RevalidationIncentiveIntegration:
 
 def revalidation_passed_treated_durably_motivated():
     return {"caution": "revalidation passed treated durably motivated without incentive basis"}
+
+def revalidation_resilience_check(revalidation_id):
+    return {"status": "caution", "message": "Immunity revalidated treated resilient under exhaustion risk"}

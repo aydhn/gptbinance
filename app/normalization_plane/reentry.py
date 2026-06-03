@@ -1,7 +1,2 @@
-"""
-Module reentry
-"""
-
-class ReentryHandler:
-    def process(self, data):
-        pass
+class ReentryGate:
+    meta_governance_reopen_canon_lineage_ref: str = None

@@ -1,0 +1,9 @@
+class SunsetPlaneError(Exception): pass
+class InvalidSunsetObjectError(SunsetPlaneError): pass
+class InvalidRetirementTriggerError(SunsetPlaneError): pass
+class InvalidExitCriteriaError(SunsetPlaneError): pass
+class InvalidDecommissionPlanError(SunsetPlaneError): pass
+class InvalidArchivalBundleError(SunsetPlaneError): pass
+class InvalidDeletionScopeError(SunsetPlaneError): pass
+class SunsetTheaterViolationError(SunsetPlaneError): pass
+class SunsetStorageError(SunsetPlaneError): pass

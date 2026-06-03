@@ -1,4 +1,3 @@
-# deprecations.py module for Meta-Governance Plane
-
-def process_deprecations():
+# Auto-generated module for integration app/meta_governance_plane/deprecations.py
+def handle_deprecations():
     pass

@@ -1,0 +1,9 @@
+class ResiliencePlaneError(Exception): pass
+class InvalidResilienceObjectError(ResiliencePlaneError): pass
+class InvalidShockClassError(ResiliencePlaneError): pass
+class InvalidDegradationLaneError(ResiliencePlaneError): pass
+class InvalidContainmentBoundaryError(ResiliencePlaneError): pass
+class InvalidReserveError(ResiliencePlaneError): pass
+class InvalidRecoveryCapacityError(ResiliencePlaneError): pass
+class ResilienceTheaterViolationError(ResiliencePlaneError): pass
+class ResilienceStorageError(ResiliencePlaneError): pass

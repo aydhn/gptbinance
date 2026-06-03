@@ -19,3 +19,6 @@ def evaluate_orchestration_posture(orchestration_ref=None):
 # Autonomy Integration Phase 138
 def integrate_staged_reopen_decisions():
     pass
+
+def reopen_resilience_check(reopen_id):
+    return {"status": "caution", "message": "Reopen widened under thin resilience margin explicit caution"}

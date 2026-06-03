@@ -4,3 +4,5 @@ venv/
 output.txt
 scaffold_phase139.py
 .pytest_cache/
+.pytest_cache
+__pycache__

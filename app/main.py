@@ -1,60 +1,49 @@
 import sys
 
 def main():
-    args = sys.argv[1:]
+    pass
 
-    if "--show-meta-governance-registry" in args:
-        print("Meta-Governance Registry")
-    elif "--show-meta-governance-object" in args:
-        print("Meta-Governance Object")
-    elif "--show-meta-governances" in args:
-        print("Meta-Governances")
-    elif "--show-governance-proposals" in args:
-        print("Governance Proposals")
-    elif "--show-canons" in args:
-        print("Canons")
-    elif "--show-canon-versions" in args:
-        print("Canon Versions")
-    elif "--show-rule-lineage" in args:
-        print("Rule Lineage")
-    elif "--show-supersessions" in args:
-        print("Supersessions")
-    elif "--show-deprecations" in args:
-        print("Deprecations")
-    elif "--show-compatibility-windows" in args:
-        print("Compatibility Windows")
-    elif "--show-governance-migrations" in args:
-        print("Governance Migrations")
-    elif "--show-dependency-maps" in args:
-        print("Dependency Maps")
-    elif "--show-governance-exceptions" in args:
-        print("Governance Exceptions")
-    elif "--show-emergency-patches" in args:
-        print("Emergency Patches")
-    elif "--show-shadow-canons" in args:
-        print("Shadow Canons")
-    elif "--show-runtime-divergence" in args:
-        print("Runtime Divergence")
-    elif "--show-constitutional-conflicts" in args:
-        print("Constitutional Conflicts")
-    elif "--show-history-preservation" in args:
-        print("History Preservation")
-    elif "--show-meta-governance-comparisons" in args:
-        print("Meta-Governance Comparisons")
-    elif "--show-meta-governance-readiness" in args:
-        print("Meta-Governance Readiness")
-    elif "--show-meta-governance-forecast" in args:
-        print("Meta-Governance Forecast")
-    elif "--show-meta-governance-debt" in args:
-        print("Meta-Governance Debt")
-    elif "--show-meta-governance-equivalence" in args:
-        print("Meta-Governance Equivalence")
-    elif "--show-meta-governance-trust" in args:
-        print("Meta-Governance Trust")
-    elif "--show-meta-governance-review-packs" in args:
-        print("Meta-Governance Review Packs")
-    else:
-        print("Application running.")
+def run_resilience_cli(args):
+    commands = [
+        "--show-resilience-registry",
+        "--show-resilience-object",
+        "--show-resilience",
+        "--show-shock-classes",
+        "--show-compound-shocks",
+        "--show-absorption-margins",
+        "--show-degradation-lanes",
+        "--show-graceful-degradation",
+        "--show-containment-boundaries",
+        "--show-blast-radius",
+        "--show-fallback-capacity",
+        "--show-substitution-paths",
+        "--show-reserves",
+        "--show-reserve-consumption",
+        "--show-exhaustion-points",
+        "--show-recovery-capacity",
+        "--show-recovery-lag",
+        "--show-operator-load",
+        "--show-coordination-load",
+        "--show-beneficiary-impact-surge",
+        "--show-hidden-fragility",
+        "--show-resilience-comparisons",
+        "--show-resilience-readiness",
+        "--show-resilience-forecast",
+        "--show-resilience-debt",
+        "--show-resilience-equivalence",
+        "--show-resilience-trust",
+        "--show-resilience-review-packs"
+    ]
+
+    for cmd in commands:
+        if cmd in args:
+            print(f"Executing {cmd}...")
+            return
+
+    print("No valid resilience command provided.")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and "--show" in sys.argv[1]:
+        run_resilience_cli(sys.argv[1:])
+    else:
+        main()

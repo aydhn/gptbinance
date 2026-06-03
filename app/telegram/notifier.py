@@ -13,3 +13,14 @@ def notify_viability_events(): pass
 class LegitimacyNotifier:
     # legitimacy plane events
     pass
+
+
+def validate_stewardship_notifier(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship plane event types.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

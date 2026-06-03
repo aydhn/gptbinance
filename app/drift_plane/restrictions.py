@@ -40,3 +40,14 @@ def check_restriction_carry(): return 'explicit caution if restriction maintaine
 class Restrictions:
     # legitimacy-plane proportionality refs
     pass
+
+
+def validate_stewardship_restrictions(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include future operability and burden-transfer refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

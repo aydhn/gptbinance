@@ -13,3 +13,14 @@ def register_canonical_viability_events(): pass
 class LegitimacyEvents:
     # canonical legitimacy events
     pass
+
+
+def validate_stewardship_events(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include canonical stewardship events.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

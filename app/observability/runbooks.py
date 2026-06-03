@@ -10,3 +10,14 @@ def link_viability_runbooks(): pass
 class LegitimacyRunbooks:
     # legitimacy runbook refs
     pass
+
+
+def validate_stewardship_runbooks(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship runbook refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

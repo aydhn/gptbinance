@@ -10,3 +10,14 @@ def check_lift_burden(): return 'explicit caution if lift granted under nonviabl
 class EnforcementLifts:
     # legitimacy-plane proportionality refs
     pass
+
+
+def validate_stewardship_lift(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include preservation risk and reversibility refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

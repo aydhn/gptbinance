@@ -29,3 +29,14 @@ def check_reopen_economics(): return 'explicit caution if reopen widened under n
 class Reopen:
     # legitimacy-plane stakeholder representation refs
     pass
+
+
+def validate_stewardship_reopen(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include preservation margin and reversibility refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

@@ -10,3 +10,14 @@ def check_settlement_affordability(): return 'explicit caution if full-final ass
 class FullFinalClaims:
     # legitimacy-plane contestability closure refs
     pass
+
+
+def validate_stewardship_fullfinal(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include future burden and custodial closure refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

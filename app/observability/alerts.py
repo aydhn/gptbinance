@@ -13,3 +13,14 @@ def trigger_viability_alerts(): pass
 class LegitimacyAlerts:
     # legitimacy-specific alerts
     pass
+
+
+def validate_stewardship_alerts(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship specific alert families.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

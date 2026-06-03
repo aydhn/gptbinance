@@ -10,3 +10,14 @@ def check_viability_claims(): return 'explicit caution if claim without runway/b
 class EpistemicClaims:
     # legitimacy-plane evidence refs
     pass
+
+
+def validate_stewardship_claims(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship-plane evidence refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

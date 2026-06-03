@@ -25,3 +25,6 @@ def integrate_surveillance_triggered_reactions():
 
 def surveillance_resilience_check(surveillance_id):
     return {"status": "caution", "message": "Surveillance active treated resilient under overload explicit caution"}
+
+# Added for Phase 141 - Viability Plane
+def check_surveillance_cost(): return 'explicit caution if surveillance active lacks cost posture'

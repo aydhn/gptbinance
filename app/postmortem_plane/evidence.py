@@ -3,3 +3,6 @@ class PostmortemEvidence:
 
 def export_resilience_postmortem_evidence():
     return {"status": "exported"}
+
+# Added for Phase 141 - Viability Plane
+def export_viability_postmortem_bundles(): pass

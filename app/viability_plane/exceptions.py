@@ -1,0 +1,9 @@
+class ViabilityPlaneError(Exception): pass
+class InvalidViabilityObjectError(ViabilityPlaneError): pass
+class InvalidRunwayError(ViabilityPlaneError): pass
+class InvalidBurdenMapError(ViabilityPlaneError): pass
+class InvalidSubsidyMapError(ViabilityPlaneError): pass
+class InvalidAffordabilityAssessmentError(ViabilityPlaneError): pass
+class InvalidSustainabilityMarginError(ViabilityPlaneError): pass
+class ViabilityTheaterViolationError(ViabilityPlaneError): pass
+class ViabilityStorageError(ViabilityPlaneError): pass

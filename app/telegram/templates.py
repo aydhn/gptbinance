@@ -9,3 +9,7 @@ def get_resilience_template(template_name):
 
 # Added for Phase 141 - Viability Plane
 def get_viability_templates(): pass
+
+class LegitimacyTemplates:
+    # legitimacy templates
+    pass

@@ -6,3 +6,7 @@ def get_resilience_evidence():
 
 # Added for Phase 141 - Viability Plane
 def check_viability_integrity_failures(): pass
+
+class LegitimacyEvidence:
+    # readiness bundle legitimacy trust
+    pass

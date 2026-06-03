@@ -36,3 +36,7 @@ class SanctionsIncentiveIntegration:
 def sanction_applied_treated_behavior_correcting():
     # without incentive evidence explicit caution
     return {"caution": "sanction applied treated behavior-correcting without incentive evidence"}
+
+class Sanctions:
+    # legitimacy-plane proportionality and appeal accessibility refs
+    pass

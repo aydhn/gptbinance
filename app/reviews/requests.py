@@ -9,3 +9,7 @@ def request_resilience_review(review_type):
 
 # Added for Phase 141 - Viability Plane
 def init_viability_reviews(): pass
+
+class LegitimacyReviewRequests:
+    # canonical legitimacy review classes
+    pass

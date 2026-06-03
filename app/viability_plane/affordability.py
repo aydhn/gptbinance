@@ -4,3 +4,7 @@ from typing import Dict, Any
 class AffordabilityManager:
     def evaluate(self, context: Dict[str, Any]) -> Dict[str, Any]:
         return {"status": "evaluated", "module": "affordability", "notes": "No phantom profitability or hidden subsidies allowed."}
+
+# legitimacy-plane burden asymmetry and proportionality refs
+class AffordabilityLegitimacyLink:
+    pass

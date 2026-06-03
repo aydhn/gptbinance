@@ -36,3 +36,7 @@ def restriction_resilience_check(restriction_id):
 
 # Added for Phase 141 - Viability Plane
 def check_restriction_carry(): return 'explicit caution if restriction maintained under affordability collapse'
+
+class Restrictions:
+    # legitimacy-plane proportionality refs
+    pass

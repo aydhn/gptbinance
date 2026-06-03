@@ -6,3 +6,7 @@ def get_resilience_contributors():
 
 # Added for Phase 141 - Viability Plane
 def register_viability_contributors(): pass
+
+class LegitimacyContributors:
+    # legitimacy contributor classes
+    pass

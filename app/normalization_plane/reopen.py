@@ -25,3 +25,7 @@ def reopen_resilience_check(reopen_id):
 
 # Added for Phase 141 - Viability Plane
 def check_reopen_economics(): return 'explicit caution if reopen widened under nonviable carry posture'
+
+class Reopen:
+    # legitimacy-plane stakeholder representation refs
+    pass

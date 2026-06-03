@@ -6,3 +6,7 @@ def get_resilience_packs():
 
 # Added for Phase 141 - Viability Plane
 def register_viability_review_packs(): pass
+
+class LegitimacyPacks:
+    # legitimacy integrity pack
+    pass

@@ -6,3 +6,7 @@ def check_resilience_domain():
 
 # Added for Phase 141 - Viability Plane
 def init_viability_integrity_domain(): pass
+
+class LegitimacyDomains:
+    # legitimacy_integrity domain
+    pass

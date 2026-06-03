@@ -6,3 +6,7 @@ def epistemic_resilience_check(claim_id):
 
 # Added for Phase 141 - Viability Plane
 def check_viability_claims(): return 'explicit caution if claim without runway/burden/subsidy basis'
+
+class EpistemicClaims:
+    # legitimacy-plane evidence refs
+    pass

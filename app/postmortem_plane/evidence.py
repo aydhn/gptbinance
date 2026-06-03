@@ -6,3 +6,7 @@ def export_resilience_postmortem_evidence():
 
 # Added for Phase 141 - Viability Plane
 def export_viability_postmortem_bundles(): pass
+
+class PostmortemLegitimacyEvidence:
+    # legitimacy objects refs
+    pass

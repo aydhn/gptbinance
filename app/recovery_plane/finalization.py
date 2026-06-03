@@ -6,3 +6,7 @@ def recovery_resilience_check(recovery_id):
 
 # Added for Phase 141 - Viability Plane
 def check_finalization_overhang(): return 'explicit caution if recovery finalized durable without viability evidence'
+
+class Finalization:
+    # legitimacy-plane burden map and remedy accessibility refs
+    pass

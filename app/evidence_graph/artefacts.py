@@ -6,3 +6,7 @@ def register_resilience_artefact(artefact_id):
 
 # Added for Phase 141 - Viability Plane
 def register_viability_artefacts(): pass
+
+class LegitimacyArtefacts:
+    # legitimacy artefact family
+    pass

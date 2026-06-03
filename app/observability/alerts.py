@@ -9,3 +9,7 @@ def trigger_resilience_alert(alert_type):
 
 # Added for Phase 141 - Viability Plane
 def trigger_viability_alerts(): pass
+
+class LegitimacyAlerts:
+    # legitimacy-specific alerts
+    pass

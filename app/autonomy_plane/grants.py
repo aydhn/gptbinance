@@ -16,3 +16,5 @@ def validate_stewardship_grants(context):
     if "stewardship_evidence" not in context:
         return "CAUTION: Action treated safe without explicit stewardship evidence."
     return "TRUSTED"
+
+# grant ownership changes carry succession-plane legitimacy refs

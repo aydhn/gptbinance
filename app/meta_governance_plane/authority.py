@@ -2,3 +2,5 @@
 
 def process_authority():
     pass
+
+# canon authority changes carry succession-plane transfer refs

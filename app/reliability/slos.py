@@ -6,3 +6,7 @@ def get_resilience_slos():
 
 # Added for Phase 141 - Viability Plane
 def setup_viability_integrity_slos(): pass
+
+class LegitimacySLOs:
+    # legitimacy integrity SLO families
+    pass

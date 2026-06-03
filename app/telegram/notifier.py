@@ -9,3 +9,7 @@ def notify_resilience_event(event_type):
 
 # Added for Phase 141 - Viability Plane
 def notify_viability_events(): pass
+
+class LegitimacyNotifier:
+    # legitimacy plane events
+    pass

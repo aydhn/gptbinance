@@ -70,3 +70,89 @@ def register_viability_commands(app):
 
     @app.command()
     def show_viability_trust(): print("Showing viability trust verdict...")
+
+# Phase 142 - Legitimacy Plane CLI Commands
+def register_legitimacy_commands(app):
+    @app.command()
+    def show_legitimacy_registry(): print("Showing canonical legitimacy registry...")
+
+    @app.command()
+    def show_legitimacy_object(legitimacy_id: str): print(f"Showing legitimacy object {legitimacy_id}...")
+
+    @app.command()
+    def show_legitimacy(): print("Showing legitimacy...")
+
+    @app.command()
+    def show_stakeholders(): print("Showing stakeholders...")
+
+    @app.command()
+    def show_stakeholder_classes(): print("Showing stakeholder classes...")
+
+    @app.command()
+    def show_affected_party_maps(): print("Showing affected-party maps...")
+
+    @app.command()
+    def show_mandate_basis(): print("Showing mandate basis...")
+
+    @app.command()
+    def show_justifications(): print("Showing justifications...")
+
+    @app.command()
+    def show_public_reason(): print("Showing public reason...")
+
+    @app.command()
+    def show_disclosures(): print("Showing disclosures...")
+
+    @app.command()
+    def show_explainability_sufficiency(): print("Showing explainability sufficiency...")
+
+    @app.command()
+    def show_consultations(): print("Showing consultations...")
+
+    @app.command()
+    def show_representation_adequacy(): print("Showing representation adequacy...")
+
+    @app.command()
+    def show_proportionality(): print("Showing proportionality...")
+
+    @app.command()
+    def show_burden_asymmetry(): print("Showing burden asymmetry...")
+
+    @app.command()
+    def show_contestability(): print("Showing contestability...")
+
+    @app.command()
+    def show_appeal_accessibility(): print("Showing appeal accessibility...")
+
+    @app.command()
+    def show_acceptance_fragility(): print("Showing acceptance fragility...")
+
+    @app.command()
+    def show_legitimacy_downgrades(): print("Showing legitimacy downgrades...")
+
+    @app.command()
+    def show_legitimacy_revocations(): print("Showing legitimacy revocations...")
+
+    @app.command()
+    def show_legitimacy_drift(): print("Showing legitimacy drift...")
+
+    @app.command()
+    def show_legitimacy_comparisons(): print("Showing legitimacy comparisons...")
+
+    @app.command()
+    def show_legitimacy_readiness(): print("Showing legitimacy readiness...")
+
+    @app.command()
+    def show_legitimacy_forecast(): print("Showing legitimacy forecast...")
+
+    @app.command()
+    def show_legitimacy_debt(): print("Showing legitimacy debt...")
+
+    @app.command()
+    def show_legitimacy_equivalence(): print("Showing legitimacy equivalence...")
+
+    @app.command()
+    def show_legitimacy_trust(): print("Showing legitimacy trust...")
+
+    @app.command()
+    def show_legitimacy_review_packs(): print("Showing legitimacy review packs...")

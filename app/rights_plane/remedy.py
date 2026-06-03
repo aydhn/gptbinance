@@ -6,3 +6,7 @@ def remedy_resilience_check(remedy_id):
 
 # Added for Phase 141 - Viability Plane
 def check_remedy_exclusion(): return 'explicit caution if remedy safe while viability depends on exclusion'
+
+class RemedyAdequacy:
+    # legitimacy-plane accessibility refs
+    pass

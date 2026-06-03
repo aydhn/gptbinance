@@ -6,3 +6,7 @@ def get_resilience_runbooks():
 
 # Added for Phase 141 - Viability Plane
 def link_viability_runbooks(): pass
+
+class LegitimacyRunbooks:
+    # legitimacy runbook refs
+    pass

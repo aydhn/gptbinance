@@ -9,3 +9,7 @@ def register_resilience_event(event_type):
 
 # Added for Phase 141 - Viability Plane
 def register_canonical_viability_events(): pass
+
+class LegitimacyEvents:
+    # canonical legitimacy events
+    pass

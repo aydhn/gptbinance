@@ -6,3 +6,7 @@ def settlement_resilience_check(settlement_id):
 
 # Added for Phase 141 - Viability Plane
 def check_settlement_affordability(): return 'explicit caution if full-final asserted under hidden cost transfer'
+
+class FullFinalClaims:
+    # legitimacy-plane contestability closure refs
+    pass

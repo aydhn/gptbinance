@@ -6,3 +6,7 @@ def check_reliability_resilience_domain():
 
 # Added for Phase 141 - Viability Plane
 def register_viability_reliability_domain(): pass
+
+class ReliabilityLegitimacyDomains:
+    # legitimacy_integrity reliability domain
+    pass

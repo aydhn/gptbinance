@@ -11,3 +11,7 @@ def check_resilience_invariants():
 
 # Added for Phase 141 - Viability Plane
 def enforce_viability_invariants(): pass
+
+class LegitimacyInvariants:
+    # legitimacy invariants
+    pass

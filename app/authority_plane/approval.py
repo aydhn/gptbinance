@@ -6,3 +6,7 @@ def approval_resilience_check(approval_id):
 
 # Added for Phase 141 - Viability Plane
 def check_viability_authority(): return 'explicit caution if action by actor lacking subsidy/burden authority'
+
+class LegitimacyDeclarations:
+    # legitimacy-plane authority refs
+    pass

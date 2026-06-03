@@ -6,3 +6,7 @@ def get_resilience_context():
 
 # Added for Phase 141 - Viability Plane
 def inject_viability_posture(): pass
+
+class LegitimacyContext:
+    # legitimacy posture context
+    pass

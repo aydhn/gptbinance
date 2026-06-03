@@ -1,0 +1,9 @@
+class LegitimacyPlaneError(Exception): pass
+class InvalidLegitimacyObjectError(LegitimacyPlaneError): pass
+class InvalidStakeholderMapError(LegitimacyPlaneError): pass
+class InvalidJustificationError(LegitimacyPlaneError): pass
+class InvalidDisclosureError(LegitimacyPlaneError): pass
+class InvalidProportionalityFindingError(LegitimacyPlaneError): pass
+class InvalidContestabilityPostureError(LegitimacyPlaneError): pass
+class LegitimacyTheaterViolation(LegitimacyPlaneError): pass
+class LegitimacyStorageError(LegitimacyPlaneError): pass

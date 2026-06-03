@@ -6,3 +6,7 @@ def export_resilience_diagnostics():
 
 # Added for Phase 141 - Viability Plane
 def export_phantom_profitability_signals(): pass
+
+class Diagnostics:
+    # symbolic consultation diagnostic export
+    pass

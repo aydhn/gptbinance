@@ -6,3 +6,7 @@ def get_resilience_capabilities():
 
 # Added for Phase 141 - Viability Plane
 def register_viability_capabilities(): pass
+
+class LegitimacyCapabilities:
+    # legitimacy capabilities
+    pass

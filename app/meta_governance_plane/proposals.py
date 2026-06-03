@@ -2,3 +2,7 @@
 
 def process_proposals():
     pass
+
+class GovernanceProposals:
+    # legitimacy-plane stakeholder inclusion refs
+    pass

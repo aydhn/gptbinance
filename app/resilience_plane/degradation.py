@@ -8,3 +8,7 @@ class DegradationManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+# legitimacy-plane beneficiary impact refs
+class DegradationLegitimacyLink:
+    pass

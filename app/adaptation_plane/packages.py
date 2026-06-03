@@ -6,3 +6,7 @@ def adaptation_resilience_check(package_id):
 
 # Added for Phase 141 - Viability Plane
 def check_package_sustainability(): return 'explicit caution if package adopted without viability proof'
+
+class CorrectivePackages:
+    # legitimacy-plane side-effect burden refs
+    pass

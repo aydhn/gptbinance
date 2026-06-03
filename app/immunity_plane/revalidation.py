@@ -20,3 +20,7 @@ def revalidation_resilience_check(revalidation_id):
 
 # Added for Phase 141 - Viability Plane
 def check_revalidation_cost(): return 'explicit caution if immunity maintained under hidden cost'
+
+class Revalidation:
+    # legitimacy-plane burden visibility refs
+    pass

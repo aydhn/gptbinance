@@ -6,3 +6,7 @@ def lift_resilience_check(lift_id):
 
 # Added for Phase 141 - Viability Plane
 def check_lift_burden(): return 'explicit caution if lift granted under nonviable surveillance burden'
+
+class EnforcementLifts:
+    # legitimacy-plane proportionality refs
+    pass

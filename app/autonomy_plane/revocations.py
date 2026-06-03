@@ -1,4 +1,3 @@
-# Autonomy Plane: Revocations
-
-def evaluate_revocations():
+# Auto-generated module for integration app/autonomy_plane/revocations.py
+def handle_revocations():
     pass

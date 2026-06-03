@@ -1,23 +1,3 @@
-class CorrectivePackage:
-    meta_governance_package_policy_canon_ref: str = None
-
-def adaptation_resilience_check(package_id):
-    return {"status": "caution", "message": "Package deployed treated resilient under adaptation backlog"}
-
-# Added for Phase 141 - Viability Plane
-def check_package_sustainability(): return 'explicit caution if package adopted without viability proof'
-
-class CorrectivePackages:
-    # legitimacy-plane side-effect burden refs
+# Auto-generated module for integration app/adaptation_plane/packages.py
+def handle_packages():
     pass
-
-
-def validate_stewardship_packages(context):
-    """
-    Integration for Stewardship Plane.
-    Rule: Must include reversibility and cannibalization refs.
-    If absent, generates an explicit caution.
-    """
-    if "stewardship_evidence" not in context:
-        return "CAUTION: Action treated safe without explicit stewardship evidence."
-    return "TRUSTED"

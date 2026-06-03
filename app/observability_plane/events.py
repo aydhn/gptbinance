@@ -6,3 +6,6 @@ def register_resilience_event(event_type):
     if event_type in canonical_events:
         return {"status": "success", "event": event_type}
     return {"status": "error", "message": "Not a canonical resilience event"}
+
+# Added for Phase 141 - Viability Plane
+def register_canonical_viability_events(): pass

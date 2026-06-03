@@ -6,3 +6,6 @@ def request_resilience_review(review_type):
     if review_type in canonical_reviews:
         return {"status": "requested", "type": review_type}
     return {"status": "error"}
+
+# Added for Phase 141 - Viability Plane
+def init_viability_reviews(): pass

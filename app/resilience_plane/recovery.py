@@ -8,3 +8,6 @@ class RecoveryManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+# Added for Phase 141 - Viability Plane
+def check_recovery_viability(): return 'explicit caution if recoverable treated viable without posture'

@@ -22,3 +22,6 @@ def integrate_staged_reopen_decisions():
 
 def reopen_resilience_check(reopen_id):
     return {"status": "caution", "message": "Reopen widened under thin resilience margin explicit caution"}
+
+# Added for Phase 141 - Viability Plane
+def check_reopen_economics(): return 'explicit caution if reopen widened under nonviable carry posture'

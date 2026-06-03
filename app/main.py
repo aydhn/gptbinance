@@ -47,3 +47,26 @@ if __name__ == "__main__":
         run_resilience_cli(sys.argv[1:])
     else:
         main()
+
+# Phase 141 - Viability Plane CLI Commands
+def register_viability_commands(app):
+    @app.command()
+    def show_viability_registry(): print("Showing canonical viability registry...")
+
+    @app.command()
+    def show_runways(): print("Showing runways...")
+
+    @app.command()
+    def show_burn_rates(): print("Showing burn rates...")
+
+    @app.command()
+    def show_cost_burdens(): print("Showing cost burdens...")
+
+    @app.command()
+    def show_subsidies(): print("Showing subsidies...")
+
+    @app.command()
+    def show_phantom_profitability(): print("Showing phantom profitability...")
+
+    @app.command()
+    def show_viability_trust(): print("Showing viability trust verdict...")

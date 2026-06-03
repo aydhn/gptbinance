@@ -6,3 +6,6 @@ def get_resilience_template(template_name):
     if template_name in templates:
         return {"status": "found", "template": template_name}
     return {"status": "error"}
+
+# Added for Phase 141 - Viability Plane
+def get_viability_templates(): pass

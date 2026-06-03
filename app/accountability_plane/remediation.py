@@ -33,3 +33,6 @@ def evaluate_orchestration_posture(orchestration_ref=None):
 
 def remediation_resilience_check(remediation_id):
     return {"status": "caution", "message": "Remediation assigned treated resiliently executable without capacity basis"}
+
+# Added for Phase 141 - Viability Plane
+def check_remediation_sustainability(): return 'explicit caution if remediation assigned lacks burden basis'

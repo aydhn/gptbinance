@@ -3,3 +3,6 @@ class ReliabilitySLOs:
 
 def get_resilience_slos():
     return ["unresolved hidden-fragility ceiling", "fake-fallback absence", "reserve-exhaustion absence", "lagged-collapse absence", "trusted resilience degraded ratio"]
+
+# Added for Phase 141 - Viability Plane
+def setup_viability_integrity_slos(): pass

@@ -6,3 +6,6 @@ def trigger_resilience_alert(alert_type):
     if alert_type in canonical_alerts:
         return {"status": "triggered", "alert": alert_type}
     return {"status": "error"}
+
+# Added for Phase 141 - Viability Plane
+def trigger_viability_alerts(): pass

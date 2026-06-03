@@ -33,3 +33,6 @@ def integrate_drift_triggered_restrictions():
 
 def restriction_resilience_check(restriction_id):
     return {"status": "caution", "message": "Restriction triggered treated resilient without containment proof"}
+
+# Added for Phase 141 - Viability Plane
+def check_restriction_carry(): return 'explicit caution if restriction maintained under affordability collapse'

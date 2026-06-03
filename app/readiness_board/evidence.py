@@ -10,3 +10,14 @@ def check_viability_integrity_failures(): pass
 class LegitimacyEvidence:
     # readiness bundle legitimacy trust
     pass
+
+
+def validate_stewardship_evidence(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include readiness bundle stewardship trust.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

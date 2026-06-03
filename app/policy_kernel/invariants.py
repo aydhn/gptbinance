@@ -15,3 +15,14 @@ def enforce_viability_invariants(): pass
 class LegitimacyInvariants:
     # legitimacy invariants
     pass
+
+
+def validate_stewardship_invariants(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship invariants.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

@@ -156,3 +156,84 @@ def register_legitimacy_commands(app):
 
     @app.command()
     def show_legitimacy_review_packs(): print("Showing legitimacy review packs...")
+
+
+# Phase 143 - Stewardship Plane CLI Commands
+def register_stewardship_commands(app):
+    @app.command()
+    def show_stewardship_registry(): print("Showing canonical stewardship registry...")
+
+    @app.command()
+    def show_stewardship_object(stewardship_id: str): print(f"Showing stewardship object {stewardship_id}...")
+
+    @app.command()
+    def show_stewardship(): print("Showing stewardship...")
+
+    @app.command()
+    def show_stewards(): print("Showing stewards...")
+
+    @app.command()
+    def show_custodial_mandates(): print("Showing custodial mandates...")
+
+    @app.command()
+    def show_entrusted_assets(): print("Showing entrusted assets...")
+
+    @app.command()
+    def show_preservation_duties(): print("Showing preservation duties...")
+
+    @app.command()
+    def show_extraction_boundaries(): print("Showing extraction boundaries...")
+
+    @app.command()
+    def show_maintenance_duties(): print("Showing maintenance duties...")
+
+    @app.command()
+    def show_deferred_burdens(): print("Showing deferred burdens...")
+
+    @app.command()
+    def show_future_liabilities(): print("Showing future liabilities...")
+
+    @app.command()
+    def show_reversibility(): print("Showing reversibility...")
+
+    @app.command()
+    def show_knowledge_continuity(): print("Showing knowledge continuity...")
+
+    @app.command()
+    def show_handoff_integrity(): print("Showing handoff integrity...")
+
+    @app.command()
+    def show_custody_downgrades(): print("Showing custody downgrades...")
+
+    @app.command()
+    def show_custody_revocations(): print("Showing custody revocations...")
+
+    @app.command()
+    def show_stewardship_drift(): print("Showing stewardship drift...")
+
+    @app.command()
+    def show_silent_extraction(): print("Showing silent extraction...")
+
+    @app.command()
+    def show_asset_cannibalization(): print("Showing asset cannibalization...")
+
+    @app.command()
+    def show_stewardship_comparisons(): print("Showing stewardship comparisons...")
+
+    @app.command()
+    def show_stewardship_readiness(): print("Showing stewardship readiness...")
+
+    @app.command()
+    def show_stewardship_forecast(): print("Showing stewardship forecast...")
+
+    @app.command()
+    def show_stewardship_debt(): print("Showing stewardship debt...")
+
+    @app.command()
+    def show_stewardship_equivalence(): print("Showing stewardship equivalence...")
+
+    @app.command()
+    def show_stewardship_trust(): print("Showing stewardship trust...")
+
+    @app.command()
+    def show_stewardship_review_packs(): print("Showing stewardship review packs...")

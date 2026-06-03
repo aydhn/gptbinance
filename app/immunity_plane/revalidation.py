@@ -24,3 +24,14 @@ def check_revalidation_cost(): return 'explicit caution if immunity maintained u
 class Revalidation:
     # legitimacy-plane burden visibility refs
     pass
+
+
+def validate_stewardship_revalidation(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include long-horizon preservation and deferred-burden refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

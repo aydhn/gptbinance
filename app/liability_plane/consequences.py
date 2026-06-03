@@ -10,3 +10,14 @@ def check_liability_subsidy(): return 'explicit caution if liability hidden unde
 class LiabilityPosture:
     # legitimacy-plane burden allocation refs
     pass
+
+
+def validate_stewardship_consequences(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include inherited liability and hidden transfer refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

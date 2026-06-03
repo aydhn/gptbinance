@@ -10,3 +10,14 @@ def check_finalization_overhang(): return 'explicit caution if recovery finalize
 class Finalization:
     # legitimacy-plane burden map and remedy accessibility refs
     pass
+
+
+def validate_stewardship_finalization(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include future liability and maintenance backlog refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

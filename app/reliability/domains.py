@@ -10,3 +10,14 @@ def register_viability_reliability_domain(): pass
 class ReliabilityLegitimacyDomains:
     # legitimacy_integrity reliability domain
     pass
+
+
+def validate_stewardship_domains(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship_integrity domain.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

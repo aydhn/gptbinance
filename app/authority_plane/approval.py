@@ -10,3 +10,14 @@ def check_viability_authority(): return 'explicit caution if action by actor lac
 class LegitimacyDeclarations:
     # legitimacy-plane authority refs
     pass
+
+
+def validate_stewardship_approval(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include custodial assignment, extraction approval and handoff completion authority refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

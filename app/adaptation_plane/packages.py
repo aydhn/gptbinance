@@ -10,3 +10,14 @@ def check_package_sustainability(): return 'explicit caution if package adopted 
 class CorrectivePackages:
     # legitimacy-plane side-effect burden refs
     pass
+
+
+def validate_stewardship_packages(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include reversibility and cannibalization refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

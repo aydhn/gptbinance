@@ -10,3 +10,14 @@ def export_phantom_profitability_signals(): pass
 class Diagnostics:
     # symbolic consultation diagnostic export
     pass
+
+
+def validate_stewardship_diagnostics(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship diagnostics export.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

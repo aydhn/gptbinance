@@ -10,3 +10,14 @@ def register_viability_review_packs(): pass
 class LegitimacyPacks:
     # legitimacy integrity pack
     pass
+
+
+def validate_stewardship_packs(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship review packs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

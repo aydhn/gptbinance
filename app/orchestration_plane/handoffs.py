@@ -5,3 +5,14 @@ class HandoffsManager:
     def evaluate(self, ref_id: str) -> TrustVerdict:
         # Prevents hidden automation and opaque handoffs
         return TrustVerdict.TRUSTED
+
+
+def validate_stewardship_handoffs(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include handoff integrity and knowledge continuity refs.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

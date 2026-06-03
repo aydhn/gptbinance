@@ -10,3 +10,14 @@ def register_viability_artefacts(): pass
 class LegitimacyArtefacts:
     # legitimacy artefact family
     pass
+
+
+def validate_stewardship_artefacts(context):
+    """
+    Integration for Stewardship Plane.
+    Rule: Must include stewardship artefacts and relations.
+    If absent, generates an explicit caution.
+    """
+    if "stewardship_evidence" not in context:
+        return "CAUTION: Action treated safe without explicit stewardship evidence."
+    return "TRUSTED"

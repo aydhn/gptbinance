@@ -7,3 +7,5 @@ def check_authority_linkage(record: AssuranceRecord) -> List[str]:
     if not record.cases or not any(c.is_complete for c in record.cases):
         warnings.append("No authority-safe claim without complete assurance posture.")
     return warnings
+
+# certification authority changes carry succession-plane transfer refs

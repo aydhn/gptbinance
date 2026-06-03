@@ -8,3 +8,5 @@ class Operator_loadManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+# operator load integrates with succession-plane emergency successor

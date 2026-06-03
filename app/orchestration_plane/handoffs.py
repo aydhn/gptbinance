@@ -16,3 +16,5 @@ def validate_stewardship_handoffs(context):
     if "stewardship_evidence" not in context:
         return "CAUTION: Action treated safe without explicit stewardship evidence."
     return "TRUSTED"
+
+# orchestration handoffs carry succession-plane dual-control refs

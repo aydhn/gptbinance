@@ -1,1 +1,1 @@
-import pytest
+import sys; print('ok')

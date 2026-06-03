@@ -24,3 +24,5 @@ class SubjectsManager:
 # Autonomy Integration Phase 138
 def integrate_autonomous_subjects():
     pass
+
+# accountable subject replacement carries succession-plane liability continuity

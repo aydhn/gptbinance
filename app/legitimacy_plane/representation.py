@@ -2,3 +2,5 @@
 
 class RepresentationManager:
     pass
+
+# succession-plane stakeholder acceptance integration

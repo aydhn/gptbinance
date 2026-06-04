@@ -3,3 +3,6 @@ def handle_diagnostics():
     pass
 
 # shadow successor, vacancy gap diagnostic signals exported
+
+class DiagnosticSignal:
+# renewal-plane refs added

@@ -3,3 +3,6 @@ def handle_notifier():
     pass
 
 # succession plane event types supported
+
+class TelegramNotifier:
+# renewal-plane refs added

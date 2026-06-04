@@ -5,3 +5,7 @@ class CheckpointsManager:
     def evaluate(self, ref_id: str) -> TrustVerdict:
         # Prevents hidden automation and opaque handoffs
         return TrustVerdict.TRUSTED
+
+class OrchestrationCheckpoint:
+    pass
+# renewal-plane refs added

@@ -3,3 +3,6 @@ def handle_evidence():
     pass
 
 # readiness bundle incorporates succession integrity factors
+
+class ReadinessEvidence:
+# renewal-plane refs added

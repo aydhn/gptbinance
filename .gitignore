@@ -1,9 +1,10 @@
+# Ignore python cache
 __pycache__/
 *.pyc
-generate_phase_144*
-__pycache__/
-*.pyc
-.pytest_cache/
-test_runner.py
-run_tests.py
-modify_existing_files2.py
+
+# Ignore output logs
+*.log
+output.txt
+output.md
+generate_phase146.py
+test_script.sh

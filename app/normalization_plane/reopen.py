@@ -3,3 +3,6 @@ def handle_reopen():
     pass
 
 # gate-owner transitions carry succession-plane authority refs
+
+class NormalizationReopen:
+# renewal-plane refs added

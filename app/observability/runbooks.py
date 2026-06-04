@@ -3,3 +3,6 @@ def handle_runbooks():
     pass
 
 # succession runbook refs added
+
+class ObservabilityRunbook:
+# renewal-plane refs added

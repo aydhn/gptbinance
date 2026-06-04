@@ -3,3 +3,6 @@ def handle_packs():
     pass
 
 # succession integrity packs added
+
+class EvidencePack:
+# renewal-plane refs added

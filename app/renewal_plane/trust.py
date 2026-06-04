@@ -1,0 +1,10 @@
+
+from app.renewal_plane.models import RenewalTrustVerdict, TrustVerdict
+
+class TrustManager:
+    def evaluate_trust(self, is_fresh: bool, has_debt: bool) -> RenewalTrustVerdict:
+        if has_debt:
+            return RenewalTrustVerdict(verdict_id="tv_debt", verdict=TrustVerdict.DEGRADED)
+        if not is_fresh:
+            return RenewalTrustVerdict(verdict_id="tv_stale", verdict=TrustVerdict.REVIEW_REQUIRED)
+        return RenewalTrustVerdict(verdict_id="tv_trusted", verdict=TrustVerdict.TRUSTED)

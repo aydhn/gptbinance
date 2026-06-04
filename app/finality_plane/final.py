@@ -3,3 +3,6 @@ def handle_final():
     pass
 
 # final-safe closure requires succession-plane accepted continuity refs
+
+class FinalSafeClosure:
+# renewal-plane refs added

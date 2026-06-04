@@ -3,3 +3,6 @@ def handle_revalidation():
     pass
 
 # revalidation owner changes carry succession-plane capability continuity
+
+class ImmunityRevalidation:
+# renewal-plane refs added

@@ -2,3 +2,6 @@
 
 def process_versions():
     pass
+
+class CanonVersion:
+# renewal-plane refs added

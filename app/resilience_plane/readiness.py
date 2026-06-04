@@ -8,3 +8,7 @@ class ReadinessManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+class ResilienceReadiness:
+    pass
+# renewal-plane refs added

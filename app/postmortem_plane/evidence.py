@@ -3,3 +3,6 @@ def handle_evidence():
     pass
 
 # succession objects exported to postmortem bundles
+
+class PostmortemEvidence:
+# renewal-plane refs added

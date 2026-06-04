@@ -2,3 +2,6 @@
 
 class JustificationsManager:
     pass
+
+class LegitimacyJustification:
+# renewal-plane refs added

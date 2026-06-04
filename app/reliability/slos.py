@@ -3,3 +3,6 @@ def handle_slos():
     pass
 
 # succession integrity SLO families added
+
+class ReliabilitySLO:
+# renewal-plane refs added

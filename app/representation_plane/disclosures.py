@@ -6,3 +6,6 @@ def handle_disclosures():
 
 class RepresentationDisclosure:
 # renewal-plane refs added
+
+def representation_suspension_check():
+    pass

@@ -6,3 +6,6 @@ def handle_diagnostics():
 
 class DiagnosticSignal:
 # renewal-plane refs added
+
+def add_suspension_diagnostics():
+    pass

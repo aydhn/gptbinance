@@ -6,3 +6,6 @@ def handle_templates():
 
 class TelegramTemplate:
 # renewal-plane refs added
+
+def add_suspension_templates():
+    pass

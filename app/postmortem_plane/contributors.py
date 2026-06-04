@@ -6,3 +6,6 @@ def handle_contributors():
 
 class PostmortemContributor:
 # renewal-plane refs added
+
+def add_suspension_contributors():
+    pass

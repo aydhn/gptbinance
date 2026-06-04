@@ -6,3 +6,6 @@ def handle_domains():
 
 class ReadinessDomain:
 # renewal-plane refs added
+
+def add_suspension_integrity_domain():
+    pass

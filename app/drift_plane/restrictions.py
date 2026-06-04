@@ -6,3 +6,6 @@ def handle_restrictions():
 
 class DriftRestriction:
 # renewal-plane refs added
+
+def drift_suspension_check():
+    pass

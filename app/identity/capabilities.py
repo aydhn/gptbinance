@@ -6,3 +6,6 @@ def handle_capabilities():
 
 class IdentityCapability:
 # renewal-plane refs added
+
+def add_suspension_capabilities():
+    pass

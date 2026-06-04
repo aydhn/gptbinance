@@ -5,3 +5,6 @@ class PausesManager:
     def evaluate(self, ref_id: str) -> TrustVerdict:
         # Prevents hidden automation and opaque handoffs
         return TrustVerdict.TRUSTED
+
+def pauses_suspension_check():
+    pass

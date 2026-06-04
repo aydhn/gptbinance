@@ -8,3 +8,4 @@ output.txt
 output.md
 generate_phase146.py
 test_script.sh
+*.pyc\n__pycache__\n*.tmp\n

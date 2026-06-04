@@ -6,3 +6,6 @@ def handle_packages():
 
 class CorrectivePackage:
 # renewal-plane refs added
+
+def adaptation_suspension_check():
+    pass

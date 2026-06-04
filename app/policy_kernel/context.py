@@ -6,3 +6,6 @@ def handle_context():
 
 class PolicyContext:
 # renewal-plane refs added
+
+def add_suspension_context():
+    pass

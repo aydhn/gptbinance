@@ -20,3 +20,6 @@ def validate_stewardship_duties(context):
 class AccountabilityDuty:
     pass
 # renewal-plane refs added
+
+def duties_suspension_check():
+    pass

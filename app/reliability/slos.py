@@ -6,3 +6,6 @@ def handle_slos():
 
 class ReliabilitySLO:
 # renewal-plane refs added
+
+def add_suspension_slos():
+    pass

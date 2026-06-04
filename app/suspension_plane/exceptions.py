@@ -1,0 +1,9 @@
+class SuspensionPlaneError(Exception): pass
+class InvalidSuspensionObjectError(SuspensionPlaneError): pass
+class InvalidSuspensionTriggerError(SuspensionPlaneError): pass
+class InvalidSuspensionScopeError(SuspensionPlaneError): pass
+class InvalidFreezeBoundaryError(SuspensionPlaneError): pass
+class InvalidQuarantineError(SuspensionPlaneError): pass
+class InvalidResumptionCriteriaError(SuspensionPlaneError): pass
+class SuspensionTheaterViolation(SuspensionPlaneError): pass
+class SuspensionStorageError(SuspensionPlaneError): pass

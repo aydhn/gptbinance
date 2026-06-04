@@ -6,3 +6,6 @@ def handle_claims():
 
 class EpistemicClaim:
 # renewal-plane refs added
+
+def epistemic_suspension_check():
+    pass

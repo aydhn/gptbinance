@@ -3,3 +3,6 @@ class ScheduledReview:\n    pass\n\nclass TriggeredReview:\n    pass\n\nclass Ov
 class IncentiveReview:
     pass
 # renewal-plane refs added
+
+def reviews_suspension_check():
+    pass

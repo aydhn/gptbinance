@@ -8,3 +8,6 @@ class ContainmentManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+def containment_suspension_check():
+    pass

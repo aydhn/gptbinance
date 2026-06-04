@@ -6,3 +6,6 @@ def handle_final():
 
 class FinalSafeClosure:
 # renewal-plane refs added
+
+def finality_suspension_check():
+    pass

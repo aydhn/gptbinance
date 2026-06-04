@@ -3,3 +3,6 @@ def handle_invariants():
     pass
 
 # new invariants added for succession logic
+
+class PolicyInvariant:
+# renewal-plane refs added

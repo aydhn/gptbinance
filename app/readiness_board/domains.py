@@ -3,3 +3,6 @@ def handle_domains():
     pass
 
 # new domain: succession_integrity
+
+class ReadinessDomain:
+# renewal-plane refs added

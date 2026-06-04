@@ -3,3 +3,6 @@ def handle_requests():
     pass
 
 # canonical review classes for succession added
+
+class ReviewRequest:
+# renewal-plane refs added

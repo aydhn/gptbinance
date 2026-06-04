@@ -3,3 +3,6 @@ def handle_claims():
     pass
 
 # claims require succession-plane evidence refs
+
+class EpistemicClaim:
+# renewal-plane refs added

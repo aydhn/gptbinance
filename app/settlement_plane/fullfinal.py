@@ -3,3 +3,6 @@ def handle_fullfinal():
     pass
 
 # settlement closure owner changes carry succession-plane residual duty refs
+
+class FullFinalClosure:
+# renewal-plane refs added

@@ -3,3 +3,6 @@ def handle_disclosures():
     pass
 
 # disclosures bind to succession-plane canonical meanings
+
+class RepresentationDisclosure:
+# renewal-plane refs added

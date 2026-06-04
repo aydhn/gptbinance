@@ -3,3 +3,6 @@ def handle_domains():
     pass
 
 # new reliability domain: succession_integrity
+
+class ReliabilityDomain:
+# renewal-plane refs added

@@ -3,3 +3,6 @@ def handle_evaluations():
     pass
 
 # high-risk actions yield succession evidence obligations
+
+class PolicyEvaluation:
+# renewal-plane refs added

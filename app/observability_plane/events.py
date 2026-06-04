@@ -3,3 +3,6 @@ def handle_events():
     pass
 
 # canonical succession events (succession_triggered, etc.) added
+
+class ObservabilityEvent:
+# renewal-plane refs added

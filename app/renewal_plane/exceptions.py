@@ -1,0 +1,9 @@
+class RenewalPlaneError(Exception): pass
+class InvalidRenewalObjectError(RenewalPlaneError): pass
+class InvalidRenewalTriggerError(RenewalPlaneError): pass
+class InvalidRenewalCriteriaError(RenewalPlaneError): pass
+class InvalidEvidenceFreshnessError(RenewalPlaneError): pass
+class InvalidContinuationPostureError(RenewalPlaneError): pass
+class InvalidNonRenewalBranchError(RenewalPlaneError): pass
+class RenewalTheaterViolationError(RenewalPlaneError): pass
+class RenewalStorageError(RenewalPlaneError): pass

@@ -3,3 +3,6 @@ def handle_capabilities():
     pass
 
 # inspect_succession_manifest and review capabilities added
+
+class IdentityCapability:
+# renewal-plane refs added

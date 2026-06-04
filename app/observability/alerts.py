@@ -3,3 +3,6 @@ def handle_alerts():
     pass
 
 # succession-specific alert families added
+
+class ObservabilityAlert:
+# renewal-plane refs added

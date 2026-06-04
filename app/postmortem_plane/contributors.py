@@ -3,3 +3,6 @@ def handle_contributors():
     pass
 
 # succession contributor classes added
+
+class PostmortemContributor:
+# renewal-plane refs added

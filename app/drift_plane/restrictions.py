@@ -3,3 +3,6 @@ def handle_restrictions():
     pass
 
 # restriction monitor replacement carries succession-plane successor readiness
+
+class DriftRestriction:
+# renewal-plane refs added

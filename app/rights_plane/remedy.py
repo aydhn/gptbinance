@@ -3,3 +3,6 @@ def handle_remedy():
     pass
 
 # remedy path owner transitions carry succession-plane rights continuity
+
+class RemedyAccess:
+# renewal-plane refs added

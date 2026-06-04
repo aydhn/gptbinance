@@ -3,3 +3,6 @@ def handle_packages():
     pass
 
 # package owner replacement carries succession-plane corrective debt refs
+
+class CorrectivePackage:
+# renewal-plane refs added

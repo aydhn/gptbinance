@@ -6,3 +6,6 @@ def handle_finalization():
 
 class RecoveryFinalization:
 # renewal-plane refs added
+
+def recovery_suspension_check():
+    pass

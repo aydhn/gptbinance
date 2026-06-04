@@ -6,3 +6,6 @@ def handle_remedy():
 
 class RemedyAccess:
 # renewal-plane refs added
+
+def rights_suspension_check():
+    pass

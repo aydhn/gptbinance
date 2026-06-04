@@ -6,3 +6,6 @@ def handle_approval():
 
 class AuthorityApproval:
 # renewal-plane refs added
+
+def authority_suspension_check():
+    pass

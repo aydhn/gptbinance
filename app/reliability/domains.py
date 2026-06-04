@@ -6,3 +6,6 @@ def handle_domains():
 
 class ReliabilityDomain:
 # renewal-plane refs added
+
+def add_suspension_reliability_domain():
+    pass

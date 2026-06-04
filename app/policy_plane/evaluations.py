@@ -6,3 +6,6 @@ def handle_evaluations():
 
 class PolicyEvaluation:
 # renewal-plane refs added
+
+def evaluate_suspension_policy():
+    pass

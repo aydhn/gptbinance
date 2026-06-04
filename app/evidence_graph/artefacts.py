@@ -6,3 +6,6 @@ def handle_artefacts():
 
 class EvidenceArtefact:
 # renewal-plane refs added
+
+def add_suspension_artefacts():
+    pass

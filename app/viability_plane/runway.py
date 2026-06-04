@@ -4,3 +4,6 @@ def handle_runway():
 
 class RunwayPosture:
 # renewal-plane refs added
+
+def runway_suspension_check():
+    pass

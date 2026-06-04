@@ -6,3 +6,6 @@ def handle_alerts():
 
 class ObservabilityAlert:
 # renewal-plane refs added
+
+def add_suspension_alerts():
+    pass

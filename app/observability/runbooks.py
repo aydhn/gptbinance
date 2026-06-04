@@ -6,3 +6,6 @@ def handle_runbooks():
 
 class ObservabilityRunbook:
 # renewal-plane refs added
+
+def add_suspension_runbooks():
+    pass

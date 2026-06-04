@@ -6,3 +6,6 @@ def handle_invariants():
 
 class PolicyInvariant:
 # renewal-plane refs added
+
+def add_suspension_invariants():
+    pass

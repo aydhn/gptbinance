@@ -6,3 +6,6 @@ def handle_evidence():
 
 class PostmortemEvidence:
 # renewal-plane refs added
+
+def add_suspension_postmortem_evidence():
+    pass

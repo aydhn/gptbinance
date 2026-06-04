@@ -6,3 +6,6 @@ def handle_reopen():
 
 class NormalizationReopen:
 # renewal-plane refs added
+
+def reopen_suspension_check():
+    pass

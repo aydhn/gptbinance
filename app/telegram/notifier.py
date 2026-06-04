@@ -6,3 +6,6 @@ def handle_notifier():
 
 class TelegramNotifier:
 # renewal-plane refs added
+
+def add_suspension_notifications():
+    pass

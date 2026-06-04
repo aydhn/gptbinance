@@ -6,3 +6,6 @@ def handle_lift():
 
 class EnforcementLift:
 # renewal-plane refs added
+
+def enforcement_suspension_check():
+    pass

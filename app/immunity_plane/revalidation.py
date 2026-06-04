@@ -6,3 +6,6 @@ def handle_revalidation():
 
 class ImmunityRevalidation:
 # renewal-plane refs added
+
+def immunity_suspension_check():
+    pass

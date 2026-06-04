@@ -6,3 +6,6 @@ def handle_requests():
 
 class ReviewRequest:
 # renewal-plane refs added
+
+def add_suspension_reviews():
+    pass

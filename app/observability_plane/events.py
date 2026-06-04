@@ -6,3 +6,6 @@ def handle_events():
 
 class ObservabilityEvent:
 # renewal-plane refs added
+
+def add_suspension_events():
+    return ['suspension_triggered', 'shadow_execution_detected']

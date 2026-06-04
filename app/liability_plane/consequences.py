@@ -6,3 +6,6 @@ def handle_consequences():
 
 class LiabilityExposure:
 # renewal-plane refs added
+
+def liability_suspension_check():
+    pass

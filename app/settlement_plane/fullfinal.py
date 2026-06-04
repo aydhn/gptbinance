@@ -6,3 +6,6 @@ def handle_fullfinal():
 
 class FullFinalClosure:
 # renewal-plane refs added
+
+def settlement_suspension_check():
+    pass

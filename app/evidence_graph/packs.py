@@ -6,3 +6,6 @@ def handle_packs():
 
 class EvidencePack:
 # renewal-plane refs added
+
+def add_suspension_packs():
+    pass

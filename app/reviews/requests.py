@@ -9,3 +9,6 @@ class ReviewRequest:
 
 def add_suspension_reviews():
     pass
+
+# [Phase 148] Review Classes
+EXCEPTION_REVIEWS = ["exception_integrity_review", "waiver_boundary_review", "compensating_control_review", "expiry_reinstatement_review", "beneficiary_exception_review", "backdoor_exception_review"]

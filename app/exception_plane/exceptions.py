@@ -1,0 +1,9 @@
+class ExceptionPlaneError(Exception): pass
+class InvalidExceptionObjectError(ExceptionPlaneError): pass
+class InvalidExceptionTriggerError(ExceptionPlaneError): pass
+class InvalidWaiverError(ExceptionPlaneError): pass
+class InvalidDerogationError(ExceptionPlaneError): pass
+class InvalidCompensatingControlError(ExceptionPlaneError): pass
+class InvalidExpiryError(ExceptionPlaneError): pass
+class ExceptionTheaterViolationError(ExceptionPlaneError): pass
+class ExceptionStorageError(ExceptionPlaneError): pass

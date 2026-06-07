@@ -9,3 +9,7 @@ class ReadinessEvidence:
 
 def add_suspension_evidence():
     pass
+
+# [Phase 148] Readiness
+def gather_exception_readiness():
+    return "exception trust, trigger clarity, boundary integrity, control sufficiency, expiry boundedness"

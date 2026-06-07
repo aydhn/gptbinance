@@ -9,3 +9,6 @@ class ObservabilityRunbook:
 
 def add_suspension_runbooks():
     pass
+
+# [Phase 148] Runbooks
+EXCEPTION_RUNBOOKS = ["waiver_basis_revalidation", "boundary_integrity_review", "compensating_control_review"]

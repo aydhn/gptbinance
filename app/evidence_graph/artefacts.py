@@ -9,3 +9,6 @@ class EvidenceArtefact:
 
 def add_suspension_artefacts():
     pass
+
+# [Phase 148] Exception Artefacts
+EXCEPTION_RELATIONS = ["excepted_under", "waived_by", "derogated_from", "compensated_by", "expired_under", "reinstated_by", "diverged_exception_from"]

@@ -9,3 +9,6 @@ class PolicyContext:
 
 def add_suspension_context():
     pass
+
+# [Phase 148] Exception Context
+exception_posture = "active_waivers, deviation_boundaries, control_sufficiency"

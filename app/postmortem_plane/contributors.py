@@ -9,3 +9,6 @@ class PostmortemContributor:
 
 def add_suspension_contributors():
     pass
+
+# [Phase 148] Exception Contributors
+EXCEPTION_CONTRIBUTORS = ["backdoor_exception", "shadow_exception", "serial_waiver", "missed_expiry", "precedent_leakage", "control_theater"]

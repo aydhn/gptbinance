@@ -9,3 +9,9 @@ class ReliabilitySLO:
 
 def add_suspension_slos():
     pass
+
+# [Phase 148] Exception SLOs
+# - unresolved backdoor-exception ceiling
+# - missed-expiry absence
+# - precedent-leakage absence
+# - shadow-exception absence

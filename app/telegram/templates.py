@@ -9,3 +9,7 @@ class TelegramTemplate:
 
 def add_suspension_templates():
     pass
+
+# [Phase 148] Templates
+def get_exception_alert_template():
+    return "🚨 EXCEPTION ALERT: {alert_type}"

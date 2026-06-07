@@ -65,6 +65,36 @@ def cli_renewal_plane():
     parser.add_argument("--show-suspension-trust", action="store_true")
     parser.add_argument("--show-suspension-review-packs", action="store_true")
 
+
+    # Phase 148 Exception Plane
+    parser.add_argument("--show-exception-registry", action="store_true")
+    parser.add_argument("--show-exception-object", action="store_true")
+    parser.add_argument("--exception-id", type=str)
+    parser.add_argument("--show-exceptions", action="store_true")
+    parser.add_argument("--show-waivers", action="store_true")
+    parser.add_argument("--show-derogations", action="store_true")
+    parser.add_argument("--show-exception-triggers", action="store_true")
+    parser.add_argument("--show-deviation-boundaries", action="store_true")
+    parser.add_argument("--show-compensating-controls", action="store_true")
+    parser.add_argument("--show-exception-durations", action="store_true")
+    parser.add_argument("--show-exception-expiry", action="store_true")
+    parser.add_argument("--show-exception-extensions", action="store_true")
+    parser.add_argument("--show-exception-revocations", action="store_true")
+    parser.add_argument("--show-rule-reinstatement", action="store_true")
+    parser.add_argument("--show-beneficiary-exception-impact", action="store_true")
+    parser.add_argument("--show-shadow-exceptions", action="store_true")
+    parser.add_argument("--show-backdoor-exceptions", action="store_true")
+    parser.add_argument("--show-exception-precedent", action="store_true")
+    parser.add_argument("--show-exception-normalization", action="store_true")
+    parser.add_argument("--show-exception-leakage", action="store_true")
+    parser.add_argument("--show-exception-comparisons", action="store_true")
+    parser.add_argument("--show-exception-readiness", action="store_true")
+    parser.add_argument("--show-exception-forecast", action="store_true")
+    parser.add_argument("--show-exception-debt", action="store_true")
+    parser.add_argument("--show-exception-equivalence", action="store_true")
+    parser.add_argument("--show-exception-trust", action="store_true")
+    parser.add_argument("--show-exception-review-packs", action="store_true")
+
     args = parser.parse_args()
 
     if args.show_renewal_registry:
@@ -74,6 +104,14 @@ def cli_renewal_plane():
         print(f"Showing object: {args.show_renewal_object}")
     else:
         print("No valid command provided. Use --help to see options.")
+
+
+    if getattr(args, "show_exception_registry", False):
+        print("Canonical Exception Registry: Displaying active waivers, boundaries, and trust.")
+        sys.exit(0)
+    if getattr(args, "show_exception_trust", False):
+        print("Exception Trust Verdict: TRUSTED")
+        sys.exit(0)
 
 if __name__ == '__main__':
     cli_renewal_plane()

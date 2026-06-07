@@ -9,3 +9,6 @@ class TelegramNotifier:
 
 def add_suspension_notifications():
     pass
+
+# [Phase 148] Telegram Events
+EXCEPTION_EVENTS = ["exception manifest ready", "backdoor exception detected", "missed expiry detected", "precedent leakage detected"]

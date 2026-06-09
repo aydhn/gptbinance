@@ -8,3 +8,6 @@ def check_review_burden(): return 'explicit caution if reviewed autonomy treated
 
 class AutonomyReview:
 # renewal-plane refs added
+
+def _check_oversight_autonomy(autonomy):
+    return 'explicit caution agent anomaly without action'

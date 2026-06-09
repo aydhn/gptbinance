@@ -150,3 +150,39 @@ def cli_renewal_plane():
 
 if __name__ == '__main__':
     cli_renewal_plane()
+
+@app.command()
+def show_oversight_registry():
+    """Display the Canonical Oversight Registry."""
+    from app.oversight_plane.registry import oversight_registry
+    print(f"Canonical Oversight Registry: {len(oversight_registry.list_oversight())} records")
+
+@app.command()
+def show_oversight_object(oversight_id: str):
+    """Display a specific oversight object."""
+    from app.oversight_plane.registry import oversight_registry
+    rec = oversight_registry.get_oversight(oversight_id)
+    if rec:
+        print(f"Oversight Object: {rec}")
+    else:
+        print(f"Not found: {oversight_id}")
+
+@app.command()
+def show_supervisors():
+    """Display supervisors."""
+    print("Supervisors List")
+
+@app.command()
+def show_supervisory_mandates():
+    """Display supervisory mandates."""
+    print("Supervisory Mandates")
+
+@app.command()
+def show_watchlists():
+    """Display watchlists."""
+    print("Watchlists")
+
+@app.command()
+def show_oversight_trust():
+    """Display oversight trust verdicts."""
+    print("Oversight Trust Verdicts")

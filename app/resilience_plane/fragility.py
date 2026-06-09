@@ -8,3 +8,6 @@ class FragilityManager:
 
     def manage(self, **kwargs):
         return {'status': 'managed', 'records_processed': len(self.records)}
+
+def _check_oversight_resilience(resilience):
+    return 'explicit caution hidden fragility'

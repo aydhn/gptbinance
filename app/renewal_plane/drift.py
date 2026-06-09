@@ -11,3 +11,6 @@ class DriftManager:
             self.drifts.append(rec)
             return rec
         return None
+
+def _check_oversight_renewal(renewal):
+    return 'explicit caution stale-renewal oversight'

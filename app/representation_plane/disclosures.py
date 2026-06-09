@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_representation(representation):
     return 'explicit caution misleading supervision wording'
+
+
+def check_adjudication_representation(disclosure_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: binding represented while only advisory"}
+    return {"safe": True, "disclosure_id": disclosure_id, "adjudication_id": adjudication_id}

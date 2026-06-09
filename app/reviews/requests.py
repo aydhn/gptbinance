@@ -34,3 +34,14 @@ class OversightIntegrityReview:
 class InvestigationReviewRequests:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def get_adjudication_review_classes() -> list:
+    return [
+        "adjudication_integrity_review",
+        "issue_proof_review",
+        "panel_conflict_review",
+        "determination_reasoning_review",
+        "disposition_boundedness_review",
+        "authority_binding_review"
+    ]

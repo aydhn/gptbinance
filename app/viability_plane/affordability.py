@@ -23,3 +23,9 @@ def get_appeal_posture(object_id: str) -> dict:
 
 def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
     return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
+
+
+def check_adjudication_liability_remedy(affordability_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: affordability conflict treated closed without adjudication posture"}
+    return {"safe": True, "affordability_id": affordability_id, "adjudication_id": adjudication_id}

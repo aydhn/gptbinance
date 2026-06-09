@@ -26,3 +26,9 @@ class AssuranceClaim:
 
 def _check_oversight_assurance(assurance):
     return 'explicit caution stale assurance findings'
+
+
+def check_adjudication_dispositive_reasoning(claim_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: assurance dispute treated closed without adjudication posture"}
+    return {"safe": True, "claim_id": claim_id, "adjudication_id": adjudication_id}

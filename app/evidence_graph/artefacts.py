@@ -34,3 +34,18 @@ class OversightArtefact:
 class InvestigationArtefacts:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def add_adjudication_artefacts():
+    return {
+        "family": "adjudication",
+        "relations": [
+            "adjudicated_under",
+            "determined_by",
+            "disposed_under",
+            "bound_by",
+            "remedied_under",
+            "conflicted_under",
+            "diverged_adjudication_from"
+        ]
+    }

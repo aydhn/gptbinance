@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_enforcement(enforcement):
     return 'explicit caution without oversight posture'
+
+
+def check_adjudication_disposition_effect(lift_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: lift/deny conflict treated final without adjudication posture"}
+    return {"safe": True, "lift_id": lift_id, "adjudication_id": adjudication_id}

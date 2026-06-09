@@ -34,3 +34,16 @@ class OversightAlertFamily:
 class InvestigationAlerts:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def trigger_adjudication_alert(alert_type: str):
+    valid_alerts = [
+        "ex_parte_risk_detected",
+        "authority_defect_detected",
+        "reasoning_gap_detected",
+        "disproportional_disposition_detected",
+        "predetermined_outcome_detected",
+        "adjudication_review_required"
+    ]
+    if alert_type in valid_alerts:
+        return {"status": "alerted", "type": alert_type}

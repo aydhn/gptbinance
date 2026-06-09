@@ -31,3 +31,9 @@ def _check_oversight_adaptation(adaptation):
 class AdaptationPackage:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_mixed_outcome(package_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: package dispute treated resolved without adjudication posture"}
+    return {"safe": True, "package_id": package_id, "adjudication_id": adjudication_id}

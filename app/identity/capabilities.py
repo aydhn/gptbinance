@@ -34,3 +34,13 @@ def has_oversight_capabilities():
 class InvestigationCapabilities:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def get_adjudication_capabilities() -> list:
+    return [
+        "inspect_adjudication_manifest",
+        "review_cases_issues_and_proof",
+        "review_panels_conflicts_and_recusal",
+        "review_determinations_reasoning_and_dispositions",
+        "review_binding_effects_and_finality_cleanliness"
+    ]

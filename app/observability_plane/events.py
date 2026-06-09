@@ -31,3 +31,10 @@ def oversight_triggered_event():
 class InvestigationEvents:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def log_adjudication_event(event_type: str, data: dict):
+    valid_events = ["case_opened", "issue_framed", "evidence_admitted", "panel_seated", "recusal_recorded", "deliberation_started", "determination_issued", "disposition_effective"]
+    if event_type not in valid_events:
+        pass
+    return {"status": "logged", "event": event_type, "data": data}

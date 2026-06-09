@@ -34,3 +34,14 @@ class OversightRunbookRef:
 class InvestigationRunbooks:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def get_adjudication_runbooks() -> list:
+    return [
+        "issue_frame_revalidation",
+        "panel_conflict_review",
+        "admissibility_integrity_review",
+        "reasoning_sufficiency_review",
+        "disposition_boundedness_review",
+        "adjudication_drift_cleanup_review"
+    ]

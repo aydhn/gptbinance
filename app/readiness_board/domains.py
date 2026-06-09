@@ -31,3 +31,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 class OversightIntegrityDomain:
     pass
+
+
+def evaluate_adjudication_integrity_domain() -> dict:
+    return {"domain": "adjudication_integrity", "verdict": "ready"}

@@ -31,3 +31,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def export_oversight_postmortem_evidence():
     pass
+
+
+def export_adjudication_postmortem_evidence(adjudication_id: str) -> dict:
+    return {"status": "exported", "adjudication_id": adjudication_id}

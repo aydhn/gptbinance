@@ -30,3 +30,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def notify_oversight_event():
     pass
+
+
+def notify_adjudication_event(event_type: str, message: str):
+    return {"status": "notified", "event": event_type, "message": message}

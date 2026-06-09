@@ -21,3 +21,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 class SupersessionDispute:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_jurisdiction(supersession_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: supersession conflict treated final without adjudication posture"}
+    return {"safe": True, "supersession_id": supersession_id, "adjudication_id": adjudication_id}

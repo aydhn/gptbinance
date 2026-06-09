@@ -33,3 +33,13 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 class OversightIntegritySLO:
     pass
+
+
+def get_adjudication_slos() -> dict:
+    return {
+        "unresolved_authority_defect_ceiling": {"target": 0.0, "window": "30d"},
+        "ex_parte_absence": {"target": 100.0, "window": "30d"},
+        "reasoning_gap_absence": {"target": 100.0, "window": "30d"},
+        "disproportional_disposition_absence": {"target": 100.0, "window": "30d"},
+        "trusted_adjudication_degraded_ratio": {"target": 0.05, "window": "30d"}
+    }

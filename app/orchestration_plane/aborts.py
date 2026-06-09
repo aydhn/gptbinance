@@ -20,3 +20,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 class OrchestrationAbort:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_case_framing(abort_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: abort issue treated closed without adjudication posture"}
+    return {"safe": True, "abort_id": abort_id, "adjudication_id": adjudication_id}

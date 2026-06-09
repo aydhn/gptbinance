@@ -31,3 +31,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_authority(authority):
     return 'explicit caution without rightful authority chain'
+
+
+def check_adjudication_authority_clean(approval_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: adjudication action by actor lacking determination or disposition authority"}
+    return {"safe": True, "approval_id": approval_id, "adjudication_id": adjudication_id}

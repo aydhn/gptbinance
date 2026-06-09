@@ -1,0 +1,3 @@
+# 778_effectuation_integrity_readiness_entegrasyonu_politikasi
+
+Content placeholder.

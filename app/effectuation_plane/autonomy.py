@@ -1,0 +1,5 @@
+# autonomy implementation
+from app.effectuation_plane.models import *
+
+class AutonomyManager:
+    pass

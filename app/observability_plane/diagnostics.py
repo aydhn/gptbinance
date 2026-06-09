@@ -27,3 +27,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def export_oversight_diagnostics():
     pass
+
+class InvestigationDiagnostics:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

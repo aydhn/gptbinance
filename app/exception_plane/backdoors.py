@@ -9,3 +9,7 @@ class BackdoorsManager:
             "status": "evaluated",
             "proof_notes": ["Backdoors validated cleanly", "No theater detected"]
         }
+
+class ExceptionBackdoor:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

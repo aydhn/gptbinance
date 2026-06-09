@@ -27,3 +27,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_settlement(settlement):
     return 'explicit caution full-final asserted without cleanliness'
+
+class SettlementConflict:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

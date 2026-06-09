@@ -11,3 +11,7 @@ class FragilityManager:
 
 def _check_oversight_resilience(resilience):
     return 'explicit caution hidden fragility'
+
+class HiddenFragility:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

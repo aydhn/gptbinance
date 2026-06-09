@@ -186,3 +186,45 @@ def show_watchlists():
 def show_oversight_trust():
     """Display oversight trust verdicts."""
     print("Oversight Trust Verdicts")
+
+import argparse
+
+def add_investigation_plane_args(parser):
+    group = parser.add_argument_group('Investigation Plane')
+    group.add_argument('--show-investigation-registry', action='store_true', help='Show canonical investigation registry')
+    group.add_argument('--show-investigation-object', action='store_true', help='Show investigation object')
+    group.add_argument('--investigation-id', type=str, help='Investigation ID')
+    group.add_argument('--show-investigations', action='store_true', help='Show investigations')
+    group.add_argument('--show-allegations', action='store_true', help='Show allegations')
+    group.add_argument('--show-reporters', action='store_true', help='Show reporters')
+    group.add_argument('--show-affected-parties', action='store_true', help='Show affected parties')
+    group.add_argument('--show-intake', action='store_true', help='Show intake')
+    group.add_argument('--show-triage', action='store_true', help='Show triage')
+    group.add_argument('--show-inquiry-thresholds', action='store_true', help='Show inquiry thresholds')
+    group.add_argument('--show-scope-hypotheses', action='store_true', help='Show scope hypotheses')
+    group.add_argument('--show-scope-controls', action='store_true', help='Show scope controls')
+    group.add_argument('--show-preservation-holds', action='store_true', help='Show preservation holds')
+    group.add_argument('--show-evidence', action='store_true', help='Show evidence')
+    group.add_argument('--show-evidence-sources', action='store_true', help='Show evidence sources')
+    group.add_argument('--show-evidence-integrity', action='store_true', help='Show evidence integrity')
+    group.add_argument('--show-chain-of-custody', action='store_true', help='Show chain of custody')
+    group.add_argument('--show-corroboration', action='store_true', help='Show corroboration')
+    group.add_argument('--show-witnesses', action='store_true', help='Show witnesses')
+    group.add_argument('--show-interviews', action='store_true', help='Show interviews')
+    group.add_argument('--show-interview-fairness', action='store_true', help='Show interview fairness')
+    group.add_argument('--show-conflict-screen', action='store_true', help='Show conflict screen')
+    group.add_argument('--show-contamination-risk', action='store_true', help='Show contamination risk')
+    group.add_argument('--show-spoliation-risk', action='store_true', help='Show spoliation risk')
+    group.add_argument('--show-exculpatory-evidence', action='store_true', help='Show exculpatory evidence')
+    group.add_argument('--show-substantiation', action='store_true', help='Show substantiation')
+    group.add_argument('--show-referrals', action='store_true', help='Show referrals')
+    group.add_argument('--show-investigative-gaps', action='store_true', help='Show investigative gaps')
+    group.add_argument('--show-investigation-comparisons', action='store_true', help='Show investigation comparisons')
+    group.add_argument('--show-investigation-readiness', action='store_true', help='Show investigation readiness')
+    group.add_argument('--show-investigation-forecast', action='store_true', help='Show investigation forecast')
+    group.add_argument('--show-investigation-debt', action='store_true', help='Show investigation debt')
+    group.add_argument('--show-investigation-equivalence', action='store_true', help='Show investigation equivalence')
+    group.add_argument('--show-investigation-trust', action='store_true', help='Show investigation trust')
+    group.add_argument('--show-investigation-review-packs', action='store_true', help='Show investigation review packs')
+
+# Ensure we don't break existing argparsers, just append if we can, or this is declarative enough for Phase 151

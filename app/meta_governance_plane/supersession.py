@@ -17,3 +17,7 @@ def get_appeal_posture(object_id: str) -> dict:
 
 def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
     return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
+
+class SupersessionDispute:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

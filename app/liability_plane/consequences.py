@@ -27,3 +27,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_liability(liability):
     return 'explicit caution unreviewed exposure'
+
+class LiabilityConsequence:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

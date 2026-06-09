@@ -1,0 +1,9 @@
+class InvestigationPlaneError(Exception): pass
+class InvalidInvestigationObjectError(InvestigationPlaneError): pass
+class InvalidAllegationError(InvestigationPlaneError): pass
+class InvalidTriageError(InvestigationPlaneError): pass
+class InvalidPreservationHoldError(InvestigationPlaneError): pass
+class InvalidChainOfCustodyError(InvestigationPlaneError): pass
+class InvalidSubstantiationError(InvestigationPlaneError): pass
+class InvestigationTheaterViolation(InvestigationPlaneError): pass
+class InvestigationStorageError(InvestigationPlaneError): pass

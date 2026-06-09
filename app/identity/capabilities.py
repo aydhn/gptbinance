@@ -30,3 +30,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def has_oversight_capabilities():
     pass
+
+class InvestigationCapabilities:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

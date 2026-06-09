@@ -27,3 +27,7 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_adaptation(adaptation):
     return 'explicit caution corrective programs with no closure'
+
+class AdaptationPackage:
+    def check_investigation_posture(self):
+        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}

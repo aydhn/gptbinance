@@ -2,3 +2,10 @@ __pycache__/
 *.py[cod]
 *.class
 generate_phase150_v4.py
+__pycache__
+*.pyc
+.pytest_cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+.pytest_cache

@@ -1,0 +1,9 @@
+class EffectuationPlaneError(Exception): pass
+class InvalidEffectuationObjectError(EffectuationPlaneError): pass
+class InvalidExecutableOrderError(EffectuationPlaneError): pass
+class InvalidDependencyGateError(EffectuationPlaneError): pass
+class InvalidCompletionProofError(EffectuationPlaneError): pass
+class InvalidVerificationError(EffectuationPlaneError): pass
+class InvalidNonCompliancePostureError(EffectuationPlaneError): pass
+class EffectuationTheaterViolation(EffectuationPlaneError): pass
+class EffectuationStorageError(EffectuationPlaneError): pass

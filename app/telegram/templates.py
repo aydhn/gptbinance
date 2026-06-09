@@ -30,3 +30,15 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
     return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
 
 OVERSIGHT_TEMPLATE = 'Oversight: {event}'
+
+
+def get_adjudication_template(template_name: str) -> str:
+    templates = {
+        "adjudication_manifest_ready": "Adjudication manifest ready for review.",
+        "ex_parte_risk_detected": "WARNING: Ex parte risk detected in adjudication.",
+        "authority_defect_detected": "WARNING: Authority defect detected in adjudication.",
+        "reasoning_gap_detected": "WARNING: Reasoning gap detected in adjudication.",
+        "adjudication_review_required": "ACTION REQUIRED: Adjudication review required.",
+        "adjudication_summary_digest": "Adjudication summary digest."
+    }
+    return templates.get(template_name, "")

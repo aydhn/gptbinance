@@ -30,3 +30,14 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 class OversightPostmortemContributor:
     pass
+
+
+def get_adjudication_contributors() -> list:
+    return [
+        "ex_parte_contamination",
+        "authority_defect",
+        "burden_shift",
+        "reasoning_gap",
+        "disproportional_disposition",
+        "predetermined_outcome"
+    ]

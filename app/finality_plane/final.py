@@ -31,3 +31,9 @@ def _check_oversight_finality(finality):
 class FinalitySafe:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_finality_safe(final_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: final label under unresolved adjudication posture"}
+    return {"safe": True, "final_id": final_id, "adjudication_id": adjudication_id}

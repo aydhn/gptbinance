@@ -15,3 +15,9 @@ def _check_oversight_resilience(resilience):
 class HiddenFragility:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_binding_effect(fragility_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: fragility issue treated determined without adjudication posture"}
+    return {"safe": True, "fragility_id": fragility_id, "adjudication_id": adjudication_id}

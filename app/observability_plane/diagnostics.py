@@ -31,3 +31,10 @@ def export_oversight_diagnostics():
 class InvestigationDiagnostics:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def export_adjudication_diagnostic(signal: str):
+    valid_signals = ["ex_parte_contamination", "reasoning_gap", "authority_defect", "burden_shift", "disproportional_disposition"]
+    if signal in valid_signals:
+        return {"status": "exported", "signal": signal}
+    return {"status": "ignored"}

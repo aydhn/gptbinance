@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_epistemic(epistemic):
     return 'explicit caution without supervisor basis'
+
+
+def check_adjudication_epistemic_basis(claim_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: adjudication-sounding claim without case/proof/disposition basis"}
+    return {"safe": True, "claim_id": claim_id, "adjudication_id": adjudication_id}

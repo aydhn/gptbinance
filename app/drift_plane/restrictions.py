@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_drift(drift):
     return 'explicit caution repeated drift spikes'
+
+
+def check_adjudication_burden_shift(restriction_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: restriction issue treated closed without adjudication posture"}
+    return {"safe": True, "restriction_id": restriction_id, "adjudication_id": adjudication_id}

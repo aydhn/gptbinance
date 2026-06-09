@@ -34,3 +34,12 @@ class OversightReviewPack:
 class InvestigationPacks:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def get_adjudication_packs() -> list:
+    return [
+        "adjudication_integrity_pack",
+        "issue_proof_review_pack",
+        "panel_reasoning_review_pack",
+        "disposition_finality_review_pack"
+    ]

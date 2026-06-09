@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_recovery(recovery):
     return 'explicit caution unresolved supervisory tail'
+
+
+def check_adjudication_deferred_disposition(finalization_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: discrepancy treated resolved without adjudication posture"}
+    return {"safe": True, "finalization_id": finalization_id, "adjudication_id": adjudication_id}

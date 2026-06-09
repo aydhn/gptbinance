@@ -59,3 +59,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 class AccountabilitySanction:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+
+def check_adjudication_liability_determination(sanction_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: sanction basis treated adjudicated without adjudication posture"}
+    return {"safe": True, "sanction_id": sanction_id, "adjudication_id": adjudication_id}

@@ -31,3 +31,11 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def evaluate_oversight_evidence():
     pass
+
+
+def evaluate_adjudication_policy(context: dict) -> dict:
+    if context.get("high_risk") and not context.get("adjudication_evidence"):
+        return {"status": "denied", "reason": "high-risk action without adjudication evidence obligations"}
+    if context.get("has_conflicted_panel") or context.get("has_broken_admissibility_lane") or context.get("has_nonreasoned_determination"):
+        return {"status": "denied", "reason": "policy review/deny due to broken adjudication elements"}
+    return {"status": "allowed"}

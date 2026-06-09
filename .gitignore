@@ -9,3 +9,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .pytest_cache
+app/adjudication_plane/__pycache__/
+tests/__pycache__/
+__pycache__/

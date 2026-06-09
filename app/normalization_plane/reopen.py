@@ -27,3 +27,9 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def _check_oversight_normalization(normalization):
     return 'explicit caution reopened state without clearance'
+
+
+def check_adjudication_finality_clean(reopen_id: str, adjudication_id: str) -> dict:
+    if not adjudication_id:
+        return {"safe": False, "caution": "Explicit caution: reopen dispute treated final without adjudication posture"}
+    return {"safe": True, "reopen_id": reopen_id, "adjudication_id": adjudication_id}

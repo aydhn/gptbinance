@@ -34,3 +34,15 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def check_oversight_invariants():
     pass
+
+
+def check_adjudication_invariants(action: str, adjudication_data: dict) -> bool:
+    if action == "high_risk_closure" and adjudication_data.get("unresolved_material_treatment"):
+        return False
+    if action == "alter_posture" and adjudication_data.get("beyond_boundaries"):
+        return False
+    if action == "treat_as_determined" and not adjudication_data.get("explicit_clarity"):
+        return False
+    if action == "stand_claim" and adjudication_data.get("materially_conflicted"):
+        return False
+    return True

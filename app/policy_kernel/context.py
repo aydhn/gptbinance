@@ -30,3 +30,12 @@ def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
 
 def get_oversight_posture_context():
     pass
+
+
+def enrich_adjudication_context(base_context: dict) -> dict:
+    base_context["adjudication_posture"] = "active"
+    base_context["active_cases"] = True
+    base_context["proof_thresholds"] = True
+    base_context["panel_integrity"] = True
+    base_context["disposition_exposure"] = True
+    return base_context

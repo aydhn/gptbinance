@@ -1,0 +1,9 @@
+class AdjudicationPlaneError(Exception): pass
+class InvalidAdjudicationObject(AdjudicationPlaneError): pass
+class InvalidCaseFrame(AdjudicationPlaneError): pass
+class InvalidProofStandard(AdjudicationPlaneError): pass
+class InvalidAdmissibilityRuling(AdjudicationPlaneError): pass
+class InvalidPanelComposition(AdjudicationPlaneError): pass
+class InvalidDisposition(AdjudicationPlaneError): pass
+class AdjudicationTheaterViolation(AdjudicationPlaneError): pass
+class AdjudicationStorageError(AdjudicationPlaneError): pass

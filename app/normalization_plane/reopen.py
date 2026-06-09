@@ -24,3 +24,6 @@ def get_appeal_posture(object_id: str) -> dict:
 
 def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
     return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
+
+def _check_oversight_normalization(normalization):
+    return 'explicit caution reopened state without clearance'

@@ -23,3 +23,6 @@ def validate_stewardship_claims(context):
 class AssuranceClaim:
     pass
 # renewal-plane refs added
+
+def _check_oversight_assurance(assurance):
+    return 'explicit caution stale assurance findings'

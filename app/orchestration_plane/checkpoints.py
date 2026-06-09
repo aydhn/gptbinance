@@ -9,3 +9,6 @@ class CheckpointsManager:
 class OrchestrationCheckpoint:
     pass
 # renewal-plane refs added
+
+def _check_oversight_orchestration(orchestration):
+    return 'explicit caution supervised-in-name-only'

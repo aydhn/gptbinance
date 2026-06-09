@@ -1,27 +1,4 @@
-# Ignore python cache
 __pycache__/
-*.pyc
-
-# Ignore output logs
-*.log
-output.txt
-output.md
-generate_phase146.py
-test_script.sh
-*.pyc\n__pycache__\n*.tmp\n
-__pycache__/
-*.pyc
-.pytest_cache/
-app/appeal_plane/
-tests/test_appeal_plane_*.py
-docs/75*.md
-
-app/appeal_plane/*.py
-tests/test_appeal_plane_*.py
-docs/75*.md
-__pycache__/
-.pytest_cache/
-tests/test_appeal_plane_*.py
-app/appeal_plane/*.py
-.pytest_cache
-__pycache__
+*.py[cod]
+*.class
+generate_phase150_v4.py

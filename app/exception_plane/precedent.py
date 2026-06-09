@@ -9,3 +9,6 @@ class PrecedentManager:
             "status": "evaluated",
             "proof_notes": ["Precedent validated cleanly", "No theater detected"]
         }
+
+def _check_oversight_precedent(exception):
+    return 'explicit caution unmonitored derogation'

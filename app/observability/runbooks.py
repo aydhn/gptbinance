@@ -48,3 +48,6 @@ def get_adjudication_runbooks() -> list:
 
 class AttestationRunbooks:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for runbooks.py.

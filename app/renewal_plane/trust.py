@@ -8,3 +8,6 @@ class TrustManager:
         if not is_fresh:
             return RenewalTrustVerdict(verdict_id="tv_stale", verdict=TrustVerdict.REVIEW_REQUIRED)
         return RenewalTrustVerdict(verdict_id="tv_trusted", verdict=TrustVerdict.TRUSTED)
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for trust.py.

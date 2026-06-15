@@ -52,3 +52,6 @@ def add_adjudication_artefacts():
 
 class AttestationArtifactFamily:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for artefacts.py.

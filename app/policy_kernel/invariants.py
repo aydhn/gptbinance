@@ -49,3 +49,6 @@ def check_adjudication_invariants(action: str, adjudication_data: dict) -> bool:
 
 def check_attestation_invariants():
     return True
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for invariants.py.

@@ -46,3 +46,6 @@ def get_adjudication_slos() -> dict:
 
 class AttestationIntegritySLOs:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for slos.py.

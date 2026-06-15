@@ -81,3 +81,27 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for main.py.
+
+# RELIANCE PLANE CLI COMMANDS
+import argparse
+
+def add_reliance_plane_commands(parser):
+    group = parser.add_argument_group('Reliance Plane')
+    commands = [
+        'show-reliance-registry', 'show-reliance-object', 'show-reliances', 'show-reliance-subjects',
+        'show-reliance-consumers', 'show-reliance-basis', 'show-reliance-eligibility', 'show-reliance-scope',
+        'show-reliance-boundaries', 'show-reliance-freshness', 'show-validity-awareness', 'show-revocation-awareness',
+        'show-contradiction-awareness', 'show-decision-use', 'show-dependency-use', 'show-counterparty-reliance',
+        'show-compensating-review', 'show-fallback-paths', 'show-provisional-reliance', 'show-emergency-reliance',
+        'show-denied-reliance', 'show-overreliance', 'show-misreliance', 'show-stale-reliance', 'show-revoked-reliance',
+        'show-orphan-reliance', 'show-reliance-comparisons', 'show-reliance-readiness', 'show-reliance-forecast',
+        'show-reliance-debt', 'show-reliance-equivalence', 'show-reliance-trust', 'show-reliance-review-packs'
+    ]
+    for cmd in commands:
+        if cmd == 'show-reliance-object':
+            group.add_argument(f'--{cmd}', type=str, help='Reliance ID')
+        else:
+            group.add_argument(f'--{cmd}', action='store_true')

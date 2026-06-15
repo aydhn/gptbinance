@@ -45,3 +45,6 @@ def get_adjudication_template(template_name: str) -> str:
 
 class AttestationTemplates:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for templates.py.

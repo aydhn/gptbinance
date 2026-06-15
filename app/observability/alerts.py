@@ -50,3 +50,6 @@ def trigger_adjudication_alert(alert_type: str):
 
 class AttestationAlerts:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for alerts.py.

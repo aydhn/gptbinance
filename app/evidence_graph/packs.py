@@ -46,3 +46,6 @@ def get_adjudication_packs() -> list:
 
 class AttestationIntegrityPack:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for packs.py.

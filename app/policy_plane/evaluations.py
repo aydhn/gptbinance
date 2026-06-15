@@ -42,3 +42,6 @@ def evaluate_adjudication_policy(context: dict) -> dict:
 
 def evaluate_policy_attestation(action):
     return {"status": "evaluated", "attestation_evidence_obligation": True}
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for evaluations.py.

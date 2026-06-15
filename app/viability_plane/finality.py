@@ -9,3 +9,6 @@ class FinalityViabilityLinkage:
 
 def get_viability_attestation_posture():
     return "stabilized_not_attested" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for finality.py.

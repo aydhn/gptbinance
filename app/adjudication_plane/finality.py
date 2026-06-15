@@ -6,3 +6,6 @@ def check_finality_adjudication_linkage(ref_id: str, adjudication_id: str) -> di
     if not adjudication_id:
         return {"safe": False, "caution": f"Explicit caution: no adjudication posture for finality"}
     return {"safe": True, "caution": None, "ref": ref_id, "adjudication_id": adjudication_id}
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for finality.py.

@@ -11,3 +11,7 @@ class ReferralManager:
 
     def list_all(self):
         return list(self.records.values())
+
+# WARRANTY CAUTION: referral treated covered warranty event without warranty posture explicit caution
+def warranty_posture_caution():
+    return 'referral treated covered warranty event without warranty posture explicit caution'

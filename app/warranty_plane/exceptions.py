@@ -1,0 +1,9 @@
+class WarrantyPlaneError(Exception): pass
+class InvalidWarrantyObjectError(WarrantyPlaneError): pass
+class InvalidWarrantedClaimError(WarrantyPlaneError): pass
+class InvalidCoverageError(WarrantyPlaneError): pass
+class InvalidExclusionError(WarrantyPlaneError): pass
+class InvalidBreachTriggerError(WarrantyPlaneError): pass
+class InvalidCurePathError(WarrantyPlaneError): pass
+class WarrantyTheaterViolationError(WarrantyPlaneError): pass
+class WarrantyStorageError(WarrantyPlaneError): pass

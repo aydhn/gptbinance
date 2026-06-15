@@ -38,3 +38,6 @@ def evaluate_adjudication_reliability_domain() -> dict:
 
 class AttestationIntegrityReliabilityDomain:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for domains.py.

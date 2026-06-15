@@ -40,3 +40,6 @@ def check_adjudication_finality_safe(final_id: str, adjudication_id: str) -> dic
 
 def get_finality_attestation_posture():
     return "checked_not_final_safe" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for final.py.

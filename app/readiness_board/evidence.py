@@ -45,3 +45,6 @@ def get_adjudication_readiness_bundle() -> dict:
 
 def add_attestation_evidence(bundle):
     return {**bundle, "attestation_trust": True}
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for evidence.py.

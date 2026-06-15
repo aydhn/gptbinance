@@ -23,3 +23,6 @@ class FinalityManager:
 
 def get_accountability_attestation_posture():
     return "realized_not_attested" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for finality.py.

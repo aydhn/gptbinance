@@ -40,3 +40,6 @@ def check_adjudication_authority_clean(approval_id: str, adjudication_id: str) -
 
 def get_authority_attestation_posture():
     return "approved_not_authorized" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for approval.py.

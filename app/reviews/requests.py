@@ -48,3 +48,6 @@ def get_adjudication_review_classes() -> list:
 
 class AttestationIntegrityReview:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for requests.py.

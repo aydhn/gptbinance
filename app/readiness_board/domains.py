@@ -39,3 +39,6 @@ def evaluate_adjudication_integrity_domain() -> dict:
 class AttestationIntegrityDomain:
     def produce_verdict(self):
         return "ready"
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for domains.py.

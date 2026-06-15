@@ -1,0 +1,9 @@
+class ReliancePlaneError(Exception): pass
+class InvalidRelianceObjectError(ReliancePlaneError): pass
+class InvalidRelianceBasisError(ReliancePlaneError): pass
+class InvalidEligibilityError(ReliancePlaneError): pass
+class InvalidScopeBoundaryError(ReliancePlaneError): pass
+class InvalidFreshnessPostureError(ReliancePlaneError): pass
+class InvalidFallbackPathError(ReliancePlaneError): pass
+class RelianceTheaterViolationError(ReliancePlaneError): pass
+class RelianceStorageError(ReliancePlaneError): pass

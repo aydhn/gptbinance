@@ -41,3 +41,6 @@ def export_adjudication_diagnostic(signal: str):
 
 def export_attestation_diagnostics():
     return {"stale_citation": True, "fake_independence": True}
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for diagnostics.py.

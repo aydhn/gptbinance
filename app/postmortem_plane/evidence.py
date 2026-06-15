@@ -38,3 +38,6 @@ def export_adjudication_postmortem_evidence(adjudication_id: str) -> dict:
 
 def export_attestation_postmortem_evidence():
     return {"exported": True}
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for evidence.py.

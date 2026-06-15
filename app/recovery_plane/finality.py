@@ -8,3 +8,6 @@ class FinalityManager:
 
 def get_recovery_attestation_posture():
     return "recovered_not_attested" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for finality.py.

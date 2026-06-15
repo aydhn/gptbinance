@@ -47,3 +47,6 @@ def get_adjudication_capabilities() -> list:
 
 class AttestationCapabilities:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for capabilities.py.

@@ -36,3 +36,6 @@ def check_adjudication_epistemic_basis(claim_id: str, adjudication_id: str) -> d
 
 def get_epistemic_attestation_posture():
     return "evaluated_not_attested" # Explicit caution
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for claims.py.

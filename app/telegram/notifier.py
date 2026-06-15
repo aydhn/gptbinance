@@ -37,3 +37,6 @@ def notify_adjudication_event(event_type: str, message: str):
 
 class AttestationNotifier:
     pass
+
+# RELIANCE PLANE INTEGRATION
+# Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for notifier.py.

@@ -41,3 +41,6 @@ def get_adjudication_contributors() -> list:
         "disproportional_disposition",
         "predetermined_outcome"
     ]
+
+class AttestationContributor:
+    pass

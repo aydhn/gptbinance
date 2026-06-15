@@ -38,3 +38,6 @@ def log_adjudication_event(event_type: str, data: dict):
     if event_type not in valid_events:
         pass
     return {"status": "logged", "event": event_type, "data": data}
+
+def emit_attestation_event(event_name, details=None):
+    pass

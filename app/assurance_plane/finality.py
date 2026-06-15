@@ -7,3 +7,6 @@ def check_finality_linkage(record: AssuranceRecord) -> List[str]:
     if not record.cases or not any(c.is_complete for c in record.cases):
         warnings.append("No finality-safe claim without complete assurance posture.")
     return warnings
+
+def get_assurance_attestation_posture():
+    return "complete_not_attested" # Explicit caution

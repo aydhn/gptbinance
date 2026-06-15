@@ -47,3 +47,6 @@ def trigger_adjudication_alert(alert_type: str):
     ]
     if alert_type in valid_alerts:
         return {"status": "alerted", "type": alert_type}
+
+class AttestationAlerts:
+    pass

@@ -43,3 +43,6 @@ def get_adjudication_packs() -> list:
         "panel_reasoning_review_pack",
         "disposition_finality_review_pack"
     ]
+
+class AttestationIntegrityPack:
+    pass

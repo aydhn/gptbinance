@@ -42,3 +42,6 @@ def get_adjudication_template(template_name: str) -> str:
         "adjudication_summary_digest": "Adjudication summary digest."
     }
     return templates.get(template_name, "")
+
+class AttestationTemplates:
+    pass

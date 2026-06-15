@@ -33,3 +33,6 @@ def check_adjudication_epistemic_basis(claim_id: str, adjudication_id: str) -> d
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: adjudication-sounding claim without case/proof/disposition basis"}
     return {"safe": True, "claim_id": claim_id, "adjudication_id": adjudication_id}
+
+def get_epistemic_attestation_posture():
+    return "evaluated_not_attested" # Explicit caution

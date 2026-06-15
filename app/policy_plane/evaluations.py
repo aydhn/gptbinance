@@ -39,3 +39,6 @@ def evaluate_adjudication_policy(context: dict) -> dict:
     if context.get("has_conflicted_panel") or context.get("has_broken_admissibility_lane") or context.get("has_nonreasoned_determination"):
         return {"status": "denied", "reason": "policy review/deny due to broken adjudication elements"}
     return {"status": "allowed"}
+
+def evaluate_policy_attestation(action):
+    return {"status": "evaluated", "attestation_evidence_obligation": True}

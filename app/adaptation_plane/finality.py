@@ -14,3 +14,6 @@ class FinalityManager:
 
     def evaluate(self, *args, **kwargs):
         return "evaluated"
+
+def get_adaptation_attestation_posture():
+    return "complete_not_attested" # Explicit caution

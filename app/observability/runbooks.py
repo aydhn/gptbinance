@@ -45,3 +45,6 @@ def get_adjudication_runbooks() -> list:
         "disposition_boundedness_review",
         "adjudication_drift_cleanup_review"
     ]
+
+class AttestationRunbooks:
+    pass

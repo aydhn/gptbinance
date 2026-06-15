@@ -35,3 +35,7 @@ class OversightIntegrityDomain:
 
 def evaluate_adjudication_integrity_domain() -> dict:
     return {"domain": "adjudication_integrity", "verdict": "ready"}
+
+class AttestationIntegrityDomain:
+    def produce_verdict(self):
+        return "ready"

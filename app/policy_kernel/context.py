@@ -39,3 +39,6 @@ def enrich_adjudication_context(base_context: dict) -> dict:
     base_context["panel_integrity"] = True
     base_context["disposition_exposure"] = True
     return base_context
+
+def add_attestation_context(context):
+    return {**context, "attestation_posture": True}

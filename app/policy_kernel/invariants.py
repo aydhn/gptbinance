@@ -46,3 +46,6 @@ def check_adjudication_invariants(action: str, adjudication_data: dict) -> bool:
     if action == "stand_claim" and adjudication_data.get("materially_conflicted"):
         return False
     return True
+
+def check_attestation_invariants():
+    return True

@@ -9,3 +9,6 @@ class ExpiryManager:
             "status": "evaluated",
             "proof_notes": ["Expiry validated cleanly", "No theater detected"]
         }
+
+def get_exception_attestation_posture():
+    return "expired_not_attested" # Explicit caution

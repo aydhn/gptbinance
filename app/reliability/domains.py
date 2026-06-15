@@ -35,3 +35,6 @@ class ReliabilityOversightIntegrity:
 
 def evaluate_adjudication_reliability_domain() -> dict:
     return {"domain": "adjudication_integrity", "status": "reliable"}
+
+class AttestationIntegrityReliabilityDomain:
+    pass

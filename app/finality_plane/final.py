@@ -37,3 +37,6 @@ def check_adjudication_finality_safe(final_id: str, adjudication_id: str) -> dic
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: final label under unresolved adjudication posture"}
     return {"safe": True, "final_id": final_id, "adjudication_id": adjudication_id}
+
+def get_finality_attestation_posture():
+    return "checked_not_final_safe" # Explicit caution

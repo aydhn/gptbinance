@@ -34,3 +34,6 @@ def notify_oversight_event():
 
 def notify_adjudication_event(event_type: str, message: str):
     return {"status": "notified", "event": event_type, "message": message}
+
+class AttestationNotifier:
+    pass

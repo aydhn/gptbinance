@@ -44,3 +44,6 @@ def get_adjudication_capabilities() -> list:
         "review_determinations_reasoning_and_dispositions",
         "review_binding_effects_and_finality_cleanliness"
     ]
+
+class AttestationCapabilities:
+    pass

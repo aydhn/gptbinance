@@ -35,3 +35,6 @@ def export_oversight_postmortem_evidence():
 
 def export_adjudication_postmortem_evidence(adjudication_id: str) -> dict:
     return {"status": "exported", "adjudication_id": adjudication_id}
+
+def export_attestation_postmortem_evidence():
+    return {"exported": True}

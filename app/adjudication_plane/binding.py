@@ -6,3 +6,6 @@ def manage_binding(record_data: dict) -> dict:
     if "theater" in str(record_data).lower():
         raise AdjudicationTheaterViolation("Theater detected in binding")
     return {"status": "managed", "module": "binding", "data": record_data}
+
+def get_binding_attestation_posture():
+    return "bound_not_attested" # Explicit caution

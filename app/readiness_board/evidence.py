@@ -42,3 +42,6 @@ def get_adjudication_readiness_bundle() -> dict:
         "disposition_boundedness": True,
         "finality_cleanliness": True
     }
+
+def add_attestation_evidence(bundle):
+    return {**bundle, "attestation_trust": True}

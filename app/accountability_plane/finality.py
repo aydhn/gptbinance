@@ -20,3 +20,6 @@ class FinalityManager:
 
     def get_all(self):
         return list(self._store.values())
+
+def get_accountability_attestation_posture():
+    return "realized_not_attested" # Explicit caution

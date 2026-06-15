@@ -37,3 +37,6 @@ def check_adjudication_authority_clean(approval_id: str, adjudication_id: str) -
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: adjudication action by actor lacking determination or disposition authority"}
     return {"safe": True, "approval_id": approval_id, "adjudication_id": adjudication_id}
+
+def get_authority_attestation_posture():
+    return "approved_not_authorized" # Explicit caution

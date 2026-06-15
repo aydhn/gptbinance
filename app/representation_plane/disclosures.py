@@ -33,3 +33,6 @@ def check_adjudication_representation(disclosure_id: str, adjudication_id: str) 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: binding represented while only advisory"}
     return {"safe": True, "disclosure_id": disclosure_id, "adjudication_id": adjudication_id}
+
+def get_representation_attestation_posture():
+    return "represented_not_certified" # Explicit caution

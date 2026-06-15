@@ -45,3 +45,6 @@ def get_adjudication_review_classes() -> list:
         "disposition_boundedness_review",
         "authority_binding_review"
     ]
+
+class AttestationIntegrityReview:
+    pass

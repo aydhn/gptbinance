@@ -17,3 +17,6 @@ htmlcov/
 .idea/
 .vscode/
 script*.py
+__pycache__/
+*.pyc
+.pytest_cache/

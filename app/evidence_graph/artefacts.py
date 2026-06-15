@@ -49,3 +49,6 @@ def add_adjudication_artefacts():
             "diverged_adjudication_from"
         ]
     }
+
+class AttestationArtifactFamily:
+    pass

@@ -38,3 +38,6 @@ def export_adjudication_diagnostic(signal: str):
     if signal in valid_signals:
         return {"status": "exported", "signal": signal}
     return {"status": "ignored"}
+
+def export_attestation_diagnostics():
+    return {"stale_citation": True, "fake_independence": True}

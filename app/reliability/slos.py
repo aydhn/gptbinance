@@ -43,3 +43,6 @@ def get_adjudication_slos() -> dict:
         "disproportional_disposition_absence": {"target": 100.0, "window": "30d"},
         "trusted_adjudication_degraded_ratio": {"target": 0.05, "window": "30d"}
     }
+
+class AttestationIntegritySLOs:
+    pass

@@ -33,3 +33,6 @@ def check_adjudication_deferred_disposition(finalization_id: str, adjudication_i
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: discrepancy treated resolved without adjudication posture"}
     return {"safe": True, "finalization_id": finalization_id, "adjudication_id": adjudication_id}
+
+def finalization_discrepancies():
+    pass

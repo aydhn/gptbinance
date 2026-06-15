@@ -30,3 +30,6 @@ def check_adjudication_panel_integrity(review_id: str, adjudication_id: str) -> 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: incentive dispute treated final without adjudication posture"}
     return {"safe": True, "review_id": review_id, "adjudication_id": adjudication_id}
+
+def incentive_distortion_harms():
+    pass

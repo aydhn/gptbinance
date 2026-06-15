@@ -33,3 +33,6 @@ def check_adjudication_burden_shift(restriction_id: str, adjudication_id: str) -
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: restriction issue treated closed without adjudication posture"}
     return {"safe": True, "restriction_id": restriction_id, "adjudication_id": adjudication_id}
+
+def restriction_harms():
+    pass

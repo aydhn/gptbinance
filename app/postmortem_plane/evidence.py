@@ -41,3 +41,6 @@ def export_attestation_postmortem_evidence():
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for evidence.py.
+
+def postmortem_evidence():
+    pass

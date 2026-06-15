@@ -37,3 +37,6 @@ def check_adjudication_liability_exposure(consequence_id: str, adjudication_id: 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: exposure assignment treated final without adjudication cleanliness"}
     return {"safe": True, "consequence_id": consequence_id, "adjudication_id": adjudication_id}
+
+def exposure_assignment_harms():
+    pass

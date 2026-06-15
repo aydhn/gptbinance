@@ -50,3 +50,6 @@ class AttestationCapabilities:
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for capabilities.py.
+
+def identity_capabilities():
+    pass

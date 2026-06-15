@@ -10,3 +10,6 @@ def check_adjudication_issue_frame(nonrenewal_id: str, adjudication_id: str) -> 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: non-renewal treated settled without adjudication posture"}
     return {"safe": True, "nonrenewal_id": nonrenewal_id, "adjudication_id": adjudication_id}
+
+def nonrenewal_harms():
+    pass

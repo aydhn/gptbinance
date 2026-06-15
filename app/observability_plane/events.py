@@ -44,3 +44,6 @@ def emit_attestation_event(event_name, details=None):
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for events.py.
+
+def indemnity_events():
+    pass

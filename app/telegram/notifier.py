@@ -40,3 +40,6 @@ class AttestationNotifier:
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for notifier.py.
+
+def telegram_notifier():
+    pass

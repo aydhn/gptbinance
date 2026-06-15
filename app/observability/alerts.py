@@ -53,3 +53,6 @@ class AttestationAlerts:
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for alerts.py.
+
+def observability_alerts():
+    pass

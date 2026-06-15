@@ -48,3 +48,6 @@ class AttestationTemplates:
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for templates.py.
+
+def telegram_templates():
+    pass

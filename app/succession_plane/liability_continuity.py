@@ -12,3 +12,6 @@ def check_adjudication_burden_allocation(continuity_id: str, adjudication_id: st
 # WARRANTY CAUTION: continuity treated backed across successor chain without warranty posture explicit caution
 def warranty_posture_caution():
     return 'continuity treated backed across successor chain without warranty posture explicit caution'
+
+def continuity_disputes():
+    pass

@@ -37,3 +37,6 @@ def check_adjudication_reason_giving(remedy_id: str, adjudication_id: str) -> di
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: remedy sufficiency treated adjudicated without adjudication posture"}
     return {"safe": True, "remedy_id": remedy_id, "adjudication_id": adjudication_id}
+
+def blocked_remedy_harms():
+    pass

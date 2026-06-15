@@ -9,3 +9,6 @@ class GovernanceProposals:
 
 def _check_oversight_meta_governance(meta_governance):
     return 'explicit caution unsupervised supersession'
+
+def canon_proposal_harms():
+    pass

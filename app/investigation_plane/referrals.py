@@ -15,3 +15,6 @@ class ReferralManager:
 # WARRANTY CAUTION: referral treated covered warranty event without warranty posture explicit caution
 def warranty_posture_caution():
     return 'referral treated covered warranty event without warranty posture explicit caution'
+
+def referrals():
+    pass

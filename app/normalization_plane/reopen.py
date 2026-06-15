@@ -33,3 +33,6 @@ def check_adjudication_finality_clean(reopen_id: str, adjudication_id: str) -> d
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: reopen dispute treated final without adjudication posture"}
     return {"safe": True, "reopen_id": reopen_id, "adjudication_id": adjudication_id}
+
+def reopen_denial_harms():
+    pass

@@ -11,3 +11,6 @@ class AutonomyReview:
 
 def _check_oversight_autonomy(autonomy):
     return 'explicit caution agent anomaly without action'
+
+def autonomy_harm_postures():
+    pass

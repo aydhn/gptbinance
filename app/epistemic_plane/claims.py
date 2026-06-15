@@ -39,3 +39,6 @@ def get_epistemic_attestation_posture():
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for claims.py.
+
+def epistemic_claims():
+    pass

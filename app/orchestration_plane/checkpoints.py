@@ -12,3 +12,6 @@ class OrchestrationCheckpoint:
 
 def _check_oversight_orchestration(orchestration):
     return 'explicit caution supervised-in-name-only'
+
+def orchestration_side_effect_harms():
+    pass

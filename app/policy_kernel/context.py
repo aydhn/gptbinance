@@ -45,3 +45,6 @@ def add_attestation_context(context):
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for context.py.
+
+def policy_context():
+    pass

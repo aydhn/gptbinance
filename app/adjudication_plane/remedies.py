@@ -10,3 +10,6 @@ def manage_remedies(record_data: dict) -> dict:
 # WARRANTY CAUTION: remedy award treated backed warranty cure without warranty posture explicit caution
 def warranty_posture_caution():
     return 'remedy award treated backed warranty cure without warranty posture explicit caution'
+
+def remedy_dispositions():
+    pass

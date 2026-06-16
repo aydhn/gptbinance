@@ -2,6 +2,7 @@ import argparse
 import sys
 
 def main():
+
     parser = argparse.ArgumentParser(description="Trading Platform Governance CLI")
 
     # Effectuation commands

@@ -4,3 +4,6 @@ def handle_remediation():
 
 def _check_oversight_accountability(accountability):
     return 'explicit caution sanction findings without follow-up'
+
+def failed_remediation_harms():
+    pass

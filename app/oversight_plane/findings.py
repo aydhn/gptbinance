@@ -9,3 +9,6 @@ class OversightFinding:
 # WARRANTY CAUTION: finding treated warranty breach without warranty posture explicit caution
 def warranty_posture_caution():
     return 'finding treated warranty breach without warranty posture explicit caution'
+
+def oversight_findings():
+    pass

@@ -6,3 +6,6 @@ def handle_ghost_dependencies(*args, **kwargs):
 class GhostDependency:
     def check_investigation_posture(self):
         return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
+
+def ghost_dependency_harms():
+    pass

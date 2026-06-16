@@ -21,3 +21,6 @@ def check_adjudication_binding_effect(fragility_id: str, adjudication_id: str) -
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: fragility issue treated determined without adjudication posture"}
     return {"safe": True, "fragility_id": fragility_id, "adjudication_id": adjudication_id}
+
+def fragility_failures():
+    pass

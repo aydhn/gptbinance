@@ -55,3 +55,6 @@ class AttestationArtifactFamily:
 
 # RELIANCE PLANE INTEGRATION
 # Enforces safe-decision-use, explicit freshness limits, and contradiction avoidance for artefacts.py.
+
+def evidence_artefacts():
+    pass

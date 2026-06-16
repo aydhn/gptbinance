@@ -33,3 +33,6 @@ def check_adjudication_acquittal(revalidation_id: str, adjudication_id: str) -> 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: classification dispute treated final without adjudication posture"}
     return {"safe": True, "revalidation_id": revalidation_id, "adjudication_id": adjudication_id}
+
+def misclassification_harms():
+    pass

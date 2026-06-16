@@ -1,14 +1,5 @@
-from typing import List
-from app.exception_plane.models import ExceptionObject
-
-class ExpiryManager:
-    def evaluate(self, exception_obj: ExceptionObject) -> dict:
-        # Implements strict validation to prevent backdoor / shadow / unbounded exceptions
-        return {
-            "exception_id": exception_obj.exception_id,
-            "status": "evaluated",
-            "proof_notes": ["Expiry validated cleanly", "No theater detected"]
-        }
-
-def get_exception_attestation_posture():
-    return "expired_not_attested" # Explicit caution
+class ExceptionExpiry:
+    insurance_plane_period_ref = None
+    insurance_plane_trigger_ref = None
+    def caution_expired_exception_loss_treated_insured_without_insurance_posture(self):
+        return 'Caution: Expired exception loss treated insured without insurance posture'

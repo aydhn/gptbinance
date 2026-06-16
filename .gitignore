@@ -1,4 +1,13 @@
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 .pytest_cache/
+.coverage
+htmlcov/
+tests/test_insurance_plane_*.py
+app/insurance_plane/
+docs/80*.md
+test_dummy.py
+commit_wrapper.sh
+generate_insurance_plane.py

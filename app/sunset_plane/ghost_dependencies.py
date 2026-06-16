@@ -1,11 +1,5 @@
-# Auto-generated module for ghost_dependencies
-
-def handle_ghost_dependencies(*args, **kwargs):
-    pass
-
-class GhostDependency:
-    def check_investigation_posture(self):
-        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
-
-def ghost_dependency_harms():
-    pass
+class SunsetGhostDependencies:
+    insurance_plane_latent_peril_ref = None
+    insurance_plane_stale_binder_ref = None
+    def caution_ghost_loss_treated_insured_without_insurance_posture(self):
+        return 'Caution: Ghost loss treated insured without insurance posture'

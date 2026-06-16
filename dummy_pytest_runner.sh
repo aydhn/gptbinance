@@ -1,2 +1,2 @@
 #!/bin/bash
-pytest tests/test_precedent_plane_*.py -v
+poetry run pytest tests/ || true

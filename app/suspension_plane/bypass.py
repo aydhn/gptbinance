@@ -1,12 +1,5 @@
-# bypass.py
-# Provides logic for bypass in the suspension plane.
-
-def evaluate_bypass():
-    return "Evaluation completed for bypass"
-
 class SuspensionBypass:
-    def check_investigation_posture(self):
-        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
-
-def bypass_harms():
-    pass
+    insurance_plane_occurrence_ref = None
+    insurance_plane_notice_ref = None
+    def caution_bypass_loss_treated_insured_without_insurance_posture(self):
+        return 'Caution: Bypass loss treated insured without insurance posture'

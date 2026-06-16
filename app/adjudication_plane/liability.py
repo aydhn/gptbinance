@@ -1,8 +1,5 @@
-from .models import *
-from .exceptions import *
-
-def manage_liability(record_data: dict) -> dict:
-    """Manages liability records with strict adjudication governance."""
-    if "theater" in str(record_data).lower():
-        raise AdjudicationTheaterViolation("Theater detected in liability")
-    return {"status": "managed", "module": "liability", "data": record_data}
+class AdjudicationLiability:
+    insurance_plane_payable_claim_ref = None
+    insurance_plane_defense_ref = None
+    def caution_liable_posture_treated_insured_payout_without_insurance_posture(self):
+        return 'Caution: Liable posture treated insured payout without insurance posture'

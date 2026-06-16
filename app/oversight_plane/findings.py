@@ -1,14 +1,6 @@
-# findings.py for oversight plane
-def initialize_findings():
-    return "findings initialized"
-
-class OversightFinding:
-    def check_investigation_posture(self):
-        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
-
-# WARRANTY CAUTION: finding treated warranty breach without warranty posture explicit caution
-def warranty_posture_caution():
-    return 'finding treated warranty breach without warranty posture explicit caution'
-
-def oversight_findings():
-    pass
+class OversightFindings:
+    insurance_plane_claim_intake_ref = None
+    insurance_plane_reserve_ref = None
+    insurance_plane_coverage_position_ref = None
+    def caution_harm_finding_treated_insured_covered_loss_without_insurance_posture(self):
+        return 'Caution: Harm finding treated insured covered loss without insurance posture'

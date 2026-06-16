@@ -1,6 +1,5 @@
-class ExtractionSignal:
-    def check_investigation_posture(self):
-        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
-
-def extraction_harms():
-    pass
+class StewardshipExtractionSignals:
+    insurance_plane_beneficiary_ref = None
+    insurance_plane_payout_ref = None
+    def caution_extraction_loss_treated_insured_without_insurance_posture(self):
+        return 'Caution: Extraction loss treated insured without insurance posture'

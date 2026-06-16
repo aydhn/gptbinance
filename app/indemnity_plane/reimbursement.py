@@ -1,3 +1,6 @@
-from app.indemnity_plane.models import ReimbursementRecord
-def evaluate_reimbursement(indemnity_id: str, reimbursement_class: str) -> ReimbursementRecord:
-    return ReimbursementRecord(indemnity_id=indemnity_id, reimbursement_class=reimbursement_class)
+class ReimbursementOutcome:
+    insurance_plane_trigger_valid_policy_ref = None
+    insurance_plane_reserve_ref = None
+    insurance_plane_payout_ref = None
+    def caution_reimbursed_loss_treated_insured_without_insurance_posture(self):
+        return 'Caution: Reimbursed loss treated insured without insurance posture'

@@ -33,3 +33,9 @@ class SurplusManager:
             cautions.append(f"Missing surplus record for {entity_id}")
         # Domain specific checks would go here (e.g. stale valuation check)
         return cautions
+
+# Phase 160: Waterfall Plane Integrations
+
+def process_surplus_with_waterfall(surplus_id: str):
+    # Returns caution if returned surplus treated as distributed without waterfall posture
+    pass

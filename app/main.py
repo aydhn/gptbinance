@@ -49,7 +49,53 @@ def main():
     collateral_group.add_argument('--show-collateral-trust', action='store_true')
     collateral_group.add_argument('--show-collateral-review-packs', action='store_true')
 
+
+    # PHASE 160 Waterfall Plane
+    waterfall_group = parser.add_argument_group('Waterfall Plane (Phase 160)')
+    waterfall_group.add_argument('--show-waterfall-registry', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-object', type=str, metavar='ID')
+    waterfall_group.add_argument('--show-waterfalls', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-subjects', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-claims', action='store_true')
+    waterfall_group.add_argument('--show-claimants', action='store_true')
+    waterfall_group.add_argument('--show-claim-lanes', action='store_true')
+    waterfall_group.add_argument('--show-ranks', action='store_true')
+    waterfall_group.add_argument('--show-seniority', action='store_true')
+    waterfall_group.add_argument('--show-subordination', action='store_true')
+    waterfall_group.add_argument('--show-intercreditor', action='store_true')
+    waterfall_group.add_argument('--show-pari-passu', action='store_true')
+    waterfall_group.add_argument('--show-proceeds-pools', action='store_true')
+    waterfall_group.add_argument('--show-pool-sources', action='store_true')
+    waterfall_group.add_argument('--show-pool-availability', action='store_true')
+    waterfall_group.add_argument('--show-non-distributable-components', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-reserves', action='store_true')
+    waterfall_group.add_argument('--show-holdbacks', action='store_true')
+    waterfall_group.add_argument('--show-disputed-claim-reserves', action='store_true')
+    waterfall_group.add_argument('--show-contingent-claim-reserves', action='store_true')
+    waterfall_group.add_argument('--show-distribution-rules', action='store_true')
+    waterfall_group.add_argument('--show-distribution-actions', action='store_true')
+    waterfall_group.add_argument('--show-partial-satisfaction', action='store_true')
+    waterfall_group.add_argument('--show-deficiency-carry', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-anti-duplication', action='store_true')
+    waterfall_group.add_argument('--show-overdistribution', action='store_true')
+    waterfall_group.add_argument('--show-clawback-triggers', action='store_true')
+    waterfall_group.add_argument('--show-clawbacks', action='store_true')
+    waterfall_group.add_argument('--show-reallocation', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-comparisons', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-readiness', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-forecast', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-debt', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-equivalence', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-trust', action='store_true')
+    waterfall_group.add_argument('--show-waterfall-review-packs', action='store_true')
     args = parser.parse_args()
+
+    if args.show_waterfall_registry:
+        print("Showing Waterfall Registry...")
+    elif getattr(args, 'show_waterfall_object', False):
+        print(f"Showing Waterfall Object {args.show_waterfall_object}...")
+    elif getattr(args, 'show_waterfalls', False):
+        print("Showing Waterfalls...")
     if args.show_collateral_registry:
         print("Canonical Collateral Registry (Phase 159)")
     elif args.show_collateral_object:

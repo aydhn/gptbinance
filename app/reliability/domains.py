@@ -1,3 +1,3 @@
-class ReliabilityDomains:
-    def get_insurance_integrity_inputs(self):
-        return ['stale_binder', 'reserve_cosmetics', 'payout_drag', 'exhaustion_confusion']
+class ReliabilityCollateralIntegrityDomain:
+    name = "collateral_integrity"
+    signals = ["stale_valuation", "hidden_lien", "wrong_way_collateral", "deficiency_burial"]

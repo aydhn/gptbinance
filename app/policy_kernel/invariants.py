@@ -1,8 +1,5 @@
-class PolicyInvariants:
-    def get_insurance_invariants(self):
-        return [
-            'no trusted high-risk closure while material insurance treatment remains unresolved',
-            'no posture event may alter insurance posture beyond explicit boundaries',
-            'no posture may be treated as insured without explicit analysis',
-            'no safe claim may stand while governing insurance remains materially illusory'
-        ]
+class CollateralInvariants:
+    @staticmethod
+    def check_high_risk_closure(has_unresolved_deficiency: bool):
+        if has_unresolved_deficiency:
+            raise Exception("Invariant Violation: no trusted high-risk closure claim may be emitted while material collateral treatment remains unresolved in eligible scopes")

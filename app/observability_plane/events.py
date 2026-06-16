@@ -1,1 +1,10 @@
-CANONICAL_INSURANCE_EVENTS = ['policy_bound', 'endorsement_attached', 'notice_logged', 'claim_intake_opened', 'reserve_set', 'reservation_issued', 'payout_authorized', 'exhaustion_reached']
+COLLATERAL_EVENTS = [
+    "collateral_posted",
+    "valuation_refreshed",
+    "haircut_applied",
+    "lien_detected",
+    "margin_call_issued",
+    "deficiency_opened",
+    "liquidation_triggered",
+    "collateral_released"
+]

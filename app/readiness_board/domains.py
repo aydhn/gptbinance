@@ -1,3 +1,5 @@
-class ReadinessDomains:
-    def insurance_integrity_domain_verdict(self):
-        return 'domain verdict based on clarity, sufficiency and adequacy'
+class CollateralIntegrityDomain:
+    def evaluate(self, evidence_bundle):
+        if not evidence_bundle.get("perfection_integrity"):
+            return "BLOCKER: Perfection compromised"
+        return "READY"

@@ -1,67 +1,32 @@
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
 
-from app.accountability_plane.exceptions import InvalidSanctionError, AccountabilityTheaterViolation
-from app.accountability_plane.models import SanctionRecord
-from app.accountability_plane.enums import SanctionClass
+class SanctionSecuredCollectionIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
 
-class SanctionsManager:
-    def __init__(self):
-        self._store = {}
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
 
-    def apply_sanction(self, sanction_id: str, breach_ref: str, subject_ref: str, tier_ref: str, is_symbolic: bool = False) -> SanctionRecord:
-        if is_symbolic:
-            raise AccountabilityTheaterViolation("Symbolic sanctions are prohibited.")
-        if not breach_ref or not subject_ref:
-            raise InvalidSanctionError("Sanction must map to a specific subject and proven breach.")
+        if not collateral_id:
+            cautions.append("sanction realized treated collateral-backed without collateral posture explicit caution")
+            return False, cautions
 
-        record = SanctionRecord(
-            sanction_id=sanction_id,
-            tier_ref=tier_ref,
-            breach_ref=breach_ref,
-            subject_ref=subject_ref,
-            is_symbolic=is_symbolic
-        )
-        self._store[sanction_id] = record
-        return record
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates accountability_plane assumptions.")
+            is_secured = False
 
-    def get(self, sanction_id: str) -> SanctionRecord:
-        return self._store.get(sanction_id)
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders accountability_plane support illusory.")
+            is_secured = False
 
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises accountability_plane recovery.")
+            is_secured = False
 
-# Incentive Plane Integration
-class SanctionsIncentiveIntegration:
-    incentive_plane_deterrence_strength: str = "undefined"
-    symbolic_sanction_risk: bool = False
-    clawback_refs: list = []
+        if not is_secured:
+            cautions.append("sanction realized treated collateral-backed without collateral posture explicit caution")
 
-def sanction_applied_treated_behavior_correcting():
-    # without incentive evidence explicit caution
-    return {"caution": "sanction applied treated behavior-correcting without incentive evidence"}
-
-class Sanctions:
-    # legitimacy-plane proportionality and appeal accessibility refs
-    pass
-
-
-from app.appeal_plane.models import AppealObjectRef, AppealTrustVerdict
-from app.appeal_plane.enums import TrustVerdict
-
-def get_appeal_posture(object_id: str) -> dict:
-    # Explicitly check for standing, reviewability, stay and reversal refs
-    return {
-        "is_appeal_clean": True,
-        "appeal_refs": [AppealObjectRef(appeal_id=f"app-{object_id}", class_name="canonical_appeal", owner="system")],
-        "caution_required": False
-    }
-
-def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
-    return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
-
-class AccountabilitySanction:
-    def check_investigation_posture(self):
-        return {"caution": "explicit caution: requires investigation-plane canonical evidence refs"}
-
-
-def check_adjudication_liability_determination(sanction_id: str, adjudication_id: str) -> dict:
-    if not adjudication_id:
-        return {"safe": False, "caution": "Explicit caution: sanction basis treated adjudicated without adjudication posture"}
-    return {"safe": True, "sanction_id": sanction_id, "adjudication_id": adjudication_id}
+        return is_secured, cautions

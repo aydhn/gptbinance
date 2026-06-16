@@ -1,5 +1,7 @@
-class PolicyEvaluations:
-    def produce_insurance_evidence_obligations(self):
-        pass
-    def evaluate_insurance_risks(self):
-        return 'policy review/deny'
+class CollateralPolicyEvaluator:
+    def evaluate_high_risk_action(self, collateral_id: str, repo):
+        if repo.has_hidden_encumbrance(collateral_id):
+            return {"decision": "DENY", "reason": "hidden_encumbrance"}
+        if repo.is_valuation_stale(collateral_id):
+            return {"decision": "REVIEW", "reason": "stale_valuation"}
+        return {"decision": "ALLOW"}

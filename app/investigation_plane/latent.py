@@ -1,5 +1,32 @@
-class InvestigationLatent:
-    insurance_plane_occurrence_trigger_ref = None
-    insurance_plane_retro_date_ref = None
-    def caution_latent_defect_treated_insured_claim_without_insurance_posture(self):
-        return 'Caution: Latent defect treated insured claim without insurance posture'
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
+
+class LatentDefectIneligibleEncumbranceIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
+
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
+
+        if not collateral_id:
+            cautions.append("latent defect treated secured impairment without collateral posture explicit caution")
+            return False, cautions
+
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates investigation_plane assumptions.")
+            is_secured = False
+
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders investigation_plane support illusory.")
+            is_secured = False
+
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises investigation_plane recovery.")
+            is_secured = False
+
+        if not is_secured:
+            cautions.append("latent defect treated secured impairment without collateral posture explicit caution")
+
+        return is_secured, cautions

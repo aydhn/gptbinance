@@ -1,3 +1,6 @@
-class EvidenceGraphPacks:
-    def get_insurance_packs(self):
-        return ['insurance_integrity_pack', 'policy_trigger_review_pack', 'notice_reserve_review_pack', 'payout_exhaustion_review_pack']
+COLLATERAL_REVIEW_PACKS = [
+    "collateral_integrity_pack",
+    "eligibility_valuation_review_pack",
+    "perfection_priority_review_pack",
+    "call_liquidation_review_pack"
+]

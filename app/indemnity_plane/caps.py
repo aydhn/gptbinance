@@ -1,3 +1,32 @@
-from app.indemnity_plane.models import CapRecord
-def evaluate_caps(indemnity_id: str, is_bounded: bool) -> CapRecord:
-    return CapRecord(indemnity_id=indemnity_id, is_bounded=is_bounded)
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
+
+class CappedIndemnitySupportIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
+
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
+
+        if not collateral_id:
+            cautions.append("capped indemnity treated collateral-backed without collateral posture explicit caution")
+            return False, cautions
+
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates indemnity_plane assumptions.")
+            is_secured = False
+
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders indemnity_plane support illusory.")
+            is_secured = False
+
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises indemnity_plane recovery.")
+            is_secured = False
+
+        if not is_secured:
+            cautions.append("capped indemnity treated collateral-backed without collateral posture explicit caution")
+
+        return is_secured, cautions

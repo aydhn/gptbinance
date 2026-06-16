@@ -1,3 +1,8 @@
-class ObservabilityAlerts:
-    def get_insurance_alerts(self):
-        return ['stale_binder_detected', 'hidden_exclusion_detected', 'reserve_cosmetics_detected', 'payout_drag_detected', 'exhaustion_confusion_detected', 'insurance_review_required']
+COLLATERAL_ALERTS = [
+    "hidden_lien_detected",
+    "stale_valuation_detected",
+    "fake_segregation_detected",
+    "deficiency_detected",
+    "wrongful_liquidation_detected",
+    "collateral_review_required"
+]

@@ -11,3 +11,5 @@ docs/80*.md
 test_dummy.py
 commit_wrapper.sh
 generate_insurance_plane.py
+__pycache__/
+*.pyc

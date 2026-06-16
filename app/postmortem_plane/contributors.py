@@ -1,3 +1,8 @@
-class PostmortemContributors:
-    def get_insurance_contributors(self):
-        return ['stale_binder', 'hidden_exclusion', 'reserve_cosmetics', 'payout_drag', 'exhaustion_confusion', 'claims_made_trap']
+COLLATERAL_CONTRIBUTORS = [
+    "hidden_lien",
+    "stale_valuation",
+    "fake_segregation",
+    "wrong_way_collateral",
+    "deficiency_burial",
+    "wrongful_liquidation"
+]

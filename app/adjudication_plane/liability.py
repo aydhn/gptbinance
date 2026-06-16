@@ -1,5 +1,32 @@
-class AdjudicationLiability:
-    insurance_plane_payable_claim_ref = None
-    insurance_plane_defense_ref = None
-    def caution_liable_posture_treated_insured_payout_without_insurance_posture(self):
-        return 'Caution: Liable posture treated insured payout without insurance posture'
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
+
+class LiabilityDeterminationSecuredExposureIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
+
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
+
+        if not collateral_id:
+            cautions.append("liability treated secured collectible without collateral posture explicit caution")
+            return False, cautions
+
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates adjudication_plane assumptions.")
+            is_secured = False
+
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders adjudication_plane support illusory.")
+            is_secured = False
+
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises adjudication_plane recovery.")
+            is_secured = False
+
+        if not is_secured:
+            cautions.append("liability treated secured collectible without collateral posture explicit caution")
+
+        return is_secured, cautions

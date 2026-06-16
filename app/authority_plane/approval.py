@@ -1,5 +1,32 @@
-class AuthorityApproval:
-    def get_insurance_plane_authority_refs(self):
-        return []
-    def caution_insurance_action_by_actor_lacking_authority(self):
-        return 'Caution: Insurance action by actor lacking coverage or payout authority'
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
+
+class PledgePerfectControlAuthorityLinkIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
+
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
+
+        if not collateral_id:
+            cautions.append("collateral action by actor lacking pledge or liquidation authority explicit caution")
+            return False, cautions
+
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates authority_plane assumptions.")
+            is_secured = False
+
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders authority_plane support illusory.")
+            is_secured = False
+
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises authority_plane recovery.")
+            is_secured = False
+
+        if not is_secured:
+            cautions.append("collateral action by actor lacking pledge or liquidation authority explicit caution")
+
+        return is_secured, cautions

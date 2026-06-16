@@ -1,28 +1,32 @@
-# containment.py
-from app.resilience_plane.models import *
-from app.resilience_plane.exceptions import *
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
 
-class ContainmentManager:
-    def __init__(self):
-        self.records = []
+class ContainmentLiquidityLiquidationIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
 
-    def manage(self, **kwargs):
-        return {'status': 'managed', 'records_processed': len(self.records)}
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
 
-def containment_suspension_check():
-    pass
+        if not collateral_id:
+            cautions.append("resilient posture treated collateral-clean without collateral posture explicit caution")
+            return False, cautions
 
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates resilience_plane assumptions.")
+            is_secured = False
 
-from app.appeal_plane.models import AppealObjectRef, AppealTrustVerdict
-from app.appeal_plane.enums import TrustVerdict
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders resilience_plane support illusory.")
+            is_secured = False
 
-def get_appeal_posture(object_id: str) -> dict:
-    # Explicitly check for standing, reviewability, stay and reversal refs
-    return {
-        "is_appeal_clean": True,
-        "appeal_refs": [AppealObjectRef(appeal_id=f"app-{object_id}", class_name="canonical_appeal", owner="system")],
-        "caution_required": False
-    }
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises resilience_plane recovery.")
+            is_secured = False
 
-def verify_appeal_trust(object_id: str) -> AppealTrustVerdict:
-    return AppealTrustVerdict(verdict=TrustVerdict.TRUSTED, breakdown={"standing": "verified"})
+        if not is_secured:
+            cautions.append("resilient posture treated collateral-clean without collateral posture explicit caution")
+
+        return is_secured, cautions

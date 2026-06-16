@@ -1,5 +1,2 @@
-class EvidenceGraphArtefacts:
-    def get_insurance_families(self):
-        return ['insurance_reports']
-    def get_relations(self):
-        return ['insured_under', 'triggered_under', 'reserved_by', 'paid_by', 'exhausted_under', 'contributed_by', 'diverged_insurance_from']
+COLLATERAL_ARTEFACT_FAMILIES = ["collateral_objects", "liquidations", "haircuts", "perfections"]
+COLLATERAL_RELATIONS = ["collateralized_under", "pledged_by", "perfected_under", "valued_under", "liquidated_under", "released_under", "diverged_collateral_from"]

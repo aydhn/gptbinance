@@ -1,3 +1,8 @@
-class ObservabilityRunbooks:
-    def get_insurance_runbooks(self):
-        return ['trigger_revalidation', 'notice_preservation_review', 'reserve_adequacy_review', 'payout_path_review', 'exhaustion_reinstatement_review', 'insurance_drift_cleanup_review']
+COLLATERAL_RUNBOOKS = [
+    "eligibility_revalidation",
+    "valuation_refresh_review",
+    "perfection_priority_review",
+    "margin_deficiency_review",
+    "liquidation_authority_review",
+    "collateral_drift_cleanup_review"
+]

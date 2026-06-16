@@ -1,5 +1,32 @@
-class FinalityFinal:
-    def require_insurance_plane_clean_state(self):
-        pass
-    def caution_final_label_under_unresolved_insurance_posture(self):
-        return 'Caution: Final label under unresolved insurance posture'
+from typing import List, Tuple
+from app.collateral_plane.repository import CollateralRepository
+
+class FinalSafeClosureNoDeficiencyEncumbranceIntegrator:
+    def __init__(self, repo: CollateralRepository):
+        self.repo = repo
+
+    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
+        cautions = []
+        is_secured = True
+
+        if not collateral_id:
+            cautions.append("final label under unresolved collateral posture explicit caution")
+            return False, cautions
+
+        # Evaluate base defects preventing this plane from trusting collateral
+        if self.repo.has_hidden_encumbrance(collateral_id):
+            cautions.append(f"Hidden encumbrance invalidates finality_plane assumptions.")
+            is_secured = False
+
+        if self.repo.is_valuation_stale(collateral_id):
+            cautions.append(f"Stale valuation renders finality_plane support illusory.")
+            is_secured = False
+
+        if self.repo.has_fake_segregation(collateral_id):
+            cautions.append(f"Fake segregation compromises finality_plane recovery.")
+            is_secured = False
+
+        if not is_secured:
+            cautions.append("final label under unresolved collateral posture explicit caution")
+
+        return is_secured, cautions

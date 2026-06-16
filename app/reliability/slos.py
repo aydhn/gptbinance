@@ -1,3 +1,6 @@
-class ReliabilitySLOs:
-    def get_insurance_integrity_slos(self):
-        return ['unresolved triggered-claim ceiling', 'underreserve absence', 'stale-binder absence', 'unpaid-covered-loss absence', 'trusted insurance degraded ratio']
+COLLATERAL_SLOS = [
+    {"name": "unresolved_deficiency_ceiling", "budget": 0.0},
+    {"name": "hidden_lien_absence", "budget": 0.0},
+    {"name": "stale_valuation_absence", "budget": 0.01},
+    {"name": "wrongful_liquidation_absence", "budget": 0.0}
+]

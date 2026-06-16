@@ -9,3 +9,4 @@ class CollateralInvariants:
 def check_waterfall_invariants(context: dict):
     # Enforces no closure or finality claim without explicit claim clarity and distribution analysis
     pass
+# Escrow-plane invariants: no final-safe claim while escrow unresolved, no deposit alters beyond boundaries

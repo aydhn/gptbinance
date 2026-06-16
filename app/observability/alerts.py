@@ -17,3 +17,4 @@ ALERT_TYPES_WATERFALL = [
     "clawback_gap_detected",
     "waterfall_review_required"
 ]
+# Escrow-plane alerts: fake_segregation_detected, forged_instruction_detected

@@ -5,3 +5,4 @@ class CollateralPolicyEvaluator:
         if repo.is_valuation_stale(collateral_id):
             return {"decision": "REVIEW", "reason": "stale_valuation"}
         return {"decision": "ALLOW"}
+# Escrow-plane policy: evidence obligations, fake segregation/stale evidence deny decisions

@@ -13,3 +13,5 @@ commit_wrapper.sh
 generate_insurance_plane.py
 __pycache__/
 *.pyc
+
+*.tmp

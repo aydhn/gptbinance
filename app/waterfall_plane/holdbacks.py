@@ -1,4 +1,10 @@
-from app.waterfall_plane.models import HoldbackRecord
 
-def register_holdback(holdback_id: str, amount: float) -> HoldbackRecord:
-    return HoldbackRecord(holdback_id=holdback_id, amount=amount)
+import logging
+
+logger = logging.getLogger(__name__)
+
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated waterfall as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

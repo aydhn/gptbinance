@@ -6,3 +6,4 @@ COLLATERAL_REVIEW_CLASSES = [
     "margin_liquidation_review",
     "beneficiary_collateral_review"
 ]
+# Escrow-plane reviews: escrow_integrity_review, deposit_condition_review

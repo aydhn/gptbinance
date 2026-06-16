@@ -1,3 +1,10 @@
-from app.indemnity_plane.models import ReimbursementDelayRecord
-def evaluate_delay(indemnity_id: str, has_delay: bool) -> ReimbursementDelayRecord:
-    return ReimbursementDelayRecord(indemnity_id=indemnity_id, has_delay=has_delay)
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated indemnity as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

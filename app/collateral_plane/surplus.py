@@ -1,41 +1,10 @@
-from typing import List, Dict, Any
-from datetime import datetime
-from app.collateral_plane.exceptions import CollateralPlaneError
-from app.collateral_plane.models import CollateralObject
 
-class SurplusManager:
-    """
-    Manager for surplus in the collateral plane.
-    Ensures strict governance and visibility.
-    """
-    def __init__(self):
-        self.records: Dict[str, Any] = {}
+import logging
 
-    def register_surplus(self, entity_id: str, data: Dict[str, Any]) -> str:
-        if not entity_id:
-            raise CollateralPlaneError("Entity ID required for surplus")
+logger = logging.getLogger(__name__)
 
-        # Enforce no theater: ensure lineage refs are present
-        data["lineage_refs"] = data.get("lineage_refs", []) + [f"registered_surplus_{datetime.utcnow().isoformat()}"]
-        self.records[entity_id] = data
-        return entity_id
-
-    def get_surplus(self, entity_id: str) -> Dict[str, Any]:
-        return self.records.get(entity_id, {})
-
-    def evaluate_integrity(self, entity_id: str) -> List[str]:
-        """
-        Returns a list of cautions or an empty list if clean.
-        """
-        cautions = []
-        record = self.records.get(entity_id)
-        if not record:
-            cautions.append(f"Missing surplus record for {entity_id}")
-        # Domain specific checks would go here (e.g. stale valuation check)
-        return cautions
-
-# Phase 160: Waterfall Plane Integrations
-
-def process_surplus_with_waterfall(surplus_id: str):
-    # Returns caution if returned surplus treated as distributed without waterfall posture
-    pass
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated collateral as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

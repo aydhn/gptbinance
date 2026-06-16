@@ -6,3 +6,4 @@ COLLATERAL_RUNBOOKS = [
     "liquidation_authority_review",
     "collateral_drift_cleanup_review"
 ]
+# Escrow-plane runbooks: condition_revalidation, segregation_integrity_review

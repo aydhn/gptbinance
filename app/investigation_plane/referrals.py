@@ -1,20 +1,10 @@
-class ReferralManager:
-    def __init__(self):
-        self.records = {}
 
-    def add(self, entity_id: str, data: dict):
-        self.records[entity_id] = data
-        return data
+import logging
 
-    def get(self, entity_id: str):
-        return self.records.get(entity_id)
+logger = logging.getLogger(__name__)
 
-    def list_all(self):
-        return list(self.records.values())
-
-# WARRANTY CAUTION: referral treated covered warranty event without warranty posture explicit caution
-def warranty_posture_caution():
-    return 'referral treated covered warranty event without warranty posture explicit caution'
-
-def referrals():
-    pass
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated investigation as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

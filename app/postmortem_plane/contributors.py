@@ -17,3 +17,4 @@ WATERFALL_CONTRIBUTORS = [
     "overdistribution",
     "clawback_gap"
 ]
+# Escrow-plane contributors: fake_segregation, commingling, stale_evidence

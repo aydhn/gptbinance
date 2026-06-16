@@ -1,39 +1,27 @@
 import os
 
-gitignore_path = ".gitignore"
-content_to_append = """
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
+def append_to_gitignore(entries):
+    gitignore_path = '.gitignore'
+    content = ""
+    if os.path.exists(gitignore_path):
+        with open(gitignore_path, 'r') as f:
+            content = f.read()
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+    new_entries = []
+    for entry in entries:
+        if entry not in content:
+            new_entries.append(entry)
 
-# Pytest
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Logs
-*.log
-"""
-
-if not os.path.exists(gitignore_path):
-    with open(gitignore_path, 'w') as f:
-        f.write(content_to_append)
-else:
-    with open(gitignore_path, 'r') as f:
-        content = f.read()
-    if "__pycache__/" not in content:
+    if new_entries:
         with open(gitignore_path, 'a') as f:
-            f.write(content_to_append)
+            f.write('\n' + '\n'.join(new_entries) + '\n')
+        print(f"Added to .gitignore: {new_entries}")
+    else:
+        print("All entries already in .gitignore")
 
-print("Updated .gitignore")
+append_to_gitignore([
+    '__pycache__/',
+    '*.pyc',
+    '.pytest_cache/',
+    '*.tmp'
+])

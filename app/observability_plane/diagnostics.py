@@ -4,3 +4,4 @@ def export_diagnostics(repo):
         "stale_valuations_count": 0,
         "warning": "asset count alone cannot replace collateral truth"
     }
+# Escrow-plane diagnostics: fake segregation, commingling, stale evidence exported to signals

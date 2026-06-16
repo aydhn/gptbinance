@@ -8,3 +8,9 @@ class CollateralPolicyContext:
             "is_stale_valuation": repo.is_valuation_stale(collateral_id),
             "is_fake_segregation": repo.has_fake_segregation(collateral_id)
         }
+
+# Phase 160: Waterfall Plane Integrations
+
+def get_waterfall_context(waterfall_id: str):
+    # Return waterfall posture, active pools, ranks, reserve states
+    return {}

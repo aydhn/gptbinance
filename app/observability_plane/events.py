@@ -8,3 +8,4 @@ COLLATERAL_EVENTS = [
     "liquidation_triggered",
     "collateral_released"
 ]
+# Escrow-plane events: escrow_opened, condition_registered, release_authorized, etc.

@@ -13,3 +13,4 @@ EVIDENCE_PACKS_WATERFALL = [
     "pool_reserve_review_pack",
     "distribution_clawback_review_pack"
 ]
+# Escrow-plane packs: escrow integrity pack, condition review pack

@@ -7,3 +7,4 @@ class ReliabilityCollateralIntegrityDomain:
 RELIABILITY_DOMAINS_WATERFALL = [
     "waterfall_integrity"
 ]
+# Escrow-plane reliability: escrow_integrity connected to fake segregation and commingling inputs

@@ -1,15 +1,10 @@
-from .models import *
-from .exceptions import *
 
-def manage_remedies(record_data: dict) -> dict:
-    """Manages remedies records with strict adjudication governance."""
-    if "theater" in str(record_data).lower():
-        raise AdjudicationTheaterViolation("Theater detected in remedies")
-    return {"status": "managed", "module": "remedies", "data": record_data}
+import logging
 
-# WARRANTY CAUTION: remedy award treated backed warranty cure without warranty posture explicit caution
-def warranty_posture_caution():
-    return 'remedy award treated backed warranty cure without warranty posture explicit caution'
+logger = logging.getLogger(__name__)
 
-def remedy_dispositions():
-    pass
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated adjudication as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

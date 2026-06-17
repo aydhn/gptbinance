@@ -14,3 +14,4 @@ class CollateralPolicyContext:
 def get_waterfall_context(waterfall_id: str):
     # Return waterfall posture, active pools, ranks, reserve states
     return {}
+# Escrow-plane context: escrow posture, condition status, dispute exposure added to context

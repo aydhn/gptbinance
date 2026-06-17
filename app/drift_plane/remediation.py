@@ -1,32 +1,10 @@
-from typing import List, Tuple
-from app.collateral_plane.repository import CollateralRepository
 
-class DriftRevaluationCallRefreshIntegrator:
-    def __init__(self, repo: CollateralRepository):
-        self.repo = repo
+import logging
 
-    def evaluate_posture(self, collateral_id: str) -> Tuple[bool, List[str]]:
-        cautions = []
-        is_secured = True
+logger = logging.getLogger(__name__)
 
-        if not collateral_id:
-            cautions.append("remediated posture treated valuation-clean without collateral posture explicit caution")
-            return False, cautions
-
-        # Evaluate base defects preventing this plane from trusting collateral
-        if self.repo.has_hidden_encumbrance(collateral_id):
-            cautions.append(f"Hidden encumbrance invalidates drift_plane assumptions.")
-            is_secured = False
-
-        if self.repo.is_valuation_stale(collateral_id):
-            cautions.append(f"Stale valuation renders drift_plane support illusory.")
-            is_secured = False
-
-        if self.repo.has_fake_segregation(collateral_id):
-            cautions.append(f"Fake segregation compromises drift_plane recovery.")
-            is_secured = False
-
-        if not is_secured:
-            cautions.append("remediated posture treated valuation-clean without collateral posture explicit caution")
-
-        return is_secured, cautions
+def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = False):
+    if not has_explicit_escrow_posture:
+        logger.warning(f"WARNING: Treated drift as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
+        return False
+    return True

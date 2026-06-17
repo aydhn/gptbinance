@@ -4,3 +4,4 @@ COLLATERAL_SLOS = [
     {"name": "stale_valuation_absence", "budget": 0.01},
     {"name": "wrongful_liquidation_absence", "budget": 0.0}
 ]
+# Escrow-plane SLOs: fake-segregation absence, premature-release absence

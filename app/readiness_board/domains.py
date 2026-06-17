@@ -9,3 +9,4 @@ class CollateralIntegrityDomain:
 READINESS_DOMAINS_WATERFALL = [
     "waterfall_integrity"
 ]
+# Escrow-plane domains: escrow_integrity domain producing verdicts

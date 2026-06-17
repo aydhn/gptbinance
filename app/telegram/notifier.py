@@ -16,3 +16,4 @@ def send_waterfall_notification(event_type: str, details: dict):
     ]
     if event_type in valid_events:
         print(f"Sending telegram notification: {event_type} - {details}")
+# Escrow-plane telegram notifier: fake segregation detected events

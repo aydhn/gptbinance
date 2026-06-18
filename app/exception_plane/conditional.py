@@ -36,3 +36,10 @@ class ConditionalExceptionEligibilityIntegrator:
 
 def verify_exception_conditional_netting(context_id: str):
     logger.warning(f"Conditional leg {context_id} treated nettable without netting posture explicit caution.")
+
+# Added for Phase 163 Clearing Plane Integration
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+def evaluate_clearing_integration_hook():
+    integration = integrate_with_clearing_plane("app/exception_plane/conditional.py")
+    return integration.evaluate_posture()

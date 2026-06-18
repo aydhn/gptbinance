@@ -24,3 +24,10 @@ class NettingNotifier:
     def notify(self, event_type, data):
         # types: netting manifest ready, mutuality failure detected, stale valuation detected, mistaken setoff detected, netting review required
         pass
+
+# Added for Phase 163 Clearing Plane Integration
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+def evaluate_clearing_integration_hook():
+    integration = integrate_with_clearing_plane("app/telegram/notifier.py")
+    return integration.evaluate_posture()

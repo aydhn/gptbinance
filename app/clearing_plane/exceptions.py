@@ -1,0 +1,9 @@
+class ClearingPlaneError(Exception): pass
+class InvalidClearingObjectError(ClearingPlaneError): pass
+class InvalidClearedTradeError(ClearingPlaneError): pass
+class InvalidNovationError(ClearingPlaneError): pass
+class InvalidSegregationPostureError(ClearingPlaneError): pass
+class InvalidMarginPostureError(ClearingPlaneError): pass
+class InvalidDefaultWaterfallError(ClearingPlaneError): pass
+class ClearingTheaterViolationError(ClearingPlaneError): pass
+class ClearingStorageError(ClearingPlaneError): pass

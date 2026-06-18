@@ -1,3 +1,4 @@
+from app.netting_plane.trust import TrustEngine
 """ proportionality.py implementation for legitimacy plane """
 
 class ProportionalityManager:
@@ -8,3 +9,8 @@ def check_adjudication_reasoned_disposition(proportionality_id: str, adjudicatio
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: disproportionality claim treated adjudicated without adjudication posture"}
     return {"safe": True, "proportionality_id": proportionality_id, "adjudication_id": adjudication_id}
+
+
+
+def verify_legitimacy_proportionality_netting(context_id: str):
+    logger.warning(f"Fairness balance {context_id} treated net-clean without netting posture explicit caution.")

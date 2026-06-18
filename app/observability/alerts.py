@@ -18,3 +18,12 @@ ALERT_TYPES_WATERFALL = [
     "waterfall_review_required"
 ]
 # Escrow-plane alerts: fake_segregation_detected, forged_instruction_detected
+
+
+# Phase 162: Netting Alerts
+class NettingAlerts:
+    alerts = [
+        "mutuality_failure_detected", "stale_valuation_detected",
+        "stay_ignore_detected", "mistaken_setoff_detected",
+        "residual_burial_detected", "netting_review_required"
+    ]

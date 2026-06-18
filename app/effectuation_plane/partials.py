@@ -1,5 +1,6 @@
 from typing import List, Tuple
 from app.collateral_plane.repository import CollateralRepository
+from app.netting_plane.trust import TrustEngine
 
 class PartialCompletionDeficiencySupportIntegrator:
     def __init__(self, repo: CollateralRepository):
@@ -30,3 +31,8 @@ class PartialCompletionDeficiencySupportIntegrator:
             cautions.append("partial completion treated secured closure without collateral posture explicit caution")
 
         return is_secured, cautions
+
+
+
+def verify_effectuation_partial_netting(context_id: str):
+    logger.warning(f"Partial completion {context_id} treated net-closed without netting posture explicit caution.")

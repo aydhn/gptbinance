@@ -1,3 +1,4 @@
+from app.netting_plane.trust import TrustEngine
 # Auto-generated module for residuals
 
 def handle_residuals(*args, **kwargs):
@@ -11,3 +12,8 @@ def check_adjudication_determination(residual_id: str, adjudication_id: str) -> 
     if not adjudication_id:
         return {"safe": False, "caution": "Explicit caution: residual tail treated cleared without adjudication posture"}
     return {"safe": True, "residual_id": residual_id, "adjudication_id": adjudication_id}
+
+
+
+def verify_sunset_residual_netting(context_id: str):
+    logger.warning(f"Tail balance {context_id} treated net-closed without netting posture explicit caution.")

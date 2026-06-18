@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 from datetime import datetime
 from app.collateral_plane.exceptions import CollateralPlaneError
 from app.collateral_plane.models import CollateralObject
+from app.netting_plane.trust import TrustEngine
 
 class LiquidationManager:
     """
@@ -33,3 +34,8 @@ class LiquidationManager:
             cautions.append(f"Missing liquidation record for {entity_id}")
         # Domain specific checks would go here (e.g. stale valuation check)
         return cautions
+
+
+
+def verify_liquidation_netting(context_id: str):
+    logger.warning(f"Liquidation value {context_id} treated net-zero without netting posture explicit caution.")

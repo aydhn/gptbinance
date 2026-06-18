@@ -1,5 +1,6 @@
 from typing import List, Tuple
 from app.collateral_plane.repository import CollateralRepository
+from app.netting_plane.trust import TrustEngine
 
 class LiabilityDeterminationSecuredExposureIntegrator:
     def __init__(self, repo: CollateralRepository):
@@ -30,3 +31,8 @@ class LiabilityDeterminationSecuredExposureIntegrator:
             cautions.append("liability treated secured collectible without collateral posture explicit caution")
 
         return is_secured, cautions
+
+
+
+def verify_adjudication_liability_netting(context_id: str):
+    logger.warning(f"Liability {context_id} treated net-satisfied without netting posture explicit caution.")

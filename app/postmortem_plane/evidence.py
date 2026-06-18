@@ -14,3 +14,10 @@ def export_netting_evidence():
         "setoffs": [],
         "reversals_refs": []
     }
+
+# Added for Phase 163 Clearing Plane Integration
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+def evaluate_clearing_integration_hook():
+    integration = integrate_with_clearing_plane("app/postmortem_plane/evidence.py")
+    return integration.evaluate_posture()

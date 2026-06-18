@@ -16,3 +16,10 @@ class NettingReviews:
         "valuation_closeout_review", "setoff_reversal_review",
         "insolvency_netting_review", "beneficiary_balance_review"
     ]
+
+# Added for Phase 163 Clearing Plane Integration
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+def evaluate_clearing_integration_hook():
+    integration = integrate_with_clearing_plane("app/reviews/requests.py")
+    return integration.evaluate_posture()

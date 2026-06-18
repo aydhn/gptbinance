@@ -19,3 +19,10 @@ def check_netting_invariants():
     # no posture may be treated as netted, set off, close-out clean, legal zero, insolvency-safe or closure-clean without explicit obligation clarity, mutuality sufficiency, valuation sufficiency, setoff sufficiency and close-out analysis
     # no contractual, rights-safe, liability-safe, remedy-safe, final-safe or compliance-safe claim may stand while the governing netting remains materially mutuality-defective, stale-valued, stay-blocked, cherry-picked or residual-open
     pass
+
+# Added for Phase 163 Clearing Plane Integration
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+def evaluate_clearing_integration_hook():
+    integration = integrate_with_clearing_plane("app/policy_kernel/invariants.py")
+    return integration.evaluate_posture()

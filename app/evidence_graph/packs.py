@@ -14,3 +14,13 @@ EVIDENCE_PACKS_WATERFALL = [
     "distribution_clawback_review_pack"
 ]
 # Escrow-plane packs: escrow integrity pack, condition review pack
+
+
+# Phase 162: Netting Review Packs
+class NettingReviewPacks:
+    packs = [
+        "netting_integrity_pack",
+        "mutuality_eligibility_review_pack",
+        "valuation_closeout_review_pack",
+        "residual_reversal_review_pack"
+    ]

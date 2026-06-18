@@ -1,6 +1,7 @@
 # reserves.py
 from app.resilience_plane.models import *
 from app.resilience_plane.exceptions import *
+from app.netting_plane.trust import TrustEngine
 
 class ReservesManager:
     def __init__(self):
@@ -19,3 +20,8 @@ def validate_stewardship_reserves(context):
     if "stewardship_evidence" not in context:
         return "CAUTION: Action treated safe without explicit stewardship evidence."
     return "TRUSTED"
+
+
+
+def verify_resilience_reserve_netting(context_id: str):
+    logger.warning(f"Released reserve {context_id} treated net-satisfied without netting posture explicit caution.")

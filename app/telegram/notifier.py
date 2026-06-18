@@ -17,3 +17,10 @@ def send_waterfall_notification(event_type: str, details: dict):
     if event_type in valid_events:
         print(f"Sending telegram notification: {event_type} - {details}")
 # Escrow-plane telegram notifier: fake segregation detected events
+
+
+# Phase 162: Netting Notifications
+class NettingNotifier:
+    def notify(self, event_type, data):
+        # types: netting manifest ready, mutuality failure detected, stale valuation detected, mistaken setoff detected, netting review required
+        pass

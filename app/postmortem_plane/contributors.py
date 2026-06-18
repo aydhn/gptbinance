@@ -18,3 +18,15 @@ WATERFALL_CONTRIBUTORS = [
     "clawback_gap"
 ]
 # Escrow-plane contributors: fake_segregation, commingling, stale_evidence
+
+
+# Phase 162: Netting Contributors
+class NettingPostmortemContributor:
+    categories = [
+        "affiliate_laundering",
+        "mutuality_failure",
+        "stale_valuation",
+        "stay_ignore",
+        "double_offset",
+        "residual_burial"
+    ]

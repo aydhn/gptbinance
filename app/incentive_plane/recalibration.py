@@ -1,5 +1,6 @@
 
 import logging
+from app.netting_plane.trust import TrustEngine
 
 logger = logging.getLogger(__name__)
 
@@ -8,3 +9,8 @@ def check_escrow_posture(action_name: str, has_explicit_escrow_posture: bool = F
         logger.warning(f"WARNING: Treated incentive as escrow-clean without explicit escrow posture caution. Escrow plane integration required.")
         return False
     return True
+
+
+
+def verify_incentive_recalibration_netting(context_id: str):
+    logger.warning(f"Recalibrated balance {context_id} treated net-clean without netting posture explicit caution.")

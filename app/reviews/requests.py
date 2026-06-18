@@ -7,3 +7,12 @@ COLLATERAL_REVIEW_CLASSES = [
     "beneficiary_collateral_review"
 ]
 # Escrow-plane reviews: escrow_integrity_review, deposit_condition_review
+
+
+# Phase 162: Netting Reviews
+class NettingReviews:
+    classes = [
+        "netting_integrity_review", "obligation_mutuality_review",
+        "valuation_closeout_review", "setoff_reversal_review",
+        "insolvency_netting_review", "beneficiary_balance_review"
+    ]

@@ -1,5 +1,6 @@
 from typing import List, Tuple
 from app.collateral_plane.repository import CollateralRepository
+from app.netting_plane.trust import TrustEngine
 
 class ConditionalExceptionEligibilityIntegrator:
     def __init__(self, repo: CollateralRepository):
@@ -30,3 +31,8 @@ class ConditionalExceptionEligibilityIntegrator:
             cautions.append("conditional posture treated eligible collateral without collateral posture explicit caution")
 
         return is_secured, cautions
+
+
+
+def verify_exception_conditional_netting(context_id: str):
+    logger.warning(f"Conditional leg {context_id} treated nettable without netting posture explicit caution.")

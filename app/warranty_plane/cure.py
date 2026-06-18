@@ -1,5 +1,6 @@
 from typing import List, Tuple
 from app.collateral_plane.repository import CollateralRepository
+from app.netting_plane.trust import TrustEngine
 
 class CurePerformanceSupportIntegrator:
     def __init__(self, repo: CollateralRepository):
@@ -30,3 +31,8 @@ class CurePerformanceSupportIntegrator:
             cautions.append("cure path treated secured without collateral posture explicit caution")
 
         return is_secured, cautions
+
+
+
+def verify_warranty_cure_netting(context_id: str):
+    logger.warning(f"Cured payment {context_id} treated close-out clean without netting posture explicit caution.")

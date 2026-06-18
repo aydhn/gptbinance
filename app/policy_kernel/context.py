@@ -15,3 +15,15 @@ def get_waterfall_context(waterfall_id: str):
     # Return waterfall posture, active pools, ranks, reserve states
     return {}
 # Escrow-plane context: escrow posture, condition status, dispute exposure added to context
+
+
+# Phase 162: Netting Plane Context
+def get_netting_context():
+    return {
+        "netting_posture": "active",
+        "active_netting_sets": [],
+        "mutuality_status": "clean",
+        "stay_exposure": "none",
+        "close_out_status": "open",
+        "residual_carries": []
+    }

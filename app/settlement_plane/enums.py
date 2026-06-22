@@ -13,6 +13,16 @@ class SettlementClass(Enum):
     FEDERATED_LOSS = "federated_loss"
     CUSTOMER_BENEFICIARY = "customer_beneficiary"
     CROSS_PLANE_CLOSURE = "cross_plane_closure"
+    CLEARING_SETTLEMENT = "clearing_settlement"
+    NETTED_CASH_SETTLEMENT = "netted_cash_settlement"
+    COLLATERAL_DELIVERY_SETTLEMENT = "collateral_delivery_settlement"
+    INSURANCE_PAYOUT_SETTLEMENT = "insurance_payout_settlement"
+    INDEMNITY_REIMBURSEMENT_SETTLEMENT = "indemnity_reimbursement_settlement"
+    REMEDIAL_AWARD_SETTLEMENT = "remedial_award_settlement"
+    SUCCESSOR_TRANSFER_SETTLEMENT = "successor_transfer_settlement"
+    SUNSET_TAIL_SETTLEMENT = "sunset_tail_settlement"
+    FEDERATED_SETTLEMENT_BRIDGE = "federated_settlement_bridge"
+    CROSS_PLANE_FINAL_TRANSFER_SETTLEMENT = "cross_plane_final_transfer_settlement"
 
 class ReleaseClass(Enum):
     FULL = "full"
@@ -70,6 +80,48 @@ class SurvivalClass(Enum):
     DUTIES = "duties"
     REGULATORY = "regulatory"
     DISPUTE_PATH = "dispute_path"
+
+class InstructionClass(Enum):
+    VALID_INSTRUCTION = "valid_instruction"
+    PARTIAL_INSTRUCTION = "partial_instruction"
+    STALE_INSTRUCTION = "stale_instruction"
+    DUPLICATE_INSTRUCTION = "duplicate_instruction"
+
+class MatchClass(Enum):
+    CLEAN_MATCH = "clean_match"
+    PARTIAL_MATCH = "partial_match"
+    FALSE_MATCH = "false_match"
+
+class FinalityClass(Enum):
+    CLEAN_FINALITY = "clean_finality"
+    CONDITIONAL_FINALITY = "conditional_finality"
+    NON_FINAL_POSTURE = "non_final_posture"
+    FALSE_FINALITY_CLAIM = "false_finality_claim"
+
+class FailClass(Enum):
+    EXPLICIT_FAIL = "explicit_fail"
+    BOUNDED_FAIL = "bounded_fail"
+    CHRONIC_FAIL = "chronic_fail"
+    HIDDEN_FAIL = "hidden_fail"
+
+class BuyInClass(Enum):
+    VALID_BUY_IN = "valid_buy_in"
+    PARTIAL_BUY_IN = "partial_buy_in"
+    FAILED_BUY_IN = "failed_buy_in"
+    COSMETIC_BUY_IN = "cosmetic_buy_in"
+
+class ReversalClass(Enum):
+    VALID_REVERSAL = "valid_reversal"
+    PARTIAL_REVERSAL = "partial_reversal"
+    FAILED_REVERSAL = "failed_reversal"
+    HIDDEN_REVERSAL_GAP = "hidden_reversal_gap"
+
+class DebtClass(Enum):
+    SSI_DEBT = "ssi_debt"
+    FAIL_DISCIPLINE_DEBT = "fail_discipline_debt"
+    DUPLICATE_SETTLEMENT_DEBT = "duplicate_settlement_debt"
+    FINALITY_DEBT = "finality_debt"
+    REVERSAL_DEBT = "reversal_debt"
 
 class EquivalenceVerdict(Enum):
     EQUIVALENT = "equivalent"

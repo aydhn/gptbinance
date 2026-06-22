@@ -1,4 +1,6 @@
 import argparse
+from app.main_settlement_cli import setup_settlement_parser, handle_settlement_commands
+from app.settlement_plane.registry import CanonicalSettlementRegistry
 
 def main():
     parser = argparse.ArgumentParser(description="Core Governance System")
@@ -231,6 +233,11 @@ def main():
     clearing_group.add_argument('--show-clearing-equivalence', action='store_true', help='Clearing Plane parameter: --show-clearing-equivalence')
     clearing_group.add_argument('--show-clearing-trust', action='store_true', help='Clearing Plane parameter: --show-clearing-trust')
     clearing_group.add_argument('--show-clearing-review-packs', action='store_true', help='Clearing Plane parameter: --show-clearing-review-packs')
+
+    # PHASE 164 Settlement Arguments
+
+    # PHASE 164 Settlement Arguments
+    setup_settlement_parser(parser)
     args = parser.parse_args()
 
     if args.show_waterfall_registry:

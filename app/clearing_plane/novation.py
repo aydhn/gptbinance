@@ -1,5 +1,6 @@
-from typing import Dict, Any, List
+from typing import Dict, Any
 from app.clearing_plane.exceptions import InvalidNovationError
+
 
 class NovationManager:
     def __init__(self):
@@ -25,3 +26,16 @@ class NovationManager:
         if not self.verify_strict_novation(record_id):
             raise InvalidNovationError(f"Fake novation detected for {record_id}. Trade accepted but bilateral exposure remains.")
         return {"status": "strict_novation_clean", "record": self.records[record_id]}
+
+
+def process_settlement_novation(trade_details):
+    caution = "Novated trade treated settled without settlement posture explicit caution"
+    if not trade_details.get("has_settlement_posture"):
+        print(f"CAUTION: {caution}")
+
+    return {
+        "status": "novated",
+        "settlement_venue_ref": trade_details.get("venue_ref"),
+        "instruction_ref": trade_details.get("instruction_ref"),
+        "finality_ref": trade_details.get("finality_ref")
+    }

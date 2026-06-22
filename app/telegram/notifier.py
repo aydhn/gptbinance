@@ -1,10 +1,15 @@
+from app.clearing_plane.integration import integrate_with_clearing_plane
+
+
 class CollateralNotifier:
     def notify(self, event_type: str, details: dict):
-        allowed = ["collateral manifest ready", "hidden lien detected", "stale valuation detected", "wrongful liquidation detected", "collateral review required"]
+        allowed = ["collateral manifest ready", "hidden lien detected", "stale valuation detected",
+                   "wrongful liquidation detected", "collateral review required"]
         if event_type in allowed:
             print(f"Telegram Notification [{event_type}]: {details}")
 
 # Phase 160: Waterfall Plane Integrations
+
 
 def send_waterfall_notification(event_type: str, details: dict):
     valid_events = [
@@ -25,9 +30,27 @@ class NettingNotifier:
         # types: netting manifest ready, mutuality failure detected, stale valuation detected, mistaken setoff detected, netting review required
         pass
 
+
 # Added for Phase 163 Clearing Plane Integration
-from app.clearing_plane.integration import integrate_with_clearing_plane
+
 
 def evaluate_clearing_integration_hook():
     integration = integrate_with_clearing_plane("app/telegram/notifier.py")
     return integration.evaluate_posture()
+
+
+class SettlementTelegramNotifier:
+    def notify(self, event_type, details):
+        allowed_types = [
+            "settlement manifest ready",
+            "stale SSI detected",
+            "duplicate settlement detected",
+            "settlement fail detected",
+            "settlement review required"
+        ]
+
+        if event_type in allowed_types:
+            print(f"TELEGRAM ALERT: {event_type} - {details}")
+            # Real implementation would send to Telegram API
+            return True
+        return False
